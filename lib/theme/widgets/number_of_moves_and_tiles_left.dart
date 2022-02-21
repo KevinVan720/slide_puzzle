@@ -32,7 +32,9 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final l10n = context.l10n;
-    final textColor = color ?? theme.defaultColor;
+    final textStyle = theme.defaultTextStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(child: child),
@@ -61,31 +63,23 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
               children: [
                 AnimatedDefaultTextStyle(
                   key: const Key('number_of_moves_and_tiles_left_moves'),
-                  style: PuzzleTextStyle.headline4.copyWith(
-                    color: textColor,
-                  ),
+                  style: textStyle.merge(PuzzleTextStyle.headline4),
                   duration: PuzzleThemeAnimationDuration.textStyle,
                   child: Text(numberOfMoves.toString()),
                 ),
                 AnimatedDefaultTextStyle(
-                  style: bodyTextStyle.copyWith(
-                    color: textColor,
-                  ),
+                  style: textStyle.merge(bodyTextStyle),
                   duration: PuzzleThemeAnimationDuration.textStyle,
                   child: Text(' ${l10n.puzzleNumberOfMoves} | '),
                 ),
                 AnimatedDefaultTextStyle(
                   key: const Key('number_of_moves_and_tiles_left_tiles_left'),
-                  style: PuzzleTextStyle.headline4.copyWith(
-                    color: textColor,
-                  ),
+                  style: textStyle.merge(PuzzleTextStyle.headline4),
                   duration: PuzzleThemeAnimationDuration.textStyle,
                   child: Text(numberOfTilesLeft.toString()),
                 ),
                 AnimatedDefaultTextStyle(
-                  style: bodyTextStyle.copyWith(
-                    color: textColor,
-                  ),
+                  style: textStyle.merge(bodyTextStyle),
                   duration: PuzzleThemeAnimationDuration.textStyle,
                   child: Text(' ${l10n.puzzleNumberOfTilesLeft}'),
                 ),

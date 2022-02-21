@@ -24,7 +24,11 @@ class PuzzleTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final titleColor = color ?? theme.titleColor;
+    final titleStyle = theme.titleTextStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
+
+    print(titleStyle.toString());
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(
@@ -43,10 +47,9 @@ class PuzzleTitle extends StatelessWidget {
         child: child,
       ),
       child: (currentSize) {
-        final textStyle = (currentSize == ResponsiveLayoutSize.large
+        final textStyle = titleStyle.merge(currentSize == ResponsiveLayoutSize.large
                 ? PuzzleTextStyle.headline2
-                : PuzzleTextStyle.headline3)
-            .copyWith(color: titleColor);
+                : PuzzleTextStyle.headline3);
 
         final textAlign = currentSize == ResponsiveLayoutSize.small
             ? TextAlign.center

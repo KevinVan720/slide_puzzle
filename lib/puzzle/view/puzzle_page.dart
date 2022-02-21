@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+//import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/simple/neumorphic_theme.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'dart:math';
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -24,28 +27,22 @@ class PuzzlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var rng = Random();
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => DashatarThemeBloc(
-            themes: const [
-              BlueDashatarTheme(),
-              GreenDashatarTheme(),
-              YellowDashatarTheme()
-            ],
-          ),
-        ),
-        BlocProvider(
-          create: (_) => DashatarPuzzleBloc(
-            secondsToBegin: 3,
-            ticker: const Ticker(),
-          ),
-        ),
-        BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
-              const SimpleTheme(),
-              context.read<DashatarThemeBloc>().state.theme,
+              const MaterialTheme(),
+              const NeonSimpleTheme(),
+              const NeumorphicSimpleTheme(),
+              const GlassmorphismTheme(),
+              const ClaymorphismTheme(),
+              MorphableTheme(shapeIndex:rng.nextInt(30),
+              hoverIndex: rng.nextInt(30),
+              pressedIndex: rng.nextInt(30)),
             ],
           ),
         ),
@@ -57,56 +54,46 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (_) => AudioControlBloc(),
         ),
+        BlocProvider(
+          create: (context) => TimerBloc(
+            ticker: const Ticker(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => PuzzleBloc(4)
+            ..add(
+              PuzzleInitialized(
+                shufflePuzzle: true,
+              ),
+            ),
+        ),
       ],
       child: const PuzzleView(),
     );
   }
 }
 
-/// {@template puzzle_view}
-/// Displays the content for the [PuzzlePage].
-/// {@endtemplate}
-class PuzzleView extends StatelessWidget {
-  /// {@macro puzzle_view}
+
+class PuzzleView extends StatefulWidget {
   const PuzzleView({Key? key}) : super(key: key);
+
+  @override
+  _PuzzleViewState createState() => _PuzzleViewState();
+}
+
+class _PuzzleViewState extends State<PuzzleView> {
 
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    /// Shuffle only if the current theme is Simple.
-    final shufflePuzzle = theme is SimpleTheme;
-
     return Scaffold(
-      body: AnimatedContainer(
+      body: AnimatedStyledContainer(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        decoration: BoxDecoration(color: theme.backgroundColor),
-        child: BlocListener<DashatarThemeBloc, DashatarThemeState>(
-          listener: (context, state) {
-            final dashatarTheme = context.read<DashatarThemeBloc>().state.theme;
-            context.read<ThemeBloc>().add(ThemeUpdated(theme: dashatarTheme));
-          },
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => TimerBloc(
-                  ticker: const Ticker(),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => PuzzleBloc(4)
-                  ..add(
-                    PuzzleInitialized(
-                      shufflePuzzle: shufflePuzzle,
-                    ),
-                  ),
-              ),
-            ],
-            child: const _Puzzle(
-              key: Key('puzzle_view_puzzle'),
-            ),
-          ),
-        ),
+        style: (theme.backgroundStyle.resolve(context)??Style())..textStyle=null,
+        child: _Puzzle(
+          key: Key('puzzle_view_puzzle'),
+        )
       ),
     );
   }
@@ -124,23 +111,21 @@ class _Puzzle extends StatelessWidget {
       builder: (context, constraints) {
         return Stack(
           children: [
-            if (theme is SimpleTheme)
-              theme.layoutDelegate.backgroundBuilder(state),
+
+            theme.layoutDelegate.backgroundBuilder(state),
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: constraints.maxHeight,
                 ),
                 child: Column(
-                  children: const [
+                  children: [
                     PuzzleHeader(),
                     PuzzleSections(),
                   ],
                 ),
               ),
             ),
-            if (theme is! SimpleTheme)
-              theme.layoutDelegate.backgroundBuilder(state),
           ],
         );
       },
@@ -239,15 +224,15 @@ class PuzzleSections extends StatelessWidget {
       small: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          const PuzzleMenu(),
-          const PuzzleBoard(),
+          PuzzleMenu(),
+          PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
       medium: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          const PuzzleBoard(),
+          PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
@@ -257,7 +242,7 @@ class PuzzleSections extends StatelessWidget {
           Expanded(
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
-          const PuzzleBoard(),
+          PuzzleBoard(),
           Expanded(
             child: theme.layoutDelegate.endSectionBuilder(state),
           ),
@@ -295,7 +280,7 @@ class PuzzleBoard extends StatelessWidget {
           puzzle.tiles
               .map(
                 (tile) => _PuzzleTile(
-                  key: Key('puzzle_tile_${tile.value.toString()}'),
+                  //key: Key('puzzle_tile_${tile.value.toString()}'),
                   tile: tile,
                 ),
               )
@@ -444,17 +429,12 @@ class PuzzleMenuItem extends StatelessWidget {
                 // Reset the timer of the currently running puzzle.
                 context.read<TimerBloc>().add(const TimerReset());
 
-                // Stop the Dashatar countdown if it has been started.
-                context.read<DashatarPuzzleBloc>().add(
-                      const DashatarCountdownStopped(),
-                    );
-
                 // Initialize the puzzle board for the newly selected theme.
-                context.read<PuzzleBloc>().add(
+                /*context.read<PuzzleBloc>().add(
                       PuzzleInitialized(
                         shufflePuzzle: theme is SimpleTheme,
                       ),
-                    );
+                    );*/
               },
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,

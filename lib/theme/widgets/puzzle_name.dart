@@ -21,15 +21,16 @@ class PuzzleName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final nameColor = color ?? theme.nameColor;
+
+    final nameStyle = theme.nameTextStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => const SizedBox(),
       medium: (context, child) => const SizedBox(),
       large: (context, child) => AnimatedDefaultTextStyle(
-        style: PuzzleTextStyle.headline5.copyWith(
-          color: nameColor,
-        ),
+        style: nameStyle.merge(PuzzleTextStyle.headline5),
         duration: PuzzleThemeAnimationDuration.textStyle,
         child: Text(
           theme.name,

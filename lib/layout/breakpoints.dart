@@ -1,3 +1,5 @@
+import 'package:responsive_property/responsive_property.dart';
+
 /// Defines the breakpoints for the puzzle UI.
 abstract class PuzzleBreakpoints {
   /// Max width for a small layout.
@@ -9,3 +11,11 @@ abstract class PuzzleBreakpoints {
   /// Max width for a large layout.
   static const double large = 1440;
 }
+
+const smallScreen=ScreenScope(maxWidth: 576);
+
+const middleScreen=ScreenScope(minWidth: 576,maxWidth: 1200);
+
+const largeScreen=ScreenScope(minWidth: 1200);
+
+const allScreen=ScreenScope(minWidth: 0);

@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 /// Defines the color palette for the puzzle UI.
 abstract class PuzzleColors {
   /// Primary 1
-  static const Color primary1 = Color(0xFF041E3C);
+  static const Color primary1 = Colors.amberAccent;
 
   /// Primary 2
   static const Color primary2 = Color(0xFF042B59);
@@ -15,16 +16,16 @@ abstract class PuzzleColors {
   static const Color primary4 = Color(0xFF0553B1);
 
   /// Primary 5
-  static const Color primary5 = Color(0xFF0468D7);
+  static const Color primary5 = Colors.redAccent;
 
   /// Primary 6
-  static const Color primary6 = Color(0xFF027DFD);
+  static const Color primary6 = Colors.amber;
 
   /// Primary 7
   static const Color primary7 = Color(0xFF13B9FD);
 
   /// Primary 8
-  static const Color primary8 = Color(0xFFB8EAFE);
+  static const Color primary8 = Colors.blue;
 
   /// Primary 9
   static const Color primary9 = Color(0xFFE7F8FF);

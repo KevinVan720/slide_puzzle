@@ -1,3 +1,4 @@
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
@@ -33,14 +34,32 @@ class PuzzleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final buttonTextColor = textColor ?? PuzzleColors.white;
-    final buttonBackgroundColor = backgroundColor ?? theme.buttonColor;
+    var theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    //final buttonTextColor = textColor ?? PuzzleColors.white;
+    Style buttonStyle = theme.buttonStyle.resolve(context)??Style()..width=null..height=null;
+    Style hoverStyle = theme.hoverStyle.resolve(context)??Style()..width=null..height=null;
+    Style pressedStyle = theme.pressedStyle.resolve(context)??Style()..width=null..height=null;
 
     return SizedBox(
-      width: 145,
-      height: 44,
-      child: AnimatedTextButton(
+      width: 160,
+      height: 80,
+      child: StyledButton(
+        key: UniqueKey(),
+        style: buttonStyle,
+        hoveredStyle: hoverStyle,
+        pressedStyle: pressedStyle,
+        //duration: PuzzleThemeAnimationDuration.textStyle,
+        onPressed: onPressed,
+        child: Builder(builder: (context) {
+          return AnimatedDefaultTextStyle(
+            duration: PuzzleThemeAnimationDuration.textStyle,
+            style: DefaultTextStyle.of(context).style.merge(PuzzleTextStyle.headline5),
+            child: child,
+          );
+        },)
+      ));
+      /*
+      AnimatedTextButton(
         duration: PuzzleThemeAnimationDuration.textStyle,
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -55,6 +74,6 @@ class PuzzleButton extends StatelessWidget {
         onPressed: onPressed,
         child: child,
       ),
-    );
+    );*/
   }
 }

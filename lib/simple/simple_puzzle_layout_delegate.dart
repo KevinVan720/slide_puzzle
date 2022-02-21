@@ -10,6 +10,9 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 
+import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:responsive_property/responsive_property.dart';
+
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
 /// that uses a [SimpleTheme].
@@ -102,7 +105,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           small: (_, __) => SizedBox.square(
             dimension: _BoardSize.small,
             child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_small'),
+              //key: const Key('simple_puzzle_board_small'),
               size: size,
               tiles: tiles,
               spacing: 5,
@@ -111,7 +114,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: (_, __) => SizedBox.square(
             dimension: _BoardSize.medium,
             child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_medium'),
+              //key: const Key('simple_puzzle_board_medium'),
               size: size,
               tiles: tiles,
             ),
@@ -119,7 +122,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           large: (_, __) => SizedBox.square(
             dimension: _BoardSize.large,
             child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_large'),
+              //key: const Key('simple_puzzle_board_large'),
               size: size,
               tiles: tiles,
             ),
@@ -136,19 +139,19 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget tileBuilder(Tile tile, PuzzleState state) {
     return ResponsiveLayoutBuilder(
       small: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.value}_small'),
+        //key: Key('simple_puzzle_tile_${tile.value}_small'),
         tile: tile,
         tileFontSize: _TileFontSize.small,
         state: state,
       ),
       medium: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.value}_medium'),
+        //key: Key('simple_puzzle_tile_${tile.value}_medium'),
         tile: tile,
         tileFontSize: _TileFontSize.medium,
         state: state,
       ),
       large: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.value}_large'),
+        //key: Key('simple_puzzle_tile_${tile.value}_large'),
         tile: tile,
         tileFontSize: _TileFontSize.large,
         state: state,
@@ -279,6 +282,9 @@ class SimplePuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //print("board rebuild");
+
     return GridView.count(
       padding: EdgeInsets.zero,
       shrinkWrap: true,
@@ -286,6 +292,7 @@ class SimplePuzzleBoard extends StatelessWidget {
       crossAxisCount: size,
       mainAxisSpacing: spacing,
       crossAxisSpacing: spacing,
+      clipBehavior:Clip.none,
       children: tiles,
     );
   }
@@ -324,31 +331,11 @@ class SimplePuzzleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return TextButton(
-      style: TextButton.styleFrom(
-        primary: PuzzleColors.white,
-        textStyle: PuzzleTextStyle.headline2.copyWith(
-          fontSize: tileFontSize,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
-          ),
-        ),
-      ).copyWith(
-        foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) {
-            if (tile.value == state.lastTappedTile?.value) {
-              return theme.pressedColor;
-            } else if (states.contains(MaterialState.hovered)) {
-              return theme.hoverColor;
-            } else {
-              return theme.defaultColor;
-            }
-          },
-        ),
-      ),
+    return StyledButton(
+      duration: Duration(milliseconds: 300),
+      style: theme.buttonStyle.resolve(context)??Style(),
+      hoveredStyle: theme.hoverStyle.resolve(context)??Style(),
+      pressedStyle: theme.pressedStyle.resolve(context)??Style(),
       onPressed: state.puzzleStatus == PuzzleStatus.incomplete
           ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
           : null,
@@ -359,8 +346,10 @@ class SimplePuzzleTile extends StatelessWidget {
           tile.currentPosition.x.toString(),
           tile.currentPosition.y.toString(),
         ),
+
       ),
     );
+
   }
 }
 
@@ -374,6 +363,7 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return PuzzleButton(
       textColor: PuzzleColors.primary0,
       backgroundColor: PuzzleColors.primary6,

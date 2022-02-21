@@ -1,14 +1,17 @@
 import 'dart:ui';
 
+import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
+import 'package:responsive_property/responsive_property.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
-class SimpleTheme extends PuzzleTheme {
+abstract class SimpleTheme extends PuzzleTheme {
   /// {@macro simple_theme}
   const SimpleTheme() : super();
 
@@ -19,37 +22,37 @@ class SimpleTheme extends PuzzleTheme {
   bool get hasTimer => false;
 
   @override
-  Color get nameColor => PuzzleColors.grey1;
+  DynamicTextStyle get nameTextStyle;
 
   @override
-  Color get titleColor => PuzzleColors.primary1;
+  DynamicTextStyle get titleTextStyle;
 
   @override
-  Color get backgroundColor => PuzzleColors.white;
+  DynamicTextStyle get defaultTextStyle;
 
   @override
-  Color get defaultColor => PuzzleColors.primary5;
+  Responsive<Style> get backgroundStyle;
 
   @override
-  Color get buttonColor => PuzzleColors.primary6;
+  Responsive<Style> get buttonStyle;
 
   @override
-  Color get hoverColor => PuzzleColors.primary3;
+  Responsive<Style> get hoverStyle;
 
   @override
-  Color get pressedColor => PuzzleColors.primary7;
+  Responsive<Style> get pressedStyle;
 
   @override
-  bool get isLogoColored => true;
+  bool get isLogoColored;
 
   @override
-  Color get menuActiveColor => PuzzleColors.grey1;
+  Color get menuActiveColor;
 
   @override
-  Color get menuUnderlineColor => PuzzleColors.primary6;
+  Color get menuUnderlineColor;
 
   @override
-  Color get menuInactiveColor => PuzzleColors.grey2;
+  Color get menuInactiveColor;
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -67,13 +70,13 @@ class SimpleTheme extends PuzzleTheme {
         audioControlOnAsset,
         audioControlOffAsset,
         hasTimer,
-        nameColor,
-        titleColor,
-        backgroundColor,
-        defaultColor,
-        buttonColor,
-        hoverColor,
-        pressedColor,
+        nameTextStyle,
+        titleTextStyle,
+        backgroundStyle,
+        defaultTextStyle,
+        buttonStyle,
+        hoverStyle,
+        pressedStyle,
         isLogoColored,
         menuActiveColor,
         menuUnderlineColor,
