@@ -374,7 +374,9 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
           hoveredStyle: theme.hoverStyle.resolve(context) ?? Style(),
           pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
           onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
-              ? () {
+              ? () async {
+                  await Future.delayed(
+                      PuzzleThemeAnimationDuration.puzzleTileScale);
                   unawaited(_audioPlayer?.replay());
                   context.read<PuzzleBloc>().add(TileTapped(widget.tile));
                 }
