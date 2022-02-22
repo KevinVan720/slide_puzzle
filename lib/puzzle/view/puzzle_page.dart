@@ -276,7 +276,7 @@ class PuzzleBoard extends StatelessWidget {
           puzzle.tiles
               .map(
                 (tile) => _PuzzleTile(
-                  //key: Key('puzzle_tile_${tile.value.toString()}'),
+                  key: Key('puzzle_tile_${tile.value.toString()}'),
                   tile: tile,
                 ),
               )

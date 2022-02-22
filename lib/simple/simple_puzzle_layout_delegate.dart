@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -9,6 +11,9 @@ import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:responsive_property/responsive_property.dart';
@@ -283,7 +288,6 @@ class SimplePuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //print("board rebuild");
 
     return GridView.count(
@@ -293,7 +297,7 @@ class SimplePuzzleBoard extends StatelessWidget {
       crossAxisCount: size,
       mainAxisSpacing: spacing,
       crossAxisSpacing: spacing,
-      clipBehavior:Clip.none,
+      clipBehavior: Clip.none,
       children: tiles,
     );
   }
@@ -316,7 +320,9 @@ class SimplePuzzleTile extends StatefulWidget {
     required this.tile,
     required this.tileFontSize,
     required this.state,
-  }) : super(key: key);
+    AudioPlayerFactory? audioPlayer,
+  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
+        super(key: key);
 
   /// The tile to be displayed.
   final Tile tile;
@@ -327,36 +333,63 @@ class SimplePuzzleTile extends StatefulWidget {
   /// The state of the puzzle.
   final PuzzleState state;
 
+  final AudioPlayerFactory _audioPlayerFactory;
+
   @override
   _SimplePuzzleTileState createState() => _SimplePuzzleTileState();
 }
 
 class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
+  AudioPlayer? _audioPlayer;
+  late final Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Delay the initialization of the audio player for performance reasons,
+    // to avoid dropping frames when the theme is changed.
+    _timer = Timer(const Duration(milliseconds: 333), () {
+      _audioPlayer = widget._audioPlayerFactory()
+        ..setAsset('assets/audio/tile_move.mp3');
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _audioPlayer?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return StyledButton(
-      duration: PuzzleThemeAnimationDuration.puzzleTileScale,
-      style: theme.buttonStyle.resolve(context)??Style(),
-      hoveredStyle: theme.hoverStyle.resolve(context)??Style(),
-      pressedStyle: theme.pressedStyle.resolve(context)??Style(),
-      onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
-          ? () => context.read<PuzzleBloc>().add(TileTapped(widget.tile))
-          : null,
-      child: Text(
-        widget.tile.value.toString(),
-        semanticsLabel: context.l10n.puzzleTileLabelText(
-          widget.tile.value.toString(),
-          widget.tile.currentPosition.x.toString(),
-          widget.tile.currentPosition.y.toString(),
-        ),
-
-      ),
-    );
+    return AudioControlListener(
+        audioPlayer: _audioPlayer,
+        child: StyledButton(
+          duration: PuzzleThemeAnimationDuration.puzzleTileScale,
+          style: theme.buttonStyle.resolve(context) ?? Style(),
+          hoveredStyle: theme.hoverStyle.resolve(context) ?? Style(),
+          pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
+          onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
+              ? () {
+                  unawaited(_audioPlayer?.replay());
+                  context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                }
+              : null,
+          child: Text(
+            widget.tile.value.toString(),
+            semanticsLabel: context.l10n.puzzleTileLabelText(
+              widget.tile.value.toString(),
+              widget.tile.currentPosition.x.toString(),
+              widget.tile.currentPosition.y.toString(),
+            ),
+          ),
+        ));
   }
 }
-
 
 /// {@template puzzle_shuffle_button}
 /// Displays the button to shuffle the puzzle.
@@ -368,27 +401,25 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return PuzzleButton(
-      textColor: PuzzleColors.primary0,
-      backgroundColor: PuzzleColors.primary6,
-      onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
-      child: Builder(builder: (context) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.refresh_sharp,
-              size: 17,
-              color: DefaultTextStyle.of(context).style.color,
-            ),
-
-            const Gap(10),
-            Text(context.l10n.puzzleShuffle),
-          ],
-        );
-      })
-    );
+        textColor: PuzzleColors.primary0,
+        backgroundColor: PuzzleColors.primary6,
+        onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
+        child: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.refresh_sharp,
+                size: 17,
+                color: DefaultTextStyle.of(context).style.color,
+              ),
+              const Gap(10),
+              Text(context.l10n.puzzleShuffle),
+            ],
+          );
+        }));
   }
 }
