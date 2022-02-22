@@ -54,10 +54,18 @@ class KeyboardTheme extends SimpleTheme {
         smallScreen: keyBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
+          textStyle: DynamicTextStyle(
+              fontSize: 20.toPXLength,
+              color: Colors.teal,
+              fontWeight: FontWeight.w800),
         ),
         middleScreen: keyBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
+          textStyle: DynamicTextStyle(
+              fontSize: 24.toPXLength,
+              color: Colors.teal,
+              fontWeight: FontWeight.w800),
         ),
         largeScreen: keyBaseStyle.copyWith(
           width: 112.0.toPXLength,
@@ -70,6 +78,10 @@ class KeyboardTheme extends SimpleTheme {
         smallScreen: keyBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
+          textStyle: DynamicTextStyle(
+              fontSize: 20.toPXLength,
+              color: Colors.teal,
+              fontWeight: FontWeight.w800),
           shadows: [
             ShapeShadow(
                 blurRadius: 10,
@@ -90,6 +102,10 @@ class KeyboardTheme extends SimpleTheme {
         middleScreen: keyBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
+          textStyle: DynamicTextStyle(
+              fontSize: 24.toPXLength,
+              color: Colors.teal,
+              fontWeight: FontWeight.w800),
           shadows: [
             ShapeShadow(
                 blurRadius: 10,
@@ -134,6 +150,10 @@ class KeyboardTheme extends SimpleTheme {
         smallScreen: keyBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
+          textStyle: DynamicTextStyle(
+              fontSize: 20.toPXLength,
+              color: Colors.teal,
+              fontWeight: FontWeight.w800),
           shadows: [
             ShapeShadow(
                 blurRadius: 3,
@@ -154,6 +174,10 @@ class KeyboardTheme extends SimpleTheme {
         middleScreen: keyBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
+          textStyle: DynamicTextStyle(
+              fontSize: 24.toPXLength,
+              color: Colors.teal,
+              fontWeight: FontWeight.w800),
           shadows: [
             ShapeShadow(
                 blurRadius: 3,
@@ -200,7 +224,7 @@ class KeyboardTheme extends SimpleTheme {
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.bold);
 
   @override
-  Color get menuUnderlineColor => PuzzleColors.primary6;
+  Color get menuUnderlineColor => Colors.teal;
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey3);
@@ -219,7 +243,7 @@ class KeyboardTheme extends SimpleTheme {
 
 final keyBaseStyle = Style(
     alignment: Alignment.center,
-    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+    padding: EdgeInsets.symmetric(vertical: 20),
     backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
     shapeBorder: RectangleShapeBorder(
         borderRadius:
