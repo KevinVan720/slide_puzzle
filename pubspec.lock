@@ -21,7 +21,7 @@ packages:
       name: animated_styled_widget
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.4"
   args:
     dependency: transitive
     description:
@@ -349,7 +349,14 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.1"
+    version: "1.5.4"
+  neon:
+    dependency: "direct main"
+    description:
+      name: neon
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   nested:
     dependency: transitive
     description:

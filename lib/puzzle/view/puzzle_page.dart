@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-//import 'package:very_good_slide_puzzle/dashatar/dashatar.dart';
+
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
@@ -28,21 +28,17 @@ class PuzzlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var rng = Random();
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
               const MaterialTheme(),
-              const NeonSimpleTheme(),
-              const NeumorphicSimpleTheme(),
+              const NeonTheme(),
+              const NeumorphicTheme(),
               const GlassmorphismTheme(),
               const ClaymorphismTheme(),
-              MorphableTheme(shapeIndex:rng.nextInt(30),
-              hoverIndex: rng.nextInt(30),
-              pressedIndex: rng.nextInt(30)),
+              const KeyboardTheme(),
             ],
           ),
         ),
@@ -73,7 +69,6 @@ class PuzzlePage extends StatelessWidget {
   }
 }
 
-
 class PuzzleView extends StatefulWidget {
   const PuzzleView({Key? key}) : super(key: key);
 
@@ -82,19 +77,18 @@ class PuzzleView extends StatefulWidget {
 }
 
 class _PuzzleViewState extends State<PuzzleView> {
-
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return Scaffold(
       body: AnimatedStyledContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        style: (theme.backgroundStyle.resolve(context)??Style())..textStyle=null,
-        child: _Puzzle(
-          key: Key('puzzle_view_puzzle'),
-        )
-      ),
+          duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+          style: (theme.backgroundStyle.resolve(context) ?? Style())
+            ..textStyle = null,
+          child: _Puzzle(
+            key: Key('puzzle_view_puzzle'),
+          )),
     );
   }
 }
@@ -111,7 +105,6 @@ class _Puzzle extends StatelessWidget {
       builder: (context, constraints) {
         return Stack(
           children: [
-
             theme.layoutDelegate.backgroundBuilder(state),
             SingleChildScrollView(
               child: ConstrainedBox(
@@ -160,17 +153,19 @@ class PuzzleHeader extends StatelessWidget {
             ),
           ],
         ),
-        medium: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
-          ),
+        medium: (context, child) => Stack(
+          children: [
+            const Align(
+              child: PuzzleLogo(),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 34),
+                child: AudioControl(key: audioControlKey),
+              ),
+            ),
+          ],
         ),
         large: (context, child) => Padding(
           padding: const EdgeInsets.symmetric(
@@ -232,6 +227,7 @@ class PuzzleSections extends StatelessWidget {
       medium: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
+          PuzzleMenu(),
           PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
@@ -311,6 +307,7 @@ class _PuzzleTile extends StatelessWidget {
   }
 }
 
+
 /// {@template puzzle_menu}
 /// Displays the menu of the puzzle.
 /// {@endtemplate}
@@ -323,33 +320,41 @@ class PuzzleMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final themes = context.select((ThemeBloc bloc) => bloc.state.themes);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ...List.generate(
-          themes.length,
-          (index) => PuzzleMenuItem(
-            theme: themes[index],
-            themeIndex: index,
-          ),
+    return ResponsiveLayoutBuilder(
+        small: (context, child) => Wrap(
+          children: [...List.generate(
+            themes.length,
+                (index) => PuzzleMenuItem(
+              theme: themes[index],
+              themeIndex: index,
+            ),
+          ),],
         ),
-        ResponsiveLayoutBuilder(
-          small: (_, child) => const SizedBox(),
-          medium: (_, child) => child!,
-          large: (_, child) => child!,
-          child: (currentSize) {
-            return Row(
+        medium: (context, child) => Wrap(
+          children: [...List.generate(
+            themes.length,
+                (index) => PuzzleMenuItem(
+              theme: themes[index],
+              themeIndex: index,
+            ),
+          ),],
+        ),
+        large: (context, child) => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                ...List.generate(
+                  themes.length,
+                  (index) => PuzzleMenuItem(
+                    theme: themes[index],
+                    themeIndex: index,
+                  ),
+                ),
                 const Gap(44),
                 AudioControl(
                   key: audioControlKey,
                 )
               ],
-            );
-          },
-        ),
-      ],
-    );
+            ));
   }
 }
 
@@ -376,12 +381,14 @@ class PuzzleMenuItem extends StatelessWidget {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
 
+
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(
         children: [
           Container(
-            width: 100,
+            //width: 100,
             height: 40,
+            padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -396,11 +403,30 @@ class PuzzleMenuItem extends StatelessWidget {
           ),
         ],
       ),
-      medium: (_, child) => child!,
+      medium: (_, child) => Column(
+        children: [
+          Container(
+            //width: 100,
+            height: 40,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: isCurrentTheme
+                ? BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  width: 2,
+                  color: currentTheme.menuUnderlineColor,
+                ),
+              ),
+            )
+                : null,
+            child: child,
+          ),
+        ],
+      ),
       large: (_, child) => child!,
       child: (currentSize) {
         final leftPadding =
-            themeIndex > 0 && currentSize != ResponsiveLayoutSize.small
+            themeIndex > 0 && currentSize == ResponsiveLayoutSize.large
                 ? 40.0
                 : 0.0;
 
@@ -438,11 +464,11 @@ class PuzzleMenuItem extends StatelessWidget {
               },
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,
-                style: PuzzleTextStyle.headline5.copyWith(
-                  color: isCurrentTheme
-                      ? currentTheme.menuActiveColor
-                      : currentTheme.menuInactiveColor,
-                ),
+                style: (isCurrentTheme
+                    ? currentTheme.menuActiveStyle
+                    : currentTheme.menuInactiveStyle).toTextStyle(
+                    screenSize: MediaQuery.of(context).size,
+                    parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0).merge(PuzzleTextStyle.headline5),
                 child: Text(theme.name),
               ),
             ),

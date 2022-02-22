@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:neon/neon.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
@@ -38,13 +39,7 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: BoxDecoration(color: PuzzleColors.black2),
-            textStyle: DynamicTextStyle(
-              letterSpacing: 1.toPXLength,
-              fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ))
+            backgroundDecoration: BoxDecoration(color: PuzzleColors.grey5)),
       });
 
   @override
@@ -53,16 +48,35 @@ class MaterialTheme extends SimpleTheme {
         smallScreen: defaultBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  28.toPXLength,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
+
           backgroundDecoration: BoxDecoration(color: PuzzleColors.primary6),
         ),
         middleScreen: defaultBaseStyle.copyWith(
       width: 100.0.toPXLength,
       height: 100.0.toPXLength,
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  32.toPXLength,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
       backgroundDecoration: BoxDecoration(color: PuzzleColors.primary6),
       ),
         largeScreen: defaultBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  36.toPXLength,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
           backgroundDecoration: BoxDecoration(color: PuzzleColors.primary6),
         ),
       });
@@ -73,17 +87,35 @@ class MaterialTheme extends SimpleTheme {
         smallScreen: defaultBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
-          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary7),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  28.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade50,
+          ),
+          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary5),
         ),
         middleScreen: defaultBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary7),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  32.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade50,
+          ),
+          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary5),
         ),
         largeScreen: defaultBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary7),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  36.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade50,
+          ),
+          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary5),
         ),
       });
 
@@ -93,17 +125,35 @@ class MaterialTheme extends SimpleTheme {
         smallScreen: defaultBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
-          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary8),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  28.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade50,
+          ),
+          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary4),
         ),
         middleScreen: defaultBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary8),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  32.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade50,
+          ),
+          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary4),
         ),
         largeScreen: defaultBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary8),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize:  36.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade50,
+          ),
+          backgroundDecoration: BoxDecoration(color: PuzzleColors.primary4),
         ),
       });
 
@@ -111,13 +161,13 @@ class MaterialTheme extends SimpleTheme {
   bool get isLogoColored => true;
 
   @override
-  Color get menuActiveColor => PuzzleColors.grey1;
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.w800);
 
   @override
   Color get menuUnderlineColor => PuzzleColors.primary6;
 
   @override
-  Color get menuInactiveColor => PuzzleColors.grey2;
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey2,);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -129,35 +179,13 @@ class MaterialTheme extends SimpleTheme {
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
-  @override
-  List<Object?> get props => [
-        name,
-        audioControlOnAsset,
-        audioControlOffAsset,
-        hasTimer,
-        nameTextStyle,
-        titleTextStyle,
-        backgroundStyle,
-        defaultTextStyle,
-        buttonStyle,
-        hoverStyle,
-        pressedStyle,
-        isLogoColored,
-        menuActiveColor,
-        menuUnderlineColor,
-        menuInactiveColor,
-        layoutDelegate,
-      ];
 }
 
 final defaultBaseStyle = Style(
     alignment: Alignment.center,
     childAlignment: Alignment.center,
     backgroundDecoration: BoxDecoration(color: PuzzleColors.primary6),
-    textStyle: DynamicTextStyle(
-      letterSpacing: 1.toPXLength,
-      fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
-      fontWeight: FontWeight.w900,
-      color: Colors.white,
-    ),
+    shapeBorder: const RoundedRectangleShapeBorder(
+        borderRadius: DynamicBorderRadius.all(const DynamicRadius.circular(
+            const Length(10, unit: LengthUnit.px)))),
     mouseCursor: SystemMouseCursors.click);

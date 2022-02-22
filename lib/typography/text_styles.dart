@@ -63,7 +63,7 @@ class PuzzleTextStyle {
     return _baseTextStyle.copyWith(
       fontSize: 16,
       height: 1.25,
-      fontWeight: PuzzleFontWeight.bold,
+      //fontWeight: PuzzleFontWeight.bold,
     );
   }
 
@@ -130,13 +130,14 @@ class PuzzleTextStyle {
     );
   }
 
+  ///Text styling are now handled by themes, only the font sizing stuff are set here.
   static const _baseTextStyle = TextStyle(
-    fontFamily: 'GoogleSans',
+    //fontFamily: 'GoogleSans',
     //color: PuzzleColors.black,
-    fontWeight: PuzzleFontWeight.regular,
+    //fontWeight: PuzzleFontWeight.regular,
   );
 
-  static final _bodyTextStyle = GoogleFonts.roboto(
+  static final _bodyTextStyle = TextStyle(
     //color: PuzzleColors.black,
     fontWeight: PuzzleFontWeight.regular,
   );

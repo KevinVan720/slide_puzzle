@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
-class NeumorphicSimpleTheme extends SimpleTheme {
+class NeumorphicTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const NeumorphicSimpleTheme() : super();
+  const NeumorphicTheme() : super();
 
   @override
   String get name => 'Neumorphic';
@@ -23,21 +23,28 @@ class NeumorphicSimpleTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
-  DynamicTextStyle get nameTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.grey1);
+  DynamicTextStyle get nameTextStyle => DynamicTextStyle(
+        color: PuzzleColors.grey1,
+        fontFamily: "BalooThambi2",
+      );
 
   @override
-  DynamicTextStyle get titleTextStyle =>
-      DynamicTextStyle(color: Colors.green);
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+        color: PuzzleColors.green50,
+        fontFamily: "BalooThambi2",
+    fontWeight: FontWeight.bold,
+      );
 
   @override
-  DynamicTextStyle get defaultTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.primary7);
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+        color: PuzzleColors.grey1,
+        fontFamily: "BalooThambi2",
+      );
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-            backgroundDecoration: BoxDecoration(color: Color(0xFFE0E0E0)))
+        allScreen:
+            Style(backgroundDecoration: BoxDecoration(color: Color(0xFFE0E0E0)))
       });
 
   @override
@@ -45,135 +52,191 @@ class NeumorphicSimpleTheme extends SimpleTheme {
         smallScreen: neumorphicBaseStyle.copyWith(
           width: 52.0.toPXLength,
           height: 52.0.toPXLength,
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+          ),
         ),
         middleScreen: neumorphicBaseStyle.copyWith(
           width: 80.0.toPXLength,
           height: 80.0.toPXLength,
+          textStyle: DynamicTextStyle(
+            letterSpacing: 2.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w700,
+            fontFamily: "BalooThambi2",
+            color: Colors.grey,
+          ),
         ),
         largeScreen: neumorphicBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
+          textStyle: DynamicTextStyle(
+            letterSpacing: 2.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w700,
+            fontFamily: "BalooThambi2",
+            color: Colors.grey,
+          ),
         )
       });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-    smallScreen: neumorphicBaseStyle.copyWith(
-      width: 52.0.toPXLength,
-      height: 52.0.toPXLength,
-      shadows: [
-        ShapeShadow(
-            blurRadius: 6,
-            spreadRadius: -1,
-            color: Colors.grey.shade400,
-            offset: Offset(4,4 )),
-        ShapeShadow(
-            blurRadius: 6,
-            spreadRadius: -1,
-            color: Color(0xFFFDFDFD),
-            offset: Offset(-4, -4)),
-      ],
-    ),
-    middleScreen: neumorphicBaseStyle.copyWith(
-      width: 80.0.toPXLength,
-      height: 80.0.toPXLength,
-      shadows: [
-        ShapeShadow(
-            blurRadius: 6,
-            spreadRadius: -1,
-            color: Colors.grey.shade400,
-            offset: Offset(4,4 )),
-        ShapeShadow(
-            blurRadius: 6,
-            spreadRadius: -1,
-            color: Color(0xFFFDFDFD),
-            offset: Offset(-4, -4)),
-      ],
-    ),
-    largeScreen: neumorphicBaseStyle.copyWith(
-      width: 100.0.toPXLength,
-      height: 100.0.toPXLength,
-      shadows: [
-        ShapeShadow(
-            blurRadius: 6,
-            spreadRadius: -1,
-            color: Colors.grey.shade400,
-            offset: Offset(4,4 )),
-        ShapeShadow(
-            blurRadius: 6,
-            spreadRadius: -1,
-            color: Color(0xFFFDFDFD),
-            offset: Offset(-4, -4)),
-      ],
-    )
-  });
+        smallScreen: neumorphicBaseStyle.copyWith(
+          width: 52.0.toPXLength,
+          height: 52.0.toPXLength,
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+          ),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -1,
+                color: Colors.grey.shade400,
+                offset: Offset(4, 4)),
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -1,
+                color: Color(0xFFFDFDFD),
+                offset: Offset(-4, -4)),
+          ],
+
+        ),
+        middleScreen: neumorphicBaseStyle.copyWith(
+          width: 80.0.toPXLength,
+          height: 80.0.toPXLength,
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -1,
+                color: Colors.grey.shade400,
+                offset: Offset(4, 4)),
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -1,
+                color: Color(0xFFFDFDFD),
+                offset: Offset(-4, -4)),
+          ],
+          textStyle: DynamicTextStyle(
+            letterSpacing: 2.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w700,
+            fontFamily: "BalooThambi2",
+            color: Colors.grey,
+          ),
+        ),
+        largeScreen: neumorphicBaseStyle.copyWith(
+          width: 100.0.toPXLength,
+          height: 100.0.toPXLength,
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -1,
+                color: Colors.grey.shade400,
+                offset: Offset(4, 4)),
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -1,
+                color: Color(0xFFFDFDFD),
+                offset: Offset(-4, -4)),
+          ],
+          textStyle: DynamicTextStyle(
+            letterSpacing: 2.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w700,
+            fontFamily: "BalooThambi2",
+            color: Colors.grey,
+          ),
+        )
+      });
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-    smallScreen: neumorphicBaseStyle.copyWith(
-      width: 52.0.toPXLength,
-      height: 52.0.toPXLength,
-      shadows: [],
-      insetShadows: [
-        ShapeShadow(
-            blurRadius: 10,
-            spreadRadius: -3,
-            color: Colors.grey.shade400,
-            offset: Offset(10, 10)),
-        ShapeShadow(
-            blurRadius: 10,
-            spreadRadius: -3,
-            color: Color(0xFFFEFEFE),
-            offset: Offset(-10, -10)),
-      ],
-    ),
-    middleScreen: neumorphicBaseStyle.copyWith(
-      width: 80.0.toPXLength,
-      height: 80.0.toPXLength,
-      shadows: [],
-      insetShadows: [
-        ShapeShadow(
-            blurRadius: 10,
-            spreadRadius: -3,
-            color: Colors.grey.shade400,
-            offset: Offset(10, 10)),
-        ShapeShadow(
-            blurRadius: 10,
-            spreadRadius: -3,
-            color: Color(0xFFFEFEFE),
-            offset: Offset(-10, -10)),
-      ],
-    ),
-    largeScreen: neumorphicBaseStyle.copyWith(
-      width: 100.0.toPXLength,
-      height: 100.0.toPXLength,
-      shadows: [],
-      insetShadows: [
-        ShapeShadow(
-            blurRadius: 10,
-            spreadRadius: -3,
-            color: Colors.grey.shade400,
-            offset: Offset(10, 10)),
-        ShapeShadow(
-            blurRadius: 10,
-            spreadRadius: -3,
-            color: Color(0xFFFEFEFE),
-            offset: Offset(-10, -10)),
-      ],
-    )
-  });
+        smallScreen: neumorphicBaseStyle.copyWith(
+          width: 52.0.toPXLength,
+          height: 52.0.toPXLength,
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+          ),
+          shadows: [],
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: Offset(10, 10)),
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Color(0xFFFEFEFE),
+                offset: Offset(-10, -10)),
+          ],
+
+        ),
+        middleScreen: neumorphicBaseStyle.copyWith(
+          width: 80.0.toPXLength,
+          height: 80.0.toPXLength,
+          shadows: [],
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: Offset(10, 10)),
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Color(0xFFFEFEFE),
+                offset: Offset(-10, -10)),
+          ],
+          textStyle: DynamicTextStyle(
+            letterSpacing: 2.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w700,
+            fontFamily: "BalooThambi2",
+            color: Colors.grey,
+          ),
+        ),
+        largeScreen: neumorphicBaseStyle.copyWith(
+          width: 100.0.toPXLength,
+          height: 100.0.toPXLength,
+          shadows: [],
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: Offset(10, 10)),
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Color(0xFFFEFEFE),
+                offset: Offset(-10, -10)),
+          ],
+          textStyle: DynamicTextStyle(
+            letterSpacing: 2.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w700,
+            fontFamily: "BalooThambi2",
+            color: Colors.grey,
+          ),
+        )
+      });
 
   @override
   bool get isLogoColored => true;
 
   @override
-  Color get menuActiveColor => PuzzleColors.grey1;
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.bold);
 
   @override
-  Color get menuUnderlineColor => PuzzleColors.primary6;
+  Color get menuUnderlineColor => PuzzleColors.grey1;
 
   @override
-  Color get menuInactiveColor => PuzzleColors.grey2;
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey2);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -185,25 +248,6 @@ class NeumorphicSimpleTheme extends SimpleTheme {
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
-  @override
-  List<Object?> get props => [
-        name,
-        audioControlOnAsset,
-        audioControlOffAsset,
-        hasTimer,
-        nameTextStyle,
-        titleTextStyle,
-        backgroundStyle,
-        defaultTextStyle,
-        buttonStyle,
-        hoverStyle,
-        pressedStyle,
-        isLogoColored,
-        menuActiveColor,
-        menuUnderlineColor,
-        menuInactiveColor,
-        layoutDelegate,
-      ];
 }
 
 final neumorphicBaseStyle = Style(
@@ -216,7 +260,7 @@ final neumorphicBaseStyle = Style(
     ),
     shapeBorder: RectangleShapeBorder(
       borderRadius:
-      DynamicBorderRadius.all(DynamicRadius.circular(30.toPXLength)),
+          DynamicBorderRadius.all(DynamicRadius.circular(30.toPXLength)),
     ),
     shadows: [
       ShapeShadow(
@@ -234,6 +278,7 @@ final neumorphicBaseStyle = Style(
       letterSpacing: 2.toPXLength,
       fontSize: 20.toPXLength,
       fontWeight: FontWeight.w700,
+      fontFamily: "BalooThambi2",
       color: Colors.grey,
     ),
     textAlign: TextAlign.center,

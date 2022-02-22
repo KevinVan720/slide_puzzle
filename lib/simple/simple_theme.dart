@@ -46,13 +46,15 @@ abstract class SimpleTheme extends PuzzleTheme {
   bool get isLogoColored;
 
   @override
-  Color get menuActiveColor;
+  DynamicTextStyle get menuActiveStyle;
+
+  @override
+  DynamicTextStyle get menuInactiveStyle;
 
   @override
   Color get menuUnderlineColor;
 
-  @override
-  Color get menuInactiveColor;
+
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -78,9 +80,9 @@ abstract class SimpleTheme extends PuzzleTheme {
         hoverStyle,
         pressedStyle,
         isLogoColored,
-        menuActiveColor,
+        menuActiveStyle,
         menuUnderlineColor,
-        menuInactiveColor,
+        menuInactiveStyle,
         layoutDelegate,
       ];
 }

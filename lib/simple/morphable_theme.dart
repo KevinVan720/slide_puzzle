@@ -14,9 +14,10 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class MorphableTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const MorphableTheme({this.shapeIndex = 0,
-    this.hoverIndex=0,
-    this.pressedIndex=0,
+  const MorphableTheme({
+    this.shapeIndex = 0,
+    this.hoverIndex = 0,
+    this.pressedIndex = 0,
   }) : super();
 
   final int shapeIndex;
@@ -43,10 +44,8 @@ class MorphableTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-          backgroundDecoration: BoxDecoration(
-              color: Colors.redAccent),
+          backgroundDecoration: BoxDecoration(color: Colors.redAccent),
         ),
-
       });
 
   @override
@@ -54,17 +53,17 @@ class MorphableTheme extends SimpleTheme {
         smallScreen: morphableBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
-          shapeBorder: presetShapeList[shapeIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[shapeIndex])??RectangleShapeBorder(),
         ),
         middleScreen: morphableBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          shapeBorder: presetShapeList[shapeIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[shapeIndex])??RectangleShapeBorder(),
         ),
         largeScreen: morphableBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          shapeBorder: presetShapeList[shapeIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[shapeIndex])??RectangleShapeBorder(),
         )
       });
 
@@ -73,17 +72,17 @@ class MorphableTheme extends SimpleTheme {
         smallScreen: morphableBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
-          shapeBorder: presetShapeList[hoverIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[hoverIndex])??RectangleShapeBorder(),
         ),
         middleScreen: morphableBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          shapeBorder: presetShapeList[hoverIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[hoverIndex])??RectangleShapeBorder(),
         ),
         largeScreen: morphableBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          shapeBorder: presetShapeList[hoverIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[hoverIndex])??RectangleShapeBorder(),
         )
       });
 
@@ -92,17 +91,17 @@ class MorphableTheme extends SimpleTheme {
         smallScreen: morphableBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
-          shapeBorder: presetShapeList[pressedIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[pressedIndex])??RectangleShapeBorder()
         ),
         middleScreen: morphableBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          shapeBorder: presetShapeList[pressedIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[pressedIndex])??RectangleShapeBorder(),
         ),
         largeScreen: morphableBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          shapeBorder: presetShapeList[pressedIndex],
+          shapeBorder: parseMorphableShapeBorder(presetPebbles[pressedIndex])??RectangleShapeBorder()
         )
       });
 
@@ -110,13 +109,13 @@ class MorphableTheme extends SimpleTheme {
   bool get isLogoColored => true;
 
   @override
-  Color get menuActiveColor => PuzzleColors.grey1;
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.bold);
 
   @override
   Color get menuUnderlineColor => PuzzleColors.primary6;
 
   @override
-  Color get menuInactiveColor => PuzzleColors.grey2;
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey1);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -128,25 +127,6 @@ class MorphableTheme extends SimpleTheme {
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
-  @override
-  List<Object?> get props => [
-        name,
-        audioControlOnAsset,
-        audioControlOffAsset,
-        hasTimer,
-        nameTextStyle,
-        titleTextStyle,
-        backgroundStyle,
-        defaultTextStyle,
-        buttonStyle,
-        hoverStyle,
-        pressedStyle,
-        isLogoColored,
-        menuActiveColor,
-        menuUnderlineColor,
-        menuInactiveColor,
-        layoutDelegate,
-      ];
 }
 
 final morphableBaseStyle = Style(
@@ -211,14 +191,14 @@ const Map<String, MorphableShapeBorder> presetShapeMap = {
           const Length(25, unit: LengthUnit.percent)))),
   "DiagonalBottomRight": const RectangleShapeBorder(
       cornerStyles:
-      RectangleCornerStyles.only(bottomRight: CornerStyle.straight),
+          RectangleCornerStyles.only(bottomRight: CornerStyle.straight),
       borderRadius: DynamicBorderRadius.only(
           bottomRight: const DynamicRadius.elliptical(
               Length(100, unit: LengthUnit.percent),
               Length(25, unit: LengthUnit.percent)))),
   "DiagonalBottomLeft": const RectangleShapeBorder(
       cornerStyles:
-      RectangleCornerStyles.only(bottomLeft: CornerStyle.straight),
+          RectangleCornerStyles.only(bottomLeft: CornerStyle.straight),
       borderRadius: DynamicBorderRadius.only(
           bottomLeft: const DynamicRadius.elliptical(
               Length(100, unit: LengthUnit.percent),
@@ -253,7 +233,7 @@ const Map<String, MorphableShapeBorder> presetShapeMap = {
               Length(100, unit: LengthUnit.percent)))),
   "DonutTL": const RectangleShapeBorder(
       cornerStyles:
-      RectangleCornerStyles.only(bottomRight: CornerStyle.concave),
+          RectangleCornerStyles.only(bottomRight: CornerStyle.concave),
       borderRadius: DynamicBorderRadius.only(
           topLeft: const DynamicRadius.circular(
               Length(100, unit: LengthUnit.percent)),
@@ -318,4 +298,215 @@ const Map<String, MorphableShapeBorder> presetShapeMap = {
   "TrapezoidBottom": const TrapezoidShapeBorder(side: ShapeSide.top),
 };
 
-List<MorphableShapeBorder> presetShapeList=presetShapeMap.values.toList();
+List<MorphableShapeBorder> presetShapeList = presetShapeMap.values.toList();
+
+List<Map<String, dynamic>> presetPebbles = [
+  {
+    "type": "Path",
+    "border": {
+      "color": "ff000000",
+      "width": 0,
+      "style": "none",
+      "strokeCap": "butt",
+      "strokeJoin": "miter"
+    },
+    "path": {
+      "size": {"width": 600, "height": 600},
+      "nodes": [
+        {
+          "pos": {"dx": 414.558, "dy": 0},
+          "next": {"dx": 463.722, "dy": 0}
+        },
+        {
+          "pos": {"dx": 545.685, "dy": 58.089},
+          "prev": {"dx": 510.922, "dy": 20.91},
+          "next": {"dx": 580.449, "dy": 95.269}
+        },
+        {
+          "pos": {"dx": 600, "dy": 198.329},
+          "prev": {"dx": 600, "dy": 145.749}
+        },
+        {
+          "pos": {"dx": 600, "dy": 240.573},
+          "next": {"dx": 600, "dy": 335.862}
+        },
+        {
+          "pos": {"dx": 501.647, "dy": 494.726},
+          "prev": {"dx": 564.597, "dy": 427.346},
+          "next": {"dx": 438.696, "dy": 562.106}
+        },
+        {
+          "pos": {"dx": 264.2, "dy": 600},
+          "prev": {"dx": 353.226, "dy": 600}
+        },
+        {
+          "pos": {"dx": 263.485, "dy": 600},
+          "next": {"dx": 193.631, "dy": 600}
+        },
+        {
+          "pos": {"dx": 77.173, "dy": 505.002},
+          "prev": {"dx": 126.567, "dy": 565.805},
+          "next": {"dx": 27.779, "dy": 444.199}
+        },
+        {
+          "pos": {"dx": 0, "dy": 275.656},
+          "prev": {"dx": 0, "dy": 361.645},
+          "next": {"dx": 0, "dy": 202.576}
+        },
+        {
+          "pos": {"dx": 118.905, "dy": 80.738},
+          "prev": {"dx": 42.801, "dy": 132.414},
+          "next": {"dx": 195.009, "dy": 29.062}
+        },
+        {
+          "pos": {"dx": 405.967, "dy": 0},
+          "prev": {"dx": 298.339, "dy": 0}
+        }
+      ]
+    }
+  },
+  {
+    "type": "Path",
+    "border": {
+      "color": "ff000000",
+      "width": 0,
+      "style": "none",
+      "strokeCap": "butt",
+      "strokeJoin": "miter"
+    },
+    "path": {
+      "size": {"width": 600, "height": 600},
+      "nodes": [
+        {
+          "pos": {"dx": 300, "dy": 0},
+          "prev": {"dx": 220.466, "dy": 0},
+          "next": {"dx": 379.534, "dy": 0}
+        },
+        {
+          "pos": {"dx": 512.132, "dy": 87.868},
+          "prev": {"dx": 455.893, "dy": 31.629},
+          "next": {"dx": 568.371, "dy": 144.107}
+        },
+        {
+          "pos": {"dx": 600, "dy": 300},
+          "prev": {"dx": 600, "dy": 220.466}
+        },
+        {
+          "pos": {"dx": 600, "dy": 414.4},
+          "next": {"dx": 600, "dy": 464.155}
+        },
+        {
+          "pos": {"dx": 545.707, "dy": 546.757},
+          "prev": {"dx": 580.424, "dy": 511.877},
+          "next": {"dx": 511.757, "dy": 580.867}
+        },
+        {
+          "pos": {"dx": 418.4, "dy": 600},
+          "prev": {"dx": 466.008, "dy": 600}
+        },
+        {
+          "pos": {"dx": 300, "dy": 600},
+          "next": {"dx": 220.466, "dy": 600}
+        },
+        {
+          "pos": {"dx": 87.868, "dy": 512.132},
+          "prev": {"dx": 144.107, "dy": 568.371},
+          "next": {"dx": 31.629, "dy": 455.893}
+        },
+        {
+          "pos": {"dx": 0, "dy": 300},
+          "prev": {"dx": 0, "dy": 379.534},
+          "next": {"dx": 0, "dy": 220.466}
+        },
+        {
+          "pos": {"dx": 87.868, "dy": 87.868},
+          "prev": {"dx": 31.629, "dy": 144.107},
+          "next": {"dx": 144.107, "dy": 31.629}
+        }
+      ]
+    }
+  },
+  {
+    "type": "RoundedRectangle",
+    "borderRadius": {
+      "topLeft": {"x": "507.20001220703125px", "y": "254.39999389648438px"},
+      "topRight": {"x": "24.999999999999986%", "y": "74.19999694824226%"},
+      "bottomLeft": {"x": "71.86665852864589%", "y": "67.00000508626303%"},
+      "bottomRight": {"x": "225.60003662109375px", "y": "217.60003662109375px"}
+    },
+    "borderSides": {
+      "top": {
+        "color": "ff000000",
+        "width": 0,
+        "style": "none",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "bottom": {
+        "color": "ff000000",
+        "width": 0,
+        "style": "none",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "left": {
+        "color": "ff000000",
+        "width": 0,
+        "style": "none",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "right": {
+        "color": "ff000000",
+        "width": 0,
+        "style": "none",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      }
+    }
+  },
+  {
+    "type": "Rectangle",
+    "border": {
+      "color": "ff000000",
+      "width": 0,
+      "style": "none",
+      "strokeCap": "butt",
+      "strokeJoin": "miter"
+    },
+    "borderRadius": {
+      "topLeft": {"x": "59.26667277018232%", "y": "55.26666259765622%"},
+      "topRight": {"x": "47.399993896484375%", "y": "47.73333485921223%"},
+      "bottomLeft": {"x": "82.46665445963546%", "y": "51.399993896484396%"},
+      "bottomRight": {"x": "13.066680908203217%", "y": "52.3333333333334%"}
+    },
+    "cornerStyles": {
+      "topLeft": "rounded",
+      "bottomLeft": "rounded",
+      "topRight": "rounded",
+      "bottomRight": "rounded"
+    }
+  },
+  {
+    "type": "Rectangle",
+    "border": {
+      "color": "ff000000",
+      "width": 0,
+      "style": "none",
+      "strokeCap": "butt",
+      "strokeJoin": "miter"
+    },
+    "borderRadius": {
+      "topLeft": {"x": "100%", "y": "90.80000813802081%"},
+      "topRight": {"x": "270.39996337890625px", "y": "362.3999938964844px"},
+      "bottomLeft": {"x": "257.59991455078125px", "y": "254.4000244140625px"},
+      "bottomRight": {"x": "50%", "y": "54.66666666666662%"}
+    },
+    "cornerStyles": {
+      "topLeft": "rounded",
+      "bottomLeft": "rounded",
+      "topRight": "rounded",
+      "bottomRight": "rounded"
+    }
+  }
+];

@@ -28,8 +28,6 @@ class PuzzleTitle extends StatelessWidget {
         screenSize: MediaQuery.of(context).size,
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
 
-    print(titleStyle.toString());
-
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(
         child: SizedBox(

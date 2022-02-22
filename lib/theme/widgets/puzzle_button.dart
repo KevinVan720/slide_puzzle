@@ -35,45 +35,41 @@ class PuzzleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    //final buttonTextColor = textColor ?? PuzzleColors.white;
-    Style buttonStyle = theme.buttonStyle.resolve(context)??Style()..width=null..height=null;
-    Style hoverStyle = theme.hoverStyle.resolve(context)??Style()..width=null..height=null;
-    Style pressedStyle = theme.pressedStyle.resolve(context)??Style()..width=null..height=null;
 
-    return SizedBox(
-      width: 160,
-      height: 80,
+    ///the puzzle shuffle button gets the same style as the tiles buttons, except for the size.
+    Style buttonStyle = theme.buttonStyle.resolve(context) ?? Style()
+      ..width = null
+      ..height = null
+      ..padding = EdgeInsets.symmetric(vertical: 15, horizontal: 5);
+    Style hoverStyle = theme.hoverStyle.resolve(context) ?? Style()
+      ..width = null
+      ..height = null
+      ..padding = EdgeInsets.symmetric(vertical: 15, horizontal: 5);
+    Style pressedStyle = theme.pressedStyle.resolve(context) ?? Style()
+      ..width = null
+      ..height = null
+      ..padding = EdgeInsets.symmetric(vertical: 15, horizontal: 5);
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 160),
       child: StyledButton(
-        key: UniqueKey(),
-        style: buttonStyle,
-        hoveredStyle: hoverStyle,
-        pressedStyle: pressedStyle,
-        //duration: PuzzleThemeAnimationDuration.textStyle,
-        onPressed: onPressed,
-        child: Builder(builder: (context) {
-          return AnimatedDefaultTextStyle(
-            duration: PuzzleThemeAnimationDuration.textStyle,
-            style: DefaultTextStyle.of(context).style.merge(PuzzleTextStyle.headline5),
-            child: child,
-          );
-        },)
-      ));
-      /*
-      AnimatedTextButton(
-        duration: PuzzleThemeAnimationDuration.textStyle,
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-          textStyle: PuzzleTextStyle.headline5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-        ).copyWith(
-          backgroundColor: MaterialStateProperty.all(buttonBackgroundColor),
-          foregroundColor: MaterialStateProperty.all(buttonTextColor),
-        ),
-        onPressed: onPressed,
-        child: child,
-      ),
-    );*/
+          key: UniqueKey(),
+          style: buttonStyle,
+          hoveredStyle: hoverStyle,
+          pressedStyle: pressedStyle,
+          duration: PuzzleThemeAnimationDuration.textStyle,
+          onPressed: onPressed,
+          child: Builder(
+            builder: (context) {
+              return AnimatedDefaultTextStyle(
+                duration: PuzzleThemeAnimationDuration.textStyle,
+                style: DefaultTextStyle.of(context)
+                    .style
+                    .merge(PuzzleTextStyle.headline5),
+                child: child,
+              );
+            },
+          )),
+    );
   }
 }

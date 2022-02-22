@@ -22,8 +22,9 @@ dependencies:
   just_audio: ^0.9.18
   universal_platform: ^1.0.0+1
   url_launcher: ^6.0.17
-  animated_styled_widget: 0.3.1
+  animated_styled_widget: 0.3.4
   responsive_property: ^0.0.6
+  neon: ^0.1.0
 
 dev_dependencies:
   bloc_test: ^9.0.1
@@ -57,3 +58,45 @@ flutter:
         - asset: assets/fonts/GoogleSans-Italic.ttf
           weight: 400
           style: italic
+
+    - family: BalooThambi2
+      fonts:
+        - asset: assets/fonts/BalooThambi2-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/BalooThambi2-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/BalooThambi2-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/BalooThambi2-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/BalooThambi2-SemiBold.ttf
+          weight: 600
+
+    - family: Monoton
+      fonts:
+        - asset: assets/fonts/Monoton/Monoton-Regular.ttf
+    - family: Automania
+      fonts:
+        - asset: assets/fonts/Automania/Automania.ttf
+    - family: Beon
+      fonts:
+        - asset: assets/fonts/Beon/Beon.otf
+    - family: LasEnter
+      fonts:
+        - asset: assets/fonts/LasEnter/LasEnter.ttf
+    - family: TextMeOne
+      fonts:
+        - asset: assets/fonts/TextMeOne/TextMeOne-Regular.ttf
+    - family: Night-Club-70s
+      fonts:
+        - asset: assets/fonts/Night-Club-70s/Night-Club-70s-Bold.ttf
+        - asset: assets/fonts/Night-Club-70s/Night-Club-70s-Regular.ttf
+    - family: Membra
+      fonts:
+        - asset: assets/fonts/Membra/Membra.ttf
+    - family: Samarin
+      fonts:
+        - asset: assets/fonts/Samarin/Samarin.ttf
+    - family: Cyberpunk
+      fonts:
+        - asset: assets/fonts/Cyberpunk/Cyberpunk.ttf

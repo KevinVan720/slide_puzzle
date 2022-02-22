@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
-class NeonSimpleTheme extends SimpleTheme {
+class NeonTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const NeonSimpleTheme() : super();
+  const NeonTheme() : super();
 
   @override
   String get name => 'Neon';
@@ -24,20 +24,37 @@ class NeonSimpleTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get nameTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.grey1);
+      DynamicTextStyle(color: Colors.white70,fontFamily: "Night-Club-70s",
+        shadows: [
+          Shadow(blurRadius: 2, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+          Shadow(blurRadius: 4, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0))
+        ],);
 
   @override
   DynamicTextStyle get titleTextStyle =>
-      DynamicTextStyle(color: Colors.green);
+      DynamicTextStyle(color: Color(0xFFFCEC0C),fontFamily: "Night-Club-70s",fontWeight: FontWeight.bold,
+        shadows: [
+          Shadow(blurRadius: 5, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+          Shadow(blurRadius: 20, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0))
+        ],);
 
   @override
   DynamicTextStyle get defaultTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.primary7);
+      DynamicTextStyle(color: Colors.white,fontFamily: "Beon",
+        shadows: [
+          Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+        ],);
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: BoxDecoration(color: PuzzleColors.black2))
+            backgroundDecoration: BoxDecoration(gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFF091833),Color(0xFF711C91),]
+            )))
       });
 
   @override
@@ -133,6 +150,18 @@ class NeonSimpleTheme extends SimpleTheme {
                   color: Colors.cyanAccent.shade200, width: 5),
               right: DynamicBorderSide(
                   color: Colors.purpleAccent, width: 10))),
+      textStyle: DynamicTextStyle(
+        letterSpacing: 1.toPXLength,
+        fontSize: 30.toPXLength,
+        fontFamily: "Beon",
+        fontWeight: FontWeight.w900,
+        color: Colors.white,
+        shadows: [
+          Shadow(blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
+        ],
+      ),
     ),
     middleScreen: neonBaseStyle.copyWith(
       width: 100.0.toPXLength,
@@ -155,6 +184,19 @@ class NeonSimpleTheme extends SimpleTheme {
                   color: Colors.cyanAccent.shade200, width: 7),
               right: DynamicBorderSide(
                   color: Colors.purpleAccent, width: 14))),
+      textStyle: DynamicTextStyle(
+        letterSpacing: 1.toPXLength,
+        fontSize: 30.toPXLength,
+        fontFamily: "Beon",
+        fontWeight: FontWeight.w900,
+        color: Colors.white,
+        shadows: [
+          Shadow(blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
+        ],
+      ),
+
     ),
     largeScreen: neonBaseStyle.copyWith(
       width: 112.0.toPXLength,
@@ -177,6 +219,18 @@ class NeonSimpleTheme extends SimpleTheme {
                   color: Colors.cyanAccent.shade200, width: 9),
               right: DynamicBorderSide(
                   color: Colors.purpleAccent, width: 18))),
+      textStyle: DynamicTextStyle(
+        letterSpacing: 1.toPXLength,
+        fontSize: 30.toPXLength,
+        fontFamily: "Beon",
+        fontWeight: FontWeight.w900,
+        color: Colors.white,
+        shadows: [
+          Shadow(blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
+        ],
+      ),
     )
   });
 
@@ -251,16 +305,25 @@ class NeonSimpleTheme extends SimpleTheme {
   });
 
   @override
-  bool get isLogoColored => true;
+  bool get isLogoColored => false;
 
   @override
-  Color get menuActiveColor => PuzzleColors.grey1;
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: Color(0xFFFCEC0C),fontFamily: "Night-Club-70s",
+    fontWeight: FontWeight.bold,
+    shadows: [
+      Shadow(blurRadius: 2, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+      Shadow(blurRadius: 4, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+      Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0))
+    ],);
 
   @override
-  Color get menuUnderlineColor => PuzzleColors.primary6;
+  Color get menuUnderlineColor => Color(0xFFFCEC0C);
 
   @override
-  Color get menuInactiveColor => PuzzleColors.grey2;
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: Colors.white,fontFamily: "Night-Club-70s",
+    shadows: [
+      Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+    ],);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -272,25 +335,6 @@ class NeonSimpleTheme extends SimpleTheme {
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
-  @override
-  List<Object?> get props => [
-        name,
-        audioControlOnAsset,
-        audioControlOffAsset,
-        hasTimer,
-        nameTextStyle,
-        titleTextStyle,
-        backgroundStyle,
-        defaultTextStyle,
-        buttonStyle,
-        hoverStyle,
-        pressedStyle,
-        isLogoColored,
-        menuActiveColor,
-        menuUnderlineColor,
-        menuInactiveColor,
-        layoutDelegate,
-      ];
 }
 
 final neonBaseStyle = Style(
@@ -309,9 +353,15 @@ final neonBaseStyle = Style(
     ],
     textStyle: DynamicTextStyle(
       letterSpacing: 1.toPXLength,
-      fontSize: Dimension.min(300.toPercentLength, 28.toPXLength),
-      fontWeight: FontWeight.w900,
+      fontSize: 30.toPXLength,
+      fontFamily: "Beon",
+      fontWeight: FontWeight.w700,
       color: Colors.white,
+      shadows: [
+        Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+        Shadow(blurRadius: 20, color: Colors.white, offset: Offset(0, 0)),
+        Shadow(blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
+      ],
     ),
     textAlign: TextAlign.center,
     //shaderGradient:

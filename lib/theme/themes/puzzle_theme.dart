@@ -60,7 +60,7 @@ abstract class PuzzleTheme extends Equatable {
   ///
   /// Applied to the text color of the currently active
   /// theme in menu.
-  Color get menuActiveColor;
+  DynamicTextStyle get menuActiveStyle;
 
   /// The underline menu color.
   ///
@@ -72,7 +72,7 @@ abstract class PuzzleTheme extends Equatable {
   ///
   /// Applied to the text color of the currently inactive
   /// theme in menu.
-  Color get menuInactiveColor;
+  DynamicTextStyle get menuInactiveStyle;
 
   /// The path to the asset with the unmuted audio control.
   String get audioControlOnAsset;

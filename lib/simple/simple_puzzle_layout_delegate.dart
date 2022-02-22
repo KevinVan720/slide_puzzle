@@ -12,6 +12,7 @@ import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:responsive_property/responsive_property.dart';
+import 'package:neon/neon.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -108,7 +109,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               //key: const Key('simple_puzzle_board_small'),
               size: size,
               tiles: tiles,
-              spacing: 5,
+              spacing: 2,
             ),
           ),
           medium: (_, __) => SizedBox.square(
@@ -139,19 +140,19 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   Widget tileBuilder(Tile tile, PuzzleState state) {
     return ResponsiveLayoutBuilder(
       small: (_, __) => SimplePuzzleTile(
-        //key: Key('simple_puzzle_tile_${tile.value}_small'),
+        key: Key('simple_puzzle_tile_${tile.value}_small'),
         tile: tile,
         tileFontSize: _TileFontSize.small,
         state: state,
       ),
       medium: (_, __) => SimplePuzzleTile(
-        //key: Key('simple_puzzle_tile_${tile.value}_medium'),
+        key: Key('simple_puzzle_tile_${tile.value}_medium'),
         tile: tile,
         tileFontSize: _TileFontSize.medium,
         state: state,
       ),
       large: (_, __) => SimplePuzzleTile(
-        //key: Key('simple_puzzle_tile_${tile.value}_large'),
+        key: Key('simple_puzzle_tile_${tile.value}_large'),
         tile: tile,
         tileFontSize: _TileFontSize.large,
         state: state,
@@ -309,8 +310,7 @@ abstract class _TileFontSize {
 /// the font size of [tileFontSize] based on the puzzle [state].
 /// {@endtemplate}
 @visibleForTesting
-class SimplePuzzleTile extends StatelessWidget {
-  /// {@macro simple_puzzle_tile}
+class SimplePuzzleTile extends StatefulWidget {
   const SimplePuzzleTile({
     Key? key,
     required this.tile,
@@ -328,30 +328,35 @@ class SimplePuzzleTile extends StatelessWidget {
   final PuzzleState state;
 
   @override
+  _SimplePuzzleTileState createState() => _SimplePuzzleTileState();
+}
+
+class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
+  @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return StyledButton(
-      duration: Duration(milliseconds: 300),
+      duration: PuzzleThemeAnimationDuration.puzzleTileScale,
       style: theme.buttonStyle.resolve(context)??Style(),
       hoveredStyle: theme.hoverStyle.resolve(context)??Style(),
       pressedStyle: theme.pressedStyle.resolve(context)??Style(),
-      onPressed: state.puzzleStatus == PuzzleStatus.incomplete
-          ? () => context.read<PuzzleBloc>().add(TileTapped(tile))
+      onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
+          ? () => context.read<PuzzleBloc>().add(TileTapped(widget.tile))
           : null,
       child: Text(
-        tile.value.toString(),
+        widget.tile.value.toString(),
         semanticsLabel: context.l10n.puzzleTileLabelText(
-          tile.value.toString(),
-          tile.currentPosition.x.toString(),
-          tile.currentPosition.y.toString(),
+          widget.tile.value.toString(),
+          widget.tile.currentPosition.x.toString(),
+          widget.tile.currentPosition.y.toString(),
         ),
 
       ),
     );
-
   }
 }
+
 
 /// {@template puzzle_shuffle_button}
 /// Displays the button to shuffle the puzzle.
@@ -364,22 +369,26 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
     return PuzzleButton(
       textColor: PuzzleColors.primary0,
       backgroundColor: PuzzleColors.primary6,
       onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/shuffle_icon.png',
-            width: 17,
-            height: 17,
-          ),
-          const Gap(10),
-          Text(context.l10n.puzzleShuffle),
-        ],
-      ),
+      child: Builder(builder: (context) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.refresh_sharp,
+              size: 17,
+              color: DefaultTextStyle.of(context).style.color,
+            ),
+
+            const Gap(10),
+            Text(context.l10n.puzzleShuffle),
+          ],
+        );
+      })
     );
   }
 }
