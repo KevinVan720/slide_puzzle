@@ -57,7 +57,7 @@ class PuzzleButton extends StatelessWidget {
           style: buttonStyle,
           hoveredStyle: hoverStyle,
           pressedStyle: pressedStyle,
-          duration: PuzzleThemeAnimationDuration.textStyle,
+          duration: PuzzleThemeAnimationDuration.puzzleTileScale,
           onPressed: onPressed,
           child: Builder(
             builder: (context) {
