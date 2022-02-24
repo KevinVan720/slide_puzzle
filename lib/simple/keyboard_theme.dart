@@ -15,15 +15,7 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class KeyboardTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const KeyboardTheme({
-    this.shapeIndex = 0,
-    this.hoverIndex = 0,
-    this.pressedIndex = 0,
-  }) : super();
-
-  final int shapeIndex;
-  final int hoverIndex;
-  final int pressedIndex;
+  const KeyboardTheme() : super();
 
   @override
   String get name => 'Keyboard';
@@ -36,198 +28,217 @@ class KeyboardTheme extends SimpleTheme {
       DynamicTextStyle(color: PuzzleColors.grey1);
 
   @override
-  DynamicTextStyle get titleTextStyle => DynamicTextStyle(color: Colors.teal.shade100,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold);
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+      color: Colors.teal.shade100,
+      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.bold);
 
   @override
-  DynamicTextStyle get defaultTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.green50,fontStyle: FontStyle.italic,fontWeight: FontWeight.bold);
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+      color: PuzzleColors.green50,
+      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.bold);
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-          backgroundDecoration: BoxDecoration(color: Colors.redAccent),
-        ),
-      });
+    allScreen: Style(
+      backgroundDecoration: BoxDecoration(color: Colors.redAccent),
+    ),
+  });
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
-        smallScreen: keyBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          textStyle: DynamicTextStyle(
-              fontSize: 20.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
-        ),
-        middleScreen: keyBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          textStyle: DynamicTextStyle(
-              fontSize: 24.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
-        ),
-        largeScreen: keyBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-        )
-      });
+    smallScreen: keyBaseStyle.copyWith(
+      width: 72.0.toPXLength,
+      height: 72.0.toPXLength,
+      textStyle: DynamicTextStyle(
+          fontSize: 20.toPXLength,
+          color: Colors.teal,
+          fontWeight: FontWeight.w800),
+    ),
+    middleScreen: keyBaseStyle.copyWith(
+      width: 100.0.toPXLength,
+      height: 100.0.toPXLength,
+      textStyle: DynamicTextStyle(
+          fontSize: 24.toPXLength,
+          color: Colors.teal,
+          fontWeight: FontWeight.w800),
+    ),
+    largeScreen: keyBaseStyle.copyWith(
+      width: 112.0.toPXLength,
+      height: 112.0.toPXLength,
+    )
+  });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-        smallScreen: keyBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          textStyle: DynamicTextStyle(
-              fontSize: 20.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
-          shadows: [
-            ShapeShadow(
-                blurRadius: 10,
-                spreadRadius: 1,
-                color: Colors.grey.shade700,
-                offset: Offset(0, 10)),
-            ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
-            ShapeShadow(
-                blurRadius: 0,
-                spreadRadius: -1,
-                color: Colors.tealAccent.shade400,
-                offset: Offset(0, 10)),
-          ],
-          transform: SmoothMatrix4()
-            ..translate(0.toPXLength, -11.toPXLength),
-        ),
-        middleScreen: keyBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          textStyle: DynamicTextStyle(
-              fontSize: 24.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
-          shadows: [
-            ShapeShadow(
-                blurRadius: 10,
-                spreadRadius: 1,
-                color: Colors.grey.shade700,
-                offset: Offset(0, 10)),
-            ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
-            ShapeShadow(
-                blurRadius: 0,
-                spreadRadius: -1,
-                color: Colors.tealAccent.shade400,
-                offset: Offset(0, 10)),
-          ],
-          transform: SmoothMatrix4()
-            ..translate(0.toPXLength, -11.toPXLength),
-        ),
-        largeScreen: keyBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          shadows: [
-            ShapeShadow(
-                blurRadius: 10,
-                spreadRadius: 1,
-                color: Colors.grey.shade700,
-                offset: Offset(0, 10)),
-            ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
-            ShapeShadow(
-                blurRadius: 0,
-                spreadRadius: -1,
-                color: Colors.tealAccent.shade400,
-                offset: Offset(0, 10)),
-          ],
-          transform: SmoothMatrix4()
-            ..translate(0.toPXLength, -11.toPXLength),
-        )
-      });
+    smallScreen: keyBaseStyle.copyWith(
+      width: 72.0.toPXLength,
+      height: 72.0.toPXLength,
+      textStyle: DynamicTextStyle(
+          fontSize: 20.toPXLength,
+          color: Colors.teal,
+          fontWeight: FontWeight.w800),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 1,
+            color: Colors.grey.shade700,
+            offset: Offset(0, 10)),
+        ShapeShadow(
+            blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(colors: [
+              Colors.tealAccent.shade400,
+              Colors.tealAccent.shade700
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+            offset: Offset(0, 10)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
+    ),
+    middleScreen: keyBaseStyle.copyWith(
+      width: 100.0.toPXLength,
+      height: 100.0.toPXLength,
+      textStyle: DynamicTextStyle(
+          fontSize: 24.toPXLength,
+          color: Colors.teal,
+          fontWeight: FontWeight.w800),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 1,
+            color: Colors.grey.shade700,
+            offset: Offset(0, 10)),
+        ShapeShadow(
+            blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(colors: [
+              Colors.tealAccent.shade400,
+              Colors.tealAccent.shade700
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+            offset: Offset(0, 10)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
+    ),
+    largeScreen: keyBaseStyle.copyWith(
+      width: 112.0.toPXLength,
+      height: 112.0.toPXLength,
+      shadows: [
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 1,
+            color: Colors.grey.shade700,
+            offset: Offset(0, 10)),
+        ShapeShadow(
+            blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(colors: [
+              Colors.tealAccent.shade400,
+              Colors.tealAccent.shade700
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+            offset: Offset(0, 10)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
+    )
+  });
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-        smallScreen: keyBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          textStyle: DynamicTextStyle(
-              fontSize: 20.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
-          shadows: [
-            ShapeShadow(
-                blurRadius: 3,
-                spreadRadius: 1,
-                color: Colors.grey.shade700,
-                offset: Offset(0, 3)),
-            ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
-            ShapeShadow(
-                blurRadius: 0,
-                spreadRadius: -1,
-                color: Colors.tealAccent.shade400,
-                offset: Offset(0, 1)),
-          ],
-          transform: SmoothMatrix4()
-            ..translate(0.toPXLength, -2.toPXLength),
-        ),
-        middleScreen: keyBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          textStyle: DynamicTextStyle(
-              fontSize: 24.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
-          shadows: [
-            ShapeShadow(
-                blurRadius: 3,
-                spreadRadius: 1,
-                color: Colors.grey.shade700,
-                offset: Offset(0, 3)),
-            ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
-            ShapeShadow(
-                blurRadius: 0,
-                spreadRadius: -1,
-                color: Colors.tealAccent.shade400,
-                offset: Offset(0, 1)),
-          ],
-          transform: SmoothMatrix4()
-            ..translate(0.toPXLength, -2.toPXLength),
-        ),
-        largeScreen: keyBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          shadows: [
-            ShapeShadow(
-                blurRadius: 3,
-                spreadRadius: 1,
-                color: Colors.grey.shade700,
-                offset: Offset(0, 3)),
-            ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
-            ShapeShadow(
-                blurRadius: 0,
-                spreadRadius: -1,
-                color: Colors.tealAccent.shade400,
-                offset: Offset(0, 1)),
-          ],
-          transform: SmoothMatrix4()
-            ..translate(0.toPXLength, -2.toPXLength),
-        )
-      });
+    smallScreen: keyBaseStyle.copyWith(
+      width: 72.0.toPXLength,
+      height: 72.0.toPXLength,
+      textStyle: DynamicTextStyle(
+          fontSize: 20.toPXLength,
+          color: Colors.teal,
+          fontWeight: FontWeight.w800),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 3,
+            spreadRadius: 1,
+            color: Colors.grey.shade700,
+            offset: Offset(0, 3)),
+        ShapeShadow(
+            blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(colors: [
+              Colors.tealAccent.shade400,
+              Colors.tealAccent.shade700
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+            offset: Offset(0, 1)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
+    ),
+    middleScreen: keyBaseStyle.copyWith(
+      width: 100.0.toPXLength,
+      height: 100.0.toPXLength,
+      textStyle: DynamicTextStyle(
+          fontSize: 24.toPXLength,
+          color: Colors.teal,
+          fontWeight: FontWeight.w800),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 3,
+            spreadRadius: 1,
+            color: Colors.grey.shade700,
+            offset: Offset(0, 3)),
+        ShapeShadow(
+            blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(colors: [
+              Colors.tealAccent.shade400,
+              Colors.tealAccent.shade700
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+            offset: Offset(0, 1)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
+    ),
+    largeScreen: keyBaseStyle.copyWith(
+      width: 112.0.toPXLength,
+      height: 112.0.toPXLength,
+      shadows: [
+        ShapeShadow(
+            blurRadius: 3,
+            spreadRadius: 1,
+            color: Colors.grey.shade700,
+            offset: Offset(0, 3)),
+        ShapeShadow(
+            blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(colors: [
+              Colors.tealAccent.shade400,
+              Colors.tealAccent.shade700
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+            offset: Offset(0, 1)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
+    )
+  });
 
   @override
   bool get isLogoColored => false;
 
   @override
-  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.bold);
+  DynamicTextStyle get menuActiveStyle =>
+      DynamicTextStyle(color: PuzzleColors.black, fontWeight: FontWeight.bold);
 
   @override
   Color get menuUnderlineColor => Colors.teal;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey3);
+  DynamicTextStyle get menuInactiveStyle =>
+      DynamicTextStyle(color: PuzzleColors.grey3);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -238,7 +249,6 @@ class KeyboardTheme extends SimpleTheme {
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-
 }
 
 final keyBaseStyle = Style(
@@ -259,7 +269,10 @@ final keyBaseStyle = Style(
       ShapeShadow(
           blurRadius: 0,
           spreadRadius: -1,
-          color: Colors.tealAccent.shade400,
+          gradient: LinearGradient(
+              colors: [Colors.tealAccent.shade400, Colors.tealAccent.shade700],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight),
           offset: Offset(0, 14)),
     ],
     transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),

@@ -28,8 +28,14 @@ class GlassmorphismTheme extends SimpleTheme {
       DynamicTextStyle(color: PuzzleColors.grey5);
 
   @override
-  DynamicTextStyle get titleTextStyle => DynamicTextStyle(letterSpacing: 2.toPXLength,color: PuzzleColors.white,fontWeight: FontWeight.w900,
-      shadows: [Shadow(blurRadius: 6, color: PuzzleColors.grey2, offset: Offset(5, 5)),]);
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+          letterSpacing: 2.toPXLength,
+          color: PuzzleColors.white,
+          fontWeight: FontWeight.w900,
+          shadows: [
+            Shadow(
+                blurRadius: 6, color: PuzzleColors.grey2, offset: Offset(5, 5)),
+          ]);
 
   @override
   DynamicTextStyle get defaultTextStyle =>
@@ -38,21 +44,12 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-          backgroundDecoration: BoxDecoration(
-                    image: DecorationImage(
-                          fit: BoxFit.fill,
-                        image: NetworkImage(
-                          "https://images.unsplash.com/photo-1604776159603-cacfe8f4b46f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1334&q=80")),
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                Colors.red,
-                Colors.amber,
-                Colors.deepOrange,
-                Colors.green
-              ])),
-        )
+            backgroundDecoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(
+                  "https://images.unsplash.com/photo-1604776159603-cacfe8f4b46f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1334&q=80")),
+        ))
       });
 
   @override
@@ -81,7 +78,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: Offset(5,5)),
+                offset: Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -89,10 +86,16 @@ class GlassmorphismTheme extends SimpleTheme {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [0, 0.2],
-                      colors: [Colors.white70, Colors.white.withOpacity(0.05)])),
-              borderRadius:
-              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
+                      stops: [
+                        0,
+                        0.2
+                      ],
+                      colors: [
+                        Colors.white70,
+                        Colors.white.withOpacity(0.05)
+                      ])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(20.toPXLength))),
         ),
         middleScreen: glassmorphsimBaseStyle.copyWith(
           width: 100.0.toPXLength,
@@ -102,7 +105,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: Offset(5,5)),
+                offset: Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -110,10 +113,16 @@ class GlassmorphismTheme extends SimpleTheme {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [0, 0.2],
-                      colors: [Colors.white70, Colors.white.withOpacity(0.05)])),
-              borderRadius:
-              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
+                      stops: [
+                        0,
+                        0.2
+                      ],
+                      colors: [
+                        Colors.white70,
+                        Colors.white.withOpacity(0.05)
+                      ])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(20.toPXLength))),
         ),
         largeScreen: glassmorphsimBaseStyle.copyWith(
           width: 112.0.toPXLength,
@@ -123,7 +132,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: Offset(5,5)),
+                offset: Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -131,10 +140,16 @@ class GlassmorphismTheme extends SimpleTheme {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [0, 0.2],
-                      colors: [Colors.white70, Colors.white.withOpacity(0.05)])),
-              borderRadius:
-              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
+                      stops: [
+                        0,
+                        0.2
+                      ],
+                      colors: [
+                        Colors.white70,
+                        Colors.white.withOpacity(0.05)
+                      ])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(20.toPXLength))),
         )
       });
 
@@ -143,9 +158,7 @@ class GlassmorphismTheme extends SimpleTheme {
         smallScreen: glassmorphsimBaseStyle.copyWith(
           width: 72.0.toPXLength,
           height: 72.0.toPXLength,
-          shadows: [
-
-          ],
+          shadows: [],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -161,9 +174,7 @@ class GlassmorphismTheme extends SimpleTheme {
         middleScreen: glassmorphsimBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          shadows: [
-
-          ],
+          shadows: [],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -179,9 +190,7 @@ class GlassmorphismTheme extends SimpleTheme {
         largeScreen: glassmorphsimBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          shadows: [
-
-          ],
+          shadows: [],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -200,14 +209,20 @@ class GlassmorphismTheme extends SimpleTheme {
   bool get isLogoColored => false;
 
   @override
-  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.white,fontWeight: FontWeight.bold,
-  shadows: [Shadow(blurRadius: 3, color: PuzzleColors.grey1, offset: Offset(3, 3)),]);
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+          color: PuzzleColors.white,
+          fontWeight: FontWeight.bold,
+          shadows: [
+            Shadow(
+                blurRadius: 3, color: PuzzleColors.grey1, offset: Offset(3, 3)),
+          ]);
 
   @override
   Color get menuUnderlineColor => PuzzleColors.white;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.white,fontWeight: FontWeight.w200);
+  DynamicTextStyle get menuInactiveStyle =>
+      DynamicTextStyle(color: PuzzleColors.white, fontWeight: FontWeight.w200);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -218,7 +233,6 @@ class GlassmorphismTheme extends SimpleTheme {
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-
 }
 
 final glassmorphsimBaseStyle = Style(
@@ -226,7 +240,7 @@ final glassmorphsimBaseStyle = Style(
     childAlignment: Alignment.center,
     shadows: [
       ShapeShadow(
-        spreadRadius: 2,
+          spreadRadius: 2,
           blurRadius: 10,
           color: Colors.black.withOpacity(0.05),
           offset: Offset(10, 10)),
@@ -235,7 +249,7 @@ final glassmorphsimBaseStyle = Style(
         border: DynamicBorderSide(
             width: 1.8,
             gradient: LinearGradient(
-                begin: Alignment(-0.9,-1),
+                begin: Alignment(-0.9, -1),
                 end: Alignment.bottomRight,
                 stops: [0, 0.1],
                 colors: [Colors.white38, Colors.white.withOpacity(0.05)])),

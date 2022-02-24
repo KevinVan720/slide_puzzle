@@ -376,9 +376,11 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
           onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
               ? () async {
                   await Future.delayed(
-                      PuzzleThemeAnimationDuration.puzzleTileScale);
+                      Duration(milliseconds: (PuzzleThemeAnimationDuration.puzzleTileScale.inMilliseconds/2).round()));
                   unawaited(_audioPlayer?.replay());
                   context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                  await Future.delayed(
+                      Duration(milliseconds: (PuzzleThemeAnimationDuration.puzzleTileScale.inMilliseconds/2).round()));
                 }
               : null,
           child: Text(
