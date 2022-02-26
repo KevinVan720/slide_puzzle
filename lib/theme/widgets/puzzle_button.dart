@@ -54,6 +54,7 @@ class PuzzleButton extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: 160),
       child: StyledButton(
           key: UniqueKey(),
+          curve: Curves.easeInOut,
           style: buttonStyle,
           hoveredStyle: hoverStyle,
           pressedStyle: pressedStyle,

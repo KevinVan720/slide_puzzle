@@ -28,5 +28,7 @@ class TileTapped extends PuzzleEvent {
 }
 
 class PuzzleReset extends PuzzleEvent {
-  const PuzzleReset();
+  const PuzzleReset(this.puzzle);
+
+  final Puzzle? puzzle;
 }

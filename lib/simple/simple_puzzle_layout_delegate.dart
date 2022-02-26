@@ -1,23 +1,20 @@
 import 'dart:async';
 
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/puzzle_solver/solver.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/typography/typography.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
-
-import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:responsive_property/responsive_property.dart';
-import 'package:neon/neon.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -49,8 +46,20 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const SimplePuzzleShuffleButton(),
-          medium: (_, child) => const SimplePuzzleShuffleButton(),
+          small: (_, child) => Column(
+            children: [
+              const SimplePuzzleShuffleButton(),
+              Gap(20),
+              const SimplePuzzleSolveButton(),
+            ],
+          ),
+          medium: (_, child) => Column(
+            children: [
+              const SimplePuzzleShuffleButton(),
+              Gap(20),
+              const SimplePuzzleSolveButton(),
+            ],
+          ),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -222,7 +231,13 @@ class SimpleStartSection extends StatelessWidget {
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => const SimplePuzzleShuffleButton(),
+          large: (_, __) => Column(
+            children: [
+              const SimplePuzzleShuffleButton(),
+              Gap(20),
+              const SimplePuzzleSolveButton(),
+            ],
+          ),
         ),
       ],
     );
@@ -349,7 +364,7 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
 
     // Delay the initialization of the audio player for performance reasons,
     // to avoid dropping frames when the theme is changed.
-    _timer = Timer(const Duration(milliseconds: 333), () {
+    _timer = Timer(const Duration(milliseconds: 500), () {
       _audioPlayer = widget._audioPlayerFactory()
         ..setAsset('assets/audio/tile_move.mp3');
     });
@@ -367,31 +382,39 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return AudioControlListener(
-        audioPlayer: _audioPlayer,
-        child: StyledButton(
-          duration: PuzzleThemeAnimationDuration.puzzleTileScale,
-          style: theme.buttonStyle.resolve(context) ?? Style(),
-          hoveredStyle: theme.hoverStyle.resolve(context) ?? Style(),
-          pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
-          onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
-              ? () async {
-                  await Future.delayed(
-                      Duration(milliseconds: (PuzzleThemeAnimationDuration.puzzleTileScale.inMilliseconds/2).round()));
-                  unawaited(_audioPlayer?.replay());
-                  context.read<PuzzleBloc>().add(TileTapped(widget.tile));
-                  await Future.delayed(
-                      Duration(milliseconds: (PuzzleThemeAnimationDuration.puzzleTileScale.inMilliseconds/2).round()));
-                }
-              : null,
-          child: Text(
+      audioPlayer: _audioPlayer,
+      child: StyledButton(
+        curve: Curves.easeInOut,
+        duration: PuzzleThemeAnimationDuration.puzzleTileScale,
+        style: theme.buttonStyle.resolve(context) ?? Style(),
+        hoveredStyle: theme.hoverStyle.resolve(context) ?? Style(),
+        pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
+        onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
+            ? () async {
+                await Future.delayed(Duration(
+                    milliseconds: (PuzzleThemeAnimationDuration
+                                .puzzleTileScale.inMilliseconds /
+                            2)
+                        .round()));
+                unawaited(_audioPlayer?.replay());
+                context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+                await Future.delayed(Duration(
+                    milliseconds: (PuzzleThemeAnimationDuration
+                                .puzzleTileScale.inMilliseconds /
+                            2)
+                        .round()));
+              }
+            : null,
+        child: Text(
+          widget.tile.value.toString(),
+          semanticsLabel: context.l10n.puzzleTileLabelText(
             widget.tile.value.toString(),
-            semanticsLabel: context.l10n.puzzleTileLabelText(
-              widget.tile.value.toString(),
-              widget.tile.currentPosition.x.toString(),
-              widget.tile.currentPosition.y.toString(),
-            ),
+            widget.tile.currentPosition.x.toString(),
+            widget.tile.currentPosition.y.toString(),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -406,11 +429,14 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return PuzzleButton(
         textColor: PuzzleColors.primary0,
         backgroundColor: PuzzleColors.primary6,
-        onPressed: () => context.read<PuzzleBloc>().add(const PuzzleReset()),
+        onPressed: () {
+          context.read<PuzzleBloc>().add(const PuzzleReset(null));
+        },
         child: Builder(builder: (context) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -426,4 +452,80 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
           );
         }));
   }
+}
+
+@visibleForTesting
+class SimplePuzzleSolveButton extends StatefulWidget {
+  const SimplePuzzleSolveButton({Key? key}) : super(key: key);
+
+  @override
+  _SimplePuzzleSolveButtonState createState() =>
+      _SimplePuzzleSolveButtonState();
+}
+
+class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
+  bool isSolved = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
+
+    return FutureBuilder<List<Tile>>(
+        future: isSolved ? _solvePuzzle(state.puzzle) : null,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.none) {
+            return state.puzzle.isComplete()
+                ? Center(child: new Text('Solved'))
+                : PuzzleButton(
+                    textColor: PuzzleColors.primary0,
+                    backgroundColor: PuzzleColors.primary6,
+                    onPressed: () async {
+                      setState(() {
+                        isSolved = true;
+                      });
+                    },
+                    child: Builder(builder: (context) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.refresh_sharp,
+                            size: 17,
+                            color: DefaultTextStyle.of(context).style.color,
+                          ),
+                          const Gap(10),
+                          Text("Solve"),
+                        ],
+                      );
+                    }));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: Text('Please wait..'));
+          } else {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error'));
+            } else {
+              return Center(child: new Text('Solved'));
+            }
+          }
+        });
+    ;
+  }
+
+  Future<List<Tile>> _solvePuzzle(Puzzle puzzle) async {
+    var solver = PuzzleSolver(
+        startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
+    List<Tile> rst = solver.IDAstar().values.toList();
+    rst.removeAt(0);
+    if (rst.isEmpty) {
+      throw SolutionError();
+    } else {
+      return Future.value(rst);
+    }
+  }
+}
+
+class SolutionError extends Error {
+  SolutionError();
 }

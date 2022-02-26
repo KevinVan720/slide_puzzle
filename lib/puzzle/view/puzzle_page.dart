@@ -1,8 +1,10 @@
+import 'dart:math';
+
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
@@ -12,8 +14,6 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
-import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'dart:math';
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -27,7 +27,6 @@ class PuzzlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -56,7 +55,7 @@ class PuzzlePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => PuzzleBloc(4)
+          create: (context) => PuzzleBloc(4, random: Random())
             ..add(
               PuzzleInitialized(
                 shufflePuzzle: true,
@@ -307,7 +306,6 @@ class _PuzzleTile extends StatelessWidget {
   }
 }
 
-
 /// {@template puzzle_menu}
 /// Displays the menu of the puzzle.
 /// {@endtemplate}
@@ -322,23 +320,27 @@ class PuzzleMenu extends StatelessWidget {
 
     return ResponsiveLayoutBuilder(
         small: (context, child) => Wrap(
-          children: [...List.generate(
-            themes.length,
-                (index) => PuzzleMenuItem(
-              theme: themes[index],
-              themeIndex: index,
+              children: [
+                ...List.generate(
+                  themes.length,
+                  (index) => PuzzleMenuItem(
+                    theme: themes[index],
+                    themeIndex: index,
+                  ),
+                ),
+              ],
             ),
-          ),],
-        ),
         medium: (context, child) => Wrap(
-          children: [...List.generate(
-            themes.length,
-                (index) => PuzzleMenuItem(
-              theme: themes[index],
-              themeIndex: index,
+              children: [
+                ...List.generate(
+                  themes.length,
+                  (index) => PuzzleMenuItem(
+                    theme: themes[index],
+                    themeIndex: index,
+                  ),
+                ),
+              ],
             ),
-          ),],
-        ),
         large: (context, child) => Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -381,7 +383,6 @@ class PuzzleMenuItem extends StatelessWidget {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final isCurrentTheme = theme == currentTheme;
 
-
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(
         children: [
@@ -411,13 +412,13 @@ class PuzzleMenuItem extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: isCurrentTheme
                 ? BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 2,
-                  color: currentTheme.menuUnderlineColor,
-                ),
-              ),
-            )
+                    border: Border(
+                      bottom: BorderSide(
+                        width: 2,
+                        color: currentTheme.menuUnderlineColor,
+                      ),
+                    ),
+                  )
                 : null,
             child: child,
           ),
@@ -465,10 +466,13 @@ class PuzzleMenuItem extends StatelessWidget {
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,
                 style: (isCurrentTheme
-                    ? currentTheme.menuActiveStyle
-                    : currentTheme.menuInactiveStyle).toTextStyle(
-                    screenSize: MediaQuery.of(context).size,
-                    parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0).merge(PuzzleTextStyle.headline5),
+                        ? currentTheme.menuActiveStyle
+                        : currentTheme.menuInactiveStyle)
+                    .toTextStyle(
+                        screenSize: MediaQuery.of(context).size,
+                        parentFontSize:
+                            DefaultTextStyle.of(context).style.fontSize ?? 14.0)
+                    .merge(PuzzleTextStyle.headline5),
                 child: Text(theme.name),
               ),
             ),

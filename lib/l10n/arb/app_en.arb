@@ -24,6 +24,10 @@
     "@puzzleShuffle": {
         "description": "Shown on the button that shuffle the puzzle"
     },
+    "puzzleSolve": "Solve",
+    "@puzzleSolve": {
+        "description": "Shown on the button that solve the puzzle"
+    },
     "puzzleCompleted": "Well done. Congrats!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"

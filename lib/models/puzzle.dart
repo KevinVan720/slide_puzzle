@@ -100,6 +100,32 @@ class Puzzle extends Equatable {
     return true;
   }
 
+  /// Determines if the tapped tile can move in the direction of the whitespace
+  /// tile.
+  bool isTileMovableAndCloseToWhite(Tile tile) {
+    final whitespaceTile = getWhitespaceTile();
+    if (tile == whitespaceTile) {
+      return false;
+    }
+
+    // A tile must be in the same row or column as the whitespace to move.
+    if (whitespaceTile.currentPosition.x != tile.currentPosition.x &&
+        whitespaceTile.currentPosition.y != tile.currentPosition.y) {
+      return false;
+    }
+    if (((whitespaceTile.currentPosition.x - tile.currentPosition.x).abs() ==
+                1 &&
+            (whitespaceTile.currentPosition.y - tile.currentPosition.y).abs() ==
+                0) ||
+        (whitespaceTile.currentPosition.x - tile.currentPosition.x).abs() ==
+                0 &&
+            (whitespaceTile.currentPosition.y - tile.currentPosition.y).abs() ==
+                1) {
+      return true;
+    }
+    return false;
+  }
+
   /// Determines if the puzzle is solvable.
   bool isSolvable() {
     final size = getDimension();
@@ -202,7 +228,7 @@ class Puzzle extends Equatable {
       );
     }
 
-    return Puzzle(tiles: tiles);
+    return Puzzle(tiles: [...tiles]);
   }
 
   /// Sorts puzzle tiles so they are in order of their current position.
@@ -216,4 +242,24 @@ class Puzzle extends Equatable {
 
   @override
   List<Object> get props => [tiles];
+
+  void prettyPrint() {
+    final sortedTiles = List.from(tiles)
+      ..sort((tileA, tileB) {
+        return tileA.currentPosition.compareTo(tileB.currentPosition);
+      });
+
+    String s = "";
+    for (int i = 0; i < 16; i++) {
+      if (sortedTiles[i].isWhitespace) {
+        s += "|  ";
+      } else {
+        s += "|" + sortedTiles[i].value.toString().padLeft(2);
+      }
+      if (i % 4 == 3) {
+        print(s + "|");
+        s = "";
+      }
+    }
+  }
 }

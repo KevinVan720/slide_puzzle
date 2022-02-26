@@ -74,7 +74,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
-    final puzzle = _generatePuzzle(_size);
+    Puzzle puzzle = event.puzzle ?? _generatePuzzle(_size);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
@@ -103,10 +103,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       }
     }
 
-    if (shuffle) {
+    /*if (shuffle) {
       // Randomize only the current tile posistions.
       currentPositions.shuffle(random);
-    }
+    }*/
 
     var tiles = _getTileListFromPositions(
       size,
@@ -119,14 +119,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     if (shuffle) {
       // Assign the tiles new current positions until the puzzle is solvable and
       // zero tiles are in their correct position.
-      while (!puzzle.isSolvable() || puzzle.getNumberOfCorrectTiles() != 0) {
-        currentPositions.shuffle(random);
-        tiles = _getTileListFromPositions(
-          size,
-          correctPositions,
-          currentPositions,
-        );
-        puzzle = Puzzle(tiles: tiles);
+      while (!puzzle.isSolvable() || puzzle.getNumberOfCorrectTiles() > 6) {
+        final mutablePuzzle = Puzzle(tiles: [...puzzle.tiles]);
+
+        int id = random!.nextInt(16);
+
+        if (puzzle.isTileMovable(puzzle.tiles[id])) {
+          puzzle = mutablePuzzle.moveTiles(puzzle.tiles[id], []);
+        }
       }
     }
 
