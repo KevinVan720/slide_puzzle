@@ -14,6 +14,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
+    on<PuzzleSetDifficulty>(_onPuzzleSetDifficulty);
   }
 
   final int _size;
@@ -30,6 +31,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         puzzle: puzzle.sort(),
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
       ),
+    );
+  }
+
+  void _onPuzzleSetDifficulty(
+    PuzzleSetDifficulty event,
+    Emitter<PuzzleState> emit,
+  ) {
+    emit(
+      state.copyWith(puzzleDifficulty: event.puzzleDifficulty),
     );
   }
 
@@ -74,17 +84,21 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
-    Puzzle puzzle = event.puzzle ?? _generatePuzzle(_size);
+    Puzzle puzzle = event.puzzle ??
+        _generatePuzzle(_size, difficulty: state.puzzleDifficulty);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
+        numberOfMoves: 0,
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
       ),
     );
   }
 
   /// Build a randomized, solvable puzzle of the given size.
-  Puzzle _generatePuzzle(int size, {bool shuffle = true}) {
+  Puzzle _generatePuzzle(int size,
+      {bool shuffle = true,
+      PuzzleDifficulty difficulty = PuzzleDifficulty.easy}) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final whitespacePosition = Position(x: size, y: size);
@@ -116,10 +130,23 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
     var puzzle = Puzzle(tiles: tiles);
 
+    int correctTile;
+
+    switch (difficulty) {
+      case PuzzleDifficulty.easy:
+        correctTile = 7;
+        break;
+      case PuzzleDifficulty.hard:
+        correctTile = 0;
+        break;
+      default:
+        correctTile = 0;
+    }
+
     if (shuffle) {
-      // Assign the tiles new current positions until the puzzle is solvable and
-      // zero tiles are in their correct position.
-      while (!puzzle.isSolvable() || puzzle.getNumberOfCorrectTiles() > 2) {
+      // Assign the tiles new current positions until the puzzle is solvable
+      while (!puzzle.isSolvable() ||
+          puzzle.getNumberOfCorrectTiles() > correctTile) {
         final mutablePuzzle = Puzzle(tiles: [...puzzle.tiles]);
 
         int id = random!.nextInt(16);

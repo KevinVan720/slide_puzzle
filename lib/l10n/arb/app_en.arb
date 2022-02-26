@@ -28,6 +28,18 @@
     "@puzzleSolve": {
         "description": "Shown on the button that solve the puzzle"
     },
+    "puzzleSolving": "Solving",
+    "@puzzleSolving": {
+        "description": "Shown on the button that the puzzle is being solved"
+    },
+    "puzzleSolved": "Solved",
+    "@puzzleSolved": {
+        "description": "Shown on the button that the puzzle is solved"
+    },
+    "puzzleSolveError": "Error",
+    "@puzzleSolveError": {
+        "description": "Shown on the button that the puzzle could not be solved"
+    },
     "puzzleCompleted": "Well done. Congrats!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"

@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
@@ -47,20 +46,8 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => Column(
-            children: [
-              const SimplePuzzleShuffleButton(),
-              Gap(20),
-              const SimplePuzzleSolveButton(),
-            ],
-          ),
-          medium: (_, child) => Column(
-            children: [
-              const SimplePuzzleShuffleButton(),
-              Gap(20),
-              const SimplePuzzleSolveButton(),
-            ],
-          ),
+          small: (_, child) => SimplePuzzleControls(),
+          medium: (_, child) => SimplePuzzleControls(),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -426,26 +413,22 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
-    return PuzzleButton(
-        textColor: PuzzleColors.primary0,
-        backgroundColor: PuzzleColors.primary6,
-        onPressed: () {
-          context.read<PuzzleBloc>().add(const PuzzleReset(null));
-        },
-        child: Builder(builder: (context) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.refresh_sharp,
-                size: 17,
-                color: DefaultTextStyle.of(context).style.color,
-              ),
-              const Gap(10),
-              Text(context.l10n.puzzleShuffle),
-            ],
-          );
-        }));
+    return PuzzleButton(onPressed: () {
+      context.read<PuzzleBloc>().add(const PuzzleReset(null));
+    }, child: Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.refresh_sharp,
+            size: 17,
+            color: DefaultTextStyle.of(context).style.color,
+          ),
+          const Gap(10),
+          Text(context.l10n.puzzleShuffle),
+        ],
+      );
+    }));
   }
 }
 
@@ -472,28 +455,24 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
           if (snapshot.connectionState == ConnectionState.none) {
             return state.puzzle.isComplete()
                 ? Center(child: new Text('Solved'))
-                : PuzzleButton(
-                    textColor: PuzzleColors.primary0,
-                    backgroundColor: PuzzleColors.primary6,
-                    onPressed: () async {
-                      setState(() {
-                        isSolved = true;
-                      });
-                    },
-                    child: Builder(builder: (context) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.refresh_sharp,
-                            size: 17,
-                            color: DefaultTextStyle.of(context).style.color,
-                          ),
-                          const Gap(10),
-                          Text("Solve"),
-                        ],
-                      );
-                    }));
+                : PuzzleButton(onPressed: () async {
+                    setState(() {
+                      isSolved = true;
+                    });
+                  }, child: Builder(builder: (context) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.refresh_sharp,
+                          size: 17,
+                          color: DefaultTextStyle.of(context).style.color,
+                        ),
+                        const Gap(10),
+                        Text("Solve"),
+                      ],
+                    );
+                  }));
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: Text('Please wait..'));
@@ -532,7 +511,7 @@ class SimplePuzzleControls extends StatefulWidget {
 }
 
 class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
-  Future<void>? solution;
+  Future<void>? getSolutionAndUpdatePuzzle;
 
   @override
   Widget build(BuildContext context) {
@@ -549,29 +528,25 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
-    return PuzzleButton(
-        textColor: PuzzleColors.primary0,
-        backgroundColor: PuzzleColors.primary6,
-        onPressed: () {
-          context.read<PuzzleBloc>().add(const PuzzleReset(null));
-          setState(() {
-            solution = null;
-          });
-        },
-        child: Builder(builder: (context) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.refresh_sharp,
-                size: 17,
-                color: DefaultTextStyle.of(context).style.color,
-              ),
-              const Gap(10),
-              Text(context.l10n.puzzleShuffle),
-            ],
-          );
-        }));
+    return PuzzleButton(onPressed: () {
+      context.read<PuzzleBloc>().add(const PuzzleReset(null));
+      setState(() {
+        getSolutionAndUpdatePuzzle = null;
+      });
+    }, child: Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.refresh_sharp,
+            size: 17,
+            color: DefaultTextStyle.of(context).style.color,
+          ),
+          const Gap(10),
+          Text(context.l10n.puzzleShuffle),
+        ],
+      );
+    }));
   }
 
   Widget _buildSolveButton() {
@@ -579,59 +554,42 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return FutureBuilder<void>(
-        future: solution,
+        future: getSolutionAndUpdatePuzzle,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.none) {
             return state.puzzle.isComplete()
-                ? Center(child: new Text('Solved'))
-                : PuzzleButton(
-                    textColor: PuzzleColors.primary0,
-                    backgroundColor: PuzzleColors.primary6,
-                    onPressed: () async {
-                      setState(() {
-                        solution = _solvePuzzle(state.puzzle);
-                      });
-                    },
-                    child: Builder(builder: (context) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.refresh_sharp,
-                            size: 17,
-                            color: DefaultTextStyle.of(context).style.color,
-                          ),
-                          const Gap(10),
-                          Text("Solve"),
-                        ],
-                      );
-                    }));
+                ? _solvedButton()
+                : PuzzleButton(onPressed: () async {
+                    setState(() {
+                      getSolutionAndUpdatePuzzle = _solvePuzzle(state.puzzle);
+                    });
+                  }, child: Builder(builder: (context) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.question_mark,
+                          size: 16,
+                          color: DefaultTextStyle.of(context).style.color,
+                        ),
+                        const Gap(10),
+                        Text(context.l10n.puzzleSolve),
+                      ],
+                    );
+                  }));
           }
 
           if (snapshot.hasError) {
-            print(snapshot.error);
-            return Center(child: Text('Error'));
+            return _noSolutionButton();
           }
           if (snapshot.hasData) {
-            print(snapshot.error);
-            return Center(child: Text('Solved'));
+            return _solvedButton();
           }
-          return CircularProgressIndicator();
-          /*if (snapshot.connectionState == ConnectionState.waiting ||
-              snapshot.connectionState == ConnectionState.active) {
-            return Center(child: Text('Please wait..'));
-          } else {
-            if (snapshot.hasError) {
-              print(snapshot.error);
-              return Center(child: Text('Error'));
-            } else {
-              return Center(child: new Text('Solved'));
-            }
-          }*/
+          return _solvingButton();
         });
   }
 
-  static List<Tile> solvePuzzle(Puzzle puzzle) {
+  static List<Tile> solvePuzzleComputation(Puzzle puzzle) {
     var solver = PuzzleSolver(
         startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
     List<Tile> rst = solver.IDAstar().values.toList();
@@ -640,15 +598,76 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   }
 
   Future<void> _solvePuzzle(Puzzle puzzle) async {
-    return Future.value(compute(solvePuzzle, puzzle))
-        .then((value) => Future.forEach(
-                value,
-                (Tile t) => Future.delayed(Duration(milliseconds: 1000), () {
-                      context.read<PuzzleBloc>().add(TileTapped(t));
-                    })).then((value) {
-              setState(() {
-                solution = null;
-              });
-            }));
+    return Future.value(compute(solvePuzzleComputation, puzzle)).then((value) {
+      context.read<PuzzleBloc>().add(PuzzleReset(puzzle));
+      return value;
+    }).then((value) => Future.forEach(
+            value,
+            (Tile t) => Future.delayed(Duration(milliseconds: 1000), () {
+                  context.read<PuzzleBloc>().add(TileTapped(t));
+                })).then((value) {
+          setState(() {
+            getSolutionAndUpdatePuzzle = null;
+          });
+        }));
+  }
+
+  Widget _solvedButton() {
+    return PuzzleButton(
+        onPressed: null,
+        child: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.check,
+                size: 17,
+                color: DefaultTextStyle.of(context).style.color,
+              ),
+              const Gap(10),
+              Text(context.l10n.puzzleSolved),
+            ],
+          );
+        }));
+  }
+
+  Widget _solvingButton() {
+    return PuzzleButton(
+        onPressed: null,
+        child: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  width: 17,
+                  height: 17,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: DefaultTextStyle.of(context).style.color,
+                  )),
+              const Gap(10),
+              Text(context.l10n.puzzleSolving),
+            ],
+          );
+        }));
+  }
+
+  Widget _noSolutionButton() {
+    return PuzzleButton(
+        onPressed: null,
+        child: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error,
+                size: 17,
+                color: DefaultTextStyle.of(context).style.color,
+              ),
+              const Gap(10),
+              Text(context.l10n.puzzleSolveError),
+            ],
+          );
+        }));
   }
 }

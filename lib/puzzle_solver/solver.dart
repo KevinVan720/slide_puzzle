@@ -29,6 +29,51 @@ class ManhattanHeuristic extends Heuristic {
   }
 }
 
+class InverseDistanceHeuristic extends Heuristic {
+  const InverseDistanceHeuristic();
+
+  @override
+  double getHeuristic(Puzzle puzzle1) {
+    double rst = 0;
+
+    List<Tile> rowTiles = List.from(puzzle1.tiles);
+    rowTiles.sort((a, b) => (100 * (a.currentPosition.x - b.currentPosition.x) +
+            (a.currentPosition.y - b.currentPosition.y))
+        .toInt());
+
+    List<Tile> columnTiles = List.from(puzzle1.tiles);
+    columnTiles.sort((a, b) =>
+        (100 * (a.currentPosition.y - b.currentPosition.y) +
+                (a.currentPosition.x - b.currentPosition.x))
+            .toInt());
+
+    for (int i = 0; i < 16; i++) {
+      if (rowTiles[i].isWhitespace) continue;
+      for (int j = i + 1; j < 16; j++) {
+        if (!rowTiles[j].isWhitespace && rowTiles[i].value > rowTiles[j].value)
+          rst += 1;
+      }
+    }
+
+    for (int i = 0; i < 16; i++) {
+      if (columnTiles[i].isWhitespace) continue;
+      for (int j = i + 1; j < 16; j++) {
+        if (!columnTiles[j].isWhitespace &&
+            columnTiles[i].value > columnTiles[j].value) rst += 1;
+      }
+    }
+
+    print(rst);
+
+    return rst;
+  }
+
+  @override
+  double getDistance(Position a, Position b) {
+    return ((b.x - a.x).abs() + (b.y - a.y).abs()).toDouble();
+  }
+}
+
 class PuzzleSolver {
   PuzzleSolver(
       {this.heuristic = const ManhattanHeuristic(), required this.startPuzzle});
@@ -88,7 +133,7 @@ class PuzzleSolver {
               .copyWith(currentPosition: puzzle.tiles[i].currentPosition);
           double t = IDAstarRec(
               path,
-              g + 1,
+              g + 2,
               h -
                   heuristic.getDistance(puzzle.tiles[i].currentPosition,
                       puzzle.tiles[i].correctPosition) +
