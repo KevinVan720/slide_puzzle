@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -231,13 +232,7 @@ class SimpleStartSection extends StatelessWidget {
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => Column(
-            children: [
-              const SimplePuzzleShuffleButton(),
-              Gap(20),
-              const SimplePuzzleSolveButton(),
-            ],
-          ),
+          large: (_, __) => SimplePuzzleControls(),
         ),
       ],
     );
@@ -510,7 +505,6 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
             }
           }
         });
-    ;
   }
 
   Future<List<Tile>> _solvePuzzle(Puzzle puzzle) async {
@@ -528,4 +522,133 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
 
 class SolutionError extends Error {
   SolutionError();
+}
+
+class SimplePuzzleControls extends StatefulWidget {
+  const SimplePuzzleControls({Key? key}) : super(key: key);
+
+  @override
+  _SimplePuzzleControlsState createState() => _SimplePuzzleControlsState();
+}
+
+class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
+  Future<void>? solution;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _buildShuffleButton(),
+        Gap(20),
+        _buildSolveButton(),
+      ],
+    );
+  }
+
+  Widget _buildShuffleButton() {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
+
+    return PuzzleButton(
+        textColor: PuzzleColors.primary0,
+        backgroundColor: PuzzleColors.primary6,
+        onPressed: () {
+          context.read<PuzzleBloc>().add(const PuzzleReset(null));
+          setState(() {
+            solution = null;
+          });
+        },
+        child: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.refresh_sharp,
+                size: 17,
+                color: DefaultTextStyle.of(context).style.color,
+              ),
+              const Gap(10),
+              Text(context.l10n.puzzleShuffle),
+            ],
+          );
+        }));
+  }
+
+  Widget _buildSolveButton() {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
+
+    return FutureBuilder<void>(
+        future: solution,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.none) {
+            return state.puzzle.isComplete()
+                ? Center(child: new Text('Solved'))
+                : PuzzleButton(
+                    textColor: PuzzleColors.primary0,
+                    backgroundColor: PuzzleColors.primary6,
+                    onPressed: () async {
+                      setState(() {
+                        solution = _solvePuzzle(state.puzzle);
+                      });
+                    },
+                    child: Builder(builder: (context) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.refresh_sharp,
+                            size: 17,
+                            color: DefaultTextStyle.of(context).style.color,
+                          ),
+                          const Gap(10),
+                          Text("Solve"),
+                        ],
+                      );
+                    }));
+          }
+
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(child: Text('Error'));
+          }
+          if (snapshot.hasData) {
+            print(snapshot.error);
+            return Center(child: Text('Solved'));
+          }
+          return CircularProgressIndicator();
+          /*if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.connectionState == ConnectionState.active) {
+            return Center(child: Text('Please wait..'));
+          } else {
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              return Center(child: Text('Error'));
+            } else {
+              return Center(child: new Text('Solved'));
+            }
+          }*/
+        });
+  }
+
+  static List<Tile> solvePuzzle(Puzzle puzzle) {
+    var solver = PuzzleSolver(
+        startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
+    List<Tile> rst = solver.IDAstar().values.toList();
+    rst.removeAt(0);
+    return rst;
+  }
+
+  Future<void> _solvePuzzle(Puzzle puzzle) async {
+    return Future.value(compute(solvePuzzle, puzzle))
+        .then((value) => Future.forEach(
+                value,
+                (Tile t) => Future.delayed(Duration(milliseconds: 1000), () {
+                      context.read<PuzzleBloc>().add(TileTapped(t));
+                    })).then((value) {
+              setState(() {
+                solution = null;
+              });
+            }));
+  }
 }

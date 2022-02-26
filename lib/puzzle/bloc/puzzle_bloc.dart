@@ -119,7 +119,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     if (shuffle) {
       // Assign the tiles new current positions until the puzzle is solvable and
       // zero tiles are in their correct position.
-      while (!puzzle.isSolvable() || puzzle.getNumberOfCorrectTiles() > 6) {
+      while (!puzzle.isSolvable() || puzzle.getNumberOfCorrectTiles() > 2) {
         final mutablePuzzle = Puzzle(tiles: [...puzzle.tiles]);
 
         int id = random!.nextInt(16);
