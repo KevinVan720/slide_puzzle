@@ -16,8 +16,11 @@ class ClaymorphismTheme extends SimpleTheme {
   const ClaymorphismTheme() : super();
 
   @override
-  Map<Locale, String> get name =>
-      {const Locale("en"): 'Claymorphism', const Locale("zh"): "黏土拟物"};
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Claymorphism',
+        const Locale("es"): 'Arcillamorfismo',
+        const Locale("zh"): "黏土拟物"
+      };
 
   @override
   bool get hasTimer => false;

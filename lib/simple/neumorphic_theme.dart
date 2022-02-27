@@ -14,8 +14,11 @@ class NeumorphicTheme extends SimpleTheme {
   const NeumorphicTheme() : super();
 
   @override
-  Map<Locale, String> get name =>
-      {const Locale("en"): 'Neumorphism', const Locale("zh"): "拟态"};
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Neumorphism',
+        const Locale("es"): 'Neumorfismo',
+        const Locale("zh"): "拟态"
+      };
 
   @override
   bool get hasTimer => false;

@@ -1,9 +1,5 @@
 {
     "@@locale": "en",
-    "languageName": "English",
-    "@languageName": {
-        "description": "Name of the language in this language"
-    },
     "puzzleChangeTooltip": "Changing the theme will not reset your score",
     "@puzzleChangeTooltip": {
         "description": "Shown as a tooltip for puzzle menu buttons"

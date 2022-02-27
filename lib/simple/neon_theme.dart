@@ -13,8 +13,11 @@ class NeonTheme extends SimpleTheme {
 
   @override
   @override
-  Map<Locale, String> get name =>
-      {const Locale("en"): 'Neon', const Locale("zh"): "霓虹"};
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Neon',
+        const Locale("es"): 'Neón',
+        const Locale("zh"): "霓虹"
+      };
 
   @override
   bool get hasTimer => false;

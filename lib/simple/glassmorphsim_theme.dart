@@ -16,8 +16,11 @@ class GlassmorphismTheme extends SimpleTheme {
   const GlassmorphismTheme() : super();
 
   @override
-  Map<Locale, String> get name =>
-      {const Locale("en"): 'Glassmorphism', const Locale("zh"): "毛玻璃"};
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Glassmorphism',
+        const Locale("es"): 'Morfismo de vidrio',
+        const Locale("zh"): "毛玻璃"
+      };
 
   @override
   bool get hasTimer => false;

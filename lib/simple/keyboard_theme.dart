@@ -16,8 +16,11 @@ class KeyboardTheme extends SimpleTheme {
   const KeyboardTheme() : super();
 
   @override
-  Map<Locale, String> get name =>
-      {const Locale("en"): 'Keyboard', const Locale("zh"): "键盘"};
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Keyboard',
+        const Locale("es"): 'Teclado',
+        const Locale("zh"): "键盘"
+      };
 
   @override
   bool get hasTimer => false;

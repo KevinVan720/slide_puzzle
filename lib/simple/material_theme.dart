@@ -13,8 +13,11 @@ class MaterialTheme extends SimpleTheme {
   const MaterialTheme() : super();
 
   @override
-  Map<Locale, String> get name =>
-      {const Locale("en"): 'Material', const Locale("zh"): "材质"};
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Material',
+        const Locale("es"): 'Material',
+        const Locale("zh"): "材质"
+      };
 
   @override
   bool get hasTimer => false;

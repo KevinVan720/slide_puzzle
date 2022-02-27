@@ -1,0 +1,32 @@
+{
+    "@@locale": "es",
+    "puzzleChangeTooltip": "Cambiar el tema no restablecerá su puntaje",
+    "puzzleRestartTooltip": "Reiniciar el rompecabezas restablecerá tu puntuación.",
+
+    "puzzleChallengeTitle": "Desafío de rompecabezas",
+
+    "puzzleNumberOfMoves": "Mueve",
+
+    "puzzleNumberOfTilesLeft": "Losas",
+
+    "puzzleDifficultyEasy": "fácil",
+
+    "puzzleDifficultyHard": "duro",
+
+    "puzzleShuffle": "Barajar",
+
+    "puzzleSolve": "resolver",
+
+    "puzzleSolving": "resolviendo",
+
+    "puzzleSolved": "resuelto",
+
+    "puzzleSolveError": "error",
+
+    "puzzleCompleted": "Bien hecho. ¡Felicitaciones!",
+
+    "puzzleTileLabelText": "Valor: {value}, posición {x}, {y}",
+
+    "puzzleNumberOfMovesAndTilesLeftLabelText": "Meuve: {numberOfMoves}, Losas: {tilesLeft}"
+
+}
