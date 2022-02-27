@@ -20,14 +20,14 @@
     "@puzzleNumberOfTilesLeft": {
         "description": "Indicates how many puzzle tiles are not in their correct position"
     },
-       "puzzleDifficultyEasy": "Easy",
-        "@puzzleDifficultyEasy": {
-            "description": "Easy difficulty"
-        },
-               "puzzleDifficultyHard": "Hard",
-                "@puzzleDifficultyHard": {
-                    "description": "Hard difficulty"
-                },
+    "puzzleDifficultyEasy": "Easy",
+    "@puzzleDifficultyEasy": {
+        "description": "Easy difficulty"
+    },
+    "puzzleDifficultyHard": "Hard",
+    "@puzzleDifficultyHard": {
+        "description": "Hard difficulty"
+    },
     "puzzleShuffle": "Shuffle",
     "@puzzleShuffle": {
         "description": "Shown on the button that shuffle the puzzle"

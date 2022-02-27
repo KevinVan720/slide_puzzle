@@ -2,31 +2,17 @@
     "@@locale": "zh",
     "puzzleChangeTooltip": "更改主题不会重置你的分数",
     "puzzleRestartTooltip": "重置拼图会重置你的分数",
-
     "puzzleChallengeTitle": "滑动拼图\n挑战",
-
     "puzzleNumberOfMoves": "步骤",
-
     "puzzleNumberOfTilesLeft": "块",
-
     "puzzleDifficultyEasy": "简单",
-
     "puzzleDifficultyHard": "困难",
-
     "puzzleShuffle": "重置",
-
     "puzzleSolve": "求解",
-
     "puzzleSolving": "正在求解",
-
     "puzzleSolved": "解决",
-
     "puzzleSolveError": "解错误",
-
     "puzzleCompleted": "干得漂亮，恭喜！",
-
     "puzzleTileLabelText": "数字： {value}，位置 {x}， {y}",
-
     "puzzleNumberOfMovesAndTilesLeftLabelText": "步骤： {numberOfMoves}， 块： {tilesLeft}"
-
 }
