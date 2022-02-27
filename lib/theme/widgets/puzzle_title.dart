@@ -45,11 +45,12 @@ class PuzzleTitle extends StatelessWidget {
         child: child,
       ),
       child: (currentSize) {
-        final textStyle = titleStyle.merge(currentSize == ResponsiveLayoutSize.large
+        final textStyle = titleStyle.merge(
+            currentSize == ResponsiveLayoutSize.large
                 ? PuzzleTextStyle.headline2
                 : PuzzleTextStyle.headline3);
 
-        final textAlign = currentSize == ResponsiveLayoutSize.small
+        final textAlign = currentSize != ResponsiveLayoutSize.large
             ? TextAlign.center
             : TextAlign.left;
 

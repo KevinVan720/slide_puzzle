@@ -12,9 +12,10 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/puzzle_solver/solver.dart';
+import 'package:very_good_slide_puzzle/puzzle_solver/puzzle_solver.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/typography/typography.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -46,8 +47,8 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => SimplePuzzleControls(),
-          medium: (_, child) => SimplePuzzleControls(),
+          small: (_, child) => const SimplePuzzleControls(),
+          medium: (_, child) => const SimplePuzzleControls(),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -192,8 +193,8 @@ class SimpleStartSection extends StatelessWidget {
       children: [
         const ResponsiveGap(
           small: 20,
-          medium: 83,
-          large: 151,
+          medium: 43,
+          large: 101,
         ),
         PuzzleName(
           key: puzzleNameKey,
@@ -213,13 +214,14 @@ class SimpleStartSection extends StatelessWidget {
           numberOfTilesLeft: state.numberOfTilesLeft,
         ),
         const ResponsiveGap(
+          small: 12,
+          medium: 16,
           large: 32,
-          small: 16,
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => SimplePuzzleControls(),
+          large: (_, __) => const SimplePuzzleControls(),
         ),
       ],
     );
@@ -410,9 +412,6 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
-
     return PuzzleButton(onPressed: () {
       context.read<PuzzleBloc>().add(const PuzzleReset(null));
     }, child: Builder(builder: (context) {
@@ -432,102 +431,78 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
   }
 }
 
-@visibleForTesting
-class SimplePuzzleSolveButton extends StatefulWidget {
-  const SimplePuzzleSolveButton({Key? key}) : super(key: key);
-
-  @override
-  _SimplePuzzleSolveButtonState createState() =>
-      _SimplePuzzleSolveButtonState();
-}
-
-class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
-  bool isSolved = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
-
-    return FutureBuilder<List<Tile>>(
-        future: isSolved ? _solvePuzzle(state.puzzle) : null,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none) {
-            return state.puzzle.isComplete()
-                ? Center(child: new Text('Solved'))
-                : PuzzleButton(onPressed: () async {
-                    setState(() {
-                      isSolved = true;
-                    });
-                  }, child: Builder(builder: (context) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.refresh_sharp,
-                          size: 17,
-                          color: DefaultTextStyle.of(context).style.color,
-                        ),
-                        const Gap(10),
-                        Text("Solve"),
-                      ],
-                    );
-                  }));
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: Text('Please wait..'));
-          } else {
-            if (snapshot.hasError) {
-              return Center(child: Text('Error'));
-            } else {
-              return Center(child: new Text('Solved'));
-            }
-          }
-        });
-  }
-
-  Future<List<Tile>> _solvePuzzle(Puzzle puzzle) async {
-    var solver = PuzzleSolver(
-        startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
-    List<Tile> rst = solver.IDAstar().values.toList();
-    rst.removeAt(0);
-    if (rst.isEmpty) {
-      throw SolutionError();
-    } else {
-      return Future.value(rst);
-    }
-  }
-}
-
-class SolutionError extends Error {
-  SolutionError();
-}
-
 class SimplePuzzleControls extends StatefulWidget {
   const SimplePuzzleControls({Key? key}) : super(key: key);
-
   @override
   _SimplePuzzleControlsState createState() => _SimplePuzzleControlsState();
 }
 
 class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
+  ///The async process of solving and updating the puzzle
   Future<void>? getSolutionAndUpdatePuzzle;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        _difficultySelectButtons(),
+        const ResponsiveGap(
+          small: 20,
+          medium: 20,
+          large: 32,
+        ),
         _buildShuffleButton(),
-        Gap(20),
+        const ResponsiveGap(
+          small: 20,
+          medium: 20,
+          large: 32,
+        ),
         _buildSolveButton(),
       ],
     );
   }
 
-  Widget _buildShuffleButton() {
+  Widget _difficultySelectButtons() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _difficultySelectButton(PuzzleDifficulty.easy),
+        _difficultySelectButton(PuzzleDifficulty.hard),
+      ],
+    );
+  }
+
+  Widget _difficultySelectButton(PuzzleDifficulty difficulty) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final selectedStyle = theme.menuActiveStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
+    final unselectedStyle = theme.menuInactiveStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
+    return TextButton(
+      style: ButtonStyle(
+          overlayColor:
+              MaterialStateProperty.all(theme.popupMenuBackgroundColor)),
+      onPressed: state.puzzleDifficulty == difficulty
+          ? null
+          : () {
+              context.read<PuzzleBloc>().add(PuzzleSetDifficulty(difficulty));
+            },
+      child: AnimatedDefaultTextStyle(
+        style: state.puzzleDifficulty == difficulty
+            ? selectedStyle.merge(PuzzleTextStyle.bodySmall)
+            : unselectedStyle.merge(PuzzleTextStyle.bodySmall),
+        duration: PuzzleThemeAnimationDuration.textStyle,
+        child: difficulty == PuzzleDifficulty.easy
+            ? Text(context.l10n.puzzleDifficultyEasy)
+            : Text(context.l10n.puzzleDifficultyHard),
+      ),
+    );
+  }
 
+  Widget _buildShuffleButton() {
     return PuzzleButton(onPressed: () {
       context.read<PuzzleBloc>().add(const PuzzleReset(null));
       setState(() {
@@ -550,7 +525,6 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   }
 
   Widget _buildSolveButton() {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return FutureBuilder<void>(
@@ -589,6 +563,8 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
         });
   }
 
+  ///The actual computation of solving the puzzle
+  ///The compute() method on the web is not working as expected so the UI would block.
   static List<Tile> solvePuzzleComputation(Puzzle puzzle) {
     var solver = PuzzleSolver(
         startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
@@ -598,18 +574,68 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   }
 
   Future<void> _solvePuzzle(Puzzle puzzle) async {
-    return Future.value(compute(solvePuzzleComputation, puzzle)).then((value) {
-      context.read<PuzzleBloc>().add(PuzzleReset(puzzle));
-      return value;
-    }).then((value) => Future.forEach(
-            value,
-            (Tile t) => Future.delayed(Duration(milliseconds: 1000), () {
-                  context.read<PuzzleBloc>().add(TileTapped(t));
-                })).then((value) {
-          setState(() {
-            getSolutionAndUpdatePuzzle = null;
-          });
-        }));
+    List<List<Tile>> history = removeRedundantMoves(puzzle.tilesHistory.reversed
+        .map((e) => e
+          ..toList()
+          ..sort((tileA, tileB) {
+            return tileA.currentPosition.compareTo(tileB.currentPosition);
+          }))
+        .toList());
+
+    ///Only the last 20 steps or so are solved by IDA*, the previous moves just rewind
+    ///I do this because the IDA* method can be really slow on some puzzle config which
+    ///will behave terrible on the web.
+    int relaxMoves = 16;
+
+    if (history.length > relaxMoves) {
+      int rewindMoves = history.length - relaxMoves;
+      puzzle = Puzzle(tiles: history[rewindMoves - 1]);
+    }
+
+    ///Rewind the puzzle and then solve it
+    await compute(solvePuzzleComputation, puzzle).then((value) async {
+      if (history.length > relaxMoves) {
+        int rewindMoves = history.length - relaxMoves;
+
+        ///push the rewind puzzle states with 1 sec interval
+        await Future.forEach(
+            history.sublist(0, rewindMoves),
+            (List<Tile> tiles) =>
+                Future.delayed(const Duration(milliseconds: 1000), () {
+                  context
+                      .read<PuzzleBloc>()
+                      .add(PuzzleReset(Puzzle(tiles: tiles)));
+                }));
+      }
+
+      ///push the solved puzzle states with 1 sec interval
+      await Future.forEach(
+          value,
+          (Tile t) => Future.delayed(const Duration(milliseconds: 1000), () {
+                context.read<PuzzleBloc>().add(TileTapped(t));
+              }));
+    });
+
+    setState(() {
+      getSolutionAndUpdatePuzzle = null;
+    });
+  }
+
+  ///When generate a puzzle, some config in the history may be the same, we can remove the puzzles between
+  ///two same puzzle config
+  List<List<Tile>> removeRedundantMoves(List<List<Tile>> history) {
+    int i = 0;
+    while (i < history.length) {
+      int lastId = history.lastIndexWhere((e) => listEquals(e, history[i]));
+      //print(i.toString() + ", " + lastId.toString());
+      if (lastId != -1 && lastId != i) {
+        history = history.sublist(0, i) + history.sublist(lastId);
+        i = 0;
+      } else {
+        i += 1;
+      }
+    }
+    return history;
   }
 
   Widget _solvedButton() {

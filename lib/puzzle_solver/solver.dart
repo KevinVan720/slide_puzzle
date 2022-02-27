@@ -1,87 +1,18 @@
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/puzzle_solver/heuristic.dart';
 
-abstract class Heuristic {
-  const Heuristic();
-
-  double getHeuristic(Puzzle puzzle1);
-
-  double getDistance(Position a, Position b);
-}
-
-class ManhattanHeuristic extends Heuristic {
-  const ManhattanHeuristic();
-
-  @override
-  double getHeuristic(Puzzle puzzle1) {
-    double rst = 0;
-    for (int i = 0; i < puzzle1.tiles.length; i++) {
-      if (!puzzle1.tiles[i].isWhitespace) {
-        rst += getDistance(
-            puzzle1.tiles[i].currentPosition, puzzle1.tiles[i].correctPosition);
-      }
-    }
-    return rst;
-  }
-
-  @override
-  double getDistance(Position a, Position b) {
-    return ((b.x - a.x).abs() + (b.y - a.y).abs()).toDouble();
-  }
-}
-
-class InverseDistanceHeuristic extends Heuristic {
-  const InverseDistanceHeuristic();
-
-  @override
-  double getHeuristic(Puzzle puzzle1) {
-    double rst = 0;
-
-    List<Tile> rowTiles = List.from(puzzle1.tiles);
-    rowTiles.sort((a, b) => (100 * (a.currentPosition.x - b.currentPosition.x) +
-            (a.currentPosition.y - b.currentPosition.y))
-        .toInt());
-
-    List<Tile> columnTiles = List.from(puzzle1.tiles);
-    columnTiles.sort((a, b) =>
-        (100 * (a.currentPosition.y - b.currentPosition.y) +
-                (a.currentPosition.x - b.currentPosition.x))
-            .toInt());
-
-    for (int i = 0; i < 16; i++) {
-      if (rowTiles[i].isWhitespace) continue;
-      for (int j = i + 1; j < 16; j++) {
-        if (!rowTiles[j].isWhitespace && rowTiles[i].value > rowTiles[j].value)
-          rst += 1;
-      }
-    }
-
-    for (int i = 0; i < 16; i++) {
-      if (columnTiles[i].isWhitespace) continue;
-      for (int j = i + 1; j < 16; j++) {
-        if (!columnTiles[j].isWhitespace &&
-            columnTiles[i].value > columnTiles[j].value) rst += 1;
-      }
-    }
-
-    print(rst);
-
-    return rst;
-  }
-
-  @override
-  double getDistance(Position a, Position b) {
-    return ((b.x - a.x).abs() + (b.y - a.y).abs()).toDouble();
-  }
-}
-
+///Solving the puzzle with the IDA* algorithm
 class PuzzleSolver {
   PuzzleSolver(
       {this.heuristic = const ManhattanHeuristic(), required this.startPuzzle});
-  ManhattanHeuristic heuristic;
+  Heuristic heuristic;
   Puzzle startPuzzle;
 
   Map<Puzzle, Tile> IDAstar() {
     double bound = heuristic.getHeuristic(startPuzzle);
+
+    ///path records the puzzle and the last tiled tapped
+    ///the insertion order is preserved which is important
     Map<Puzzle, Tile> path = {
       Puzzle(tiles: [...startPuzzle.tiles]): const Tile(
           value: -1,
@@ -92,7 +23,7 @@ class PuzzleSolver {
     while (true) {
       print("search with bound: " + bound.toString());
       double distance =
-          IDAstarRec(path, 0, heuristic.getHeuristic(startPuzzle), bound);
+          IDAstarSearch(path, 0, heuristic.getHeuristic(startPuzzle), bound);
       if (distance == double.infinity) {
         print("not found");
         return {};
@@ -107,7 +38,7 @@ class PuzzleSolver {
     }
   }
 
-  double IDAstarRec(
+  double IDAstarSearch(
       Map<Puzzle, dynamic> path, double g, double h, double bound) {
     Puzzle puzzle = path.keys.last;
 
@@ -123,7 +54,8 @@ class PuzzleSolver {
 
     double min = double.infinity;
     Tile whiteTile = puzzle.getWhitespaceTile();
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < puzzle.tiles.length; i++) {
+      ///Move only the tiles close to the whitespace
       if (puzzle.isTileMovableAndCloseToWhite(puzzle.tiles[i])) {
         final mutablePuzzle = Puzzle(tiles: List.from(puzzle.tiles));
         final p = mutablePuzzle.moveTiles(mutablePuzzle.tiles[i], []);
@@ -131,14 +63,19 @@ class PuzzleSolver {
         if (path.containsKey(p) != true) {
           path[p] = puzzle.tiles[i]
               .copyWith(currentPosition: puzzle.tiles[i].currentPosition);
-          double t = IDAstarRec(
+          double t = IDAstarSearch(
               path,
-              g + 2,
+              g + 1,
+
+              ///Save time by computing just the heuristic difference between two puzzles
+              ///I can only think of how to do it with the Manhattan heuristic
               h -
                   heuristic.getDistance(puzzle.tiles[i].currentPosition,
                       puzzle.tiles[i].correctPosition) +
-                  heuristic.getDistance(puzzle.tiles[i].correctPosition,
-                      whiteTile.currentPosition),
+                  heuristic.getDistance(
+                    whiteTile.currentPosition,
+                    puzzle.tiles[i].correctPosition,
+                  ),
               bound);
           if (t < 0) {
             return t;
@@ -152,4 +89,8 @@ class PuzzleSolver {
     }
     return min;
   }
+}
+
+class SolveTimeoutError extends Error {
+  SolveTimeoutError();
 }

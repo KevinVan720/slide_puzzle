@@ -57,7 +57,7 @@ class PuzzlePage extends StatelessWidget {
         BlocProvider(
           create: (context) => PuzzleBloc(4, random: Random())
             ..add(
-              PuzzleInitialized(
+              const PuzzleInitialized(
                 shufflePuzzle: true,
               ),
             ),
@@ -85,7 +85,7 @@ class _PuzzleViewState extends State<PuzzleView> {
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
           style: (theme.backgroundStyle.resolve(context) ?? Style())
             ..textStyle = null,
-          child: _Puzzle(
+          child: const _Puzzle(
             key: Key('puzzle_view_puzzle'),
           )),
     );
@@ -111,7 +111,7 @@ class _Puzzle extends StatelessWidget {
                   minHeight: constraints.maxHeight,
                 ),
                 child: Column(
-                  children: [
+                  children: const [
                     PuzzleHeader(),
                     PuzzleSections(),
                   ],
@@ -141,13 +141,28 @@ class PuzzleHeader extends StatelessWidget {
         small: (context, child) => Stack(
           children: [
             const Align(
-              child: PuzzleLogo(),
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 34.0),
+                child: PuzzleLogo(),
+              ),
             ),
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: const EdgeInsets.only(right: 34),
-                child: AudioControl(key: audioControlKey),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AudioControl(
+                      key: audioControlKey,
+                    ),
+                    const Gap(40),
+                    LocaleControl(
+                      key: localeControlKey,
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -161,7 +176,18 @@ class PuzzleHeader extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: const EdgeInsets.only(right: 34),
-                child: AudioControl(key: audioControlKey),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AudioControl(
+                      key: audioControlKey,
+                    ),
+                    const Gap(40),
+                    LocaleControl(
+                      key: localeControlKey,
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -218,16 +244,16 @@ class PuzzleSections extends StatelessWidget {
       small: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          PuzzleMenu(),
-          PuzzleBoard(),
+          const PuzzleMenu(),
+          const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
       medium: (context, child) => Column(
         children: [
           theme.layoutDelegate.startSectionBuilder(state),
-          PuzzleMenu(),
-          PuzzleBoard(),
+          const PuzzleMenu(),
+          const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
@@ -237,7 +263,7 @@ class PuzzleSections extends StatelessWidget {
           Expanded(
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
-          PuzzleBoard(),
+          const PuzzleBoard(),
           Expanded(
             child: theme.layoutDelegate.endSectionBuilder(state),
           ),
@@ -351,9 +377,13 @@ class PuzzleMenu extends StatelessWidget {
                     themeIndex: index,
                   ),
                 ),
-                const Gap(44),
+                const Gap(40),
                 AudioControl(
                   key: audioControlKey,
+                ),
+                const Gap(40),
+                LocaleControl(
+                  key: localeControlKey,
                 )
               ],
             ));
@@ -381,6 +411,7 @@ class PuzzleMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final locale = context.select((LocaleBloc bloc) => bloc.state.locale);
     final isCurrentTheme = theme == currentTheme;
 
     return ResponsiveLayoutBuilder(
@@ -389,7 +420,7 @@ class PuzzleMenuItem extends StatelessWidget {
           Container(
             //width: 100,
             height: 40,
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -409,7 +440,7 @@ class PuzzleMenuItem extends StatelessWidget {
           Container(
             //width: 100,
             height: 40,
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -455,13 +486,6 @@ class PuzzleMenuItem extends StatelessWidget {
 
                 // Reset the timer of the currently running puzzle.
                 context.read<TimerBloc>().add(const TimerReset());
-
-                // Initialize the puzzle board for the newly selected theme.
-                /*context.read<PuzzleBloc>().add(
-                      PuzzleInitialized(
-                        shufflePuzzle: theme is SimpleTheme,
-                      ),
-                    );*/
               },
               child: AnimatedDefaultTextStyle(
                 duration: PuzzleThemeAnimationDuration.textStyle,
@@ -473,7 +497,7 @@ class PuzzleMenuItem extends StatelessWidget {
                         parentFontSize:
                             DefaultTextStyle.of(context).style.fontSize ?? 14.0)
                     .merge(PuzzleTextStyle.headline5),
-                child: Text(theme.name),
+                child: Text(theme.name[locale] ?? ""),
               ),
             ),
           ),
@@ -510,3 +534,9 @@ final numberOfMovesAndTilesLeftKey =
 /// Used to animate the transition of [AudioControl]
 /// when changing a theme.
 final audioControlKey = GlobalKey(debugLabel: 'audio_control');
+
+/// The global key of [AudioControl].
+///
+/// Used to animate the transition of [AudioControl]
+/// when changing a theme.
+final localeControlKey = GlobalKey(debugLabel: 'locale_control');

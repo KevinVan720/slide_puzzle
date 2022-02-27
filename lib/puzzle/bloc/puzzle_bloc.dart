@@ -25,7 +25,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleInitialized event,
     Emitter<PuzzleState> emit,
   ) {
-    final puzzle = _generatePuzzle(_size, shuffle: event.shufflePuzzle);
+    final puzzle = _generatePuzzle(_size,
+        shuffle: event.shufflePuzzle, difficulty: state.puzzleDifficulty);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
@@ -47,7 +48,9 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final tappedTile = event.tile;
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
       if (state.puzzle.isTileMovable(tappedTile)) {
-        final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
+        final mutablePuzzle = Puzzle(
+            tiles: [...state.puzzle.tiles],
+            tilesHistory: [...state.puzzle.tilesHistory]);
         final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
         if (puzzle.isComplete()) {
           emit(
@@ -83,14 +86,16 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     }
   }
 
+  ///If reset to some given puzzle, don't reset the moves.
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
     Puzzle puzzle = event.puzzle ??
         _generatePuzzle(_size, difficulty: state.puzzleDifficulty);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
-        numberOfMoves: 0,
+        numberOfMoves: event.puzzle == null ? 0 : state.numberOfMoves + 1,
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
+        puzzleDifficulty: state.puzzleDifficulty,
       ),
     );
   }
@@ -98,7 +103,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   /// Build a randomized, solvable puzzle of the given size.
   Puzzle _generatePuzzle(int size,
       {bool shuffle = true,
-      PuzzleDifficulty difficulty = PuzzleDifficulty.easy}) {
+      PuzzleDifficulty difficulty = PuzzleDifficulty.hard}) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final whitespacePosition = Position(x: size, y: size);
@@ -128,13 +133,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       currentPositions,
     );
 
-    var puzzle = Puzzle(tiles: tiles);
+    var puzzle = Puzzle(tiles: tiles, tilesHistory: []);
 
     int correctTile;
 
+    ///hard coded difficulty settings
     switch (difficulty) {
       case PuzzleDifficulty.easy:
-        correctTile = 7;
+        correctTile = 5;
         break;
       case PuzzleDifficulty.hard:
         correctTile = 0;
@@ -147,9 +153,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       // Assign the tiles new current positions until the puzzle is solvable
       while (!puzzle.isSolvable() ||
           puzzle.getNumberOfCorrectTiles() > correctTile) {
-        final mutablePuzzle = Puzzle(tiles: [...puzzle.tiles]);
+        final mutablePuzzle = Puzzle(
+            tiles: [...puzzle.tiles], tilesHistory: [...puzzle.tilesHistory]);
 
-        int id = random!.nextInt(16);
+        int id = random!.nextInt(_size * _size);
 
         if (puzzle.isTileMovable(puzzle.tiles[id])) {
           puzzle = mutablePuzzle.moveTiles(puzzle.tiles[id], []);

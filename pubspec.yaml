@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc: ^8.0.0
   flutter_localizations:
     sdk: flutter
+  flutter_localized_locales: ^2.0.1
   gap: ^2.0.0
   google_fonts: ^2.1.0
   intl: ^0.17.0
@@ -24,7 +25,6 @@ dependencies:
   url_launcher: ^6.0.17
   animated_styled_widget: 0.3.4
   responsive_property: ^0.0.6
-  neon: ^0.1.0
 
 dev_dependencies:
   bloc_test: ^9.0.1

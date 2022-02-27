@@ -1,9 +1,9 @@
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:responsive_property/responsive_property.dart';
 
 /// {@template puzzle_theme}
 /// Template for creating custom puzzle UI.
@@ -13,7 +13,7 @@ abstract class PuzzleTheme extends Equatable {
   const PuzzleTheme();
 
   /// The display name of this theme.
-  String get name;
+  Map<Locale, String> get name;
 
   /// Whether this theme displays the puzzle timer.
   bool get hasTimer;
@@ -68,6 +68,12 @@ abstract class PuzzleTheme extends Equatable {
   /// theme in menu, on a small layout.
   Color get menuUnderlineColor;
 
+  /// The underline menu color.
+  ///
+  /// Applied to the underline of the currently active
+  /// theme in menu, on a small layout.
+  Color get popupMenuBackgroundColor;
+
   /// The inactive menu color.
   ///
   /// Applied to the text color of the currently inactive
@@ -84,4 +90,25 @@ abstract class PuzzleTheme extends Equatable {
   ///
   /// Used for building sections of the puzzle UI.
   PuzzleLayoutDelegate get layoutDelegate;
+
+  @override
+  List<Object?> get props => [
+        name,
+        audioControlOnAsset,
+        audioControlOffAsset,
+        hasTimer,
+        nameTextStyle,
+        titleTextStyle,
+        backgroundStyle,
+        defaultTextStyle,
+        buttonStyle,
+        hoverStyle,
+        pressedStyle,
+        isLogoColored,
+        menuActiveStyle,
+        menuUnderlineColor,
+        popupMenuBackgroundColor,
+        menuInactiveStyle,
+        layoutDelegate,
+      ];
 }

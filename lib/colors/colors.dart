@@ -56,8 +56,8 @@ abstract class PuzzleColors {
   /// White
   static const Color white = Color(0xFFFFFFFF);
 
-  /// White 2 (opacity 40%)
-  static const Color white2 = Color(0x66FFFFFF);
+  /// White 2
+  static const Color white2 = Color(0xAAFFFFFF);
 
   /// Green primary
   static const Color greenPrimary = Color(0xFF00504C);

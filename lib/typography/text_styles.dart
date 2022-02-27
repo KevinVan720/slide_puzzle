@@ -130,12 +130,12 @@ class PuzzleTextStyle {
     );
   }
 
-  ///Text styling are now handled by themes, only the font sizing stuff are set here.
+  ///Text styling are now handled by themes, only the font size, weight, and height stuff are set here.
   static const _baseTextStyle = TextStyle(
-    //fontFamily: 'GoogleSans',
-    //color: PuzzleColors.black,
-    //fontWeight: PuzzleFontWeight.regular,
-  );
+      //fontFamily: 'GoogleSans',
+      //color: PuzzleColors.black,
+      //fontWeight: PuzzleFontWeight.regular,
+      );
 
   static final _bodyTextStyle = TextStyle(
     //color: PuzzleColors.black,

@@ -2,13 +2,11 @@ import 'dart:ui';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:neon/neon.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
-import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
-import 'package:responsive_property/responsive_property.dart';
-import 'package:flutter/material.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -18,14 +16,15 @@ class GlassmorphismTheme extends SimpleTheme {
   const GlassmorphismTheme() : super();
 
   @override
-  String get name => 'Glassmorphism';
+  Map<Locale, String> get name =>
+      {const Locale("en"): 'Glassmorphism', const Locale("zh"): "毛玻璃"};
 
   @override
   bool get hasTimer => false;
 
   @override
   DynamicTextStyle get nameTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.grey5);
+      const DynamicTextStyle(color: PuzzleColors.grey5);
 
   @override
   DynamicTextStyle get titleTextStyle => DynamicTextStyle(
@@ -33,18 +32,18 @@ class GlassmorphismTheme extends SimpleTheme {
           color: PuzzleColors.white,
           fontWeight: FontWeight.w900,
           shadows: [
-            Shadow(
+            const Shadow(
                 blurRadius: 6, color: PuzzleColors.grey2, offset: Offset(5, 5)),
           ]);
 
   @override
   DynamicTextStyle get defaultTextStyle =>
-      DynamicTextStyle(color: PuzzleColors.primary9);
+      const DynamicTextStyle(color: PuzzleColors.primary9);
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: BoxDecoration(
+            backgroundDecoration: const BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.fill,
               image: NetworkImage(
@@ -78,7 +77,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: Offset(5, 5)),
+                offset: const Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -86,7 +85,7 @@ class GlassmorphismTheme extends SimpleTheme {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [
+                      stops: const [
                         0,
                         0.2
                       ],
@@ -105,7 +104,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: Offset(5, 5)),
+                offset: const Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -113,7 +112,7 @@ class GlassmorphismTheme extends SimpleTheme {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [
+                      stops: const [
                         0,
                         0.2
                       ],
@@ -132,7 +131,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: Offset(5, 5)),
+                offset: const Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -140,7 +139,7 @@ class GlassmorphismTheme extends SimpleTheme {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [
+                      stops: const [
                         0,
                         0.2
                       ],
@@ -209,7 +208,7 @@ class GlassmorphismTheme extends SimpleTheme {
   bool get isLogoColored => false;
 
   @override
-  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
           color: PuzzleColors.white,
           fontWeight: FontWeight.bold,
           shadows: [
@@ -221,8 +220,11 @@ class GlassmorphismTheme extends SimpleTheme {
   Color get menuUnderlineColor => PuzzleColors.white;
 
   @override
-  DynamicTextStyle get menuInactiveStyle =>
-      DynamicTextStyle(color: PuzzleColors.white, fontWeight: FontWeight.w200);
+  Color get popupMenuBackgroundColor => Colors.blueGrey;
+
+  @override
+  DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
+      color: PuzzleColors.white2, fontWeight: FontWeight.w200);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -243,15 +245,15 @@ final glassmorphsimBaseStyle = Style(
           spreadRadius: 2,
           blurRadius: 10,
           color: Colors.black.withOpacity(0.05),
-          offset: Offset(10, 10)),
+          offset: const Offset(10, 10)),
     ],
     shapeBorder: RectangleShapeBorder(
         border: DynamicBorderSide(
             width: 1.8,
             gradient: LinearGradient(
-                begin: Alignment(-0.9, -1),
+                begin: const Alignment(-0.9, -1),
                 end: Alignment.bottomRight,
-                stops: [0, 0.1],
+                stops: const [0, 0.1],
                 colors: [Colors.white38, Colors.white.withOpacity(0.05)])),
         borderRadius:
             DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),

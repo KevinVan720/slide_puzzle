@@ -193,6 +193,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_localized_locales:
+    dependency: "direct main"
+    description:
+      name: flutter_localized_locales
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -350,13 +357,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.4"
-  neon:
-    dependency: "direct main"
-    description:
-      name: neon
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   nested:
     dependency: transitive
     description:

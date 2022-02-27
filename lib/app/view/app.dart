@@ -10,7 +10,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:http/http.dart' as http;
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -170,6 +172,20 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LocaleBloc(),
+      child: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final localeState = context.select((LocaleBloc bloc) => bloc.state);
+
     return MaterialApp(
       theme: ThemeData(
         appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
@@ -180,8 +196,12 @@ class _AppState extends State<App> {
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        LocaleNamesLocalizationsDelegate(),
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: localeState.locale,
       home: const PuzzlePage(),
     );
   }

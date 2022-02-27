@@ -1,13 +1,10 @@
-import 'dart:ui';
-
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/material.dart';
+import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
-import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
-import 'package:responsive_property/responsive_property.dart';
-import 'package:flutter/material.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -17,34 +14,35 @@ class NeumorphicTheme extends SimpleTheme {
   const NeumorphicTheme() : super();
 
   @override
-  String get name => 'Neumorphic';
+  Map<Locale, String> get name =>
+      {const Locale("en"): 'Neumorphism', const Locale("zh"): "拟态"};
 
   @override
   bool get hasTimer => false;
 
   @override
-  DynamicTextStyle get nameTextStyle => DynamicTextStyle(
+  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
         color: PuzzleColors.grey1,
         fontFamily: "BalooThambi2",
       );
 
   @override
-  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
         color: PuzzleColors.green50,
         fontFamily: "BalooThambi2",
-    fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.bold,
       );
 
   @override
-  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+  DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
         color: PuzzleColors.grey1,
         fontFamily: "BalooThambi2",
       );
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
-        allScreen:
-            Style(backgroundDecoration: BoxDecoration(color: Color(0xFFE0E0E0)))
+        allScreen: Style(
+            backgroundDecoration: const BoxDecoration(color: Color(0xFFE0E0E0)))
       });
 
   @override
@@ -54,7 +52,7 @@ class NeumorphicTheme extends SimpleTheme {
           height: 52.0.toPXLength,
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-            DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
         ),
         middleScreen: neumorphicBaseStyle.copyWith(
@@ -88,21 +86,20 @@ class NeumorphicTheme extends SimpleTheme {
           height: 52.0.toPXLength,
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-            DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
           shadows: [
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: Colors.grey.shade400,
-                offset: Offset(4, 4)),
-            ShapeShadow(
+                offset: const Offset(4, 4)),
+            const ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: Color(0xFFFDFDFD),
                 offset: Offset(-4, -4)),
           ],
-
         ),
         middleScreen: neumorphicBaseStyle.copyWith(
           width: 80.0.toPXLength,
@@ -112,8 +109,8 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: Colors.grey.shade400,
-                offset: Offset(4, 4)),
-            ShapeShadow(
+                offset: const Offset(4, 4)),
+            const ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: Color(0xFFFDFDFD),
@@ -135,8 +132,8 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: Colors.grey.shade400,
-                offset: Offset(4, 4)),
-            ShapeShadow(
+                offset: const Offset(4, 4)),
+            const ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: Color(0xFFFDFDFD),
@@ -159,7 +156,7 @@ class NeumorphicTheme extends SimpleTheme {
           height: 52.0.toPXLength,
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-            DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
           shadows: [],
           insetShadows: [
@@ -167,14 +164,13 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: Colors.grey.shade400,
-                offset: Offset(10, 10)),
-            ShapeShadow(
+                offset: const Offset(10, 10)),
+            const ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: Color(0xFFFEFEFE),
                 offset: Offset(-10, -10)),
           ],
-
         ),
         middleScreen: neumorphicBaseStyle.copyWith(
           width: 80.0.toPXLength,
@@ -185,8 +181,8 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: Colors.grey.shade400,
-                offset: Offset(10, 10)),
-            ShapeShadow(
+                offset: const Offset(10, 10)),
+            const ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: Color(0xFFFEFEFE),
@@ -209,8 +205,8 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: Colors.grey.shade400,
-                offset: Offset(10, 10)),
-            ShapeShadow(
+                offset: const Offset(10, 10)),
+            const ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: Color(0xFFFEFEFE),
@@ -230,13 +226,18 @@ class NeumorphicTheme extends SimpleTheme {
   bool get isLogoColored => true;
 
   @override
-  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.bold);
+  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
+      color: PuzzleColors.black, fontWeight: FontWeight.bold);
 
   @override
   Color get menuUnderlineColor => PuzzleColors.grey1;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey2);
+  Color get popupMenuBackgroundColor => Colors.grey.shade100;
+
+  @override
+  DynamicTextStyle get menuInactiveStyle =>
+      const DynamicTextStyle(color: PuzzleColors.grey2);
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -247,7 +248,6 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-
 }
 
 final neumorphicBaseStyle = Style(
@@ -255,7 +255,7 @@ final neumorphicBaseStyle = Style(
     childAlignment: Alignment.center,
     //margin: EdgeInsets.all(6),
     //padding: EdgeInsets.all(6),
-    backgroundDecoration: BoxDecoration(
+    backgroundDecoration: const BoxDecoration(
       color: Color(0xFFE0E0E0),
     ),
     shapeBorder: RectangleShapeBorder(
@@ -267,8 +267,8 @@ final neumorphicBaseStyle = Style(
           blurRadius: 15,
           spreadRadius: -3,
           color: Colors.grey.shade400,
-          offset: Offset(8, 8)),
-      ShapeShadow(
+          offset: const Offset(8, 8)),
+      const ShapeShadow(
           blurRadius: 15,
           spreadRadius: -3,
           color: Color(0xFFFDFDFD),

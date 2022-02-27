@@ -35,10 +35,13 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 /// {@endtemplate}
 class Puzzle extends Equatable {
   /// {@macro puzzle}
-  const Puzzle({required this.tiles});
+  const Puzzle({required this.tiles, this.tilesHistory = const []});
 
   /// List of [Tile]s representing the puzzle's current arrangement.
   final List<Tile> tiles;
+
+  /// History of the tile from some starting point (e.g. the original puzzle)
+  final List<List<Tile>> tilesHistory;
 
   /// Get the dimension of a puzzle given its tile arrangement.
   ///
@@ -213,6 +216,7 @@ class Puzzle extends Equatable {
   /// Returns puzzle with new tile arrangement after individually swapping each
   /// tile in tilesToSwap with the whitespace.
   Puzzle _swapTiles(List<Tile> tilesToSwap) {
+    List<Tile> currentTiles = List.from(tiles);
     for (final tileToSwap in tilesToSwap.reversed) {
       final tileIndex = tiles.indexOf(tileToSwap);
       final tile = tiles[tileIndex];
@@ -228,7 +232,8 @@ class Puzzle extends Equatable {
       );
     }
 
-    return Puzzle(tiles: [...tiles]);
+    return Puzzle(
+        tiles: [...tiles], tilesHistory: tilesHistory + [currentTiles]);
   }
 
   /// Sorts puzzle tiles so they are in order of their current position.
@@ -237,12 +242,10 @@ class Puzzle extends Equatable {
       ..sort((tileA, tileB) {
         return tileA.currentPosition.compareTo(tileB.currentPosition);
       });
-    return Puzzle(tiles: sortedTiles);
+    return Puzzle(tiles: sortedTiles, tilesHistory: tilesHistory);
   }
 
-  @override
-  List<Object> get props => [tiles];
-
+  ///Print the puzzle in the console like a matrix
   void prettyPrint() {
     final sortedTiles = List.from(tiles)
       ..sort((tileA, tileB) {
@@ -262,4 +265,7 @@ class Puzzle extends Equatable {
       }
     }
   }
+
+  @override
+  List<Object> get props => [tiles, tilesHistory];
 }
