@@ -1,7 +1,15 @@
-/// {@template simple_theme}
-/// The simple puzzle theme.
-/// {@endtemplate}
 /*
+import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_property/responsive_property.dart';
+import 'package:very_good_slide_puzzle/colors/colors.dart';
+import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/simple/simple.dart';
+import 'dart:math';
+import 'dart:ui';
+
+import 'package:animated_styled_widget/animated_styled_widget.dart';
+
 class MorphableTheme extends SimpleTheme {
   /// {@macro simple_theme}
   const MorphableTheme({
@@ -15,7 +23,11 @@ class MorphableTheme extends SimpleTheme {
   final int pressedIndex;
 
   @override
-  String get name => 'Morphable';
+  Map<Locale, String> get name => {
+        const Locale("en"): 'Material',
+        const Locale("es"): 'Material',
+        const Locale("zh"): "材质"
+      };
 
   @override
   bool get hasTimer => false;
@@ -41,71 +53,69 @@ class MorphableTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: morphableBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[shapeIndex])??RectangleShapeBorder(),
-        ),
+            width: 72.0.toPXLength,
+            height: 72.0.toPXLength,
+            shapeBorder: buttonShape),
         middleScreen: morphableBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[shapeIndex])??RectangleShapeBorder(),
-        ),
+            width: 100.0.toPXLength,
+            height: 100.0.toPXLength,
+            shapeBorder: buttonShape),
         largeScreen: morphableBaseStyle.copyWith(
           width: 112.0.toPXLength,
           height: 112.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[shapeIndex])??RectangleShapeBorder(),
+          shapeBorder: buttonShape,
         )
       });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
         smallScreen: morphableBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[hoverIndex])??RectangleShapeBorder(),
-        ),
+            width: 72.0.toPXLength,
+            height: 72.0.toPXLength,
+            shapeBorder: hoverShape),
         middleScreen: morphableBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[hoverIndex])??RectangleShapeBorder(),
-        ),
+            width: 100.0.toPXLength,
+            height: 100.0.toPXLength,
+            shapeBorder: hoverShape),
         largeScreen: morphableBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[hoverIndex])??RectangleShapeBorder(),
-        )
+            width: 112.0.toPXLength,
+            height: 112.0.toPXLength,
+            shapeBorder: hoverShape)
       });
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
         smallScreen: morphableBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[pressedIndex])??RectangleShapeBorder()
-        ),
+            width: 72.0.toPXLength,
+            height: 72.0.toPXLength,
+            shapeBorder: pressedShape),
         middleScreen: morphableBaseStyle.copyWith(
           width: 100.0.toPXLength,
           height: 100.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[pressedIndex])??RectangleShapeBorder(),
+          shapeBorder: pressedShape,
         ),
         largeScreen: morphableBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          shapeBorder: parseMorphableShapeBorder(presetPebbles[pressedIndex])??RectangleShapeBorder()
-        )
+            width: 112.0.toPXLength,
+            height: 112.0.toPXLength,
+            shapeBorder: pressedShape)
       });
 
   @override
   bool get isLogoColored => true;
 
   @override
-  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(color: PuzzleColors.black,fontWeight: FontWeight.bold);
+  DynamicTextStyle get menuActiveStyle =>
+      DynamicTextStyle(color: PuzzleColors.black, fontWeight: FontWeight.bold);
+
+  @override
+  DynamicTextStyle get menuInactiveStyle =>
+      DynamicTextStyle(color: PuzzleColors.grey1);
 
   @override
   Color get menuUnderlineColor => PuzzleColors.primary6;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(color: PuzzleColors.grey1);
+  Color get popupMenuBackgroundColor => Colors.grey.shade100;
 
   @override
   String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
@@ -116,14 +126,52 @@ class MorphableTheme extends SimpleTheme {
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-
 }
 
 final morphableBaseStyle = Style(
-    alignment: Alignment.center,
-    backgroundDecoration: BoxDecoration(color: Colors.green),
-    transformAlignment: Alignment.center,
-    childAlignment: Alignment.center);
+  alignment: Alignment.center,
+  backgroundDecoration: BoxDecoration(color: Colors.green),
+  transformAlignment: Alignment.center,
+  childAlignment: Alignment.center,
+  textStyle:
+      DynamicTextStyle(fontWeight: FontWeight.bold, fontSize: 24.toPXLength),
+);
+
+var buttonShape = RoundedRectangleShapeBorder(
+    borderRadius: DynamicBorderRadius.all(DynamicRadius.circular(1.toPXLength)),
+    borderSides: RectangleBorderSides.only(
+        top: DynamicBorderSide(
+            gradient: LinearGradient(colors: [
+              Colors.cyanAccent.shade100,
+              Colors.purpleAccent.shade100
+            ]),
+            width: 2),
+        bottom: const DynamicBorderSide(
+            gradient: LinearGradient(colors: [Colors.cyan, Colors.purple]),
+            width: 28),
+        left: DynamicBorderSide(color: Colors.cyanAccent.shade200, width: 2),
+        right: const DynamicBorderSide(color: Colors.purpleAccent, width: 28)));
+var hoverShape = const RectangleShapeBorder(
+    //cornerStyles: RectangleCornerStyles.all(CornerStyle.straight),
+    borderRadius: DynamicBorderRadius.all(DynamicRadius.circular(Length(30))),
+    border: DynamicBorderSide(
+        width: 5,
+        gradient: SweepGradient(startAngle: 2 * 0.33 * pi, colors: [
+          Colors.cyan,
+          Colors.amberAccent,
+          Colors.amberAccent,
+          Colors.cyan,
+        ])));
+var pressedShape = CircleShapeBorder(
+    //cornerStyles: RectangleCornerStyles.all(CornerStyle.concave),
+    border: DynamicBorderSide(
+        width: 5,
+        gradient: SweepGradient(startAngle: 2 * 0.67 * pi, colors: [
+          Colors.cyan,
+          Colors.amberAccent,
+          Colors.amberAccent,
+          Colors.cyan,
+        ])));
 
 const Map<String, MorphableShapeBorder> presetShapeMap = {
   "Circle": const CircleShapeBorder(),
@@ -500,4 +548,5 @@ List<Map<String, dynamic>> presetPebbles = [
     }
   }
 ];
+
  */

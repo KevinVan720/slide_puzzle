@@ -95,7 +95,7 @@ class KeyboardTheme extends SimpleTheme {
                 gradient: LinearGradient(colors: [
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 10)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
@@ -121,7 +121,7 @@ class KeyboardTheme extends SimpleTheme {
                 gradient: LinearGradient(colors: [
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 10)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
@@ -143,7 +143,7 @@ class KeyboardTheme extends SimpleTheme {
                 gradient: LinearGradient(colors: [
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 10)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
@@ -173,7 +173,7 @@ class KeyboardTheme extends SimpleTheme {
                 gradient: LinearGradient(colors: [
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 1)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
@@ -199,7 +199,7 @@ class KeyboardTheme extends SimpleTheme {
                 gradient: LinearGradient(colors: [
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 1)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
@@ -221,7 +221,7 @@ class KeyboardTheme extends SimpleTheme {
                 gradient: LinearGradient(colors: [
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 1)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
@@ -277,8 +277,8 @@ final keyBaseStyle = Style(
           spreadRadius: -1,
           gradient: LinearGradient(
               colors: [Colors.tealAccent.shade400, Colors.tealAccent.shade700],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight),
           offset: const Offset(0, 14)),
     ],
     transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),
