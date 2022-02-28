@@ -103,6 +103,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
+        isAutoSolving: state.isAutoSolving,
         numberOfMoves: event.puzzle == null ? 0 : state.numberOfMoves + 1,
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
         puzzleDifficulty: state.puzzleDifficulty,
