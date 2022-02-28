@@ -616,13 +616,13 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
           (Tile t) => Future.delayed(const Duration(milliseconds: 1000), () {
                 context.read<PuzzleBloc>().add(TileTapped(t));
               }));
-    }).then((value) => context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(false)));
+    });
 
-    
+    context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(false));
 
-    //setState(() {
-    //  getSolutionAndUpdatePuzzle = null;
-    //});
+    setState(() {
+      getSolutionAndUpdatePuzzle = null;
+    });
   }
 
   ///When generate a puzzle, some config in the history may be the same, we can remove the puzzles between
