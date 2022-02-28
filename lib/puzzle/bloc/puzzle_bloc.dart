@@ -15,6 +15,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
     on<PuzzleSetDifficulty>(_onPuzzleSetDifficulty);
+    on<PuzzleAutoSolvingUpdate>(_onPuzzleAutoSolvingUpdate);
   }
 
   final int _size;
@@ -41,6 +42,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   ) {
     emit(
       state.copyWith(puzzleDifficulty: event.puzzleDifficulty),
+    );
+  }
+
+  void _onPuzzleAutoSolvingUpdate(
+    PuzzleAutoSolvingUpdate event,
+    Emitter<PuzzleState> emit,
+  ) {
+    emit(
+      state.copyWith(isAutoSolving: event.isAutoSolving),
     );
   }
 

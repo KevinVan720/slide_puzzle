@@ -504,10 +504,10 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
   Widget _buildShuffleButton() {
     return PuzzleButton(onPressed: () {
-      context.read<PuzzleBloc>().add(const PuzzleReset(null));
       setState(() {
         getSolutionAndUpdatePuzzle = null;
       });
+      context.read<PuzzleBloc>().add(const PuzzleReset(null));
     }, child: Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -592,6 +592,8 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
       puzzle = Puzzle(tiles: history[rewindMoves - 1]);
     }
 
+    context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(true));
+
     ///Rewind the puzzle and then solve it
     await compute(solvePuzzleComputation, puzzle).then((value) async {
       if (history.length > relaxMoves) {
@@ -615,6 +617,8 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
                 context.read<PuzzleBloc>().add(TileTapped(t));
               }));
     });
+
+    context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(false));
 
     setState(() {
       getSolutionAndUpdatePuzzle = null;

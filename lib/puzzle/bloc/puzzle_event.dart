@@ -41,3 +41,9 @@ class PuzzleReset extends PuzzleEvent {
 
   final Puzzle? puzzle;
 }
+
+class PuzzleAutoSolvingUpdate extends PuzzleEvent {
+  const PuzzleAutoSolvingUpdate(this.isAutoSolving);
+
+  final bool isAutoSolving;
+}
