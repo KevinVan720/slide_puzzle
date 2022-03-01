@@ -1,4 +1,4 @@
-#Slide Puzzle
+# Slide Puzzle
 
 ## Inspiration
 
@@ -10,13 +10,13 @@ You play the basic version of the slide puzzle game but you can play it in diffe
 
 ![Smoothly animate between themes](https://i.imgur.com/Y1XOwAE.gif)
 
-#####Smoothly animate between themes
+##### Smoothly animate between themes
 
 You can choose between different difficulty levels when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
 
 ![Auto solve the puzzle](https://i.imgur.com/GNIyZ0B.gif)
 
-#####Automatically solve the puzzle
+##### Automatically solve the puzzle
 
 ## How we built it
 
@@ -34,7 +34,7 @@ The app is fully responsive and works on all major platforms (thanks to the deve
 
 ![Multi language support](https://i.imgur.com/yLQX5WX.gif)
 
-#####Multi-language support
+##### Multi-language support
 
 
 ## What we learned
