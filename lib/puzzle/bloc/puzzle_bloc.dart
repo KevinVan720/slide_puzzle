@@ -49,9 +49,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleAutoSolvingUpdate event,
     Emitter<PuzzleState> emit,
   ) {
-    emit(
-      state.copyWith(isAutoSolving: event.isAutoSolving),
-    );
+    if (event.isAutoSolving) {
+      emit(
+        state.copyWith(isAutoSolving: event.isAutoSolving, numberOfMoves: 0),
+      );
+    } else {
+      emit(
+        state.copyWith(isAutoSolving: event.isAutoSolving),
+      );
+    }
   }
 
   void _onTileTapped(TileTapped event, Emitter<PuzzleState> emit) {
