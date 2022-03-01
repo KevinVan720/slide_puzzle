@@ -530,7 +530,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
     return FutureBuilder<void>(
         future: getSolutionAndUpdatePuzzle,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none) {
+          if (snapshot.connectionState == ConnectionState.none || state.puzzle.isComplete()) {
             return state.puzzle.isComplete()
                 ? _solvedButton()
                 : PuzzleButton(onPressed: () async {
