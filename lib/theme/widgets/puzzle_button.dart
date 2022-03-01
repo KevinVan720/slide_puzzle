@@ -90,10 +90,12 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               hoveredStyle: hoverStyle,
               pressedStyle: pressedStyle,
               duration: PuzzleThemeAnimationDuration.puzzleTileScale,
-              onPressed: () {
-                unawaited(_audioPlayer?.replay());
-                widget.onPressed!();
-              },
+              onPressed: widget.onPressed == null
+                  ? null
+                  : () {
+                      unawaited(_audioPlayer?.replay());
+                      widget.onPressed!();
+                    },
               child: Builder(
                 builder: (context) {
                   return AnimatedDefaultTextStyle(

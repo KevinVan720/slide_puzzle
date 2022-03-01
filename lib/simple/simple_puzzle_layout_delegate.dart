@@ -527,40 +527,40 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   Widget _buildSolveButton() {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
-    return FutureBuilder<void>(
-        future: getSolutionAndUpdatePuzzle,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none || state.puzzle.isComplete()) {
-            return state.puzzle.isComplete()
-                ? _solvedButton()
-                : PuzzleButton(onPressed: () async {
-                    setState(() {
-                      getSolutionAndUpdatePuzzle = _solvePuzzle(state.puzzle);
-                    });
-                  }, child: Builder(builder: (context) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.question_mark,
-                          size: 16,
-                          color: DefaultTextStyle.of(context).style.color,
-                        ),
-                        const Gap(10),
-                        Text(context.l10n.puzzleSolve),
-                      ],
-                    );
-                  }));
-          }
+    return state.puzzle.isComplete()
+        ? _solvedButton()
+        : FutureBuilder<void>(
+            future: getSolutionAndUpdatePuzzle,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.none) {
+                return PuzzleButton(onPressed: () async {
+                  setState(() {
+                    getSolutionAndUpdatePuzzle = _solvePuzzle(state.puzzle);
+                  });
+                }, child: Builder(builder: (context) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.question_mark,
+                        size: 16,
+                        color: DefaultTextStyle.of(context).style.color,
+                      ),
+                      const Gap(10),
+                      Text(context.l10n.puzzleSolve),
+                    ],
+                  );
+                }));
+              }
 
-          if (snapshot.hasError) {
-            return _noSolutionButton();
-          }
-          if (snapshot.hasData) {
-            return _solvedButton();
-          }
-          return _solvingButton();
-        });
+              if (snapshot.hasError) {
+                return _noSolutionButton();
+              }
+              if (snapshot.hasData) {
+                return _solvedButton();
+              }
+              return _solvingButton();
+            });
   }
 
   ///The actual computation of solving the puzzle
@@ -595,27 +595,27 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
     context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(true));
 
-
     await compute(solvePuzzleComputation, puzzle).then((value) async {
       ///Rewind the puzzle until the move from the solution is not too far away
       if (history.length > relaxMoves) {
         int rewindMoves = history.length - relaxMoves;
-        history=history.sublist(0, rewindMoves)+value.map((e) => e.tiles).toList();
-        history=removeRedundantMoves(history);
-      }else{
-        history=value.map((e) => e.tiles).toList();
+        history = history.sublist(0, rewindMoves) +
+            value.map((e) => e.tiles).toList();
+        history = removeRedundantMoves(history);
+      } else {
+        history = value.map((e) => e.tiles).toList();
       }
 
       ///push the puzzle states with 1 sec interval
       await Future.forEach(
           history,
-              (List<Tile> tiles) =>
+          (List<Tile> tiles) =>
               Future.delayed(const Duration(milliseconds: 1000), () {
                 context
                     .read<PuzzleBloc>()
                     .add(PuzzleReset(Puzzle(tiles: tiles)));
               }));
-        /*
+      /*
       ///push the solved puzzle states with 1 sec interval
       await Future.forEach(
           value,

@@ -14,5 +14,5 @@ abstract class PuzzleThemeAnimationDuration {
 
   /// The duration of a puzzle tile scale change animation.
   /// The animation may happen when a user hovers over a puzzle tile.
-  static const puzzleTileScale = Duration(milliseconds: 180);
+  static const puzzleTileScale = Duration(milliseconds: 200);
 }
