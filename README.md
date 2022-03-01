@@ -1,155 +1,54 @@
-# Slide Puzzle
+#Slide Puzzle
 
-![Photo Booth Header][logo]
+## Inspiration
 
-![coverage][coverage_badge]
-[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
-[![License: MIT][license_badge]][license_link]
+I want to demonstrate the **power** and **expressiveness** of Flutter in this project. I want to let people play the slide puzzle game with different themed UI that utilizes **modern design trends** like material, neumorphism, glassmorphism, etc. Fortunately, I have developed several packages (e.g. the [animated_styled_widget](https://pub.dev/packages/animated_styled_widget)) that let me achieve this goal easily.
 
-A slide puzzle built for [Flutter Challenge](https://flutterhack.devpost.com/).
+## What it does
 
-*Built by [Very Good Ventures][very_good_ventures_link] in partnership with Google.*
+You play the basic version of the slide puzzle game but you can play it in different themes. The puzzle tiles will smoothly animate when you hover or press them. The whole user interface will also animate between different themes.
 
-*Created using [Very Good CLI][very_good_cli_link].*
+![Smoothly animate between themes](https://i.imgur.com/Y1XOwAE.gif)
 
----
+#####Smoothly animate between themes
 
-## Getting Started 🚀
+You can choose between different difficulty levels when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
 
-To run the project either use the launch configuration in VSCode/Android Studio or use the following command:
+![Auto solve the puzzle](https://i.imgur.com/GNIyZ0B.gif)
 
-```sh
-$ flutter run -d chrome
-```
+#####Automatically solve the puzzle
 
----
+## How we built it
 
-## Running Tests 🧪
+I use packages like [responsive_property](https://pub.dev/packages/responsive_property) (which lets you do responsive design at different granularities) and [animated_styled_widget](https://pub.dev/packages/animated_styled_widget) (which lets you design complicated and responsive UI with CSS-like syntax). You can read the development of those packages on [medium](https://medium.com/@kevinvan). I started with the official slide puzzle demo built by Very Good Ventures. Other packages that I utilized include [bloc](https://pub.dev/packages/bloc), [flutter_localizations](https://pub.dev/packages/flutter_localizations), [flutter_localized_locales](https://pub.dev/packages/flutter_localized_locales).
 
-To run all unit and widget tests use the following command:
+## Challenges we ran into
 
-```sh
-$ flutter test --coverage --test-randomize-ordering-seed random
-```
+Designing an app that works well on different screen sizes and with different themes is not an easy thing to do. I need to pay attention to issues like widget overflowing and low contrast between text and the background, etc. The animation when you hover or press the buttons also took a lot of time to design as I want to give people the feeling that they are interacting with real-world material.
 
-To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
+The puzzle solver which is using the iterative deepening A*(IDA*) algorithm also took me quite some time to get it right. The performance is not so great since I am using the standard Manhattan heuristic. Moreover, the compute() method doesn't actually work on the web which blocks the UI when solving the puzzle. In order to speed up the calculation, I record all the moves that transform the puzzle from the initial state to the current state, then rewind part of those moves until the run time of the IDA* algorithm is reasonable. This approach may not give you the optimal solution but reduces jank on the web.
 
-```sh
-# Generate Coverage Report
-$ genhtml coverage/lcov.info -o coverage/
+## Accomplishments that we're proud of
 
-# Open Coverage Report
-$ open coverage/index.html
-```
+The app is fully responsive and works on all major platforms (thanks to the development of Flutter). The animations are smooth and very fun to interact with. I recreated most of the design trends that are popular in recent years, which gives us a sense of how complicated and beautiful an interface Flutter can build.
 
----
+![Multi language support](https://i.imgur.com/yLQX5WX.gif)
 
-## Working with Translations 🌐
+#####Multi-language support
 
-This project relies on [flutter_localizations][flutter_localizations_link] and follows the [official internationalization guide for Flutter][internationalization_link].
 
-### Adding Strings
+## What we learned
 
-1. To add a new localizable string, open the `app_en.arb` file at `lib/l10n/arb/app_en.arb`.
+The base app that people at Very Good Ventures built really taught me a lot. It is an all-around app that is **responsive, cross-platform, multi-language, and supports different input devices**. The coding is clean and everything like state management is well structured. Building upon something like this saves me a lot of time. I have also learned about how to run Flutter apps on windows and use Firebase hosting.
 
-```arb
-{
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
-}
-```
+When trying to solve the puzzle, I learned about the IDA* algorithm and different heuristics. I also learned how to create a non-blocking UI when you have time-consuming computations since the IDA* algorithm can take quite some time.
 
-2. Then add a new key/value and description
+Since I want this app to support different languages, I learned about how to set up localization in Flutter. Now supporting new languages is just a matter of adding a configuration file.
 
-```arb
-{
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    },
-    "helloWorld": "Hello World",
-    "@helloWorld": {
-        "description": "Hello World Text"
-    }
-}
-```
+## What's next for themed_puzzle
 
-3. Use the new string
+I want to make the game more enjoyable by adding more features like a timer or using images as the tiles (basically what the dashatar theme does). We can also change the size of the puzzle, or even create a 3D puzzle (using transformations and gesture detectors). Or we can create other similar games (like crossword) and reuse most of the code in this project.
 
-```dart
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+For the design side of things, I was thinking of adding a theme generator (or configurator) that lets people find the theme they like the most. I may also add more animations to the game similar to the translation of the tiles in the dashatar theme.
 
-@override
-Widget build(BuildContext context) {
-  final l10n = context.l10n;
-  return Text(l10n.helloWorld);
-}
-```
-
-### Adding Supported Locales
-
-Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info.plist` to include the new locale.
-
-```xml
-    ...
-
-    <key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>es</string>
-	</array>
-
-    ...
-```
-
-### Adding Translations
-
-1. For each supported locale, add a new ARB file in `lib/l10n/arb`.
-
-```
-├── l10n
-│   ├── arb
-│   │   ├── app_en.arb
-│   │   └── app_es.arb
-```
-
-2. Add the translated strings to each `.arb` file:
-
-`app_en.arb`
-
-```arb
-{
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
-}
-```
-
-`app_es.arb`
-
-```arb
-{
-    "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
-}
-```
-
-[coverage_badge]: coverage_badge.svg
-[flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
-[internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
-[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
-[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
-[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
-[very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
-[very_good_ventures_link]: https://verygood.ventures/
-[logo]: art/header.png
+For the puzzle solver, I know that using different heuristics or even a preloaded pattern database can greatly improve the performance. If time permits, I really want to implement these ideas.

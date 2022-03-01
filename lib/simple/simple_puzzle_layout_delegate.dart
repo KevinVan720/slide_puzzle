@@ -565,10 +565,10 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
   ///The actual computation of solving the puzzle
   ///The compute() method on the web is not working as expected so the UI would block.
-  static List<Tile> solvePuzzleComputation(Puzzle puzzle) {
+  static List<Puzzle> solvePuzzleComputation(Puzzle puzzle) {
     var solver = PuzzleSolver(
         startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
-    List<Tile> rst = solver.IDAstar().values.toList();
+    List<Puzzle> rst = solver.IDAstar().keys.toList();
     rst.removeAt(0);
     return rst;
   }
@@ -584,7 +584,8 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
     ///Only the last 20 steps or so are solved by IDA*, the previous moves just rewind
     ///I do this because the IDA* method can be really slow on some puzzle config which
-    ///will behave terrible on the web.
+    ///will behave terrible on the web because the compute method is not working on the
+    ///web right now.
     int relaxMoves = 16;
 
     if (history.length > relaxMoves) {
@@ -594,28 +595,35 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
     context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(true));
 
-    ///Rewind the puzzle and then solve it
+
     await compute(solvePuzzleComputation, puzzle).then((value) async {
+      ///Rewind the puzzle until the move from the solution is not too far away
       if (history.length > relaxMoves) {
         int rewindMoves = history.length - relaxMoves;
-
-        ///push the rewind puzzle states with 1 sec interval
-        await Future.forEach(
-            history.sublist(0, rewindMoves),
-            (List<Tile> tiles) =>
-                Future.delayed(const Duration(milliseconds: 1000), () {
-                  context
-                      .read<PuzzleBloc>()
-                      .add(PuzzleReset(Puzzle(tiles: tiles)));
-                }));
+        history=history.sublist(0, rewindMoves)+value.map((e) => e.tiles).toList();
+        history=removeRedundantMoves(history);
+      }else{
+        history=value.map((e) => e.tiles).toList();
       }
 
+      ///push the puzzle states with 1 sec interval
+      await Future.forEach(
+          history,
+              (List<Tile> tiles) =>
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                context
+                    .read<PuzzleBloc>()
+                    .add(PuzzleReset(Puzzle(tiles: tiles)));
+              }));
+        /*
       ///push the solved puzzle states with 1 sec interval
       await Future.forEach(
           value,
           (Tile t) => Future.delayed(const Duration(milliseconds: 1000), () {
                 context.read<PuzzleBloc>().add(TileTapped(t));
               }));
+
+         */
     });
 
     context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(false));
