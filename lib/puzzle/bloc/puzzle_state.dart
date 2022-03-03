@@ -4,20 +4,17 @@ part of 'puzzle_bloc.dart';
 
 enum PuzzleStatus { incomplete, complete }
 
-enum PuzzleDifficulty { easy, hard }
-
 enum TileMovementStatus { nothingTapped, cannotBeMoved, moved }
 
 class PuzzleState extends Equatable {
   const PuzzleState({
     this.puzzle = const Puzzle(tiles: [], tilesHistory: []),
     this.puzzleStatus = PuzzleStatus.incomplete,
-    this.puzzleDifficulty = PuzzleDifficulty.hard,
-    this.isAutoSolving = false,
     this.tileMovementStatus = TileMovementStatus.nothingTapped,
     this.numberOfCorrectTiles = 0,
     this.numberOfMoves = 0,
     this.lastTappedTile,
+    this.isAutoSolving = false,
   });
 
   /// [Puzzle] containing the current tile arrangement.
@@ -26,11 +23,7 @@ class PuzzleState extends Equatable {
   /// Status indicating the current state of the puzzle.
   final PuzzleStatus puzzleStatus;
 
-  ///
   final bool isAutoSolving;
-
-  /// Status indicating the current state of the puzzle.
-  final PuzzleDifficulty puzzleDifficulty;
 
   /// Status indicating if a [Tile] was moved or why a [Tile] was not moved.
   final TileMovementStatus tileMovementStatus;
@@ -58,7 +51,6 @@ class PuzzleState extends Equatable {
     Puzzle? puzzle,
     PuzzleStatus? puzzleStatus,
     bool? isAutoSolving,
-    PuzzleDifficulty? puzzleDifficulty,
     TileMovementStatus? tileMovementStatus,
     int? numberOfCorrectTiles,
     int? numberOfMoves,
@@ -68,7 +60,6 @@ class PuzzleState extends Equatable {
       puzzle: puzzle ?? this.puzzle,
       puzzleStatus: puzzleStatus ?? this.puzzleStatus,
       isAutoSolving: isAutoSolving ?? this.isAutoSolving,
-      puzzleDifficulty: puzzleDifficulty ?? this.puzzleDifficulty,
       tileMovementStatus: tileMovementStatus ?? this.tileMovementStatus,
       numberOfCorrectTiles: numberOfCorrectTiles ?? this.numberOfCorrectTiles,
       numberOfMoves: numberOfMoves ?? this.numberOfMoves,
@@ -80,7 +71,6 @@ class PuzzleState extends Equatable {
   List<Object?> get props => [
         puzzle,
         puzzleStatus,
-        puzzleDifficulty,
         isAutoSolving,
         tileMovementStatus,
         numberOfCorrectTiles,

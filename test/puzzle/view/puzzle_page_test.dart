@@ -19,12 +19,12 @@ import '../../helpers/helpers.dart';
 void main() {
   group('PuzzlePage', () {
     testWidgets('renders PuzzleView', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(PuzzleGamePage());
       expect(find.byType(PuzzleView), findsOneWidget);
     });
 
     testWidgets('provides all Dashatar themes to PuzzleView', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(PuzzleGamePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -44,7 +44,7 @@ void main() {
 
     testWidgets('provides correct initial themes to PuzzleView',
         (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(PuzzleGamePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -63,7 +63,7 @@ void main() {
     testWidgets(
         'provides DashatarPuzzleBloc '
         'with secondsToBegin equal to 3', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(PuzzleGamePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -80,7 +80,7 @@ void main() {
     testWidgets(
         'provides TimerBloc '
         'with initial state', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(PuzzleGamePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));
@@ -94,7 +94,7 @@ void main() {
     testWidgets(
         'provides AudioControlBloc '
         'with initial state', (tester) async {
-      await tester.pumpApp(PuzzlePage());
+      await tester.pumpApp(PuzzleGamePage());
 
       final BuildContext puzzleViewContext =
           tester.element(find.byType(PuzzleView));

@@ -49,9 +49,9 @@ class InverseDistanceHeuristic extends Heuristic {
                 (a.currentPosition.x - b.currentPosition.x))
             .toInt());
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < puzzle1.tiles.length; i++) {
       if (rowTiles[i].isWhitespace) continue;
-      for (int j = i + 1; j < 16; j++) {
+      for (int j = i + 1; j < puzzle1.tiles.length; j++) {
         if (!rowTiles[j].isWhitespace &&
             rowTiles[i].value > rowTiles[j].value) {
           invCount += 1;
@@ -62,9 +62,9 @@ class InverseDistanceHeuristic extends Heuristic {
     rst += invCount ~/ 3 + invCount % 3;
     invCount = 0;
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < puzzle1.tiles.length; i++) {
       if (columnTiles[i].isWhitespace) continue;
-      for (int j = i + 1; j < 16; j++) {
+      for (int j = i + 1; j < puzzle1.tiles.length; j++) {
         if (!columnTiles[j].isWhitespace &&
             columnTiles[i].value > columnTiles[j].value) invCount += 1;
       }

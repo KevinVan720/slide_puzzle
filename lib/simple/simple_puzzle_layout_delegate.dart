@@ -16,6 +16,7 @@ import 'package:very_good_slide_puzzle/puzzle_solver/puzzle_solver.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -47,8 +48,12 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const SimplePuzzleControls(),
-          medium: (_, child) => const SimplePuzzleControls(),
+          small: (_, child) => SimplePuzzleControls(
+            key: const Key('simple_puzzle_controls'),
+          ),
+          medium: (_, child) => SimplePuzzleControls(
+            key: const Key('simple_puzzle_controls'),
+          ),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -107,7 +112,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ),
         ResponsiveLayoutBuilder(
           small: (_, __) => SizedBox.square(
-            dimension: _BoardSize.small,
+            dimension: _TileSize.small * size + _TileGapSize.small * (size - 1),
             child: SimplePuzzleBoard(
               //key: const Key('simple_puzzle_board_small'),
               size: size,
@@ -116,7 +121,8 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
           ),
           medium: (_, __) => SizedBox.square(
-            dimension: _BoardSize.medium,
+            dimension:
+                _TileSize.medium * size + _TileGapSize.medium * (size - 1),
             child: SimplePuzzleBoard(
               //key: const Key('simple_puzzle_board_medium'),
               size: size,
@@ -124,7 +130,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
             ),
           ),
           large: (_, __) => SizedBox.square(
-            dimension: _BoardSize.large,
+            dimension: _TileSize.large * size + _TileGapSize.large * (size - 1),
             child: SimplePuzzleBoard(
               //key: const Key('simple_puzzle_board_large'),
               size: size,
@@ -221,7 +227,9 @@ class SimpleStartSection extends StatelessWidget {
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => const SimplePuzzleControls(),
+          large: (_, __) => SimplePuzzleControls(
+            key: const Key('simple_puzzle_controls'),
+          ),
         ),
       ],
     );
@@ -256,10 +264,16 @@ class SimplePuzzleTitle extends StatelessWidget {
   }
 }
 
-abstract class _BoardSize {
-  static double small = 312;
-  static double medium = 424;
-  static double large = 472;
+abstract class _TileSize {
+  static double small = 72;
+  static double medium = 100;
+  static double large = 112;
+}
+
+abstract class _TileGapSize {
+  static double small = 4;
+  static double medium = 8;
+  static double large = 8;
 }
 
 /// {@template simple_puzzle_board}
@@ -287,10 +301,8 @@ class SimplePuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print("board rebuild");
-
     return GridView.count(
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.all(3),
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: size,
@@ -432,20 +444,29 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 }
 
 class SimplePuzzleControls extends StatefulWidget {
-  const SimplePuzzleControls({Key? key}) : super(key: key);
+  SimplePuzzleControls({Key? key}) : super(key: key);
+
   @override
   _SimplePuzzleControlsState createState() => _SimplePuzzleControlsState();
 }
 
 class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   ///The async process of solving and updating the puzzle
+
   Future<void>? getSolutionAndUpdatePuzzle;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _difficultySelectButtons(),
+        const ResponsiveGap(
+          small: 20,
+          medium: 20,
+          large: 32,
+        ),
+        _sizeSelectButtons(),
         const ResponsiveGap(
           small: 20,
           medium: 20,
@@ -465,6 +486,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   Widget _difficultySelectButtons() {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         _difficultySelectButton(PuzzleDifficulty.easy),
         _difficultySelectButton(PuzzleDifficulty.hard),
@@ -475,6 +497,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   Widget _difficultySelectButton(PuzzleDifficulty difficulty) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
     final selectedStyle = theme.menuActiveStyle.toTextStyle(
         screenSize: MediaQuery.of(context).size,
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
@@ -485,19 +508,61 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
       style: ButtonStyle(
           overlayColor:
               MaterialStateProperty.all(theme.popupMenuBackgroundColor)),
-      onPressed: state.puzzleDifficulty == difficulty
+      onPressed: gameConfig.puzzleDifficulty == difficulty
           ? null
           : () {
-              context.read<PuzzleBloc>().add(PuzzleSetDifficulty(difficulty));
+              context
+                  .read<GameConfigBloc>()
+                  .add(PuzzleSetDifficulty(difficulty));
             },
       child: AnimatedDefaultTextStyle(
-        style: state.puzzleDifficulty == difficulty
+        style: gameConfig.puzzleDifficulty == difficulty
             ? selectedStyle.merge(PuzzleTextStyle.bodySmall)
             : unselectedStyle.merge(PuzzleTextStyle.bodySmall),
         duration: PuzzleThemeAnimationDuration.textStyle,
         child: difficulty == PuzzleDifficulty.easy
             ? Text(context.l10n.puzzleDifficultyEasy)
             : Text(context.l10n.puzzleDifficultyHard),
+      ),
+    );
+  }
+
+  Widget _sizeSelectButtons() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        _sizeSelectButton(3),
+        _sizeSelectButton(4),
+        _sizeSelectButton(5),
+      ],
+    );
+  }
+
+  Widget _sizeSelectButton(int size) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
+    final selectedStyle = theme.menuActiveStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
+    final unselectedStyle = theme.menuInactiveStyle.toTextStyle(
+        screenSize: MediaQuery.of(context).size,
+        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
+    return TextButton(
+      style: ButtonStyle(
+          overlayColor:
+              MaterialStateProperty.all(theme.popupMenuBackgroundColor)),
+      onPressed: gameConfig.puzzleSize == size
+          ? null
+          : () {
+              context.read<GameConfigBloc>().add(PuzzleSetSize(size));
+            },
+      child: AnimatedDefaultTextStyle(
+        style: gameConfig.puzzleSize == size
+            ? selectedStyle.merge(PuzzleTextStyle.bodySmall)
+            : unselectedStyle.merge(PuzzleTextStyle.bodySmall),
+        duration: PuzzleThemeAnimationDuration.textStyle,
+        child: Text(size.toString() + "×" + size.toString()),
       ),
     );
   }
@@ -604,6 +669,10 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
         history = removeRedundantMoves(history);
       } else {
         history = value.map((e) => e.tiles).toList();
+      }
+
+      for (int i = 0; i < history.length; i++) {
+        Puzzle(tiles: history[i]).prettyPrint();
       }
 
       ///push the puzzle states with 1 sec interval

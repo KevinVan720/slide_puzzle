@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
+import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 
 class App extends StatefulWidget {
   const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})
@@ -172,10 +173,14 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LocaleBloc(),
-      child: const HomePage(),
-    );
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => LocaleBloc(),
+      ),
+      BlocProvider(
+        create: (_) => GameConfigBloc()..add(const PuzzleSetSize(4)),
+      )
+    ], child: const HomePage());
   }
 }
 
@@ -202,7 +207,7 @@ class HomePage extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       locale: localeState.locale,
-      home: const PuzzlePage(),
+      home: PuzzleGamePage(),
     );
   }
 }

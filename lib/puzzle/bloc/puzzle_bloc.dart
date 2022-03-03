@@ -1,24 +1,36 @@
 // ignore_for_file: public_member_api_docs
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this._size, {this.random}) : super(const PuzzleState()) {
+  PuzzleBloc(this.gameConfigBloc, {this.random}) : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
-    on<PuzzleSetDifficulty>(_onPuzzleSetDifficulty);
     on<PuzzleAutoSolvingUpdate>(_onPuzzleAutoSolvingUpdate);
+    gameConfigStreamSubscription = gameConfigBloc.stream.listen((state) {
+      _size = state.puzzleSize;
+      _difficulty = state.puzzleDifficulty;
+      _initializePuzzle(true);
+    });
   }
 
-  final int _size;
+  final GameConfigBloc gameConfigBloc;
+
+  late final StreamSubscription gameConfigStreamSubscription;
+
+  int _size = 4;
+
+  PuzzleDifficulty _difficulty = PuzzleDifficulty.hard;
 
   final Random? random;
 
@@ -26,38 +38,17 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     PuzzleInitialized event,
     Emitter<PuzzleState> emit,
   ) {
-    final puzzle = _generatePuzzle(_size,
-        shuffle: event.shufflePuzzle, difficulty: state.puzzleDifficulty);
+    _initializePuzzle(event.shufflePuzzle);
+  }
+
+  void _initializePuzzle(bool shufflePuzzle) {
+    final puzzle = _generatePuzzle(_size, shuffle: shufflePuzzle);
     emit(
       PuzzleState(
         puzzle: puzzle.sort(),
         numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
       ),
     );
-  }
-
-  void _onPuzzleSetDifficulty(
-    PuzzleSetDifficulty event,
-    Emitter<PuzzleState> emit,
-  ) {
-    emit(
-      state.copyWith(puzzleDifficulty: event.puzzleDifficulty),
-    );
-  }
-
-  void _onPuzzleAutoSolvingUpdate(
-    PuzzleAutoSolvingUpdate event,
-    Emitter<PuzzleState> emit,
-  ) {
-    if (event.isAutoSolving) {
-      emit(
-        state.copyWith(isAutoSolving: event.isAutoSolving, numberOfMoves: 0),
-      );
-    } else {
-      emit(
-        state.copyWith(isAutoSolving: event.isAutoSolving),
-      );
-    }
   }
 
   void _onTileTapped(TileTapped event, Emitter<PuzzleState> emit) {
@@ -104,23 +95,23 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   ///If reset to some given puzzle, don't reset the moves.
   void _onPuzzleReset(PuzzleReset event, Emitter<PuzzleState> emit) {
-    Puzzle puzzle = event.puzzle ??
-        _generatePuzzle(_size, difficulty: state.puzzleDifficulty);
+    Puzzle puzzle = event.puzzle ?? _generatePuzzle(_size);
     emit(
       PuzzleState(
-        puzzle: puzzle.sort(),
-        isAutoSolving: state.isAutoSolving,
-        numberOfMoves: event.puzzle == null ? 0 : state.numberOfMoves + 1,
-        numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
-        puzzleDifficulty: state.puzzleDifficulty,
-      ),
+          puzzle: puzzle.sort(),
+          numberOfMoves: event.puzzle == null ? 0 : state.numberOfMoves + 1,
+          numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
+          puzzleStatus: puzzle.isComplete()
+              ? PuzzleStatus.complete
+              : PuzzleStatus.incomplete,
+          tileMovementStatus: puzzle.isComplete()
+              ? TileMovementStatus.cannotBeMoved
+              : state.tileMovementStatus),
     );
   }
 
   /// Build a randomized, solvable puzzle of the given size.
-  Puzzle _generatePuzzle(int size,
-      {bool shuffle = true,
-      PuzzleDifficulty difficulty = PuzzleDifficulty.hard}) {
+  Puzzle _generatePuzzle(int size, {bool shuffle = true}) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
     final whitespacePosition = Position(x: size, y: size);
@@ -155,7 +146,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     int correctTile;
 
     ///hard coded difficulty settings
-    switch (difficulty) {
+    switch (_difficulty) {
       case PuzzleDifficulty.easy:
         correctTile = 5;
         break;
@@ -208,5 +199,22 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
             currentPosition: currentPositions[i - 1],
           )
     ];
+  }
+
+  void _onPuzzleAutoSolvingUpdate(
+    PuzzleAutoSolvingUpdate event,
+    Emitter<PuzzleState> emit,
+  ) {
+    emit(
+      state.copyWith(
+          numberOfMoves: event.isAutoSolving ? 0 : state.numberOfMoves,
+          isAutoSolving: event.isAutoSolving),
+    );
+  }
+
+  @override
+  Future<void> close() {
+    gameConfigStreamSubscription.cancel();
+    return super.close();
   }
 }

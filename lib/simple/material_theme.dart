@@ -43,122 +43,59 @@ class MaterialTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
-        smallScreen: defaultBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary6),
-        ),
-        middleScreen: defaultBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 32.toPXLength,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary6),
-        ),
-        largeScreen: defaultBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 36.toPXLength,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary6),
-        ),
+        smallScreen: _buttonStyle.copyWith(
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            textStyle: _buttonStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.small)),
+        middleScreen: _buttonStyle.copyWith(
+            width: _TileDimension.medium,
+            height: _TileDimension.medium,
+            textStyle: _buttonStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.medium)),
+        largeScreen: _buttonStyle.copyWith(
+            width: _TileDimension.large,
+            height: _TileDimension.large,
+            textStyle: _buttonStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.large)),
       });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-        smallScreen: defaultBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: Colors.grey.shade50,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary5),
-        ),
-        middleScreen: defaultBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 32.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: Colors.grey.shade50,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary5),
-        ),
-        largeScreen: defaultBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 36.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: Colors.grey.shade50,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary5),
-        ),
+        smallScreen: _hoverStyle.copyWith(
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            textStyle: _hoverStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.small)),
+        middleScreen: _hoverStyle.copyWith(
+            width: _TileDimension.medium,
+            height: _TileDimension.medium,
+            textStyle: _hoverStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.medium)),
+        largeScreen: _hoverStyle.copyWith(
+            width: _TileDimension.large,
+            height: _TileDimension.large,
+            textStyle: _hoverStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.large)),
       });
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-        smallScreen: defaultBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: Colors.grey.shade50,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary4),
-        ),
-        middleScreen: defaultBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 32.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: Colors.grey.shade50,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary4),
-        ),
-        largeScreen: defaultBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 36.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: Colors.grey.shade50,
-          ),
-          backgroundDecoration:
-              const BoxDecoration(color: PuzzleColors.primary4),
-        ),
+        smallScreen: _pressedStyle.copyWith(
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            textStyle: _pressedStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.small)),
+        middleScreen: _pressedStyle.copyWith(
+            width: _TileDimension.medium,
+            height: _TileDimension.medium,
+            textStyle: _pressedStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.medium)),
+        largeScreen: _pressedStyle.copyWith(
+            width: _TileDimension.large,
+            height: _TileDimension.large,
+            textStyle: _pressedStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.large)),
       });
 
   @override
@@ -190,7 +127,7 @@ class MaterialTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
-final defaultBaseStyle = Style(
+final _baseStyle = Style(
     alignment: Alignment.center,
     childAlignment: Alignment.center,
     backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
@@ -198,3 +135,46 @@ final defaultBaseStyle = Style(
         borderRadius: DynamicBorderRadius.all(
             DynamicRadius.circular(Length(10, unit: LengthUnit.px)))),
     mouseCursor: SystemMouseCursors.click);
+
+final _buttonStyle = _baseStyle.copyWith(
+  textStyle: DynamicTextStyle(
+    letterSpacing: 1.toPXLength,
+    fontSize: 28.toPXLength,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  ),
+  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
+);
+
+final _hoverStyle = _baseStyle.copyWith(
+  textStyle: DynamicTextStyle(
+    letterSpacing: 1.toPXLength,
+    fontSize: 36.toPXLength,
+    fontWeight: FontWeight.w700,
+    color: Colors.grey.shade50,
+  ),
+  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary5),
+);
+
+final _pressedStyle = _baseStyle.copyWith(
+  textStyle: DynamicTextStyle(
+    letterSpacing: 1.toPXLength,
+    fontSize: 36.toPXLength,
+    fontWeight: FontWeight.w900,
+    color: Colors.grey.shade50,
+  ),
+  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary4),
+);
+
+abstract class _TileDimension {
+  static Dimension small = Dimension.min(72.0.toPXLength, 100.toPercentLength);
+  static Dimension medium =
+      Dimension.min(100.0.toPXLength, 100.toPercentLength);
+  static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
+}
+
+abstract class _TileTextDimension {
+  static Dimension small = Dimension.min(28.0.toPXLength, 20.toVWLength);
+  static Dimension medium = Dimension.min(40.0.toPXLength, 20.toVWLength);
+  static Dimension large = Dimension.min(52.0.toPXLength, 20.toVWLength);
+}

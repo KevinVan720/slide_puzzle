@@ -30,7 +30,7 @@ void main() {
 
       await tester.pump(const Duration(milliseconds: 20));
 
-      expect(find.byType(PuzzlePage), findsOneWidget);
+      expect(find.byType(PuzzleGamePage), findsOneWidget);
     });
 
     testWidgets(

@@ -31,7 +31,7 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-        color: PuzzleColors.green50,
+        color: PuzzleColors.black,
         fontFamily: "BalooThambi2",
         fontWeight: FontWeight.bold,
       );
@@ -50,17 +50,17 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
-        smallScreen: neumorphicBaseStyle.copyWith(
-          width: 52.0.toPXLength,
-          height: 52.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           shapeBorder: RectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
         ),
-        middleScreen: neumorphicBaseStyle.copyWith(
-          width: 80.0.toPXLength,
-          height: 80.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
             fontSize: 24.toPXLength,
@@ -69,9 +69,9 @@ class NeumorphicTheme extends SimpleTheme {
             color: Colors.grey,
           ),
         ),
-        largeScreen: neumorphicBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
             fontSize: 28.toPXLength,
@@ -84,9 +84,9 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-        smallScreen: neumorphicBaseStyle.copyWith(
-          width: 52.0.toPXLength,
-          height: 52.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           shapeBorder: RectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
@@ -104,9 +104,9 @@ class NeumorphicTheme extends SimpleTheme {
                 offset: Offset(-4, -4)),
           ],
         ),
-        middleScreen: neumorphicBaseStyle.copyWith(
-          width: 80.0.toPXLength,
-          height: 80.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           shadows: [
             ShapeShadow(
                 blurRadius: 6,
@@ -127,9 +127,9 @@ class NeumorphicTheme extends SimpleTheme {
             color: Colors.grey,
           ),
         ),
-        largeScreen: neumorphicBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           shadows: [
             ShapeShadow(
                 blurRadius: 6,
@@ -154,9 +154,9 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-        smallScreen: neumorphicBaseStyle.copyWith(
-          width: 52.0.toPXLength,
-          height: 52.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           shapeBorder: RectangleShapeBorder(
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
@@ -175,9 +175,9 @@ class NeumorphicTheme extends SimpleTheme {
                 offset: Offset(-10, -10)),
           ],
         ),
-        middleScreen: neumorphicBaseStyle.copyWith(
-          width: 80.0.toPXLength,
-          height: 80.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           shadows: [],
           insetShadows: [
             ShapeShadow(
@@ -199,9 +199,9 @@ class NeumorphicTheme extends SimpleTheme {
             color: Colors.grey,
           ),
         ),
-        largeScreen: neumorphicBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           shadows: [],
           insetShadows: [
             ShapeShadow(
@@ -253,7 +253,7 @@ class NeumorphicTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
-final neumorphicBaseStyle = Style(
+final _baseStyle = Style(
     alignment: Alignment.center,
     childAlignment: Alignment.center,
     //margin: EdgeInsets.all(6),
@@ -286,3 +286,9 @@ final neumorphicBaseStyle = Style(
     ),
     textAlign: TextAlign.center,
     mouseCursor: SystemMouseCursors.click);
+
+abstract class _TileDimension {
+  static Dimension small = Dimension.min(54.0.toPXLength, 100.toPercentLength);
+  static Dimension medium = Dimension.min(86.0.toPXLength, 100.toPercentLength);
+  static Dimension large = Dimension.min(104.0.toPXLength, 100.toPercentLength);
+}

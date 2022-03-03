@@ -253,13 +253,13 @@ class Puzzle extends Equatable {
       });
 
     String s = "";
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < tiles.length; i++) {
       if (sortedTiles[i].isWhitespace) {
         s += "|  ";
       } else {
         s += "|" + sortedTiles[i].value.toString().padLeft(2);
       }
-      if (i % 4 == 3) {
+      if (i % getDimension() == (getDimension() - 1)) {
         print(s + "|");
         s = "";
       }

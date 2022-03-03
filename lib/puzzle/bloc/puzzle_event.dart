@@ -18,15 +18,6 @@ class PuzzleInitialized extends PuzzleEvent {
   List<Object> get props => [shufflePuzzle];
 }
 
-class PuzzleSetDifficulty extends PuzzleEvent {
-  const PuzzleSetDifficulty(this.puzzleDifficulty);
-
-  final PuzzleDifficulty puzzleDifficulty;
-
-  @override
-  List<Object> get props => [puzzleDifficulty];
-}
-
 class TileTapped extends PuzzleEvent {
   const TileTapped(this.tile);
 
@@ -46,4 +37,7 @@ class PuzzleAutoSolvingUpdate extends PuzzleEvent {
   const PuzzleAutoSolvingUpdate(this.isAutoSolving);
 
   final bool isAutoSolving;
+
+  @override
+  List<Object> get props => [isAutoSolving];
 }

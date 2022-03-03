@@ -8,7 +8,7 @@ class PuzzleTextStyle {
   /// Headline 1 text style
   static TextStyle get headline1 {
     return _baseTextStyle.copyWith(
-      fontSize: 74,
+      fontSize: 70,
       fontWeight: PuzzleFontWeight.bold,
     );
   }
@@ -16,7 +16,7 @@ class PuzzleTextStyle {
   /// Headline 2 text style
   static TextStyle get headline2 {
     return _baseTextStyle.copyWith(
-      fontSize: 54,
+      fontSize: 42,
       height: 1.1,
       fontWeight: PuzzleFontWeight.bold,
     );

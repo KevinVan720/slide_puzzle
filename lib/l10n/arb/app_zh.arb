@@ -2,7 +2,7 @@
     "@@locale": "zh",
     "puzzleChangeTooltip": "更改主题不会重置你的分数",
     "puzzleRestartTooltip": "重置拼图会重置你的分数",
-    "puzzleChallengeTitle": "滑动拼图\n挑战",
+    "puzzleChallengeTitle": "滑动拼图挑战",
     "puzzleNumberOfMoves": "步骤",
     "puzzleNumberOfTilesLeft": "块",
     "puzzleDifficultyEasy": "简单",

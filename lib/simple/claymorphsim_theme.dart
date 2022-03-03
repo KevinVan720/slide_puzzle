@@ -66,25 +66,25 @@ class ClaymorphismTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
-        smallScreen: claymorphsimBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
         ),
-        middleScreen: claymorphsimBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
         ),
-        largeScreen: claymorphsimBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
         )
       });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-        smallScreen: claymorphsimBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           transform: SmoothMatrix4()..scale(0.97),
           shadows: [
             ShapeShadow(
@@ -94,9 +94,9 @@ class ClaymorphismTheme extends SimpleTheme {
                 offset: const Offset(2, 2)),
           ],
         ),
-        middleScreen: claymorphsimBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           transform: SmoothMatrix4()..scale(0.97),
           shadows: [
             ShapeShadow(
@@ -106,9 +106,9 @@ class ClaymorphismTheme extends SimpleTheme {
                 offset: const Offset(2, 2)),
           ],
         ),
-        largeScreen: claymorphsimBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           transform: SmoothMatrix4()..scale(0.97),
           shadows: [
             ShapeShadow(
@@ -122,9 +122,9 @@ class ClaymorphismTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-        smallScreen: claymorphsimBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           transform: SmoothMatrix4()..scale(0.94),
           shadows: [
             ShapeShadow(
@@ -134,9 +134,9 @@ class ClaymorphismTheme extends SimpleTheme {
                 offset: const Offset(1, 1)),
           ],
         ),
-        middleScreen: claymorphsimBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           transform: SmoothMatrix4()..scale(0.94),
           shadows: [
             ShapeShadow(
@@ -146,9 +146,9 @@ class ClaymorphismTheme extends SimpleTheme {
                 offset: const Offset(1, 1)),
           ],
         ),
-        largeScreen: claymorphsimBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           transform: SmoothMatrix4()..scale(0.94),
           shadows: [
             ShapeShadow(
@@ -190,7 +190,7 @@ class ClaymorphismTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
-final claymorphsimBaseStyle = Style(
+final _baseStyle = Style(
     alignment: Alignment.center,
     transformAlignment: Alignment.center,
     shadows: [
@@ -228,3 +228,10 @@ final claymorphsimBaseStyle = Style(
     ),
     childAlignment: Alignment.center,
     mouseCursor: SystemMouseCursors.click);
+
+abstract class _TileDimension {
+  static Dimension small = Dimension.min(72.0.toPXLength, 100.toPercentLength);
+  static Dimension medium =
+      Dimension.min(100.0.toPXLength, 100.toPercentLength);
+  static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
+}

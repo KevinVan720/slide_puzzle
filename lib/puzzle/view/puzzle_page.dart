@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+import 'package:very_good_slide_puzzle/game_config/bloc/game_config_bloc.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/simple/neumorphic_theme.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
@@ -21,12 +21,14 @@ import 'package:very_good_slide_puzzle/typography/typography.dart';
 /// Builds the puzzle based on the current [PuzzleTheme]
 /// from [ThemeBloc].
 /// {@endtemplate}
-class PuzzlePage extends StatelessWidget {
+class PuzzleGamePage extends StatelessWidget {
   /// {@macro puzzle_page}
-  const PuzzlePage({Key? key}) : super(key: key);
+  const PuzzleGamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final gameConfigBloc = context.select((GameConfigBloc bloc) => bloc);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -55,7 +57,8 @@ class PuzzlePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => PuzzleBloc(4, random: Random())
+          lazy: false,
+          create: (context) => PuzzleBloc(gameConfigBloc, random: Random())
             ..add(
               const PuzzleInitialized(
                 shufflePuzzle: true,
@@ -99,6 +102,7 @@ class _Puzzle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
 
     return AbsorbPointer(
       absorbing: state.isAutoSolving,
@@ -263,11 +267,13 @@ class PuzzleSections extends StatelessWidget {
       large: (context, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          Flexible(
+            flex: 2,
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
           const PuzzleBoard(),
-          Expanded(
+          Flexible(
+            flex: 1,
             child: theme.layoutDelegate.endSectionBuilder(state),
           ),
         ],
@@ -288,11 +294,12 @@ class PuzzleBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
+    final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
 
     final size = puzzle.getDimension();
     if (size == 0) return const CircularProgressIndicator();
 
-    var board=BlocListener<PuzzleBloc, PuzzleState>(
+    var board = BlocListener<PuzzleBloc, PuzzleState>(
       listener: (context, state) {
         if (theme.hasTimer && state.puzzleStatus == PuzzleStatus.complete) {
           context.read<TimerBloc>().add(const TimerStopped());
@@ -303,17 +310,17 @@ class PuzzleBoard extends StatelessWidget {
         puzzle.tiles
             .map(
               (tile) => _PuzzleTile(
-            key: Key('puzzle_tile_${tile.value.toString()}'),
-            tile: tile,
-          ),
-        )
+                key: Key('puzzle_tile_${tile.value.toString()}'),
+                tile: tile,
+              ),
+            )
             .toList(),
       ),
     );
 
     if (context.select((PuzzleBloc bloc) => bloc.state).isAutoSolving) {
       return board;
-    }else{
+    } else {
       return PuzzleKeyboardHandler(
         child: board,
       );

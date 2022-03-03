@@ -1,2 +1,2 @@
 export 'heuristic.dart';
-export 'solver.dart';
+export 'IDA_solver.dart';

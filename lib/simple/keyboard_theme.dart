@@ -26,12 +26,14 @@ class KeyboardTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
-  DynamicTextStyle get nameTextStyle =>
-      const DynamicTextStyle(color: PuzzleColors.grey1);
+  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
+        color: PuzzleColors.grey1,
+        fontStyle: FontStyle.italic,
+      );
 
   @override
   DynamicTextStyle get titleTextStyle => DynamicTextStyle(
-      color: Colors.teal.shade100,
+      color: Colors.teal,
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold);
 
@@ -44,39 +46,41 @@ class KeyboardTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-          backgroundDecoration: const BoxDecoration(color: Colors.redAccent),
+          backgroundDecoration: BoxDecoration(color: Colors.redAccent.shade100),
         ),
       });
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
-        smallScreen: keyBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
+          padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
               fontSize: 20.toPXLength,
               color: Colors.teal,
               fontWeight: FontWeight.w800),
         ),
-        middleScreen: keyBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
               fontSize: 24.toPXLength,
               color: Colors.teal,
               fontWeight: FontWeight.w800),
         ),
-        largeScreen: keyBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
         )
       });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-        smallScreen: keyBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
+          padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
               fontSize: 20.toPXLength,
               color: Colors.teal,
@@ -100,9 +104,9 @@ class KeyboardTheme extends SimpleTheme {
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
         ),
-        middleScreen: keyBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
               fontSize: 24.toPXLength,
               color: Colors.teal,
@@ -126,9 +130,9 @@ class KeyboardTheme extends SimpleTheme {
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
         ),
-        largeScreen: keyBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           shadows: [
             ShapeShadow(
                 blurRadius: 10,
@@ -152,9 +156,10 @@ class KeyboardTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-        smallScreen: keyBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
+          padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
               fontSize: 20.toPXLength,
               color: Colors.teal,
@@ -178,9 +183,9 @@ class KeyboardTheme extends SimpleTheme {
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
         ),
-        middleScreen: keyBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
               fontSize: 24.toPXLength,
               color: Colors.teal,
@@ -204,9 +209,9 @@ class KeyboardTheme extends SimpleTheme {
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -2.toPXLength),
         ),
-        largeScreen: keyBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           shadows: [
             ShapeShadow(
                 blurRadius: 3,
@@ -256,7 +261,7 @@ class KeyboardTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
-final keyBaseStyle = Style(
+final _baseStyle = Style(
     alignment: Alignment.center,
     padding: const EdgeInsets.symmetric(vertical: 20),
     backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
@@ -288,3 +293,9 @@ final keyBaseStyle = Style(
         fontWeight: FontWeight.w900),
     textAlign: TextAlign.center,
     mouseCursor: SystemMouseCursors.click);
+
+abstract class _TileDimension {
+  static Dimension small = Dimension.min(68.0.toPXLength, 96.toPercentLength);
+  static Dimension medium = Dimension.min(98.0.toPXLength, 96.toPercentLength);
+  static Dimension large = Dimension.min(110.0.toPXLength, 96.toPercentLength);
+}

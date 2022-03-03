@@ -56,25 +56,35 @@ class GlassmorphismTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
-        smallScreen: glassmorphsimBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
+            ],
+          ),
         ),
-        middleScreen: glassmorphsimBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
         ),
-        largeScreen: glassmorphsimBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
         )
       });
 
   @override
   Responsive<Style> get hoverStyle => Responsive({
-        smallScreen: glassmorphsimBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           shadows: [
             ShapeShadow(
                 spreadRadius: 2,
@@ -98,10 +108,20 @@ class GlassmorphismTheme extends SimpleTheme {
                       ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
+            ],
+          ),
         ),
-        middleScreen: glassmorphsimBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           shadows: [
             ShapeShadow(
                 spreadRadius: 2,
@@ -125,10 +145,20 @@ class GlassmorphismTheme extends SimpleTheme {
                       ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
+            ],
+          ),
         ),
-        largeScreen: glassmorphsimBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           shadows: [
             ShapeShadow(
                 spreadRadius: 2,
@@ -152,14 +182,24 @@ class GlassmorphismTheme extends SimpleTheme {
                       ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
+            ],
+          ),
         )
       });
 
   @override
   Responsive<Style> get pressedStyle => Responsive({
-        smallScreen: glassmorphsimBaseStyle.copyWith(
-          width: 72.0.toPXLength,
-          height: 72.0.toPXLength,
+        smallScreen: _baseStyle.copyWith(
+          width: _TileDimension.small,
+          height: _TileDimension.small,
           shadows: [],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -172,10 +212,20 @@ class GlassmorphismTheme extends SimpleTheme {
                   ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
+            ],
+          ),
         ),
-        middleScreen: glassmorphsimBaseStyle.copyWith(
-          width: 100.0.toPXLength,
-          height: 100.0.toPXLength,
+        middleScreen: _baseStyle.copyWith(
+          width: _TileDimension.medium,
+          height: _TileDimension.medium,
           shadows: [],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -188,10 +238,20 @@ class GlassmorphismTheme extends SimpleTheme {
                   ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
+            ],
+          ),
         ),
-        largeScreen: glassmorphsimBaseStyle.copyWith(
-          width: 112.0.toPXLength,
-          height: 112.0.toPXLength,
+        largeScreen: _baseStyle.copyWith(
+          width: _TileDimension.large,
+          height: _TileDimension.large,
           shadows: [],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -204,6 +264,16 @@ class GlassmorphismTheme extends SimpleTheme {
                   ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 0.1.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
+            ],
+          ),
         )
       });
 
@@ -240,7 +310,7 @@ class GlassmorphismTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
-final glassmorphsimBaseStyle = Style(
+final _baseStyle = Style(
     alignment: Alignment.center,
     childAlignment: Alignment.center,
     shadows: [
@@ -267,5 +337,15 @@ final glassmorphsimBaseStyle = Style(
       fontSize: 28.toPXLength,
       fontWeight: FontWeight.w900,
       color: Colors.white,
+      shadows: [
+        const Shadow(blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
+      ],
     ),
     mouseCursor: SystemMouseCursors.click);
+
+abstract class _TileDimension {
+  static Dimension small = Dimension.min(72.0.toPXLength, 100.toPercentLength);
+  static Dimension medium =
+      Dimension.min(100.0.toPXLength, 100.toPercentLength);
+  static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
+}
