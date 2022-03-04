@@ -175,6 +175,6 @@ abstract class _TileDimension {
 
 abstract class _TileTextDimension {
   static Dimension small = Dimension.min(28.0.toPXLength, 20.toVWLength);
-  static Dimension medium = Dimension.min(40.0.toPXLength, 20.toVWLength);
-  static Dimension large = Dimension.min(52.0.toPXLength, 20.toVWLength);
+  static Dimension medium = Dimension.min(36.0.toPXLength, 20.toVWLength);
+  static Dimension large = Dimension.min(42.0.toPXLength, 20.toVWLength);
 }
