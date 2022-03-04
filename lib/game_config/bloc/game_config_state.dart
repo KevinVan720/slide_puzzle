@@ -10,10 +10,10 @@ class GameConfigState extends Equatable {
     this.puzzleDifficulty = PuzzleDifficulty.hard,
   }) : assert(puzzleSize <= 5 && puzzleSize >= 2);
 
-  /// [Puzzle] containing the current tile arrangement.
+  /// The size of the puzzle
   final int puzzleSize;
 
-  /// Status indicating the current state of the puzzle.
+  /// The difficulty of the puzzle.
   final PuzzleDifficulty puzzleDifficulty;
 
   GameConfigState copyWith({

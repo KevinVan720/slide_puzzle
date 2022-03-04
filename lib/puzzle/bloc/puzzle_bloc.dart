@@ -12,11 +12,14 @@ part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this.gameConfigBloc, {this.random}) : super(const PuzzleState()) {
+  PuzzleBloc(this.gameConfigBloc, {required this.random})
+      : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
     on<PuzzleAutoSolvingUpdate>(_onPuzzleAutoSolvingUpdate);
+
+    ///when the game config changes, initialize the puzzle again
     gameConfigStreamSubscription = gameConfigBloc.stream.listen((state) {
       _size = state.puzzleSize;
       _difficulty = state.puzzleDifficulty;
@@ -32,7 +35,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   PuzzleDifficulty _difficulty = PuzzleDifficulty.hard;
 
-  final Random? random;
+  final Random random;
 
   void _onPuzzleInitialized(
     PuzzleInitialized event,
@@ -104,10 +107,28 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           puzzleStatus: puzzle.isComplete()
               ? PuzzleStatus.complete
               : PuzzleStatus.incomplete,
+          isAutoSolving: state.isAutoSolving,
           tileMovementStatus: puzzle.isComplete()
               ? TileMovementStatus.cannotBeMoved
               : state.tileMovementStatus),
     );
+  }
+
+  void _onPuzzleAutoSolvingUpdate(
+    PuzzleAutoSolvingUpdate event,
+    Emitter<PuzzleState> emit,
+  ) {
+    emit(
+      state.copyWith(
+          numberOfMoves: event.isAutoSolving ? 0 : state.numberOfMoves,
+          isAutoSolving: event.isAutoSolving),
+    );
+  }
+
+  @override
+  Future<void> close() {
+    gameConfigStreamSubscription.cancel();
+    return super.close();
   }
 
   /// Build a randomized, solvable puzzle of the given size.
@@ -130,18 +151,13 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       }
     }
 
-    /*if (shuffle) {
-      // Randomize only the current tile posistions.
-      currentPositions.shuffle(random);
-    }*/
-
     var tiles = _getTileListFromPositions(
       size,
       correctPositions,
       currentPositions,
     );
 
-    var puzzle = Puzzle(tiles: tiles, tilesHistory: []);
+    var puzzle = Puzzle(tiles: tiles, tilesHistory: const []);
 
     int correctTile;
 
@@ -164,7 +180,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         final mutablePuzzle = Puzzle(
             tiles: [...puzzle.tiles], tilesHistory: [...puzzle.tilesHistory]);
 
-        int id = random!.nextInt(_size * _size);
+        int id = random.nextInt(_size * _size);
 
         if (puzzle.isTileMovable(puzzle.tiles[id])) {
           puzzle = mutablePuzzle.moveTiles(puzzle.tiles[id], []);
@@ -199,22 +215,5 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
             currentPosition: currentPositions[i - 1],
           )
     ];
-  }
-
-  void _onPuzzleAutoSolvingUpdate(
-    PuzzleAutoSolvingUpdate event,
-    Emitter<PuzzleState> emit,
-  ) {
-    emit(
-      state.copyWith(
-          numberOfMoves: event.isAutoSolving ? 0 : state.numberOfMoves,
-          isAutoSolving: event.isAutoSolving),
-    );
-  }
-
-  @override
-  Future<void> close() {
-    gameConfigStreamSubscription.cancel();
-    return super.close();
   }
 }

@@ -102,7 +102,6 @@ class _Puzzle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
-    final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
 
     return AbsorbPointer(
       absorbing: state.isAutoSolving,
@@ -294,7 +293,6 @@ class PuzzleBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
-    final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
 
     final size = puzzle.getDimension();
     if (size == 0) return const CircularProgressIndicator();

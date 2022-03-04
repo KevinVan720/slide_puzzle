@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -79,18 +80,18 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           ),
         ),
         medium: (_, __) => SizedBox(
-          width: 380.44,
-          height: 214,
+          width: 304,
+          height: 171,
           child: Image.asset(
             'assets/images/simple_dash_medium.png',
             key: const Key('simple_puzzle_dash_medium'),
           ),
         ),
         large: (_, __) => Padding(
-          padding: const EdgeInsets.only(bottom: 53),
+          padding: const EdgeInsets.only(bottom: 33),
           child: SizedBox(
-            width: 568.99,
-            height: 320,
+            width: 380.44,
+            height: 214,
             child: Image.asset(
               'assets/images/simple_dash_large.png',
               key: const Key('simple_puzzle_dash_large'),
@@ -117,7 +118,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
               //key: const Key('simple_puzzle_board_small'),
               size: size,
               tiles: tiles,
-              spacing: 2,
+              spacing: 4,
             ),
           ),
           medium: (_, __) => SizedBox.square(
@@ -458,7 +459,12 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: Responsive({
+            smallScreen: CrossAxisAlignment.center,
+            middleScreen: CrossAxisAlignment.center,
+            largeScreen: CrossAxisAlignment.start
+          }).resolve(context) ??
+          CrossAxisAlignment.start,
       children: [
         _difficultySelectButtons(),
         const ResponsiveGap(
@@ -658,7 +664,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
       puzzle = Puzzle(tiles: history[rewindMoves - 1]);
     }
 
-    context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(true));
+    context.read<PuzzleBloc>().add(const PuzzleAutoSolvingUpdate(true));
 
     await compute(solvePuzzleComputation, puzzle).then((value) async {
       ///Rewind the puzzle until the move from the solution is not too far away
@@ -671,9 +677,9 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
         history = value.map((e) => e.tiles).toList();
       }
 
-      for (int i = 0; i < history.length; i++) {
+      /*for (int i = 0; i < history.length; i++) {
         Puzzle(tiles: history[i]).prettyPrint();
-      }
+      }*/
 
       ///push the puzzle states with 1 sec interval
       await Future.forEach(
@@ -695,7 +701,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
          */
     });
 
-    context.read<PuzzleBloc>().add(PuzzleAutoSolvingUpdate(false));
+    context.read<PuzzleBloc>().add(const PuzzleAutoSolvingUpdate(false));
 
     setState(() {
       getSolutionAndUpdatePuzzle = null;

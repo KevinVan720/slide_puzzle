@@ -9,6 +9,7 @@ abstract class GameConfigEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/// The currently puzzle size has changed.
 class PuzzleSetSize extends GameConfigEvent {
   const PuzzleSetSize(this.puzzleSize);
 
@@ -18,6 +19,7 @@ class PuzzleSetSize extends GameConfigEvent {
   List<Object> get props => [puzzleSize];
 }
 
+/// The currently puzzle difficulty has changed.
 class PuzzleSetDifficulty extends GameConfigEvent {
   const PuzzleSetDifficulty(this.puzzleDifficulty);
 

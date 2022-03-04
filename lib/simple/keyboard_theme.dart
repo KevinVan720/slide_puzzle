@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
@@ -32,7 +30,7 @@ class KeyboardTheme extends SimpleTheme {
       );
 
   @override
-  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
       color: Colors.teal,
       fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold);

@@ -18,36 +18,25 @@ abstract class PuzzleTheme extends Equatable {
   /// Whether this theme displays the puzzle timer.
   bool get hasTimer;
 
-  /// The text color of [name].
+  /// The text style of [name].
   DynamicTextStyle get nameTextStyle;
 
-  /// The text color of the puzzle title.
+  /// The text style of the puzzle title.
   DynamicTextStyle get titleTextStyle;
 
-  /// The default color of this theme.
-  ///
-  /// Applied to the text color of the score and
-  /// the default background color of puzzle tiles.
+  /// The default text style of this theme.
   DynamicTextStyle get defaultTextStyle;
 
-  /// The background color of this theme.
+  /// The background style of this theme.
   Responsive<Style> get backgroundStyle;
 
-  /// The button color of this theme.
-  ///
-  /// Applied to the background color of buttons.
+  /// The button style of this theme.
   Responsive<Style> get buttonStyle;
 
-  /// The hover color of this theme.
-  ///
-  /// Applied to the background color of a puzzle tile
-  /// that is hovered over.
+  /// The hover style of this theme.
   Responsive<Style> get hoverStyle;
 
-  /// The pressed color of this theme.
-  ///
-  /// Applied to the background color of a puzzle tile
-  /// that was pressed.
+  /// The pressed style of this theme.
   Responsive<Style> get pressedStyle;
 
   /// Whether Flutter logo is colored or white.
@@ -56,10 +45,7 @@ abstract class PuzzleTheme extends Equatable {
   /// in the top left corner of the header.
   bool get isLogoColored;
 
-  /// The active menu color.
-  ///
-  /// Applied to the text color of the currently active
-  /// theme in menu.
+  /// The active menu style.
   DynamicTextStyle get menuActiveStyle;
 
   /// The underline menu color.
@@ -68,16 +54,10 @@ abstract class PuzzleTheme extends Equatable {
   /// theme in menu, on a small layout.
   Color get menuUnderlineColor;
 
-  /// The underline menu color.
-  ///
-  /// Applied to the underline of the currently active
-  /// theme in menu, on a small layout.
+  /// The background color of popup menus.
   Color get popupMenuBackgroundColor;
 
-  /// The inactive menu color.
-  ///
-  /// Applied to the text color of the currently inactive
-  /// theme in menu.
+  /// The inactive menu style.
   DynamicTextStyle get menuInactiveStyle;
 
   /// The path to the asset with the unmuted audio control.
