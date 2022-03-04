@@ -249,13 +249,6 @@ class KeyboardTheme extends SimpleTheme {
       const DynamicTextStyle(color: PuzzleColors.grey3);
 
   @override
-  String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
-
-  @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/simple_off.png';
-
-  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 

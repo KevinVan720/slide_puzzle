@@ -27,8 +27,17 @@ abstract class PuzzleTheme extends Equatable {
   /// The default text style of this theme.
   DynamicTextStyle get defaultTextStyle;
 
+  ///
+  Responsive<double> get tileSize;
+
+  ///
+  Responsive<double> get tileGapSize;
+
   /// The background style of this theme.
   Responsive<Style> get backgroundStyle;
+
+  /// The board background style of this theme.
+  Responsive<Style> get boardBackgroundStyle;
 
   /// The button style of this theme.
   Responsive<Style> get buttonStyle;
@@ -60,12 +69,6 @@ abstract class PuzzleTheme extends Equatable {
   /// The inactive menu style.
   DynamicTextStyle get menuInactiveStyle;
 
-  /// The path to the asset with the unmuted audio control.
-  String get audioControlOnAsset;
-
-  /// The path to the asset with the muted audio control.
-  String get audioControlOffAsset;
-
   /// The puzzle layout delegate of this theme.
   ///
   /// Used for building sections of the puzzle UI.
@@ -74,11 +77,12 @@ abstract class PuzzleTheme extends Equatable {
   @override
   List<Object?> get props => [
         name,
-        audioControlOnAsset,
-        audioControlOffAsset,
         hasTimer,
         nameTextStyle,
         titleTextStyle,
+        tileSize,
+        tileGapSize,
+        boardBackgroundStyle,
         backgroundStyle,
         defaultTextStyle,
         buttonStyle,

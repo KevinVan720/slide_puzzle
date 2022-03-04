@@ -66,31 +66,17 @@ flutter:
         - asset: assets/fonts/BalooThambi2-SemiBold.ttf
           weight: 600
 
-    - family: Monoton
-      fonts:
-        - asset: assets/fonts/Monoton/Monoton-Regular.ttf
-    - family: Automania
-      fonts:
-        - asset: assets/fonts/Automania/Automania.ttf
     - family: Beon
       fonts:
         - asset: assets/fonts/Beon/Beon.otf
-    - family: LasEnter
-      fonts:
-        - asset: assets/fonts/LasEnter/LasEnter.ttf
-    - family: TextMeOne
-      fonts:
-        - asset: assets/fonts/TextMeOne/TextMeOne-Regular.ttf
     - family: Night-Club-70s
       fonts:
         - asset: assets/fonts/Night-Club-70s/Night-Club-70s-Bold.ttf
         - asset: assets/fonts/Night-Club-70s/Night-Club-70s-Regular.ttf
-    - family: Membra
+
+    - family: Pacifico-Regular
       fonts:
-        - asset: assets/fonts/Membra/Membra.ttf
-    - family: Samarin
+        - asset: assets/fonts/Pacifico-Regular.ttf
+    - family: DSZierschrift
       fonts:
-        - asset: assets/fonts/Samarin/Samarin.ttf
-    - family: Cyberpunk
-      fonts:
-        - asset: assets/fonts/Cyberpunk/Cyberpunk.ttf
+        - asset: assets/fonts/DSZierschrift.ttf

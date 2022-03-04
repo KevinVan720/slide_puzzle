@@ -40,6 +40,7 @@ class PuzzleGamePage extends StatelessWidget {
               const GlassmorphismTheme(),
               const ClaymorphismTheme(),
               const KeyboardTheme(),
+              const WoodTheme(),
             ],
           ),
         ),
@@ -149,14 +150,14 @@ class PuzzleHeader extends StatelessWidget {
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 34.0),
+                padding: EdgeInsets.only(left: 30.0),
                 child: PuzzleLogo(),
               ),
             ),
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.only(right: 34),
+                padding: const EdgeInsets.only(right: 30),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -175,13 +176,17 @@ class PuzzleHeader extends StatelessWidget {
         ),
         medium: (context, child) => Stack(
           children: [
-            const Align(
-              child: PuzzleLogo(),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 30.0),
+                child: PuzzleLogo(),
+              ),
             ),
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.only(right: 34),
+                padding: const EdgeInsets.only(right: 30),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -200,7 +205,7 @@ class PuzzleHeader extends StatelessWidget {
         ),
         large: (context, child) => Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 50,
+            horizontal: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

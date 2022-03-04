@@ -49,8 +49,7 @@ class GlassmorphismTheme extends SimpleTheme {
             backgroundDecoration: const BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.fill,
-              image: NetworkImage(
-                  "https://images.unsplash.com/photo-1604776159603-cacfe8f4b46f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1334&q=80")),
+              image: AssetImage('assets/images/glass_background.jpg')),
         ))
       });
 
@@ -298,13 +297,6 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
       color: PuzzleColors.white2, fontWeight: FontWeight.w200);
-
-  @override
-  String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
-
-  @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/simple_off.png';
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();

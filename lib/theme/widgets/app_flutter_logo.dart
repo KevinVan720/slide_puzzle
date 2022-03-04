@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
+import 'package:gap/gap.dart';
 
 /// {@template app_flutter_logo}
 /// Variant of Flutter logo that can be either white or colored.
@@ -34,17 +35,44 @@ class AppFlutterLogo extends StatelessWidget {
             )
           : ResponsiveLayoutBuilder(
               key: Key(assetName),
-              small: (_, __) => Image.asset(
-                assetName,
-                height: 24,
+              small: (_, __) => Row(
+                children: [
+                  Image.asset(
+                    assetName,
+                    height: 24,
+                  ),
+                  const Gap(5),
+                  Image.asset(
+                    'assets/images/simple_dash_small.png',
+                    height: 30,
+                  ),
+                ],
               ),
-              medium: (_, __) => Image.asset(
-                assetName,
-                height: 29,
+              medium: (_, __) => Row(
+                children: [
+                  Image.asset(
+                    assetName,
+                    height: 29,
+                  ),
+                  const Gap(5),
+                  Image.asset(
+                    'assets/images/simple_dash_small.png',
+                    height: 36,
+                  ),
+                ],
               ),
-              large: (_, __) => Image.asset(
-                assetName,
-                height: 32,
+              large: (_, __) => Row(
+                children: [
+                  Image.asset(
+                    assetName,
+                    height: 32,
+                  ),
+                  const Gap(5),
+                  Image.asset(
+                    'assets/images/simple_dash_small.png',
+                    height: 40,
+                  ),
+                ],
               ),
             ),
     );

@@ -117,13 +117,6 @@ class MaterialTheme extends SimpleTheme {
       );
 
   @override
-  String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
-
-  @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/simple_off.png';
-
-  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 

@@ -43,6 +43,24 @@ class NeumorphicTheme extends SimpleTheme {
       );
 
   @override
+  Responsive<double> get tileSize => Responsive({
+        smallScreen: 72,
+        middleScreen: 100,
+        largeScreen: 112,
+      });
+
+  @override
+  Responsive<double> get tileGapSize => Responsive({
+        smallScreen: 4,
+        middleScreen: 6,
+        largeScreen: 8,
+      });
+
+  @override
+  Responsive<Style> get boardBackgroundStyle =>
+      Responsive({allScreen: Style()});
+
+  @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
             backgroundDecoration: const BoxDecoration(color: Color(0xFFE0E0E0)))
@@ -241,13 +259,6 @@ class NeumorphicTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle =>
       const DynamicTextStyle(color: PuzzleColors.grey2);
-
-  @override
-  String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
-
-  @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/simple_off.png';
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();

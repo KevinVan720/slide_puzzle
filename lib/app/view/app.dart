@@ -49,32 +49,30 @@ class _AppState extends State<App> {
     _platformHelper = widget._platformHelperFactory();
 
     _timer = Timer(const Duration(milliseconds: 20), () {
-      for (var i = 1; i <= 6; i++) {
-        precacheImage(
-          Image.asset('assets/images/logo_flutter_color.png').image,
-          context,
-        );
-        precacheImage(
-          Image.asset('assets/images/logo_flutter_white.png').image,
-          context,
-        );
-        precacheImage(
-          Image.asset('assets/images/timer_icon.png').image,
-          context,
-        );
-        precacheImage(
-          Image.asset('assets/images/simple_dash_large.png').image,
-          context,
-        );
-        precacheImage(
-          Image.asset('assets/images/simple_dash_medium.png').image,
-          context,
-        );
-        precacheImage(
-          Image.asset('assets/images/simple_dash_small.png').image,
-          context,
-        );
-      }
+      precacheImage(
+        Image.asset('assets/images/logo_flutter_color.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/logo_flutter_white.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/simple_dash_small.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/glass_background.jpg').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/wood_grain.png').image,
+        context,
+      );
+      precacheImage(
+        Image.asset('assets/images/texture-1027559_960_720.webp').image,
+        context,
+      );
 
       for (final audioAsset in audioAssets) {
         prefetchToMemory(audioAsset);

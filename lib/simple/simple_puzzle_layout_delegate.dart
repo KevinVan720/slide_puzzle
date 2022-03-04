@@ -49,11 +49,11 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => SimplePuzzleControls(
-            key: const Key('simple_puzzle_controls'),
+          small: (_, child) => const SimplePuzzleControls(
+            key: Key('simple_puzzle_controls'),
           ),
-          medium: (_, child) => SimplePuzzleControls(
-            key: const Key('simple_puzzle_controls'),
+          medium: (_, child) => const SimplePuzzleControls(
+            key: Key('simple_puzzle_controls'),
           ),
           large: (_, __) => const SizedBox(),
         ),
@@ -67,6 +67,8 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget backgroundBuilder(PuzzleState state) {
+    return Container();
+    /*
     return Positioned(
       right: 0,
       bottom: 0,
@@ -100,6 +102,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
         ),
       ),
     );
+    */
   }
 
   @override
@@ -111,33 +114,10 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           medium: 48,
           large: 96,
         ),
-        ResponsiveLayoutBuilder(
-          small: (_, __) => SizedBox.square(
-            dimension: _TileSize.small * size + _TileGapSize.small * (size - 1),
-            child: SimplePuzzleBoard(
-              //key: const Key('simple_puzzle_board_small'),
-              size: size,
-              tiles: tiles,
-              spacing: 4,
-            ),
-          ),
-          medium: (_, __) => SizedBox.square(
-            dimension:
-                _TileSize.medium * size + _TileGapSize.medium * (size - 1),
-            child: SimplePuzzleBoard(
-              //key: const Key('simple_puzzle_board_medium'),
-              size: size,
-              tiles: tiles,
-            ),
-          ),
-          large: (_, __) => SizedBox.square(
-            dimension: _TileSize.large * size + _TileGapSize.large * (size - 1),
-            child: SimplePuzzleBoard(
-              //key: const Key('simple_puzzle_board_large'),
-              size: size,
-              tiles: tiles,
-            ),
-          ),
+        SimplePuzzleBoard(
+          //key: const Key('simple_puzzle_board_large'),
+          size: size,
+          tiles: tiles,
         ),
         const ResponsiveGap(
           large: 96,
@@ -228,8 +208,8 @@ class SimpleStartSection extends StatelessWidget {
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => SimplePuzzleControls(
-            key: const Key('simple_puzzle_controls'),
+          large: (_, __) => const SimplePuzzleControls(
+            key: Key('simple_puzzle_controls'),
           ),
         ),
       ],
@@ -265,18 +245,6 @@ class SimplePuzzleTitle extends StatelessWidget {
   }
 }
 
-abstract class _TileSize {
-  static double small = 72;
-  static double medium = 100;
-  static double large = 112;
-}
-
-abstract class _TileGapSize {
-  static double small = 4;
-  static double medium = 8;
-  static double large = 8;
-}
-
 /// {@template simple_puzzle_board}
 /// Display the board of the puzzle in a [size]x[size] layout
 /// filled with [tiles]. Each tile is spaced with [spacing].
@@ -288,7 +256,6 @@ class SimplePuzzleBoard extends StatelessWidget {
     Key? key,
     required this.size,
     required this.tiles,
-    this.spacing = 8,
   }) : super(key: key);
 
   /// The size of the board.
@@ -297,20 +264,38 @@ class SimplePuzzleBoard extends StatelessWidget {
   /// The tiles to be displayed on the board.
   final List<Widget> tiles;
 
-  /// The spacing between each tile from [tiles].
-  final double spacing;
-
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.all(3),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: size,
-      mainAxisSpacing: spacing,
-      crossAxisSpacing: spacing,
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    double tileSize = theme.tileSize.resolve(context) ?? 72;
+    double tileGap = theme.tileGapSize.resolve(context) ?? 4;
+
+    return Container(
+      width: tileSize * size + tileGap * (size + 1),
+      height: tileSize * size + tileGap * (size + 1),
       clipBehavior: Clip.none,
-      children: tiles,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          StyledContainer(
+              style: theme.boardBackgroundStyle.resolve(context) ?? Style(),
+              child: SizedBox(
+                width: tileSize * size + tileGap * (size - 1),
+                height: tileSize * size + tileGap * (size - 1),
+              )),
+          GridView.count(
+            padding: const EdgeInsets.all(3),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: size,
+            mainAxisSpacing: tileGap,
+            crossAxisSpacing: tileGap,
+            clipBehavior: Clip.none,
+            children: tiles,
+          )
+        ],
+      ),
     );
   }
 }
@@ -445,7 +430,7 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 }
 
 class SimplePuzzleControls extends StatefulWidget {
-  SimplePuzzleControls({Key? key}) : super(key: key);
+  const SimplePuzzleControls({Key? key}) : super(key: key);
 
   @override
   _SimplePuzzleControlsState createState() => _SimplePuzzleControlsState();
@@ -502,7 +487,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
   Widget _difficultySelectButton(PuzzleDifficulty difficulty) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
+
     final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
     final selectedStyle = theme.menuActiveStyle.toTextStyle(
         screenSize: MediaQuery.of(context).size,
@@ -512,8 +497,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
     return TextButton(
       style: ButtonStyle(
-          overlayColor:
-              MaterialStateProperty.all(theme.popupMenuBackgroundColor)),
+          overlayColor: MaterialStateProperty.all(Colors.transparent)),
       onPressed: gameConfig.puzzleDifficulty == difficulty
           ? null
           : () {
@@ -556,8 +540,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
     return TextButton(
       style: ButtonStyle(
-          overlayColor:
-              MaterialStateProperty.all(theme.popupMenuBackgroundColor)),
+          overlayColor: MaterialStateProperty.all(Colors.transparent)),
       onPressed: gameConfig.puzzleSize == size
           ? null
           : () {
@@ -734,7 +717,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
             children: [
               Icon(
                 Icons.check,
-                size: 17,
+                size: 20,
                 color: DefaultTextStyle.of(context).style.color,
               ),
               const Gap(10),
@@ -752,8 +735,8 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                  width: 17,
-                  height: 17,
+                  width: 18,
+                  height: 18,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
                     color: DefaultTextStyle.of(context).style.color,
@@ -774,7 +757,7 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
             children: [
               Icon(
                 Icons.error,
-                size: 17,
+                size: 20,
                 color: DefaultTextStyle.of(context).style.color,
               ),
               const Gap(10),

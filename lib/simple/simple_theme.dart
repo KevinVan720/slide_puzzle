@@ -1,6 +1,8 @@
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
+import 'package:responsive_property/responsive_property.dart';
+import 'package:animated_styled_widget/animated_styled_widget.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -13,11 +15,22 @@ abstract class SimpleTheme extends PuzzleTheme {
   bool get hasTimer => false;
 
   @override
-  String get audioControlOnAsset => 'assets/images/audio_control/simple_on.png';
+  Responsive<double> get tileSize => Responsive({
+        smallScreen: 72,
+        middleScreen: 100,
+        largeScreen: 112,
+      });
 
   @override
-  String get audioControlOffAsset =>
-      'assets/images/audio_control/simple_off.png';
+  Responsive<double> get tileGapSize => Responsive({
+        smallScreen: 4,
+        middleScreen: 6,
+        largeScreen: 8,
+      });
+
+  @override
+  Responsive<Style> get boardBackgroundStyle =>
+      Responsive({allScreen: Style()});
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();

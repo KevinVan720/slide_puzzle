@@ -16,9 +16,6 @@ class AudioControl extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final audioMuted =
         context.select((AudioControlBloc bloc) => bloc.state.muted);
-    final audioAsset =
-        audioMuted ? theme.audioControlOffAsset : theme.audioControlOnAsset;
-
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -27,13 +24,27 @@ class AudioControl extends StatelessWidget {
         child: AnimatedSwitcher(
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
           child: ResponsiveLayoutBuilder(
-            key: Key(audioAsset),
-            small: (_, __) => Icon(audioMuted ? Icons.volume_off : Icons.volume_up,size: 24,
-                color: audioMuted ? theme.menuInactiveStyle.color : theme.menuActiveStyle.color ,),
-            medium: (_, __) => Icon(audioMuted ? Icons.volume_off : Icons.volume_up,size: 33,
-              color: audioMuted ? theme.menuInactiveStyle.color : theme.menuActiveStyle.color ,),
-            large: (_, __) => Icon(audioMuted ? Icons.volume_off : Icons.volume_up,size: 33,
-              color: audioMuted ? theme.menuInactiveStyle.color : theme.menuActiveStyle.color ,),
+            small: (_, __) => Icon(
+              audioMuted ? Icons.volume_off : Icons.volume_up,
+              size: 24,
+              color: audioMuted
+                  ? theme.menuInactiveStyle.color
+                  : theme.menuActiveStyle.color,
+            ),
+            medium: (_, __) => Icon(
+              audioMuted ? Icons.volume_off : Icons.volume_up,
+              size: 32,
+              color: audioMuted
+                  ? theme.menuInactiveStyle.color
+                  : theme.menuActiveStyle.color,
+            ),
+            large: (_, __) => Icon(
+              audioMuted ? Icons.volume_off : Icons.volume_up,
+              size: 36,
+              color: audioMuted
+                  ? theme.menuInactiveStyle.color
+                  : theme.menuActiveStyle.color,
+            ),
           ),
         ),
       ),
