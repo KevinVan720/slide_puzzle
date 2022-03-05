@@ -28,7 +28,7 @@ class WoodTheme extends SimpleTheme {
       fontSize: 40.toPXLength,
       fontFamily: "Pacifico-Regular",
       fontWeight: FontWeight.w700,
-      color: Color(0xFFC0A080).withOpacity(0.8),
+      color: const Color(0xFFC0A080).withOpacity(0.8),
       shadows: _engraveShadowLarge);
 
   @override
@@ -46,7 +46,7 @@ class WoodTheme extends SimpleTheme {
       fontSize: 40.toPXLength,
       fontFamily: "Pacifico-Regular",
       fontWeight: FontWeight.w700,
-      color: Color(0xFFC0A080).withOpacity(0.8),
+      color: const Color(0xFFC0A080).withOpacity(0.8),
       shadows: _engraveShadowLarge);
 
   @override
@@ -128,7 +128,7 @@ class WoodTheme extends SimpleTheme {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     colorFilter: ColorFilter.mode(
-                        Color(0xFF352525).withOpacity(0.5), BlendMode.darken),
+                        const Color(0xFF352525).withOpacity(0.5), BlendMode.darken),
                     image:
                         const AssetImage('assets/images/wood_background.jpg'))))
       });
@@ -169,7 +169,7 @@ class WoodTheme extends SimpleTheme {
                         gradient: LinearGradient(
                             colors: [
                               Colors.brown.shade500,
-                              Color(0xFF755144),
+                              const Color(0xFF755144),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
@@ -217,7 +217,7 @@ class WoodTheme extends SimpleTheme {
                         gradient: LinearGradient(
                             colors: [
                               Colors.brown.shade500,
-                              Color(0xFF755144),
+                              const Color(0xFF755144),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
@@ -264,7 +264,7 @@ class WoodTheme extends SimpleTheme {
                         gradient: LinearGradient(
                             colors: [
                               Colors.brown.shade500,
-                              Color(0xFF755144),
+                              const Color(0xFF755144),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
@@ -295,10 +295,10 @@ class WoodTheme extends SimpleTheme {
         fontSize: 40.toPXLength,
         fontFamily: "Pacifico-Regular",
         fontWeight: FontWeight.w700,
-        color: Color(0xFFC0A080).withOpacity(0.8),
+        color: const Color(0xFFC0A080).withOpacity(0.8),
         shadows: _engraveShadowLarge,
         decoration: TextDecoration.underline,
-        decorationColor: Color(0xFFC0A080),
+        decorationColor: const Color(0xFFC0A080),
       );
 
   @override
@@ -329,8 +329,8 @@ final _baseStyle = Style(
         image: DecorationImage(
             fit: BoxFit.fill,
             colorFilter: ColorFilter.mode(
-                Color(0xFF403030).withOpacity(0.2), BlendMode.darken),
-            image: AssetImage('assets/images/wood_grain.png'))),
+                const Color(0xFF403030).withOpacity(0.2), BlendMode.darken),
+            image: const AssetImage('assets/images/wood_grain.png'))),
     textStyle: DynamicTextStyle(
         letterSpacing: 1.toPXLength,
         fontSize: 40.toPXLength,
@@ -366,15 +366,38 @@ List<Shadow> _engraveShadowSmall = [
   Shadow(
       blurRadius: 0.5,
       color: Colors.brown.shade900,
-      offset: const Offset(-1, -1))
+      offset: const Offset(-1, -1)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(1.414, 0)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(0, -1.414)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(-1.414, 0)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(0, 1.414))
 ];
 
 List<Shadow> _engraveShadowLarge = [
-  Shadow(blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(2, 2)),
-  Shadow(
-      blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(2, -2)),
-  Shadow(
-      blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(-2, 2)),
-  Shadow(
-      blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(-2, -2))
+  const Shadow(blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(2, 2)),
+  const Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(2, -2)),
+  const Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(-2, 2)),
+  const Shadow(
+      blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(-2, -2)),
+  const Shadow(blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(2.818, 0)),
+  const Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(0, -2.818)),
+  const Shadow(
+      blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(-2.818, 0)),
+  const Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(0, 2.818))
 ];
