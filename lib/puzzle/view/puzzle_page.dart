@@ -35,10 +35,10 @@ class PuzzleGamePage extends StatelessWidget {
           create: (context) => ThemeBloc(
             initialThemes: [
               const MaterialTheme(),
-              const NeonTheme(),
               const NeumorphicTheme(),
               const GlassmorphismTheme(),
               const ClaymorphismTheme(),
+              const NeonTheme(),
               const KeyboardTheme(),
               const WoodTheme(),
             ],
