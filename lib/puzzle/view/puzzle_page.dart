@@ -272,7 +272,7 @@ class PuzzleSections extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Flexible(
-            flex: 2,
+            flex: 1,
             child: theme.layoutDelegate.startSectionBuilder(state),
           ),
           const PuzzleBoard(),
