@@ -280,9 +280,12 @@ class SimplePuzzleBoard extends StatelessWidget {
         children: [
           StyledContainer(
               style: theme.boardBackgroundStyle.resolve(context) ?? Style(),
-              child: SizedBox(
-                width: tileSize * size + tileGap * (size - 1),
-                height: tileSize * size + tileGap * (size - 1),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: SizedBox(
+                  width: tileSize * size + tileGap * (size - 1),
+                  height: tileSize * size + tileGap * (size - 1),
+                ),
               )),
           GridView.count(
             padding: const EdgeInsets.all(3),
