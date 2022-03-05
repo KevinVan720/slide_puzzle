@@ -39,6 +39,15 @@ class _AppState extends State<App> {
     'assets/audio/tile_move.mp3',
   ];
 
+  static final imageAssets = [
+    'assets/images/logo_flutter_color.png',
+    'assets/images/logo_flutter_white.png',
+    'assets/images/simple_dash_small.png',
+    'assets/images/glass_background.jpg',
+    'assets/images/wood_grain.png',
+    'assets/images/wood_background.jpg',
+  ];
+
   late final PlatformHelper _platformHelper;
   late final Timer _timer;
 
@@ -49,30 +58,12 @@ class _AppState extends State<App> {
     _platformHelper = widget._platformHelperFactory();
 
     _timer = Timer(const Duration(milliseconds: 20), () {
-      precacheImage(
-        Image.asset('assets/images/logo_flutter_color.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/logo_flutter_white.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/simple_dash_small.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/glass_background.jpg').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/wood_grain.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/texture-1027559_960_720.webp').image,
-        context,
-      );
+      for (final imageAsset in imageAssets) {
+        precacheImage(
+          Image.asset(imageAsset).image,
+          context,
+        );
+      }
 
       for (final audioAsset in audioAssets) {
         prefetchToMemory(audioAsset);

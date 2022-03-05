@@ -24,81 +24,30 @@ class WoodTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get nameTextStyle => DynamicTextStyle(
-          letterSpacing: 1.toPXLength,
-          fontSize: 40.toPXLength,
-          fontFamily: "Pacifico-Regular",
-          fontWeight: FontWeight.w700,
-          color: Colors.black.withOpacity(0.5),
-          shadows: [
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(1.5, 1.5)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(1.5, -1.5)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(-1.5, 1.5)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(-1.5, -1.5))
-          ]);
+      letterSpacing: 1.toPXLength,
+      fontSize: 40.toPXLength,
+      fontFamily: "Pacifico-Regular",
+      fontWeight: FontWeight.w700,
+      color: Color(0xFFC0A080).withOpacity(0.8),
+      shadows: _engraveShadowLarge);
 
   @override
   DynamicTextStyle get titleTextStyle => DynamicTextStyle(
-          letterSpacing: 2.toPXLength,
-          fontSize: 40.toPXLength,
-          fontFamily: "DSZierschrift",
-          fontWeight: FontWeight.w900,
-          color: Colors.black.withOpacity(0.9),
-          shadows: [
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(1, 1)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(1, -1)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(-1, 1)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(-1, -1))
-          ]);
+      letterSpacing: 2.toPXLength,
+      fontSize: 40.toPXLength,
+      fontFamily: "DSZierschrift",
+      fontWeight: FontWeight.w900,
+      color: Colors.black.withOpacity(0.7),
+      shadows: _engraveShadowLarge);
 
   @override
   DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
-          letterSpacing: 1.toPXLength,
-          fontSize: 40.toPXLength,
-          fontFamily: "Pacifico-Regular",
-          fontWeight: FontWeight.w700,
-          color: Colors.black.withOpacity(0.5),
-          shadows: [
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(1.5, 1.5)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(1.5, -1.5)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(-1.5, 1.5)),
-            Shadow(
-                blurRadius: 0.5,
-                color: Colors.brown.shade900,
-                offset: const Offset(-1.5, -1.5))
-          ]);
+      letterSpacing: 1.toPXLength,
+      fontSize: 40.toPXLength,
+      fontFamily: "Pacifico-Regular",
+      fontWeight: FontWeight.w700,
+      color: Color(0xFFC0A080).withOpacity(0.8),
+      shadows: _engraveShadowLarge);
 
   @override
   Responsive<double> get tileSize => Responsive({
@@ -179,10 +128,9 @@ class WoodTheme extends SimpleTheme {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     colorFilter: ColorFilter.mode(
-                        Colors.brown.shade500.withOpacity(0.4),
-                        BlendMode.lighten),
-                    image: const AssetImage(
-                        'assets/images/texture-1027559_960_720.webp'))))
+                        Color(0xFF352525).withOpacity(0.5), BlendMode.darken),
+                    image:
+                        const AssetImage('assets/images/wood_background.jpg'))))
       });
 
   @override
@@ -383,27 +331,10 @@ class WoodTheme extends SimpleTheme {
         fontSize: 40.toPXLength,
         fontFamily: "Pacifico-Regular",
         fontWeight: FontWeight.w700,
-        color: Colors.black.withOpacity(0.5),
-        shadows: [
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(1, 1)),
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(1, -1)),
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(-1, 1)),
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(-1, -1))
-        ],
+        color: Color(0xFFC0A080).withOpacity(0.8),
+        shadows: _engraveShadowLarge,
         decoration: TextDecoration.underline,
-        decorationColor: Colors.black87,
+        decorationColor: Color(0xFFC0A080),
       );
 
   @override
@@ -418,7 +349,8 @@ class WoodTheme extends SimpleTheme {
         fontSize: 40.toPXLength,
         fontFamily: "Pacifico-Regular",
         fontWeight: FontWeight.w700,
-        color: Colors.black45,
+        color: Colors.black,
+        shadows: _engraveShadowSmall,
       );
 
   @override
@@ -429,34 +361,19 @@ final _baseStyle = Style(
     alignment: Alignment.center,
     childAlignment: Alignment.center,
     padding: const EdgeInsets.all(0),
-    backgroundDecoration: const BoxDecoration(
+    backgroundDecoration: BoxDecoration(
         image: DecorationImage(
             fit: BoxFit.fill,
+            colorFilter: ColorFilter.mode(
+                Color(0xFF403030).withOpacity(0.2), BlendMode.darken),
             image: AssetImage('assets/images/wood_grain.png'))),
     textStyle: DynamicTextStyle(
         letterSpacing: 1.toPXLength,
         fontSize: 40.toPXLength,
         fontFamily: "Pacifico-Regular",
         fontWeight: FontWeight.w700,
-        color: Colors.black.withOpacity(0.5),
-        shadows: [
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(1.5, 1.5)),
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(1.5, -1.5)),
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(-1.5, 1.5)),
-          Shadow(
-              blurRadius: 0.5,
-              color: Colors.brown.shade900,
-              offset: const Offset(-1.5, -1.5))
-        ]),
+        color: Colors.black.withOpacity(0.6),
+        shadows: _engraveShadowSmall),
     textAlign: TextAlign.center,
     //shaderGradient:
     //    LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
@@ -468,3 +385,32 @@ abstract class _TileDimension {
       Dimension.min(106.0.toPXLength, 100.toPercentLength);
   static Dimension large = Dimension.min(116.0.toPXLength, 100.toPercentLength);
 }
+
+List<Shadow> _engraveShadowSmall = [
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(1, 1)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(1, -1)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(-1, 1)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Colors.brown.shade900,
+      offset: const Offset(-1, -1))
+];
+
+List<Shadow> _engraveShadowLarge = [
+  Shadow(blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(2, 2)),
+  Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(2, -2)),
+  Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(-2, 2)),
+  Shadow(
+      blurRadius: 0.5, color: Color(0xFF302018), offset: const Offset(-2, -2))
+];
