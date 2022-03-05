@@ -162,22 +162,14 @@ class WoodTheme extends SimpleTheme {
                               Color(0xFF311919),
                               Color(0xFF301818),
                             ],
-                            stops: [
-                              0,
-                              0.8
-                            ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight),
                         width: 6),
-                    left: const DynamicBorderSide(
+                    left: DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xFF5A3823),
-                              Color(0xFF583420),
-                            ],
-                            stops: [
-                              0,
-                              0.8
+                              Colors.brown.shade500,
+                              Color(0xFF755144),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
@@ -185,12 +177,8 @@ class WoodTheme extends SimpleTheme {
                     right: const DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xFF483024),
-                              Color(0xFF402020),
-                            ],
-                            stops: [
-                              0,
-                              0.8
+                              Color(0xFF322222),
+                              Color(0xFF302020),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
@@ -215,46 +203,34 @@ class WoodTheme extends SimpleTheme {
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight),
-                        width: 5),
+                        width: 4),
                     bottom: const DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
                               Color(0xFF311919),
                               Color(0xFF301818),
                             ],
-                            stops: [
-                              0,
-                              0.8
-                            ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight),
-                        width: 10),
-                    left: const DynamicBorderSide(
+                        width: 8),
+                    left: DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xFF5A3823),
-                              Color(0xFF583420),
-                            ],
-                            stops: [
-                              0,
-                              0.8
+                              Colors.brown.shade500,
+                              Color(0xFF755144),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
-                        width: 6),
+                        width: 4.5),
                     right: const DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xFF483024),
-                              Color(0xFF402020),
-                            ],
-                            stops: [
-                              0,
-                              0.8
+                              Color(0xFF322222),
+                              Color(0xFF302020),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
-                        width: 7)))),
+                        width: 5)))),
         largeScreen: _baseStyle.copyWith(
             width: _TileDimension.large,
             height: _TileDimension.large,
@@ -274,46 +250,34 @@ class WoodTheme extends SimpleTheme {
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight),
-                        width: 6),
+                        width: 5),
                     bottom: const DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
                               Color(0xFF311919),
                               Color(0xFF301818),
                             ],
-                            stops: [
-                              0,
-                              0.8
-                            ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight),
-                        width: 12),
-                    left: const DynamicBorderSide(
+                        width: 10),
+                    left: DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xFF5A3823),
-                              Color(0xFF583420),
-                            ],
-                            stops: [
-                              0,
-                              0.8
+                              Colors.brown.shade500,
+                              Color(0xFF755144),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
-                        width: 7),
+                        width: 5.5),
                     right: const DynamicBorderSide(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xFF483024),
-                              Color(0xFF402020),
-                            ],
-                            stops: [
-                              0,
-                              0.8
+                              Color(0xFF322222),
+                              Color(0xFF302020),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
-                        width: 8))))
+                        width: 6.5))))
       });
 
   @override
