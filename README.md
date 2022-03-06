@@ -2,6 +2,7 @@
 
 This is a slide puzzle game created for the Flutter Puzzle Hack. A hackathon where developers are challenged to push their creativity and create the most visually appealing slide puzzle game using Flutter!
 
+You can play the game at [https://slide-puzzle-912f7.web.app/](https://slide-puzzle-912f7.web.app/#/).
 ## Inspiration
 
 I want to demonstrate the **power** and **expressiveness** of Flutter in this project. I want to let people play the slide puzzle game with different themed UI that utilizes **modern design trends** like material, skeuomorphism, neumorphism, glassmorphism, etc. Fortunately, I have developed several packages (e.g. the [animated_styled_widget](https://pub.dev/packages/animated_styled_widget)) that let me achieve this goal easily.
