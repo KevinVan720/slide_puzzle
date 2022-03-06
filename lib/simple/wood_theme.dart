@@ -69,7 +69,7 @@ class WoodTheme extends SimpleTheme {
             padding: const EdgeInsets.all(10),
             backgroundDecoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
                         Colors.brown.shade300.withOpacity(0.4),
                         BlendMode.lighten),
@@ -126,7 +126,7 @@ class WoodTheme extends SimpleTheme {
         allScreen: Style(
             backgroundDecoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
                         const Color(0xFF352525).withOpacity(0.5),
                         BlendMode.darken),

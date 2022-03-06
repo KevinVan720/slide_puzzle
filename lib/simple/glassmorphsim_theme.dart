@@ -48,7 +48,7 @@ class GlassmorphismTheme extends SimpleTheme {
         allScreen: Style(
             backgroundDecoration: const BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: AssetImage('assets/images/glass_background.jpg')),
         ))
       });
