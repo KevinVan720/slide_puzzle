@@ -74,6 +74,8 @@ abstract class PuzzleTheme extends Equatable {
   /// Used for building sections of the puzzle UI.
   PuzzleLayoutDelegate get layoutDelegate;
 
+  String get tilePressSoundAsset;
+
   @override
   List<Object?> get props => [
         name,
@@ -94,5 +96,6 @@ abstract class PuzzleTheme extends Equatable {
         popupMenuBackgroundColor,
         menuInactiveStyle,
         layoutDelegate,
+        tilePressSoundAsset,
       ];
 }

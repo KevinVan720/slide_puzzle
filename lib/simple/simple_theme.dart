@@ -33,5 +33,8 @@ abstract class SimpleTheme extends PuzzleTheme {
       Responsive({allScreen: Style()});
 
   @override
+  String get tilePressSoundAsset => "assets/audio/tile_move.mp3";
+
+  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }

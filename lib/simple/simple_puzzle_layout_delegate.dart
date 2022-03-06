@@ -68,41 +68,6 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   Widget backgroundBuilder(PuzzleState state) {
     return Container();
-    /*
-    return Positioned(
-      right: 0,
-      bottom: 0,
-      child: ResponsiveLayoutBuilder(
-        small: (_, __) => SizedBox(
-          width: 184,
-          height: 118,
-          child: Image.asset(
-            'assets/images/simple_dash_small.png',
-            key: const Key('simple_puzzle_dash_small'),
-          ),
-        ),
-        medium: (_, __) => SizedBox(
-          width: 304,
-          height: 171,
-          child: Image.asset(
-            'assets/images/simple_dash_medium.png',
-            key: const Key('simple_puzzle_dash_medium'),
-          ),
-        ),
-        large: (_, __) => Padding(
-          padding: const EdgeInsets.only(bottom: 33),
-          child: SizedBox(
-            width: 380.44,
-            height: 214,
-            child: Image.asset(
-              'assets/images/simple_dash_large.png',
-              key: const Key('simple_puzzle_dash_large'),
-            ),
-          ),
-        ),
-      ),
-    );
-    */
   }
 
   @override
@@ -347,11 +312,10 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
   void initState() {
     super.initState();
 
-    // Delay the initialization of the audio player for performance reasons,
-    // to avoid dropping frames when the theme is changed.
+    /// Delay the initialization of the audio player for performance reasons,
+    /// to avoid dropping frames when the theme is changed.
     _timer = Timer(const Duration(milliseconds: 500), () {
-      _audioPlayer = widget._audioPlayerFactory()
-        ..setAsset('assets/audio/tile_move.mp3');
+      _audioPlayer = widget._audioPlayerFactory();
     });
   }
 
@@ -376,18 +340,19 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
         pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
         onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
             ? () async {
-                await Future.delayed(Duration(
-                    milliseconds: (PuzzleThemeAnimationDuration
-                                .puzzleTileScale.inMilliseconds /
-                            2)
-                        .round()));
-                unawaited(_audioPlayer?.replay());
+                final duration = await _audioPlayer?.setAsset(
+                  theme.tilePressSoundAsset,
+                );
+                if (duration != null) {
+                  unawaited(_audioPlayer?.replay());
+                }
+
                 context.read<PuzzleBloc>().add(TileTapped(widget.tile));
-                await Future.delayed(Duration(
+                /*await Future.delayed(Duration(
                     milliseconds: (PuzzleThemeAnimationDuration
                                 .puzzleTileScale.inMilliseconds /
                             2)
-                        .round()));
+                        .round()));*/
               }
             : null,
         child: Text(
@@ -583,9 +548,13 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
 
   Widget _buildSolveButton() {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return state.puzzle.isComplete()
-        ? _solvedButton()
+        ? PuzzleAnimatedContainer(
+            style: theme.buttonStyle.resolve(context) ?? Style(),
+            child: _solvedRow(),
+          )
         : FutureBuilder<void>(
             future: getSolutionAndUpdatePuzzle,
             builder: (context, snapshot) {
@@ -610,13 +579,24 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
                 }));
               }
 
+              Style? style;
+              Widget row;
+
               if (snapshot.hasError) {
-                return _noSolutionButton();
+                style = theme.buttonStyle.resolve(context);
+                row = _noSolutionRow();
+              } else if (snapshot.hasData) {
+                style = theme.buttonStyle.resolve(context);
+                row = _solvedRow();
+              } else {
+                style = theme.pressedStyle.resolve(context);
+                row = _solvingRow();
               }
-              if (snapshot.hasData) {
-                return _solvedButton();
-              }
-              return _solvingButton();
+
+              return PuzzleAnimatedContainer(
+                style: style ?? Style(),
+                child: row,
+              );
             });
   }
 
@@ -711,62 +691,56 @@ class _SimplePuzzleControlsState extends State<SimplePuzzleControls> {
     return history;
   }
 
-  Widget _solvedButton() {
-    return PuzzleButton(
-        onPressed: null,
-        child: Builder(builder: (context) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.check,
-                size: 20,
-                color: DefaultTextStyle.of(context).style.color,
-              ),
-              const Gap(10),
-              Text(context.l10n.puzzleSolved),
-            ],
-          );
-        }));
+  Widget _solvedRow() {
+    return Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.check,
+            size: 20,
+            color: DefaultTextStyle.of(context).style.color,
+          ),
+          const Gap(10),
+          Text(context.l10n.puzzleSolved),
+        ],
+      );
+    });
   }
 
-  Widget _solvingButton() {
-    return PuzzleButton(
-        onPressed: null,
-        child: Builder(builder: (context) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  width: 18,
-                  height: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: DefaultTextStyle.of(context).style.color,
-                  )),
-              const Gap(10),
-              Text(context.l10n.puzzleSolving),
-            ],
-          );
-        }));
+  Widget _solvingRow() {
+    return Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+              width: 18,
+              height: 18,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: DefaultTextStyle.of(context).style.color,
+              )),
+          const Gap(10),
+          Text(context.l10n.puzzleSolving),
+        ],
+      );
+    });
   }
 
-  Widget _noSolutionButton() {
-    return PuzzleButton(
-        onPressed: null,
-        child: Builder(builder: (context) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.error,
-                size: 20,
-                color: DefaultTextStyle.of(context).style.color,
-              ),
-              const Gap(10),
-              Text(context.l10n.puzzleSolveError),
-            ],
-          );
-        }));
+  Widget _noSolutionRow() {
+    return Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error,
+            size: 20,
+            color: DefaultTextStyle.of(context).style.color,
+          ),
+          const Gap(10),
+          Text(context.l10n.puzzleSolveError),
+        ],
+      );
+    });
   }
 }

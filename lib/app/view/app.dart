@@ -37,6 +37,12 @@ class _AppState extends State<App> {
   static final audioAssets = [
     'assets/audio/click.mp3',
     'assets/audio/tile_move.mp3',
+    'assets/audio/material_click.mp3',
+    'assets/audio/neu_click.mp3',
+    'assets/audio/clay_click.mp3',
+    'assets/audio/neon_click.mp3',
+    'assets/audio/keyboard_click.mp3',
+    'assets/audio/wood_click.mp3',
   ];
 
   static final imageAssets = [

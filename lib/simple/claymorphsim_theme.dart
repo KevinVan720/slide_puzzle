@@ -178,6 +178,9 @@ class ClaymorphismTheme extends SimpleTheme {
       color: PuzzleColors.grey2, fontFamily: "BalooThambi2");
 
   @override
+  String get tilePressSoundAsset => "assets/audio/clay_click.mp3";
+
+  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 

@@ -47,8 +47,7 @@ class _PuzzleButtonState extends State<PuzzleButton> {
     // Delay the initialization of the audio player for performance reasons,
     // to avoid dropping frames when the theme is changed.
     _timer = Timer(const Duration(milliseconds: 500), () {
-      _audioPlayer = widget._audioPlayerFactory()
-        ..setAsset('assets/audio/click.mp3');
+      _audioPlayer = widget._audioPlayerFactory();
     });
   }
 
@@ -90,8 +89,13 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               duration: PuzzleThemeAnimationDuration.puzzleTileScale,
               onPressed: widget.onPressed == null
                   ? null
-                  : () {
-                      unawaited(_audioPlayer?.replay());
+                  : () async {
+                      final duration = await _audioPlayer?.setAsset(
+                        theme.tilePressSoundAsset,
+                      );
+                      if (duration != null) {
+                        unawaited(_audioPlayer?.replay());
+                      }
                       widget.onPressed!();
                     },
               child: Builder(
@@ -105,6 +109,42 @@ class _PuzzleButtonState extends State<PuzzleButton> {
                   );
                 },
               ))),
+    );
+  }
+}
+
+class PuzzleAnimatedContainer extends StatelessWidget {
+  const PuzzleAnimatedContainer(
+      {Key? key, required this.child, required this.style})
+      : super(key: key);
+
+  final Widget child;
+  final Style style;
+
+  @override
+  Widget build(BuildContext context) {
+    ///the puzzle shuffle button gets the same style as the tiles buttons, except for the size and padding.
+    Style _style = style
+      ..width = null
+      ..height = null
+      ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5);
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 160),
+      child: AnimatedStyledContainer(
+          style: _style,
+          curve: Curves.easeInOut,
+          duration: PuzzleThemeAnimationDuration.puzzleTileScale,
+          child: Builder(
+            builder: (context) {
+              return DefaultTextStyle(
+                style: DefaultTextStyle.of(context)
+                    .style
+                    .merge(PuzzleTextStyle.headline5),
+                child: child,
+              );
+            },
+          )),
     );
   }
 }

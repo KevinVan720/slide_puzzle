@@ -63,7 +63,11 @@ class NeumorphicTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: const BoxDecoration(color: Color(0xFFE0E0E0)))
+            backgroundDecoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Color(0xFFE0E0E0), Color(0xFFE0E0E0)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)))
       });
 
   @override
@@ -259,6 +263,9 @@ class NeumorphicTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle =>
       const DynamicTextStyle(color: PuzzleColors.grey2);
+
+  @override
+  String get tilePressSoundAsset => "assets/audio/neu_click.mp3";
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();

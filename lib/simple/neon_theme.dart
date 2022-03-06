@@ -369,6 +369,9 @@ class NeonTheme extends SimpleTheme {
       );
 
   @override
+  String get tilePressSoundAsset => "assets/audio/neon_click.mp3";
+
+  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 

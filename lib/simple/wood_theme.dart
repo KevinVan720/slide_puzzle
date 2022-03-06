@@ -128,7 +128,8 @@ class WoodTheme extends SimpleTheme {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     colorFilter: ColorFilter.mode(
-                        const Color(0xFF352525).withOpacity(0.5), BlendMode.darken),
+                        const Color(0xFF352525).withOpacity(0.5),
+                        BlendMode.darken),
                     image:
                         const AssetImage('assets/images/wood_background.jpg'))))
       });
@@ -318,6 +319,9 @@ class WoodTheme extends SimpleTheme {
       );
 
   @override
+  String get tilePressSoundAsset => "assets/audio/wood_click.mp3";
+
+  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
@@ -393,11 +397,16 @@ List<Shadow> _engraveShadowLarge = [
       blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(-2, 2)),
   const Shadow(
       blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(-2, -2)),
-  const Shadow(blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(2.818, 0)),
+  const Shadow(
+      blurRadius: 0.5,
+      color: const Color(0xFF302018),
+      offset: Offset(2.818, 0)),
   const Shadow(
       blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(0, -2.818)),
   const Shadow(
-      blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(-2.818, 0)),
+      blurRadius: 0.5,
+      color: const Color(0xFF302018),
+      offset: Offset(-2.818, 0)),
   const Shadow(
       blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(0, 2.818))
 ];

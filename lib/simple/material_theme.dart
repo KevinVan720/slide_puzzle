@@ -37,8 +37,11 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration:
-                const BoxDecoration(color: PuzzleColors.grey5)),
+            backgroundDecoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [PuzzleColors.grey5, PuzzleColors.grey5],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter))),
       });
 
   @override
@@ -117,6 +120,9 @@ class MaterialTheme extends SimpleTheme {
       );
 
   @override
+  String get tilePressSoundAsset => "assets/audio/material_click.mp3";
+
+  @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 }
 
@@ -133,9 +139,26 @@ final _buttonStyle = _baseStyle.copyWith(
   textStyle: DynamicTextStyle(
     letterSpacing: 1.toPXLength,
     fontSize: 28.toPXLength,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w700,
     color: Colors.white,
   ),
+  shadows: [
+    const ShapeShadow(
+        offset: Offset(0.0, 7.0),
+        blurRadius: 8.0,
+        spreadRadius: -4.0,
+        color: _kKeyUmbraOpacity),
+    const ShapeShadow(
+        offset: Offset(0.0, 12.0),
+        blurRadius: 17.0,
+        spreadRadius: 2.0,
+        color: _kKeyPenumbraOpacity),
+    const ShapeShadow(
+        offset: Offset(0.0, 5.0),
+        blurRadius: 22.0,
+        spreadRadius: 4.0,
+        color: _kAmbientShadowOpacity),
+  ],
   backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
 );
 
@@ -146,17 +169,47 @@ final _hoverStyle = _baseStyle.copyWith(
     fontWeight: FontWeight.w700,
     color: Colors.grey.shade50,
   ),
+  shadows: [
+    const ShapeShadow(
+        offset: Offset(0.0, 3.0),
+        blurRadius: 5.0,
+        spreadRadius: -1.0,
+        color: _kKeyUmbraOpacity),
+    const ShapeShadow(
+        offset: Offset(0.0, 6.0),
+        blurRadius: 10.0,
+        color: _kKeyPenumbraOpacity),
+    const ShapeShadow(
+        offset: Offset(0.0, 1.0),
+        blurRadius: 18.0,
+        color: _kAmbientShadowOpacity),
+  ],
   backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary5),
+  transform: SmoothMatrix4()..scale(0.95),
 );
 
 final _pressedStyle = _baseStyle.copyWith(
   textStyle: DynamicTextStyle(
     letterSpacing: 1.toPXLength,
     fontSize: 36.toPXLength,
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w700,
     color: Colors.grey.shade50,
   ),
+  shadows: [
+    const ShapeShadow(
+        offset: Offset(0.0, 3.0),
+        blurRadius: 1.0,
+        spreadRadius: -2.0,
+        color: _kKeyUmbraOpacity),
+    const ShapeShadow(
+        offset: Offset(0.0, 2.0), blurRadius: 2.0, color: _kKeyPenumbraOpacity),
+    const ShapeShadow(
+        offset: Offset(0.0, 1.0),
+        blurRadius: 5.0,
+        color: _kAmbientShadowOpacity),
+  ],
   backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary4),
+  transform: SmoothMatrix4()..scale(0.9),
 );
 
 abstract class _TileDimension {
@@ -171,3 +224,7 @@ abstract class _TileTextDimension {
   static Dimension medium = Dimension.min(36.0.toPXLength, 20.toVWLength);
   static Dimension large = Dimension.min(42.0.toPXLength, 20.toVWLength);
 }
+
+const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2
+const Color _kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14
+const Color _kAmbientShadowOpacity = Color(0x1F000000); // alpha = 0.12

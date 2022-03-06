@@ -44,7 +44,11 @@ class KeyboardTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-          backgroundDecoration: BoxDecoration(color: Colors.redAccent.shade100),
+          backgroundDecoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            Colors.redAccent.shade100,
+            Colors.redAccent.shade100
+          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         ),
       });
 
@@ -247,6 +251,9 @@ class KeyboardTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle =>
       const DynamicTextStyle(color: PuzzleColors.grey3);
+
+  @override
+  String get tilePressSoundAsset => "assets/audio/keyboard_click.mp3";
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
