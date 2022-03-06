@@ -10,15 +10,11 @@ I want to demonstrate the **power** and **expressiveness** of Flutter in this pr
 
 You play the basic version of the slide puzzle game but you can play it in different themes. The puzzle tiles will smoothly animate when you hover or press them. The whole user interface will also animate between different themes.
 
-![Smoothly animate between themes](https://i.imgur.com/Y1XOwAE.gif)
-
-#####Smoothly animate between themes
-
 You can choose between different difficulty levels and puzzle sizes when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
 
 ![Auto solve the puzzle](https://i.imgur.com/GNIyZ0B.gif)
 
-#####Automatically solve the puzzle
+##### Automatically solve the puzzle
 
 ## How we built it
 
@@ -38,7 +34,7 @@ The themed_puzzle app is an all-around app that is **fully responsive, cross-pla
 
 ![Multi language support](https://i.imgur.com/yLQX5WX.gif)
 
-#####Multi-language support
+##### Multi-language support
 
 ## What we learned
 
