@@ -63,7 +63,7 @@ class _AppState extends State<App> {
 
     _platformHelper = widget._platformHelperFactory();
 
-    _timer = Timer(const Duration(milliseconds: 20), () {
+    _timer = Timer(const Duration(milliseconds: 100), () {
       for (final imageAsset in imageAssets) {
         precacheImage(
           Image.asset(imageAsset).image,
