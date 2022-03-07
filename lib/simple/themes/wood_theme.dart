@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
+import 'package:very_good_slide_puzzle/theme/theme.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -21,6 +22,9 @@ class WoodTheme extends SimpleTheme {
 
   @override
   bool get hasTimer => false;
+
+  @override
+  Duration get tileMoveAnimationDuration => Duration(milliseconds: 500);
 
   @override
   DynamicTextStyle get nameTextStyle => DynamicTextStyle(

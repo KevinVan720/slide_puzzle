@@ -24,6 +24,12 @@ class ClaymorphismTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
+  Curve get tileMoveAnimationCurve => Curves.easeInOutBack;
+
+  @override
+  Duration get tileMoveAnimationDuration => Duration(milliseconds: 300);
+
+  @override
   DynamicTextStyle get nameTextStyle =>
       const DynamicTextStyle(color: PuzzleColors.grey1);
 

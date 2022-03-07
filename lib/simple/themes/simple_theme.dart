@@ -3,6 +3,7 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:responsive_property/responsive_property.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/material.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -13,6 +14,13 @@ abstract class SimpleTheme extends PuzzleTheme {
 
   @override
   bool get hasTimer => false;
+
+  @override
+  Curve get tileMoveAnimationCurve => Curves.easeInOut;
+
+  @override
+  Duration get tileMoveAnimationDuration =>
+      PuzzleThemeAnimationDuration.puzzleTileScale;
 
   @override
   Responsive<double> get tileSize => Responsive({

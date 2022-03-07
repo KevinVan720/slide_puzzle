@@ -23,6 +23,9 @@ class MaterialTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
+  Curve get tileMoveAnimationCurve => Curves.easeOutExpo;
+
+  @override
   DynamicTextStyle get nameTextStyle =>
       const DynamicTextStyle(color: PuzzleColors.grey1);
 

@@ -3,7 +3,13 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+
+enum TileAnimationType {
+  grid,
+  move,
+}
 
 /// {@template puzzle_theme}
 /// Template for creating custom puzzle UI.
@@ -17,6 +23,10 @@ abstract class PuzzleTheme extends Equatable {
 
   /// Whether this theme displays the puzzle timer.
   bool get hasTimer;
+
+  Curve get tileMoveAnimationCurve;
+
+  Duration get tileMoveAnimationDuration;
 
   /// The text style of [name].
   DynamicTextStyle get nameTextStyle;
@@ -80,6 +90,8 @@ abstract class PuzzleTheme extends Equatable {
   List<Object?> get props => [
         name,
         hasTimer,
+        tileMoveAnimationCurve,
+        tileMoveAnimationDuration,
         nameTextStyle,
         titleTextStyle,
         tileSize,
