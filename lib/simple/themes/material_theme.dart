@@ -216,14 +216,14 @@ final _pressedStyle = _baseStyle.copyWith(
 );
 
 abstract class _TileDimension {
-  static Dimension small = Dimension.min(72.0.toPXLength, 100.toPercentLength);
+  static Dimension small = Dimension.min(60.0.toPXLength, 100.toPercentLength);
   static Dimension medium =
       Dimension.min(100.0.toPXLength, 100.toPercentLength);
   static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
 }
 
 abstract class _TileTextDimension {
-  static Dimension small = Dimension.min(28.0.toPXLength, 20.toVWLength);
+  static Dimension small = Dimension.min(24.0.toPXLength, 20.toVWLength);
   static Dimension medium = Dimension.min(36.0.toPXLength, 20.toVWLength);
   static Dimension large = Dimension.min(42.0.toPXLength, 20.toVWLength);
 }

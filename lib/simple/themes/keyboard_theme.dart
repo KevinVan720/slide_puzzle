@@ -58,6 +58,28 @@ class KeyboardTheme extends SimpleTheme {
           width: _TileDimension.small,
           height: _TileDimension.small,
           padding: const EdgeInsets.symmetric(vertical: 10),
+          shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: 1,
+                color: Colors.grey.shade700,
+                offset: const Offset(0, 9)),
+            const ShapeShadow(
+                blurRadius: 0, color: Colors.teal, offset: Offset(0, 10)),
+            ShapeShadow(
+                blurRadius: 0,
+                spreadRadius: -1,
+                gradient: LinearGradient(colors: [
+                  Colors.tealAccent.shade400,
+                  Colors.tealAccent.shade700
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                offset: const Offset(0, 9)),
+          ],
+          transform: SmoothMatrix4()..translate(0.toPXLength, -10.toPXLength),
           textStyle: DynamicTextStyle(
               fontSize: 20.toPXLength,
               color: Colors.teal,
@@ -87,14 +109,18 @@ class KeyboardTheme extends SimpleTheme {
               fontSize: 20.toPXLength,
               color: Colors.teal,
               fontWeight: FontWeight.w800),
+          shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
           shadows: [
             ShapeShadow(
-                blurRadius: 10,
+                blurRadius: 6,
                 spreadRadius: 1,
                 color: Colors.grey.shade700,
-                offset: const Offset(0, 10)),
+                offset: const Offset(0, 6)),
             const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+                blurRadius: 0, color: Colors.teal, offset: Offset(0, 7)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -102,9 +128,9 @@ class KeyboardTheme extends SimpleTheme {
                   Colors.tealAccent.shade400,
                   Colors.tealAccent.shade700
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                offset: const Offset(0, 10)),
+                offset: const Offset(0, 6)),
           ],
-          transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
+          transform: SmoothMatrix4()..translate(0.toPXLength, -7.toPXLength),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
@@ -166,6 +192,10 @@ class KeyboardTheme extends SimpleTheme {
               fontSize: 20.toPXLength,
               color: Colors.teal,
               fontWeight: FontWeight.w800),
+          shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
           shadows: [
             ShapeShadow(
                 blurRadius: 3,
@@ -293,7 +323,7 @@ final _baseStyle = Style(
     mouseCursor: SystemMouseCursors.click);
 
 abstract class _TileDimension {
-  static Dimension small = Dimension.min(68.0.toPXLength, 96.toPercentLength);
-  static Dimension medium = Dimension.min(98.0.toPXLength, 96.toPercentLength);
+  static Dimension small = Dimension.min(56.0.toPXLength, 96.toPercentLength);
+  static Dimension medium = Dimension.min(90.0.toPXLength, 96.toPercentLength);
   static Dimension large = Dimension.min(110.0.toPXLength, 96.toPercentLength);
 }

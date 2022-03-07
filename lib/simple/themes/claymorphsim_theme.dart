@@ -27,7 +27,7 @@ class ClaymorphismTheme extends SimpleTheme {
   Curve get tileMoveAnimationCurve => Curves.easeInOutBack;
 
   @override
-  Duration get tileMoveAnimationDuration => Duration(milliseconds: 300);
+  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 300);
 
   @override
   DynamicTextStyle get nameTextStyle =>
@@ -230,7 +230,7 @@ final _baseStyle = Style(
     mouseCursor: SystemMouseCursors.click);
 
 abstract class _TileDimension {
-  static Dimension small = Dimension.min(72.0.toPXLength, 100.toPercentLength);
+  static Dimension small = Dimension.min(60.0.toPXLength, 100.toPercentLength);
   static Dimension medium =
       Dimension.min(100.0.toPXLength, 100.toPercentLength);
   static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);

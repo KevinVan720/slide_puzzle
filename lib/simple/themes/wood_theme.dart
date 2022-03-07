@@ -24,7 +24,7 @@ class WoodTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
-  Duration get tileMoveAnimationDuration => Duration(milliseconds: 500);
+  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 500);
 
   @override
   DynamicTextStyle get nameTextStyle => DynamicTextStyle(
@@ -69,7 +69,7 @@ class WoodTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get boardBackgroundStyle => Responsive({
-        allScreen: Style(
+        smallScreen: Style(
             padding: const EdgeInsets.all(10),
             backgroundDecoration: BoxDecoration(
                 image: DecorationImage(
@@ -82,47 +82,158 @@ class WoodTheme extends SimpleTheme {
                 borderRadius: DynamicBorderRadius.all(
                     DynamicRadius.circular(1.toPXLength)),
                 borderSides: RectangleBorderSides.only(
-                    bottom: DynamicBorderSide(
-                        color: Colors.brown.shade400, width: 8),
-                    top: const DynamicBorderSide(
-                        gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF311919),
-                              Color(0xFF301818),
-                            ],
-                            stops: [
-                              0,
-                              0.8
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight),
-                        width: 8),
-                    right: const DynamicBorderSide(
-                        gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF5A3823),
-                              Color(0xFF583420),
-                            ],
-                            stops: [
-                              0,
-                              0.8
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter),
-                        width: 8),
-                    left: const DynamicBorderSide(
-                        gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF483024),
-                              Color(0xFF402020),
-                            ],
-                            stops: [
-                              0,
-                              0.8
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter),
-                        width: 8))))
+                  top: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF311919),
+                            Color(0xFF301818),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      width: 3),
+                  bottom:
+                      DynamicBorderSide(color: Colors.brown.shade400, width: 6),
+                  left: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF483024),
+                            Color(0xFF402020),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                      width: 3.5),
+                  right: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF5A3823),
+                            Color(0xFF583420),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                      width: 4),
+                ))),
+        middleScreen: Style(
+            padding: const EdgeInsets.all(10),
+            backgroundDecoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.brown.shade300.withOpacity(0.4),
+                        BlendMode.lighten),
+                    image: const AssetImage('assets/images/wood_grain.png'))),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(1.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                  top: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF311919),
+                            Color(0xFF301818),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      width: 4),
+                  bottom:
+                      DynamicBorderSide(color: Colors.brown.shade400, width: 8),
+                  left: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF483024),
+                            Color(0xFF402020),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                      width: 4.5),
+                  right: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF5A3823),
+                            Color(0xFF583420),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                      width: 5),
+                ))),
+        largeScreen: Style(
+            padding: const EdgeInsets.all(10),
+            backgroundDecoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.brown.shade300.withOpacity(0.4),
+                        BlendMode.lighten),
+                    image: const AssetImage('assets/images/wood_grain.png'))),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(1.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                  top: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF311919),
+                            Color(0xFF301818),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight),
+                      width: 5),
+                  bottom: DynamicBorderSide(
+                      color: Colors.brown.shade400, width: 10),
+                  left: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF483024),
+                            Color(0xFF402020),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                      width: 5.5),
+                  right: const DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(0xFF5A3823),
+                            Color(0xFF583420),
+                          ],
+                          stops: [
+                            0,
+                            0.8
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                      width: 6.5),
+                )))
       });
 
   @override
@@ -400,17 +511,13 @@ List<Shadow> _engraveShadowLarge = [
   const Shadow(
       blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(-2, 2)),
   const Shadow(
-      blurRadius: 0.5, color: const Color(0xFF302018), offset: Offset(-2, -2)),
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(-2, -2)),
   const Shadow(
-      blurRadius: 0.5,
-      color: const Color(0xFF302018),
-      offset: Offset(2.818, 0)),
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(2.818, 0)),
   const Shadow(
       blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(0, -2.818)),
   const Shadow(
-      blurRadius: 0.5,
-      color: const Color(0xFF302018),
-      offset: Offset(-2.818, 0)),
+      blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(-2.818, 0)),
   const Shadow(
       blurRadius: 0.5, color: Color(0xFF302018), offset: Offset(0, 2.818))
 ];

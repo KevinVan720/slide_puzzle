@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:math';
+
+import 'dart:io' show Platform;
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/foundation.dart';
@@ -227,24 +230,20 @@ class SimplePuzzleBoard extends StatelessWidget {
     double tileSize = theme.tileSize.resolve(context) ?? 72;
     double tileGap = theme.tileGapSize.resolve(context) ?? 4;
 
-    return Container(
-      width: tileSize * size + tileGap * (size + 1),
-      height: tileSize * size + tileGap * (size + 1),
-      clipBehavior: Clip.none,
+    return SizedBox(
+      width: min(tileSize * size + tileGap * (size + 1),
+          MediaQuery.of(context).size.width),
+      height: min(tileSize * size + tileGap * (size + 1),
+          MediaQuery.of(context).size.width),
       child: Stack(
-        clipBehavior: Clip.none,
+        //clipBehavior: Clip.none,
         alignment: Alignment.center,
+        fit: StackFit.passthrough,
         children: [
           ///The board background
           StyledContainer(
               style: theme.boardBackgroundStyle.resolve(context) ?? Style(),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: SizedBox(
-                  width: tileSize * size + tileGap * (size - 1),
-                  height: tileSize * size + tileGap * (size - 1),
-                ),
-              )),
+              child: Container()),
           ...tiles
         ],
       ),
@@ -280,6 +279,7 @@ class SimplePuzzleTile extends StatefulWidget {
 
 class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
   AudioPlayer? _audioPlayer;
+  String? _audioAsset;
   late final Timer _timer;
 
   @override
@@ -288,9 +288,14 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
 
     /// Delay the initialization of the audio player for performance reasons,
     /// to avoid dropping frames when the theme is changed.
-    _timer = Timer(const Duration(milliseconds: 500), () {
-      _audioPlayer = widget._audioPlayerFactory();
-    });
+    /// linux and windows are not supported right now
+    ///
+
+    if (AudioPlayerExtension.isPlatformSupported) {
+      _timer = Timer(const Duration(milliseconds: 500), () {
+        _audioPlayer = widget._audioPlayerFactory();
+      });
+    }
   }
 
   @override
@@ -317,10 +322,15 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
         pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
         onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
             ? () async {
-                final duration = await _audioPlayer?.setAsset(
-                  theme.tilePressSoundAsset,
-                );
-                if (duration != null) {
+                if (AudioPlayerExtension.isPlatformSupported) {
+                  if (_audioAsset != theme.tilePressSoundAsset) {
+                    setState(() {
+                      _audioAsset = theme.tilePressSoundAsset;
+                    });
+                    final duration = await _audioPlayer?.setAsset(
+                      theme.tilePressSoundAsset,
+                    );
+                  }
                   unawaited(_audioPlayer?.replay());
                 }
 
@@ -345,10 +355,14 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
       ),
       duration: theme.tileMoveAnimationDuration,
       curve: theme.tileMoveAnimationCurve,
-      child: SizedBox.square(
-        dimension: tileSize,
-        child: _tile,
-      ),
+      child: ConstrainedBox(
+          constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width / size,
+              maxHeight: MediaQuery.of(context).size.width / size),
+          child: SizedBox.square(
+            dimension: tileSize,
+            child: _tile,
+          )),
     );
   }
 }

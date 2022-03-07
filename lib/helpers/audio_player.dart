@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -17,4 +18,7 @@ extension AudioPlayerExtension on AudioPlayer {
     await seek(null);
     unawaited(play());
   }
+
+  static bool get isPlatformSupported =>
+      kIsWeb || (!Platform.isLinux && !Platform.isWindows);
 }

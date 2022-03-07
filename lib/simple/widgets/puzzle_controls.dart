@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
+import 'package:just_audio/just_audio.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import 'package:responsive_property/responsive_property.dart';
+import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
@@ -122,7 +126,13 @@ class SimplePuzzleSizeSelectButton extends StatelessWidget {
 }
 
 class SimplePuzzleSolveButton extends StatefulWidget {
-  const SimplePuzzleSolveButton({Key? key}) : super(key: key);
+  const SimplePuzzleSolveButton({
+    Key? key,
+    AudioPlayerFactory? audioPlayer,
+  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
+        super(key: key);
+
+  final AudioPlayerFactory _audioPlayerFactory;
 
   @override
   State<SimplePuzzleSolveButton> createState() =>
@@ -130,9 +140,36 @@ class SimplePuzzleSolveButton extends StatefulWidget {
 }
 
 class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
-  ///The async process of solving and updating the puzzle
+  AudioPlayer? _audioPlayer;
+  String? _audioAsset;
+  late final Timer _timer;
 
+  ///The async process of solving and updating the puzzle
   Future<void>? getSolutionAndUpdatePuzzle;
+
+  @override
+  void initState() {
+    super.initState();
+
+    /// Delay the initialization of the audio player for performance reasons,
+    /// to avoid dropping frames when the theme is changed.
+    /// linux and windows are not supported right now
+    ///
+
+    if (!kIsWeb && (Platform.isLinux || Platform.isWindows)) {
+    } else {
+      _timer = Timer(const Duration(milliseconds: 500), () {
+        _audioPlayer = widget._audioPlayerFactory();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _audioPlayer?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +187,8 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
               if (snapshot.connectionState == ConnectionState.none) {
                 return PuzzleButton(onPressed: () async {
                   setState(() {
-                    getSolutionAndUpdatePuzzle = _solvePuzzle(state.puzzle);
+                    getSolutionAndUpdatePuzzle =
+                        _solvePuzzle(state.puzzle, theme);
                   });
                 }, child: Builder(builder: (context) {
                   return Row(
@@ -199,7 +237,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     return rst;
   }
 
-  Future<void> _solvePuzzle(Puzzle puzzle) async {
+  Future<void> _solvePuzzle(Puzzle puzzle, PuzzleTheme theme) async {
     List<List<Tile>> history = removeRedundantMoves(puzzle.tilesHistory.reversed
         .map((e) => e
           ..toList()
@@ -236,7 +274,19 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
       await Future.forEach(
           history,
           (List<Tile> tiles) =>
-              Future.delayed(const Duration(milliseconds: 1000), () {
+              Future.delayed(const Duration(milliseconds: 1000), () async {
+                if (AudioPlayerExtension.isPlatformSupported) {
+                  if (_audioAsset != theme.tilePressSoundAsset) {
+                    setState(() {
+                      _audioAsset = theme.tilePressSoundAsset;
+                    });
+                    await _audioPlayer?.setAsset(
+                      theme.tilePressSoundAsset,
+                    );
+                  }
+                  unawaited(_audioPlayer?.replay());
+                }
+
                 context
                     .read<PuzzleBloc>()
                     .add(PuzzleReset(Puzzle(tiles: tiles)));
@@ -256,7 +306,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     int i = 0;
     while (i < history.length) {
       int lastId = history.lastIndexWhere((e) => listEquals(e, history[i]));
-      //print(i.toString() + ", " + lastId.toString());
+
       if (lastId != -1 && lastId != i) {
         history = history.sublist(0, i) + history.sublist(lastId);
         i = 0;
@@ -363,13 +413,39 @@ class SimplePuzzleControls extends StatelessWidget {
           medium: 20,
           large: 32,
         ),
-        const SimplePuzzleShuffleButton(),
-        const ResponsiveGap(
-          small: 20,
-          medium: 20,
-          large: 32,
-        ),
-        const SimplePuzzleSolveButton(),
+        ResponsiveLayoutBuilder(
+          small: (_, child) => Column(
+            children: const [
+              SimplePuzzleShuffleButton(),
+              ResponsiveGap(
+                small: 20,
+                medium: 20,
+                large: 32,
+              ),
+              SimplePuzzleSolveButton(),
+            ],
+          ),
+          medium: (_, child) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              SimplePuzzleShuffleButton(),
+              Gap(32),
+              SimplePuzzleSolveButton(),
+            ],
+          ),
+          large: (_, child) => Column(
+            children: const [
+              SimplePuzzleShuffleButton(),
+              ResponsiveGap(
+                small: 20,
+                medium: 20,
+                large: 32,
+              ),
+              SimplePuzzleSolveButton(),
+            ],
+          ),
+        )
       ],
     );
   }
