@@ -386,7 +386,12 @@ class SimplePuzzleControls extends StatelessWidget {
       children: [
         Row(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: Responsive({
+                smallScreen: MainAxisAlignment.center,
+                middleScreen: MainAxisAlignment.center,
+                largeScreen: MainAxisAlignment.start
+              }).resolve(context) ??
+              MainAxisAlignment.start,
           children: const [
             SimplePuzzleDifficultySelectButton(
                 difficulty: PuzzleDifficulty.easy),
@@ -401,7 +406,12 @@ class SimplePuzzleControls extends StatelessWidget {
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: Responsive({
+                smallScreen: MainAxisAlignment.center,
+                middleScreen: MainAxisAlignment.center,
+                largeScreen: MainAxisAlignment.start
+              }).resolve(context) ??
+              MainAxisAlignment.start,
           children: const [
             SimplePuzzleSizeSelectButton(size: 3),
             SimplePuzzleSizeSelectButton(size: 4),
@@ -409,9 +419,9 @@ class SimplePuzzleControls extends StatelessWidget {
           ],
         ),
         const ResponsiveGap(
-          small: 20,
-          medium: 20,
-          large: 32,
+          small: 30,
+          medium: 30,
+          large: 40,
         ),
         ResponsiveLayoutBuilder(
           small: (_, child) => Column(
