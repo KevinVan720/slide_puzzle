@@ -316,7 +316,7 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
       audioPlayer: _audioPlayer,
       child: StyledButton(
         curve: Curves.easeInOut,
-        duration: theme.tileMoveAnimationDuration,
+        duration: PuzzleThemeAnimationDuration.puzzleTileScale,
         style: theme.buttonStyle.resolve(context) ?? Style(),
         hoveredStyle: theme.hoverStyle.resolve(context) ?? Style(),
         pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),

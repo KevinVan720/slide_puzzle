@@ -20,7 +20,7 @@ abstract class SimpleTheme extends PuzzleTheme {
 
   @override
   Duration get tileMoveAnimationDuration =>
-      PuzzleThemeAnimationDuration.puzzleTileScale;
+      PuzzleThemeAnimationDuration.puzzleTileTranslation;
 
   @override
   Responsive<double> get tileSize => Responsive({

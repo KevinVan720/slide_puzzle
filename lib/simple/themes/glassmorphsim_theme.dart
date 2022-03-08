@@ -23,6 +23,9 @@ class GlassmorphismTheme extends SimpleTheme {
       };
 
   @override
+  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 333);
+
+  @override
   bool get hasTimer => false;
 
   @override
