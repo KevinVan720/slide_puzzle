@@ -3,6 +3,11 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
 import 'package:gap/gap.dart';
 
+import 'package:flutter/foundation.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template app_flutter_logo}
 /// Variant of Flutter logo that can be either white or colored.
 /// {@endtemplate}
@@ -26,7 +31,18 @@ class AppFlutterLogo extends StatelessWidget {
         ? 'assets/images/logo_flutter_color.png'
         : 'assets/images/logo_flutter_white.png';
 
-    return AnimatedSwitcher(
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
+    return ShaderMask(
+        shaderCallback: (Rect bounds) {
+      return LinearGradient(
+        colors: [
+          theme.menuUnderlineColor,
+          theme.menuUnderlineColor
+        ],
+      ).createShader(bounds);
+    },
+    child: AnimatedSwitcher(
       duration: PuzzleThemeAnimationDuration.logoChange,
       child: height != null
           ? Image.asset(
@@ -35,46 +51,18 @@ class AppFlutterLogo extends StatelessWidget {
             )
           : ResponsiveLayoutBuilder(
               key: Key(assetName),
-              small: (_, __) => Row(
-                children: [
-                  Image.asset(
-                    assetName,
-                    height: 24,
-                  ),
-                  const Gap(5),
-                  Image.asset(
-                    'assets/images/simple_dash_small.png',
-                    height: 30,
-                  ),
-                ],
+              small: (_, __) => Image.asset(
+                assetName,
+                height: 24,
               ),
-              medium: (_, __) => Row(
-                children: [
-                  Image.asset(
+              medium: (_, __) => Image.asset(
                     assetName,
                     height: 29,
                   ),
-                  const Gap(5),
-                  Image.asset(
-                    'assets/images/simple_dash_small.png',
-                    height: 36,
-                  ),
-                ],
-              ),
-              large: (_, __) => Row(
-                children: [
-                  Image.asset(
+              large: (_, __) => Image.asset(
                     assetName,
                     height: 32,
-                  ),
-                  const Gap(5),
-                  Image.asset(
-                    'assets/images/simple_dash_small.png',
-                    height: 40,
-                  ),
-                ],
-              ),
-            ),
-    );
+                  )),
+    ));
   }
 }

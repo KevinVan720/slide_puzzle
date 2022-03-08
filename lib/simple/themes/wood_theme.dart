@@ -413,12 +413,12 @@ class WoodTheme extends SimpleTheme {
         fontWeight: FontWeight.w700,
         color: const Color(0xFFC0A080).withOpacity(0.8),
         shadows: _engraveShadowLarge,
-        decoration: TextDecoration.underline,
-        decorationColor: const Color(0xFFC0A080),
+        //decoration: TextDecoration.underline,
+        //decorationColor: const Color(0xFFC0A080),
       );
 
   @override
-  Color get menuUnderlineColor => const Color(0x00FFFFFF);
+  Color get menuUnderlineColor => const Color(0xFFC0A080);
 
   @override
   Color get popupMenuBackgroundColor => Colors.brown.shade700;
