@@ -24,7 +24,7 @@ class WoodTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
-  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 500);
+  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 350);
 
   @override
   DynamicTextStyle get nameTextStyle => DynamicTextStyle(

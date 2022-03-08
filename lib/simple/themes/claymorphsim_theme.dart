@@ -27,7 +27,7 @@ class ClaymorphismTheme extends SimpleTheme {
   Curve get tileMoveAnimationCurve => Curves.easeInOutBack;
 
   @override
-  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 300);
+  Duration get tileMoveAnimationDuration => const Duration(milliseconds: 250);
 
   @override
   DynamicTextStyle get nameTextStyle =>

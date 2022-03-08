@@ -27,7 +27,7 @@ class NeumorphicTheme extends SimpleTheme {
   Curve get tileMoveAnimationCurve => Curves.decelerate;
 
   @override
-  Duration get tileMoveAnimationDuration => Duration(milliseconds: 300);
+  Duration get tileMoveAnimationDuration => Duration(milliseconds: 250);
 
   @override
   DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
