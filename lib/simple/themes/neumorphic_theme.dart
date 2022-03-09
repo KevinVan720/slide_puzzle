@@ -34,7 +34,7 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-        color: PuzzleColors.black,
+        color: Color(0xFF535C80),
         fontFamily: "BalooThambi2",
         fontWeight: FontWeight.bold,
       );
@@ -255,7 +255,7 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-      color: PuzzleColors.black, fontWeight: FontWeight.bold);
+      color: Color(0xFF535C80), fontWeight: FontWeight.bold);
 
   @override
   Color get menuUnderlineColor => PuzzleColors.grey1;
