@@ -294,11 +294,36 @@ class KeyboardTheme extends SimpleTheme {
   bool get isLogoColored => false;
 
   @override
-  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-        color: PuzzleColors.black,
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+        color: Colors.teal.shade900,
         fontWeight: FontWeight.bold,
         fontFamily: "GoogleSans",
-        shadows: _engraveShadow,
+    shadows: const [
+      Shadow(
+          blurRadius: 0.5,
+          color: Color.fromARGB(60, 255, 255, 255),
+          offset: Offset(-0.2, -1)),
+      Shadow(
+          blurRadius: 0.5,
+          color: Color.fromARGB(60, 255, 255, 255),
+          offset: Offset(-0.5, -0.5)),
+      Shadow(
+          blurRadius: 0.5,
+          color: Color.fromARGB(60, 255, 255, 255),
+          offset: Offset(-0.8, -0.2)),
+      Shadow(
+          blurRadius: 0.5,
+          color: Color.fromARGB(200, 0, 0, 0),
+          offset: Offset(0.2, 1)),
+      Shadow(
+          blurRadius: 0.5,
+          color: Color.fromARGB(200, 0, 0, 0),
+          offset: Offset(0.5, 0.5)),
+      Shadow(
+          blurRadius: 0.5,
+          color: Color.fromARGB(200, 0, 0, 0),
+          offset: Offset(0.8, 0.2)),
+    ]
       );
 
   @override
@@ -365,11 +390,27 @@ abstract class _TileDimension {
 
 const List<Shadow> _engraveShadow = [
   Shadow(
-      blurRadius: 0.1,
+      blurRadius: 0.5,
       color: Color.fromARGB(60, 255, 255, 255),
-      offset: Offset(0, 1)),
+      offset: Offset(0.2, 1)),
   Shadow(
-      blurRadius: 0.1,
+      blurRadius: 0.5,
+      color: Color.fromARGB(60, 255, 255, 255),
+      offset: Offset(0.5, 0.5)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Color.fromARGB(60, 255, 255, 255),
+      offset: Offset(0.8, 0.2)),
+  Shadow(
+      blurRadius: 0.5,
       color: Color.fromARGB(200, 0, 0, 0),
-      offset: Offset(0, -1)),
+      offset: Offset(-0.2, -1)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Color.fromARGB(200, 0, 0, 0),
+      offset: Offset(-0.5, -0.5)),
+  Shadow(
+      blurRadius: 0.5,
+      color: Color.fromARGB(200, 0, 0, 0),
+      offset: Offset(-0.8, -0.2)),
 ];
