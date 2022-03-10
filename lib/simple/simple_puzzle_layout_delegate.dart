@@ -226,6 +226,7 @@ class SimplePuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     double tileSize = theme.tileSize.resolve(context) ?? 72;
     double tileGap = theme.tileGapSize.resolve(context) ?? 4;

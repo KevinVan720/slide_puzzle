@@ -21,6 +21,8 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 
+import 'package:decorated_icon/decorated_icon.dart';
+
 /// {@template puzzle_shuffle_button}
 /// Displays the button to shuffle the puzzle.
 /// {@endtemplate}
@@ -31,16 +33,26 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
+    List<Shadow>? _textShadow =
+        theme.buttonStyle.resolve(context)?.textStyle?.shadows;
+
     return PuzzleButton(onPressed: () {
       context.read<PuzzleBloc>().add(const PuzzleReset(null));
     }, child: Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          DecoratedIcon(
             Icons.refresh_sharp,
             size: 17,
             color: DefaultTextStyle.of(context).style.color,
+            shadows: _textShadow?.map((e) => Shadow(
+              color: e.color,
+              offset: e.offset,
+              blurRadius: e.blurRadius
+            )).toList(),
           ),
           const Gap(10),
           Text(context.l10n.puzzleShuffle),
@@ -176,10 +188,13 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
+    List<Shadow>? _textShadow =
+        theme.buttonStyle.resolve(context)?.textStyle?.shadows;
+
     return state.puzzle.isComplete()
         ? PuzzleAnimatedContainer(
             style: theme.buttonStyle.resolve(context) ?? Style(),
-            child: _solvedRow(),
+            child: _solvedRow(_textShadow),
           )
         : FutureBuilder<void>(
             future: getSolutionAndUpdatePuzzle,
@@ -194,10 +209,15 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      DecoratedIcon(
                         Icons.question_mark,
-                        size: 16,
+                        size: 17,
                         color: DefaultTextStyle.of(context).style.color,
+                        shadows: _textShadow?.map((e) => Shadow(
+                            color: e.color,
+                            offset: e.offset,
+                            blurRadius: e.blurRadius
+                        )).toList(),
                       ),
                       const Gap(10),
                       Text(context.l10n.puzzleSolve),
@@ -211,10 +231,10 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
 
               if (snapshot.hasError) {
                 style = theme.buttonStyle.resolve(context);
-                row = _noSolutionRow();
+                row = _noSolutionRow(_textShadow);
               } else if (snapshot.hasData) {
                 style = theme.buttonStyle.resolve(context);
-                row = _solvedRow();
+                row = _solvedRow(_textShadow);
               } else {
                 style = theme.pressedStyle.resolve(context);
                 row = _solvingRow();
@@ -317,15 +337,20 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     return history;
   }
 
-  Widget _solvedRow() {
+  Widget _solvedRow(List<Shadow>? _textShadow) {
     return Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          DecoratedIcon(
             Icons.check,
-            size: 20,
+            size: 17,
             color: DefaultTextStyle.of(context).style.color,
+            shadows: _textShadow?.map((e) => Shadow(
+                color: e.color,
+                offset: e.offset,
+                blurRadius: e.blurRadius
+            )).toList(),
           ),
           const Gap(10),
           Text(context.l10n.puzzleSolved),
@@ -340,8 +365,8 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-              width: 18,
-              height: 18,
+              width: 12,
+              height: 12,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
                 color: DefaultTextStyle.of(context).style.color,
@@ -353,15 +378,20 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     });
   }
 
-  Widget _noSolutionRow() {
+  Widget _noSolutionRow(List<Shadow>? _textShadow) {
     return Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          DecoratedIcon(
             Icons.error,
-            size: 20,
+            size: 17,
             color: DefaultTextStyle.of(context).style.color,
+            shadows: _textShadow?.map((e) => Shadow(
+                color: e.color,
+                offset: e.offset,
+                blurRadius: e.blurRadius
+            )).toList(),
           ),
           const Gap(10),
           Text(context.l10n.puzzleSolveError),

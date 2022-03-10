@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:decorated_icon/decorated_icon.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current audio status of the puzzle.
@@ -17,6 +18,11 @@ class AudioControl extends StatelessWidget {
     final audioMuted =
         context.select((AudioControlBloc bloc) => bloc.state.muted);
 
+    List<Shadow>? _iconShadow=audioMuted
+        ? theme.menuInactiveStyle.shadows
+        : theme.menuActiveStyle.shadows;
+
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
@@ -24,26 +30,41 @@ class AudioControl extends StatelessWidget {
         child: AnimatedSwitcher(
           duration: PuzzleThemeAnimationDuration.backgroundColorChange,
           child: ResponsiveLayoutBuilder(
-            small: (_, __) => Icon(
+            small: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,
               size: 24,
               color: audioMuted
                   ? theme.menuInactiveStyle.color
                   : theme.menuActiveStyle.color,
+    shadows: _iconShadow?.map((e) => Shadow(
+    color: e.color,
+    offset: e.offset,
+    blurRadius: e.blurRadius
+    )).toList(),
             ),
-            medium: (_, __) => Icon(
+            medium: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,
               size: 32,
               color: audioMuted
                   ? theme.menuInactiveStyle.color
                   : theme.menuActiveStyle.color,
+    shadows: _iconShadow?.map((e) => Shadow(
+    color: e.color,
+    offset: e.offset,
+    blurRadius: e.blurRadius
+    )).toList(),
             ),
-            large: (_, __) => Icon(
+            large: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,
               size: 36,
               color: audioMuted
                   ? theme.menuInactiveStyle.color
                   : theme.menuActiveStyle.color,
+    shadows: _iconShadow?.map((e) => Shadow(
+    color: e.color,
+    offset: e.offset,
+    blurRadius: e.blurRadius
+    )).toList(),
             ),
           ),
         ),

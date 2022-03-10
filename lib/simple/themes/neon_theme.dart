@@ -347,9 +347,8 @@ class NeonTheme extends SimpleTheme {
         fontFamily: "Beon",
         fontWeight: FontWeight.bold,
         shadows: [
-          Shadow(blurRadius: 2, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
-          Shadow(blurRadius: 4, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
-          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0))
+          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+          Shadow(blurRadius: 3, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
         ],
       );
 
@@ -364,7 +363,7 @@ class NeonTheme extends SimpleTheme {
         color: Colors.white,
         fontFamily: "Beon",
         shadows: [
-          Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(blurRadius: 3, color: Colors.white, offset: Offset(0, 0)),
         ],
       );
 

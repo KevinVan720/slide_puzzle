@@ -5,6 +5,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
+import 'package:decorated_icon/decorated_icon.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -24,6 +25,8 @@ class LocaleControl extends StatelessWidget {
     final unselectedStyle = theme.menuInactiveStyle.toTextStyle(
         screenSize: MediaQuery.of(context).size,
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 24.0);
+
+    List<Shadow>? _iconShadow=theme.menuActiveStyle.shadows;
 
     return PopupMenuButton<Locale>(
       padding: EdgeInsets.zero,
@@ -46,20 +49,35 @@ class LocaleControl extends StatelessWidget {
       child: AnimatedSwitcher(
         duration: PuzzleThemeAnimationDuration.backgroundColorChange,
         child: ResponsiveLayoutBuilder(
-          small: (_, __) => Icon(
+          small: (_, __) => DecoratedIcon(
             Icons.language,
             size: 24,
             color: theme.menuActiveStyle.color,
+            shadows: _iconShadow?.map((e) => Shadow(
+                color: e.color,
+                offset: e.offset,
+                blurRadius: e.blurRadius
+            )).toList(),
           ),
-          medium: (_, __) => Icon(
+          medium: (_, __) => DecoratedIcon(
             Icons.language,
-            size: 33,
+            size: 32,
             color: theme.menuActiveStyle.color,
+            shadows: _iconShadow?.map((e) => Shadow(
+                color: e.color,
+                offset: e.offset,
+                blurRadius: e.blurRadius
+            )).toList(),
           ),
-          large: (_, __) => Icon(
+          large: (_, __) => DecoratedIcon(
             Icons.language,
-            size: 33,
+            size: 36,
             color: theme.menuActiveStyle.color,
+            shadows: _iconShadow?.map((e) => Shadow(
+                color: e.color,
+                offset: e.offset,
+                blurRadius: e.blurRadius
+            )).toList(),
           ),
         ),
       ),
