@@ -27,16 +27,8 @@ class KeyboardTheme extends SimpleTheme {
   DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
         color: PuzzleColors.grey1,
         fontStyle: FontStyle.italic,
-        shadows: [
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(50, 255, 255, 255),
-              offset: Offset(0, 0.5)),
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(200, 0, 0, 0),
-              offset: Offset(0, -0.5)),
-        ],
+        fontFamily: "GoogleSans",
+        shadows: _engraveShadow,
       );
 
   @override
@@ -44,16 +36,7 @@ class KeyboardTheme extends SimpleTheme {
       color: Colors.teal.shade700,
       fontStyle: FontStyle.italic,
       fontFamily: "GoogleSans",
-      shadows: [
-        const Shadow(
-            blurRadius: 0.1,
-            color: Color.fromARGB(60, 255, 255, 255),
-            offset: Offset(0, 1.8)),
-        const Shadow(
-            blurRadius: 0.1,
-            color: Color.fromARGB(200, 0, 0, 0),
-            offset: Offset(0, -1.2)),
-      ],
+      shadows: _engraveShadow,
       fontWeight: FontWeight.bold);
 
   @override
@@ -61,16 +44,8 @@ class KeyboardTheme extends SimpleTheme {
         color: PuzzleColors.green50,
         fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold,
-        shadows: [
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(50, 255, 255, 255),
-              offset: Offset(0, 0.5)),
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(200, 0, 0, 0),
-              offset: Offset(0, -0.5)),
-        ],
+        fontFamily: "GoogleSans",
+        shadows: _engraveShadow,
       );
 
   @override
@@ -113,17 +88,23 @@ class KeyboardTheme extends SimpleTheme {
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -10.toPXLength),
           textStyle: DynamicTextStyle(
-              fontSize: 20.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
+            fontSize: 20.toPXLength,
+            color: Colors.teal,
+            fontWeight: FontWeight.w800,
+            fontFamily: "GoogleSans",
+            shadows: _engraveShadow,
+          ),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
-              fontSize: 24.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
+            fontSize: 24.toPXLength,
+            color: Colors.teal,
+            fontWeight: FontWeight.w800,
+            fontFamily: "GoogleSans",
+            shadows: _engraveShadow,
+          ),
         ),
         largeScreen: _baseStyle.copyWith(
           width: _TileDimension.large,
@@ -138,9 +119,12 @@ class KeyboardTheme extends SimpleTheme {
           height: _TileDimension.small,
           padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
-              fontSize: 20.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
+            fontSize: 20.toPXLength,
+            color: Colors.teal,
+            fontWeight: FontWeight.w800,
+            fontFamily: "GoogleSans",
+            shadows: _engraveShadow,
+          ),
           shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength)),
@@ -168,9 +152,12 @@ class KeyboardTheme extends SimpleTheme {
           width: _TileDimension.medium,
           height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
-              fontSize: 24.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
+            fontSize: 24.toPXLength,
+            color: Colors.teal,
+            fontWeight: FontWeight.w800,
+            fontFamily: "GoogleSans",
+            shadows: _engraveShadow,
+          ),
           shadows: [
             ShapeShadow(
                 blurRadius: 10,
@@ -221,9 +208,12 @@ class KeyboardTheme extends SimpleTheme {
           height: _TileDimension.small,
           padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
-              fontSize: 20.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
+            fontSize: 20.toPXLength,
+            color: Colors.teal,
+            fontWeight: FontWeight.w800,
+            fontFamily: "GoogleSans",
+            shadows: _engraveShadow,
+          ),
           shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength)),
@@ -251,9 +241,12 @@ class KeyboardTheme extends SimpleTheme {
           width: _TileDimension.medium,
           height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
-              fontSize: 24.toPXLength,
-              color: Colors.teal,
-              fontWeight: FontWeight.w800),
+            fontSize: 24.toPXLength,
+            color: Colors.teal,
+            fontWeight: FontWeight.w800,
+            fontFamily: "GoogleSans",
+            shadows: _engraveShadow,
+          ),
           shadows: [
             ShapeShadow(
                 blurRadius: 3,
@@ -305,16 +298,7 @@ class KeyboardTheme extends SimpleTheme {
         color: PuzzleColors.black,
         fontWeight: FontWeight.bold,
         fontFamily: "GoogleSans",
-        shadows: [
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(60, 255, 255, 255),
-              offset: Offset(0, 0.5)),
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(200, 0, 0, 0),
-              offset: Offset(0, -0.5)),
-        ],
+        shadows: _engraveShadow,
       );
 
   @override
@@ -327,16 +311,7 @@ class KeyboardTheme extends SimpleTheme {
   DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
         color: PuzzleColors.grey3,
         fontFamily: "GoogleSans",
-        shadows: [
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(50, 255, 255, 255),
-              offset: Offset(0, 0.5)),
-          Shadow(
-              blurRadius: 0.1,
-              color: Color.fromARGB(200, 0, 0, 0),
-              offset: Offset(0, -0.5)),
-        ],
+        shadows: _engraveShadow,
       );
 
   @override
@@ -373,20 +348,11 @@ final _baseStyle = Style(
     ],
     transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),
     textStyle: DynamicTextStyle(
-      fontFamily: "GoogleSans",
       fontSize: 28.toPXLength,
       color: Colors.teal.shade700,
       fontWeight: FontWeight.w900,
-      shadows: [
-        const Shadow(
-            blurRadius: 0.1,
-            color: Color.fromARGB(60, 255, 255, 255),
-            offset: Offset(0, 1)),
-        const Shadow(
-            blurRadius: 0.1,
-            color: Color.fromARGB(200, 0, 0, 0),
-            offset: Offset(0, -1)),
-      ],
+      fontFamily: "GoogleSans",
+      shadows: _engraveShadow,
     ),
     textAlign: TextAlign.center,
     mouseCursor: SystemMouseCursors.click);
@@ -396,3 +362,14 @@ abstract class _TileDimension {
   static Dimension medium = Dimension.min(90.0.toPXLength, 96.toPercentLength);
   static Dimension large = Dimension.min(110.0.toPXLength, 96.toPercentLength);
 }
+
+const List<Shadow> _engraveShadow = [
+  Shadow(
+      blurRadius: 0.1,
+      color: Color.fromARGB(60, 255, 255, 255),
+      offset: Offset(0, 1)),
+  Shadow(
+      blurRadius: 0.1,
+      color: Color.fromARGB(200, 0, 0, 0),
+      offset: Offset(0, -1)),
+];
