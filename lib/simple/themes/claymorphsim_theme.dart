@@ -222,10 +222,28 @@ final _baseStyle = Style(
       fontWeight: FontWeight.w700,
       color: Colors.blue.shade900,
     ),
-    shapeBorder: RectangleShapeBorder(
-      borderRadius:
-          DynamicBorderRadius.all(DynamicRadius.circular(50.toPXLength)),
-    ),
+    shapeBorder: parseMorphableShapeBorder({
+      "type": "Rectangle",
+      "border": {
+        "color": "ff000000",
+        "width": 0,
+        "style": "none",
+        "strokeCap": "butt",
+        "strokeJoin": "miter"
+      },
+      "borderRadius": {
+        "topLeft": {"x": "94.5333557128907%", "y": "87.8666610717774%"},
+        "topRight": {"x": "81.60000610351543%", "y": "88.93332926432305%"},
+        "bottomLeft": {"x": "72.40001424153652%", "y": "77.33332316080705%"},
+        "bottomRight": {"x": "90.933339436849%", "y": "82.26665242513029%"}
+      },
+      "cornerStyles": {
+        "topLeft": "rounded",
+        "bottomLeft": "rounded",
+        "topRight": "rounded",
+        "bottomRight": "rounded"
+      }
+    }),
     childAlignment: Alignment.center,
     mouseCursor: SystemMouseCursors.click);
 

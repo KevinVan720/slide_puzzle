@@ -27,19 +27,51 @@ class KeyboardTheme extends SimpleTheme {
   DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
         color: PuzzleColors.grey1,
         fontStyle: FontStyle.italic,
+        shadows: [
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(50, 255, 255, 255),
+              offset: Offset(0, 0.5)),
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(200, 0, 0, 0),
+              offset: Offset(0, -0.5)),
+        ],
       );
 
   @override
-  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-      color: Colors.teal,
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+      color: Colors.teal.shade700,
       fontStyle: FontStyle.italic,
+      fontFamily: "GoogleSans",
+      shadows: [
+        const Shadow(
+            blurRadius: 0.1,
+            color: Color.fromARGB(60, 255, 255, 255),
+            offset: Offset(0, 1.8)),
+        const Shadow(
+            blurRadius: 0.1,
+            color: Color.fromARGB(200, 0, 0, 0),
+            offset: Offset(0, -1.2)),
+      ],
       fontWeight: FontWeight.bold);
 
   @override
   DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
-      color: PuzzleColors.green50,
-      fontStyle: FontStyle.italic,
-      fontWeight: FontWeight.bold);
+        color: PuzzleColors.green50,
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.bold,
+        shadows: [
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(50, 255, 255, 255),
+              offset: Offset(0, 0.5)),
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(200, 0, 0, 0),
+              offset: Offset(0, -0.5)),
+        ],
+      );
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
@@ -270,7 +302,20 @@ class KeyboardTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-      color: PuzzleColors.black, fontWeight: FontWeight.bold);
+        color: PuzzleColors.black,
+        fontWeight: FontWeight.bold,
+        fontFamily: "GoogleSans",
+        shadows: [
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(60, 255, 255, 255),
+              offset: Offset(0, 0.5)),
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(200, 0, 0, 0),
+              offset: Offset(0, -0.5)),
+        ],
+      );
 
   @override
   Color get menuUnderlineColor => Colors.teal;
@@ -279,8 +324,20 @@ class KeyboardTheme extends SimpleTheme {
   Color get popupMenuBackgroundColor => Colors.redAccent.shade200;
 
   @override
-  DynamicTextStyle get menuInactiveStyle =>
-      const DynamicTextStyle(color: PuzzleColors.grey3);
+  DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
+        color: PuzzleColors.grey3,
+        fontFamily: "GoogleSans",
+        shadows: [
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(50, 255, 255, 255),
+              offset: Offset(0, 0.5)),
+          Shadow(
+              blurRadius: 0.1,
+              color: Color.fromARGB(200, 0, 0, 0),
+              offset: Offset(0, -0.5)),
+        ],
+      );
 
   @override
   String get tilePressSoundAsset => "assets/audio/keyboard_click.mp3";
@@ -316,9 +373,21 @@ final _baseStyle = Style(
     ],
     transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),
     textStyle: DynamicTextStyle(
-        fontSize: 28.toPXLength,
-        color: Colors.teal,
-        fontWeight: FontWeight.w900),
+      fontFamily: "GoogleSans",
+      fontSize: 28.toPXLength,
+      color: Colors.teal.shade700,
+      fontWeight: FontWeight.w900,
+      shadows: [
+        const Shadow(
+            blurRadius: 0.1,
+            color: Color.fromARGB(60, 255, 255, 255),
+            offset: Offset(0, 1)),
+        const Shadow(
+            blurRadius: 0.1,
+            color: Color.fromARGB(200, 0, 0, 0),
+            offset: Offset(0, -1)),
+      ],
+    ),
     textAlign: TextAlign.center,
     mouseCursor: SystemMouseCursors.click);
 

@@ -348,6 +348,13 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
       ),
     );
 
+    Container(
+      decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.only(bottomLeft: Radius.circular(200)))),
+    );
+
     return AnimatedAlign(
       alignment: FractionalOffset(
         (widget.tile.currentPosition.x - 1) / (size - 1),
