@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
@@ -48,11 +49,10 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
             Icons.refresh_sharp,
             size: 17,
             color: DefaultTextStyle.of(context).style.color,
-            shadows: _textShadow?.map((e) => Shadow(
-              color: e.color,
-              offset: e.offset,
-              blurRadius: e.blurRadius
-            )).toList(),
+            shadows: _textShadow
+                ?.map((e) => Shadow(
+                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
+                .toList(),
           ),
           const Gap(10),
           Text(context.l10n.puzzleShuffle),
@@ -73,15 +73,13 @@ class SimplePuzzleDifficultySelectButton extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
-    final selectedStyle = theme.menuActiveStyle.toTextStyle(
-        screenSize: MediaQuery.of(context).size,
-        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
-    final unselectedStyle = theme.menuInactiveStyle.toTextStyle(
-        screenSize: MediaQuery.of(context).size,
-        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
-    return TextButton(
-      style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent)),
+
+    return StyledButton(
+      style: gameConfig.puzzleDifficulty == difficulty
+          ? theme.popupMenuPressedStyle.resolve(context)!
+          : theme.popupMenuButtonStyle.resolve(context)!,
+      hoveredStyle: theme.popupMenuHoverStyle.resolve(context),
+      pressedStyle: theme.popupMenuPressedStyle.resolve(context),
       onPressed: gameConfig.puzzleDifficulty == difficulty
           ? null
           : () {
@@ -89,15 +87,9 @@ class SimplePuzzleDifficultySelectButton extends StatelessWidget {
                   .read<GameConfigBloc>()
                   .add(PuzzleSetDifficulty(difficulty));
             },
-      child: AnimatedDefaultTextStyle(
-        style: gameConfig.puzzleDifficulty == difficulty
-            ? selectedStyle.merge(PuzzleTextStyle.bodySmall)
-            : unselectedStyle.merge(PuzzleTextStyle.bodySmall),
-        duration: PuzzleThemeAnimationDuration.textStyle,
-        child: difficulty == PuzzleDifficulty.easy
-            ? Text(context.l10n.puzzleDifficultyEasy)
-            : Text(context.l10n.puzzleDifficultyHard),
-      ),
+      child: difficulty == PuzzleDifficulty.easy
+          ? Text(context.l10n.puzzleDifficultyEasy)
+          : Text(context.l10n.puzzleDifficultyHard),
     );
   }
 }
@@ -112,26 +104,19 @@ class SimplePuzzleSizeSelectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
-    final selectedStyle = theme.menuActiveStyle.toTextStyle(
-        screenSize: MediaQuery.of(context).size,
-        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
-    final unselectedStyle = theme.menuInactiveStyle.toTextStyle(
-        screenSize: MediaQuery.of(context).size,
-        parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
-    return TextButton(
-      style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent)),
+    return StyledButton(
+      style: gameConfig.puzzleSize == size
+          ? theme.popupMenuPressedStyle.resolve(context)!
+          : theme.popupMenuButtonStyle.resolve(context)!,
+      hoveredStyle: theme.popupMenuHoverStyle.resolve(context),
+      pressedStyle: theme.popupMenuPressedStyle.resolve(context),
       onPressed: gameConfig.puzzleSize == size
           ? null
           : () {
               context.read<GameConfigBloc>().add(PuzzleSetSize(size));
             },
-      child: AnimatedDefaultTextStyle(
-        style: gameConfig.puzzleSize == size
-            ? selectedStyle.merge(PuzzleTextStyle.bodySmall)
-            : unselectedStyle.merge(PuzzleTextStyle.bodySmall),
-        duration: PuzzleThemeAnimationDuration.textStyle,
-        child: Text(size.toString() + "×" + size.toString()),
+      child: Text(
+        size.toString() + "×" + size.toString(),
       ),
     );
   }
@@ -213,11 +198,12 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
                         Icons.question_mark,
                         size: 17,
                         color: DefaultTextStyle.of(context).style.color,
-                        shadows: _textShadow?.map((e) => Shadow(
-                            color: e.color,
-                            offset: e.offset,
-                            blurRadius: e.blurRadius
-                        )).toList(),
+                        shadows: _textShadow
+                            ?.map((e) => Shadow(
+                                color: e.color,
+                                offset: e.offset,
+                                blurRadius: e.blurRadius))
+                            .toList(),
                       ),
                       const Gap(10),
                       Text(context.l10n.puzzleSolve),
@@ -304,6 +290,8 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
                       theme.tilePressSoundAsset,
                     );
                   }
+                  await _audioPlayer?.setVolume(
+                      context.read<AudioControlBloc>().state.volume);
                   unawaited(_audioPlayer?.replay());
                 }
 
@@ -346,11 +334,10 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
             Icons.check,
             size: 17,
             color: DefaultTextStyle.of(context).style.color,
-            shadows: _textShadow?.map((e) => Shadow(
-                color: e.color,
-                offset: e.offset,
-                blurRadius: e.blurRadius
-            )).toList(),
+            shadows: _textShadow
+                ?.map((e) => Shadow(
+                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
+                .toList(),
           ),
           const Gap(10),
           Text(context.l10n.puzzleSolved),
@@ -367,10 +354,16 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
           SizedBox(
               width: 12,
               height: 12,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: DefaultTextStyle.of(context).style.color,
-              )),
+              child: context
+                      .select((ThemeBloc bloc) => bloc.state.theme)
+                      .useCupertinoIndicator
+                  ? CupertinoActivityIndicator(
+                      color: DefaultTextStyle.of(context).style.color,
+                    )
+                  : CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: DefaultTextStyle.of(context).style.color,
+                    )),
           const Gap(10),
           Text(context.l10n.puzzleSolving),
         ],
@@ -387,11 +380,10 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
             Icons.error,
             size: 17,
             color: DefaultTextStyle.of(context).style.color,
-            shadows: _textShadow?.map((e) => Shadow(
-                color: e.color,
-                offset: e.offset,
-                blurRadius: e.blurRadius
-            )).toList(),
+            shadows: _textShadow
+                ?.map((e) => Shadow(
+                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
+                .toList(),
           ),
           const Gap(10),
           Text(context.l10n.puzzleSolveError),
@@ -414,45 +406,6 @@ class SimplePuzzleControls extends StatelessWidget {
           }).resolve(context) ??
           CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: Responsive({
-                smallScreen: MainAxisAlignment.center,
-                middleScreen: MainAxisAlignment.center,
-                largeScreen: MainAxisAlignment.start
-              }).resolve(context) ??
-              MainAxisAlignment.start,
-          children: const [
-            SimplePuzzleDifficultySelectButton(
-                difficulty: PuzzleDifficulty.easy),
-            SimplePuzzleDifficultySelectButton(
-                difficulty: PuzzleDifficulty.hard),
-          ],
-        ),
-        const ResponsiveGap(
-          small: 20,
-          medium: 20,
-          large: 32,
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: Responsive({
-                smallScreen: MainAxisAlignment.center,
-                middleScreen: MainAxisAlignment.center,
-                largeScreen: MainAxisAlignment.start
-              }).resolve(context) ??
-              MainAxisAlignment.start,
-          children: const [
-            SimplePuzzleSizeSelectButton(size: 3),
-            SimplePuzzleSizeSelectButton(size: 4),
-            SimplePuzzleSizeSelectButton(size: 5),
-          ],
-        ),
-        const ResponsiveGap(
-          small: 30,
-          medium: 30,
-          large: 40,
-        ),
         ResponsiveLayoutBuilder(
           small: (_, child) => Column(
             children: const [

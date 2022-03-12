@@ -226,7 +226,6 @@ class SimplePuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     double tileSize = theme.tileSize.resolve(context) ?? 72;
     double tileGap = theme.tileGapSize.resolve(context) ?? 4;
@@ -332,6 +331,9 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
                       theme.tilePressSoundAsset,
                     );
                   }
+
+                  await _audioPlayer?.setVolume(
+                      context.read<AudioControlBloc>().state.volume);
                   unawaited(_audioPlayer?.replay());
                 }
 
@@ -347,13 +349,6 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
           ),
         ),
       ),
-    );
-
-    Container(
-      decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.only(bottomLeft: Radius.circular(200)))),
     );
 
     return AnimatedAlign(

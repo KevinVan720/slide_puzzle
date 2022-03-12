@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
@@ -8,19 +10,22 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
-class MaterialTheme extends SimpleTheme {
+class CupertinoTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const MaterialTheme() : super();
+  const CupertinoTheme() : super();
 
   @override
   Map<Locale, String> get name => {
-        const Locale("en"): 'Material',
-        const Locale("es"): 'Material',
-        const Locale("zh"): "材质"
+        const Locale("en"): 'Cupertino',
+        const Locale("es"): 'Cupertino',
+        const Locale("zh"): "库比蒂诺"
       };
 
   @override
   bool get hasTimer => false;
+
+  @override
+  bool get useCupertinoIndicator => true;
 
   @override
   Curve get tileMoveAnimationCurve => Curves.easeOutExpo;
@@ -29,55 +34,40 @@ class MaterialTheme extends SimpleTheme {
   Duration get tileMoveAnimationDuration => const Duration(milliseconds: 333);
 
   @override
-  DynamicTextStyle get nameTextStyle =>
-      const DynamicTextStyle(color: PuzzleColors.grey1);
+  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
+      color: Color(0xFFE1DFE1), fontFamily: "SF-Pro-Text");
 
   @override
-  DynamicTextStyle get titleTextStyle =>
-      const DynamicTextStyle(color: PuzzleColors.greenPrimary);
+  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
+      color: Color(0xFFFFBD44), fontFamily: "SF-Pro-Text");
 
   @override
-  DynamicTextStyle get defaultTextStyle =>
-      const DynamicTextStyle(color: PuzzleColors.primary5);
+  DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
+      color: Color(0xFFF5F5F5), fontFamily: "SF-Pro-Text");
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
             backgroundDecoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [PuzzleColors.grey5, PuzzleColors.grey5],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter))),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/macos_big_sur.jpg')))),
       });
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
-          backgroundDecoration: const BoxDecoration(
-            color: Colors.white,
+          backgroundDecoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.25),
           ),
           shapeBorder: RectangleShapeBorder(
             border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          shadows: [
-            const ShapeShadow(
-                offset: Offset(0.0, 3.0),
-                blurRadius: 1.0,
-                spreadRadius: -2.0,
-                color: _kKeyUmbraOpacity),
-            const ShapeShadow(
-                offset: Offset(0.0, 2.0),
-                blurRadius: 2.0,
-                color: _kKeyPenumbraOpacity),
-            const ShapeShadow(
-                offset: Offset(0.0, 1.0),
-                blurRadius: 5.0,
-                color: _kAmbientShadowOpacity),
-          ],
+          backdropFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 18),
         )
       });
 
@@ -86,11 +76,8 @@ class MaterialTheme extends SimpleTheme {
         allScreen: Style(
             alignment: Alignment.center,
             childAlignment: Alignment.center,
-            margin: const EdgeInsets.all(2),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: const BoxDecoration(
-              color: Color(0xFFFAFAFA),
-            ),
             shapeBorder: RectangleShapeBorder(
               borderRadius:
                   DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
@@ -98,6 +85,7 @@ class MaterialTheme extends SimpleTheme {
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
               color: Colors.grey.shade700,
+              fontFamily: "SF-Pro-Text",
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -108,19 +96,16 @@ class MaterialTheme extends SimpleTheme {
         allScreen: Style(
             alignment: Alignment.center,
             childAlignment: Alignment.center,
-            margin: const EdgeInsets.all(2),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: BoxDecoration(
-              color: PuzzleColors.primary6.withOpacity(0.25),
-            ),
             shapeBorder: RectangleShapeBorder(
               borderRadius:
                   DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
             ),
             textStyle: DynamicTextStyle(
-              fontSize: 16.toPXLength,
-              color: Colors.grey.shade700,
-            ),
+                fontSize: 16.toPXLength,
+                color: Colors.grey.shade700,
+                fontFamily: "SF-Pro-Text"),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
       });
@@ -130,7 +115,7 @@ class MaterialTheme extends SimpleTheme {
         allScreen: Style(
             alignment: Alignment.center,
             childAlignment: Alignment.center,
-            margin: const EdgeInsets.all(2),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             padding: const EdgeInsets.all(2),
             backgroundDecoration: const BoxDecoration(
               color: PuzzleColors.primary6,
@@ -140,9 +125,9 @@ class MaterialTheme extends SimpleTheme {
                   DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
             ),
             textStyle: DynamicTextStyle(
-              fontSize: 16.toPXLength,
-              color: Colors.white,
-            ),
+                fontSize: 16.toPXLength,
+                color: Colors.white,
+                fontFamily: "SF-Pro-Text"),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
       });
@@ -150,43 +135,28 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuTitleStyle => Responsive({
         allScreen: Style(
-            margin: const EdgeInsets.all(2),
+            margin: const EdgeInsets.all(4),
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
-              fontSize: 14.toPXLength,
-              color: PuzzleColors.primary5,
-              fontWeight: FontWeight.bold,
-            ))
+                fontSize: 14.toPXLength,
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontFamily: "SF-Pro-Text"))
       });
 
   @override
   Responsive<Style> get popupMenuTileStyle => Responsive({
         allScreen: Style(
-          backgroundDecoration: const BoxDecoration(
-            color: Color(0xFFFAFAFA),
+          backgroundDecoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.4),
           ),
           shapeBorder: RectangleShapeBorder(
             border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(12.toPXLength)),
           ),
           padding: const EdgeInsets.all(5),
           margin: const EdgeInsets.symmetric(vertical: 5),
-          shadows: [
-            const ShapeShadow(
-                offset: Offset(0.0, 3.0),
-                blurRadius: 1.0,
-                spreadRadius: -2.0,
-                color: _kKeyUmbraOpacity),
-            const ShapeShadow(
-                offset: Offset(0.0, 2.0),
-                blurRadius: 2.0,
-                color: _kKeyPenumbraOpacity),
-            const ShapeShadow(
-                offset: Offset(0.0, 1.0),
-                blurRadius: 5.0,
-                color: _kAmbientShadowOpacity),
-          ],
         )
       });
 
@@ -195,10 +165,10 @@ class MaterialTheme extends SimpleTheme {
         allScreen: Style(
             shapeBorder: const CircleShapeBorder(),
             backgroundDecoration: const BoxDecoration(
-              color: PuzzleColors.primary5,
+              color: PuzzleColors.grey4,
             ),
-            width: 20.toPXLength,
-            height: 20.toPXLength,
+            width: 25.toPXLength,
+            height: 25.toPXLength,
             shadows: [
               const ShapeShadow(
                   offset: Offset(0.0, 3.0),
@@ -213,20 +183,34 @@ class MaterialTheme extends SimpleTheme {
                   offset: Offset(0.0, 1.0),
                   blurRadius: 5.0,
                   color: _kAmbientShadowOpacity),
+              const ShapeShadow(
+                  offset: Offset(0.0, -1.0),
+                  blurRadius: 5.0,
+                  color: _kAmbientShadowOpacity),
+              const ShapeShadow(
+                  offset: Offset(1.0, 0.0),
+                  blurRadius: 5.0,
+                  color: _kAmbientShadowOpacity),
+              const ShapeShadow(
+                  offset: Offset(-1.0, 0.0),
+                  blurRadius: 5.0,
+                  color: _kAmbientShadowOpacity),
             ])
       });
 
   @override
   Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
         allScreen: Style(
-          width: 88.toPercentLength,
-          height: 4.toPXLength,
-          backgroundDecoration: const BoxDecoration(
-            color: PuzzleColors.primary8,
+          width: 80.toPercentLength,
+          height: 25.toPXLength,
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          backgroundDecoration: BoxDecoration(
+            color: Colors.grey.shade500.withOpacity(0.3),
           ),
           shapeBorder: RectangleShapeBorder(
+            border: const DynamicBorderSide(color: Colors.black45, width: 0.5),
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
           ),
         )
       });
@@ -234,19 +218,19 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
         allScreen: Style(
-          height: 6.toPXLength,
+          height: 24.toPXLength,
           backgroundDecoration: const BoxDecoration(
-            color: PuzzleColors.primary6,
+            color: PuzzleColors.grey5,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(3.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
           ),
         )
       });
 
   @override
-  bool get isPopupMenuSliderThumbContained => false;
+  bool get isPopupMenuSliderThumbContained => true;
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
@@ -310,15 +294,16 @@ class MaterialTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-      color: PuzzleColors.black, fontWeight: FontWeight.w800);
+      color: PuzzleColors.black,
+      fontWeight: FontWeight.w800,
+      fontFamily: "SF-Pro-Text");
 
   @override
   Color get menuUnderlineColor => PuzzleColors.primary6;
 
   @override
   DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
-        color: PuzzleColors.grey2,
-      );
+      color: PuzzleColors.grey5, fontFamily: "SF-Pro-Text");
 
   @override
   String get tilePressSoundAsset => "assets/audio/material_click.mp3";
@@ -338,92 +323,44 @@ final _baseStyle = Style(
 
 final _buttonStyle = _baseStyle.copyWith(
   textStyle: DynamicTextStyle(
-    letterSpacing: 1.toPXLength,
-    fontSize: 28.toPXLength,
-    fontWeight: FontWeight.w700,
-    color: Colors.white,
-  ),
-  shadows: [
-    const ShapeShadow(
-        offset: Offset(0.0, 7.0),
-        blurRadius: 8.0,
-        spreadRadius: -4.0,
-        color: _kKeyUmbraOpacity),
-    const ShapeShadow(
-        offset: Offset(0.0, 12.0),
-        blurRadius: 17.0,
-        spreadRadius: 2.0,
-        color: _kKeyPenumbraOpacity),
-    const ShapeShadow(
-        offset: Offset(0.0, 5.0),
-        blurRadius: 22.0,
-        spreadRadius: 4.0,
-        color: _kAmbientShadowOpacity),
-  ],
+      letterSpacing: 1.toPXLength,
+      fontSize: 24.toPXLength,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      fontFamily: "SF-Pro-Text"),
   backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
 );
 
 final _hoverStyle = _baseStyle.copyWith(
   textStyle: DynamicTextStyle(
-    letterSpacing: 1.toPXLength,
-    fontSize: 36.toPXLength,
-    fontWeight: FontWeight.w700,
-    color: Colors.grey.shade50,
-  ),
-  shadows: [
-    const ShapeShadow(
-        offset: Offset(0.0, 3.0),
-        blurRadius: 5.0,
-        spreadRadius: -1.0,
-        color: _kKeyUmbraOpacity),
-    const ShapeShadow(
-        offset: Offset(0.0, 6.0),
-        blurRadius: 10.0,
-        color: _kKeyPenumbraOpacity),
-    const ShapeShadow(
-        offset: Offset(0.0, 1.0),
-        blurRadius: 18.0,
-        color: _kAmbientShadowOpacity),
-  ],
-  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary5),
-  transform: SmoothMatrix4()..scale(0.95),
+      letterSpacing: 1.toPXLength,
+      fontSize: 24.toPXLength,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      fontFamily: "SF-Pro-Text"),
+  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
 );
 
 final _pressedStyle = _baseStyle.copyWith(
   textStyle: DynamicTextStyle(
-    letterSpacing: 1.toPXLength,
-    fontSize: 36.toPXLength,
-    fontWeight: FontWeight.w700,
-    color: Colors.grey.shade50,
-  ),
-  shadows: [
-    const ShapeShadow(
-        offset: Offset(0.0, 3.0),
-        blurRadius: 1.0,
-        spreadRadius: -2.0,
-        color: _kKeyUmbraOpacity),
-    const ShapeShadow(
-        offset: Offset(0.0, 2.0), blurRadius: 2.0, color: _kKeyPenumbraOpacity),
-    const ShapeShadow(
-        offset: Offset(0.0, 1.0),
-        blurRadius: 5.0,
-        color: _kAmbientShadowOpacity),
-  ],
-  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary4),
-  transform: SmoothMatrix4()..scale(0.9),
+      letterSpacing: 1.toPXLength,
+      fontSize: 24.toPXLength,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+      fontFamily: "SF-Pro-Text"),
+  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary8),
 );
 
 abstract class _TileDimension {
-  static Dimension small = Dimension.min(60.0.toPXLength, 100.toPercentLength);
-  static Dimension medium =
-      Dimension.min(100.0.toPXLength, 100.toPercentLength);
-  static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
+  static Dimension small = Dimension.min(50.0.toPXLength, 100.toPercentLength);
+  static Dimension medium = Dimension.min(70.0.toPXLength, 100.toPercentLength);
+  static Dimension large = Dimension.min(90.0.toPXLength, 100.toPercentLength);
 }
 
 abstract class _TileTextDimension {
-  static Dimension small = Dimension.min(24.0.toPXLength, 20.toVWLength);
-  static Dimension medium = Dimension.min(36.0.toPXLength, 20.toVWLength);
-  static Dimension large = Dimension.min(42.0.toPXLength, 20.toVWLength);
+  static Dimension small = Dimension.min(20.0.toPXLength, 20.toVWLength);
+  static Dimension medium = Dimension.min(24.0.toPXLength, 20.toVWLength);
+  static Dimension large = Dimension.min(28.0.toPXLength, 20.toVWLength);
 }
 
 const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2

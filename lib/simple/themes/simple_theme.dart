@@ -16,6 +16,9 @@ abstract class SimpleTheme extends PuzzleTheme {
   bool get hasTimer => false;
 
   @override
+  bool get useCupertinoIndicator => false;
+
+  @override
   Curve get tileMoveAnimationCurve => Curves.easeInOut;
 
   @override
@@ -39,6 +42,51 @@ abstract class SimpleTheme extends PuzzleTheme {
   @override
   Responsive<Style> get boardBackgroundStyle =>
       Responsive({allScreen: Style()});
+
+  @override
+  Responsive<Style> get popupMenuStyle => Responsive({allScreen: Style()});
+
+  @override
+  Responsive<Style> get popupMenuTileStyle => Responsive({allScreen: Style()});
+
+  @override
+  Responsive<Style> get popupMenuButtonStyle =>
+      Responsive({allScreen: Style()});
+
+  @override
+  Responsive<Style> get popupMenuHoverStyle => Responsive({allScreen: Style()});
+
+  @override
+  Responsive<Style> get popupMenuPressedStyle =>
+      Responsive({allScreen: Style()});
+
+  @override
+  Responsive<Style?> get popupMenuSliderThumbHoverStyle =>
+      Responsive({allScreen: null});
+
+  @override
+  Responsive<Style?> get popupMenuSliderThumbPressedStyle =>
+      Responsive({allScreen: null});
+
+  @override
+  Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
+        allScreen: Style(
+          width: 80.toPercentLength,
+          height: 2.toPXLength,
+          backgroundDecoration: const BoxDecoration(color: Colors.blue),
+        )
+      });
+
+  @override
+  Responsive<Style?> get popupMenuSliderActiveTrackStyle =>
+      Responsive({allScreen: null});
+
+  @override
+  Responsive<Style?> get popupMenuSliderTooltipStyle =>
+      Responsive({allScreen: null});
+
+  @override
+  bool get isPopupMenuSliderThumbContained => false;
 
   @override
   String get tilePressSoundAsset => "assets/audio/tile_move.mp3";

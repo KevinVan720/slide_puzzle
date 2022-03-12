@@ -29,6 +29,9 @@ class GlassmorphismTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
+  bool get useCupertinoIndicator => true;
+
+  @override
   DynamicTextStyle get nameTextStyle =>
       const DynamicTextStyle(color: PuzzleColors.grey5);
 
@@ -55,6 +58,186 @@ class GlassmorphismTheme extends SimpleTheme {
               image: AssetImage('assets/images/glass_background.jpg')),
         ))
       });
+
+  @override
+  Responsive<Style> get popupMenuStyle => Responsive({
+        allScreen: Style(
+          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          shadows: [
+            ShapeShadow(
+                spreadRadius: 2,
+                blurRadius: 10,
+                color: Colors.black.withOpacity(0.05),
+                offset: const Offset(10, 10)),
+          ],
+          shapeBorder: RectangleShapeBorder(
+              border: DynamicBorderSide(
+                  width: 1.8,
+                  gradient: LinearGradient(
+                      begin: const Alignment(-0.9, -1),
+                      end: Alignment.bottomRight,
+                      stops: const [
+                        0,
+                        0.1
+                      ],
+                      colors: [
+                        Colors.white38,
+                        Colors.white.withOpacity(0.05)
+                      ])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength))),
+          backgroundDecoration:
+              BoxDecoration(color: Colors.white.withOpacity(0.15)),
+          backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuButtonStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: BoxDecoration(
+              color: const Color(0xFFFAFAFA).withOpacity(0.01),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              color: Colors.grey.shade300,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuHoverStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: BoxDecoration(
+              color: const Color(0xFFFAFAFA).withOpacity(0.1),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuPressedStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: BoxDecoration(
+              color: const Color(0xFFFAFAFA).withOpacity(0.3),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuTitleStyle => Responsive({
+        allScreen: Style(
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(4),
+            alignment: Alignment.centerLeft,
+            textStyle: DynamicTextStyle(
+              fontSize: 14.toPXLength,
+              color: PuzzleColors.grey5,
+              fontWeight: FontWeight.bold,
+            ))
+      });
+
+  @override
+  Responsive<Style> get popupMenuTileStyle => Responsive({
+        allScreen: Style(
+          backgroundDecoration: BoxDecoration(
+            color: const Color(0xFFFAFAFA).withOpacity(0.2),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+          ),
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          shadows: [
+            ShapeShadow(
+                spreadRadius: 1,
+                blurRadius: 4,
+                color: Colors.white.withOpacity(0.1),
+                offset: const Offset(2, 2)),
+          ],
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
+        allScreen: Style(
+          shapeBorder: const CircleShapeBorder(),
+          backgroundDecoration: const BoxDecoration(
+            color: PuzzleColors.white,
+          ),
+          width: 20.toPXLength,
+          height: 20.toPXLength,
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
+        allScreen: Style(
+          width: 88.toPercentLength,
+          height: 2.toPXLength,
+          backgroundDecoration: BoxDecoration(
+            color: const Color(0xFFFAFAFA).withOpacity(0.25),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(1.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
+        allScreen: Style(
+          height: 2.toPXLength,
+          backgroundDecoration: const BoxDecoration(
+            color: PuzzleColors.grey5,
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(1.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  bool get isPopupMenuSliderThumbContained => false;
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
@@ -293,9 +476,6 @@ class GlassmorphismTheme extends SimpleTheme {
 
   @override
   Color get menuUnderlineColor => PuzzleColors.white;
-
-  @override
-  Color get popupMenuBackgroundColor => Colors.blueGrey;
 
   @override
   DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(

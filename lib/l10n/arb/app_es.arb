@@ -14,5 +14,9 @@
     "puzzleSolveError": "error",
     "puzzleCompleted": "Bien hecho. ¡Felicitaciones!",
     "puzzleTileLabelText": "Valor: {value}, posición {x}, {y}",
-    "puzzleNumberOfMovesAndTilesLeftLabelText": "Meuve: {numberOfMoves}, Losas: {tilesLeft}"
+    "puzzleNumberOfMovesAndTilesLeftLabelText": "Meuve: {numberOfMoves}, Losas: {tilesLeft}",
+    "soundControl": "Sonar",
+    "localeControl": "Idioma",
+    "sizeControl": "Talla",
+    "difficultyControl": "Dificultad"
 }

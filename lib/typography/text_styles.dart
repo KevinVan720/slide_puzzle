@@ -97,7 +97,7 @@ class PuzzleTextStyle {
   /// Body Small text style
   static TextStyle get bodySmall {
     return _bodyTextStyle.copyWith(
-      fontSize: 20,
+      fontSize: 18,
       height: 1.30,
       fontWeight: PuzzleFontWeight.regular,
     );

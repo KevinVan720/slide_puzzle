@@ -4,6 +4,7 @@ import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/colors/colors.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -250,6 +251,241 @@ class WoodTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> get popupMenuStyle => Responsive({
+        smallScreen: Style(
+          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        ),
+        middleScreen: Style(
+          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        ),
+        largeScreen: Style(
+            width: Dimension.min(240.toPXLength, 90.toPercentLength),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            backgroundDecoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        const Color(0xFF352525).withOpacity(0.2),
+                        BlendMode.darken),
+                    image:
+                        const AssetImage('assets/images/wood_background.jpg'))),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(1.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.brown.shade200,
+                              Colors.brown.shade300
+                            ],
+                            stops: const [
+                              0,
+                              0.5
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
+                        width: 4),
+                    bottom: const DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF311919),
+                              Color(0xFF301818),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
+                        width: 8),
+                    left: DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.brown.shade500,
+                              const Color(0xFF755144),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        width: 4.5),
+                    right: const DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF322222),
+                              Color(0xFF302020),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        width: 5))))
+      });
+
+  @override
+  Responsive<Style> get popupMenuButtonStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              letterSpacing: 1.toPXLength,
+              fontSize: 16.toPXLength,
+              fontFamily: "Pacifico-Regular",
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+              shadows: _engraveShadowSmall,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuHoverStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              letterSpacing: 1.toPXLength,
+              fontSize: 16.toPXLength,
+              fontFamily: "Pacifico-Regular",
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+              shadows: _engraveShadowSmall,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuPressedStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            textStyle: DynamicTextStyle(
+              letterSpacing: 1.toPXLength,
+              fontSize: 16.toPXLength,
+              fontFamily: "Pacifico-Regular",
+              fontWeight: FontWeight.w700,
+              color: const Color(0xFFC0A080).withOpacity(0.8),
+              shadows: _engraveShadowLarge,
+              decoration: TextDecoration.underline,
+              decorationColor: const Color(0xFFC0A080),
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuTitleStyle => Responsive({
+        allScreen: Style(
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+            //alignment: Alignment.centerLeft,
+            textStyle: DynamicTextStyle(
+              letterSpacing: 1.toPXLength,
+              fontSize: 18.toPXLength,
+              fontFamily: "Pacifico-Regular",
+              fontWeight: FontWeight.w900,
+              color: const Color(0xFFC0A080).withOpacity(0.8),
+              shadows: _engraveShadowLarge,
+              //decoration: TextDecoration.underline,
+              //decorationColor: const Color(0xFFC0A080),
+            ))
+      });
+
+  @override
+  Responsive<Style> get popupMenuTileStyle => Responsive({
+        allScreen: Style(
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
+        allScreen: Style(
+          backgroundDecoration: const BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('assets/images/wood_grain.png'))),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(1.toPXLength)),
+              borderSides: RectangleBorderSides.only(
+                top: const DynamicBorderSide(
+                    gradient: LinearGradient(colors: [
+                      Color(0xFF311919),
+                      Color(0xFF301818),
+                    ], stops: [
+                      0,
+                      0.8
+                    ], begin: Alignment.centerLeft, end: Alignment.centerRight),
+                    width: 2),
+                bottom:
+                    DynamicBorderSide(color: Colors.brown.shade400, width: 3),
+                left: const DynamicBorderSide(
+                    gradient: LinearGradient(colors: [
+                      Color(0xFF483024),
+                      Color(0xFF402020),
+                    ], stops: [
+                      0,
+                      0.8
+                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                    width: 2.4),
+                right: const DynamicBorderSide(
+                    gradient: LinearGradient(colors: [
+                      Color(0xFF5A3823),
+                      Color(0xFF583420),
+                    ], stops: [
+                      0,
+                      0.8
+                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                    width: 2.8),
+              )),
+          width: 20.toPXLength,
+          height: 20.toPXLength,
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
+        allScreen: Style(
+          width: 88.toPercentLength,
+          height: 2.toPXLength,
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
+        allScreen: Style(
+          height: 2.toPXLength,
+          backgroundDecoration: BoxDecoration(
+            color: const Color(0xFFC0A080).withOpacity(0.8),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  bool get isPopupMenuSliderThumbContained => false;
+
+  @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
             width: _TileDimension.small,
@@ -419,9 +655,6 @@ class WoodTheme extends SimpleTheme {
 
   @override
   Color get menuUnderlineColor => const Color(0xFFC0A080);
-
-  @override
-  Color get popupMenuBackgroundColor => Colors.brown.shade700;
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(

@@ -74,6 +74,237 @@ class NeumorphicTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> get popupMenuStyle => Responsive({
+        allScreen: Style(
+          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          backgroundDecoration: const BoxDecoration(
+            color: Color(0xFFE0E0E0),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: const Offset(6, 6)),
+            const ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -3,
+                color: Color(0xFFFEFEFE),
+                offset: Offset(-6, -6)),
+          ],
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuButtonStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Color(0xFFE0E0E0),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              fontWeight: FontWeight.w700,
+              fontFamily: "BalooThambi2",
+              color: Colors.grey,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuHoverStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Color(0xFFE0E0E0),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+            ),
+            insetShadows: [
+              ShapeShadow(
+                  blurRadius: 3,
+                  spreadRadius: -3,
+                  color: Colors.grey.shade400,
+                  offset: const Offset(3, 3)),
+              const ShapeShadow(
+                  blurRadius: 3,
+                  spreadRadius: -3,
+                  color: Color(0xFFFEFEFE),
+                  offset: Offset(-3, -3)),
+            ],
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              fontWeight: FontWeight.w700,
+              fontFamily: "BalooThambi2",
+              color: Colors.grey,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuPressedStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Color(0xFFE0E0E0),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength)),
+            ),
+            insetShadows: [
+              ShapeShadow(
+                  blurRadius: 6,
+                  spreadRadius: -3,
+                  color: Colors.grey.shade400,
+                  offset: const Offset(6, 6)),
+              const ShapeShadow(
+                  blurRadius: 6,
+                  spreadRadius: -3,
+                  color: Color(0xFFFEFEFE),
+                  offset: Offset(-6, 6)),
+            ],
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              fontWeight: FontWeight.w700,
+              fontFamily: "BalooThambi2",
+              color: Colors.grey,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuTitleStyle => Responsive({
+        allScreen: Style(
+            margin: const EdgeInsets.all(2),
+            alignment: Alignment.centerLeft,
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              color: const Color(0xFF535C80),
+              fontFamily: "BalooThambi2",
+              fontWeight: FontWeight.bold,
+            ))
+      });
+
+  @override
+  Responsive<Style> get popupMenuTileStyle => Responsive({
+        allScreen: Style(
+          backgroundDecoration: const BoxDecoration(
+            color: Color(0xFFE0E0E0),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+          ),
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: const Offset(6, 6)),
+            const ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: Color(0xFFFDFDFD),
+                offset: Offset(-6, -6)),
+          ],
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
+        allScreen: Style(
+            shapeBorder: const CircleShapeBorder(),
+            backgroundDecoration: const BoxDecoration(
+              color: Color(0xFFC0C0C0),
+            ),
+            width: 20.toPXLength,
+            height: 20.toPXLength)
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
+        allScreen: Style(
+          width: 88.toPercentLength,
+          height: 20.toPXLength,
+          backgroundDecoration: const BoxDecoration(
+            color: Color(0xFFE0E0E0),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+          ),
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: const Offset(6, 6)),
+            const ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -3,
+                color: Color(0xFFFEFEFE),
+                offset: Offset(-6, -6)),
+          ],
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
+        allScreen: Style(
+          width: 90.toPercentLength,
+          height: 20.toPXLength,
+          backgroundDecoration: const BoxDecoration(
+            color: Color(0xFFC0C0C0),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+          ),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -3,
+                color: Colors.grey.shade400,
+                offset: const Offset(6, 6)),
+            const ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: -3,
+                color: Color(0xFFFEFEFE),
+                offset: Offset(-6, -6)),
+          ],
+        )
+      });
+
+  @override
+  bool get isPopupMenuSliderThumbContained => true;
+
+  @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
@@ -259,9 +490,6 @@ class NeumorphicTheme extends SimpleTheme {
 
   @override
   Color get menuUnderlineColor => PuzzleColors.grey1;
-
-  @override
-  Color get popupMenuBackgroundColor => Colors.grey.shade100;
 
   @override
   DynamicTextStyle get menuInactiveStyle =>

@@ -99,6 +99,8 @@ class _PuzzleButtonState extends State<PuzzleButton> {
                             theme.tilePressSoundAsset,
                           );
                         }
+                        await _audioPlayer?.setVolume(
+                            context.read<AudioControlBloc>().state.volume);
                         unawaited(_audioPlayer?.replay());
                       }
                       widget.onPressed!();

@@ -55,16 +55,16 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
     super.dispose();
   }
 
-  void _handleKeyEvent(RawKeyEvent event) {
+  void _handleKeyEvent(RawKeyEvent event) async {
     final theme = context.read<ThemeBloc>().state.theme;
 
     // The user may move tiles only when the puzzle is started.
     // There's no need to check the Simple theme as it is started by default.
-   // final canMoveTiles = !(theme is DashatarTheme &&
+    // final canMoveTiles = !(theme is DashatarTheme &&
     //    context.read<DashatarPuzzleBloc>().state.status !=
     //        DashatarPuzzleStatus.started);
 
-    final canMoveTiles=true;
+    const canMoveTiles = true;
 
     if (event is RawKeyDownEvent && canMoveTiles) {
       final puzzle = context.read<PuzzleBloc>().state.puzzle;
@@ -83,6 +83,8 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
 
       if (tile != null) {
         context.read<PuzzleBloc>().add(TileTapped(tile));
+        await _audioPlayer
+            .setVolume(context.read<AudioControlBloc>().state.volume);
         unawaited(_audioPlayer.replay());
       }
     }

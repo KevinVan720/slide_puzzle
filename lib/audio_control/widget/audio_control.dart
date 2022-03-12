@@ -18,10 +18,9 @@ class AudioControl extends StatelessWidget {
     final audioMuted =
         context.select((AudioControlBloc bloc) => bloc.state.muted);
 
-    List<Shadow>? _iconShadow=audioMuted
+    List<Shadow>? _iconShadow = audioMuted
         ? theme.menuInactiveStyle.shadows
         : theme.menuActiveStyle.shadows;
-
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -32,39 +31,42 @@ class AudioControl extends StatelessWidget {
           child: ResponsiveLayoutBuilder(
             small: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,
-              size: 24,
+              size: 16,
               color: audioMuted
                   ? theme.menuInactiveStyle.color
                   : theme.menuActiveStyle.color,
-    shadows: _iconShadow?.map((e) => Shadow(
-    color: e.color,
-    offset: e.offset,
-    blurRadius: e.blurRadius
-    )).toList(),
+              shadows: _iconShadow
+                  ?.map((e) => Shadow(
+                      color: e.color,
+                      offset: e.offset,
+                      blurRadius: e.blurRadius))
+                  .toList(),
             ),
             medium: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,
-              size: 32,
+              size: 16,
               color: audioMuted
                   ? theme.menuInactiveStyle.color
                   : theme.menuActiveStyle.color,
-    shadows: _iconShadow?.map((e) => Shadow(
-    color: e.color,
-    offset: e.offset,
-    blurRadius: e.blurRadius
-    )).toList(),
+              shadows: _iconShadow
+                  ?.map((e) => Shadow(
+                      color: e.color,
+                      offset: e.offset,
+                      blurRadius: e.blurRadius))
+                  .toList(),
             ),
             large: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,
-              size: 36,
+              size: 16,
               color: audioMuted
                   ? theme.menuInactiveStyle.color
                   : theme.menuActiveStyle.color,
-    shadows: _iconShadow?.map((e) => Shadow(
-    color: e.color,
-    offset: e.offset,
-    blurRadius: e.blurRadius
-    )).toList(),
+              shadows: _iconShadow
+                  ?.map((e) => Shadow(
+                      color: e.color,
+                      offset: e.offset,
+                      blurRadius: e.blurRadius))
+                  .toList(),
             ),
           ),
         ),

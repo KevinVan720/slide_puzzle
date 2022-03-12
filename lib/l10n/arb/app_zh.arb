@@ -14,5 +14,9 @@
     "puzzleSolveError": "解错误",
     "puzzleCompleted": "干得漂亮，恭喜！",
     "puzzleTileLabelText": "数字： {value}，位置 {x}， {y}",
-    "puzzleNumberOfMovesAndTilesLeftLabelText": "步骤： {numberOfMoves}， 块： {tilesLeft}"
+    "puzzleNumberOfMovesAndTilesLeftLabelText": "步骤： {numberOfMoves}， 块： {tilesLeft}",
+    "soundControl": "声音",
+    "localeControl": "语言",
+    "sizeControl": "大小",
+    "difficultyControl": "难度"
 }

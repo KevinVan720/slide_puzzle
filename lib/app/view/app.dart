@@ -52,6 +52,7 @@ class _AppState extends State<App> {
     'assets/images/glass_background.jpg',
     'assets/images/wood_grain.png',
     'assets/images/wood_background.jpg',
+    'assets/images/macos_big_sur.jpg',
   ];
 
   late final PlatformHelper _platformHelper;
@@ -133,7 +134,7 @@ class HomePage extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       locale: localeState.locale,
-      home: PuzzleGamePage(),
+      home: const PuzzleGamePage(),
     );
   }
 }

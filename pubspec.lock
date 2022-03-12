@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "31.0.0"
+  aligned_dialog:
+    dependency: "direct main"
+    description:
+      name: aligned_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   analyzer:
     dependency: transitive
     description:
@@ -21,7 +28,7 @@ packages:
       name: animated_styled_widget
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.6"
   args:
     dependency: transitive
     description:
@@ -363,7 +370,7 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.4"
+    version: "1.5.5"
   nested:
     dependency: transitive
     description:

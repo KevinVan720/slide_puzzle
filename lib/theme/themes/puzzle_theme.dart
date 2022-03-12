@@ -24,6 +24,8 @@ abstract class PuzzleTheme extends Equatable {
   /// Whether this theme displays the puzzle timer.
   bool get hasTimer;
 
+  bool get useCupertinoIndicator;
+
   Curve get tileMoveAnimationCurve;
 
   Duration get tileMoveAnimationDuration;
@@ -49,6 +51,33 @@ abstract class PuzzleTheme extends Equatable {
   /// The board background style of this theme.
   Responsive<Style> get boardBackgroundStyle;
 
+  /// Styles related to the popup menu of this theme.
+  Responsive<Style> get popupMenuStyle;
+
+  Responsive<Style> get popupMenuTileStyle;
+
+  Responsive<Style> get popupMenuButtonStyle;
+
+  Responsive<Style> get popupMenuHoverStyle;
+
+  Responsive<Style> get popupMenuPressedStyle;
+
+  Responsive<Style> get popupMenuTitleStyle;
+
+  Responsive<Style> get popupMenuSliderThumbStyle;
+
+  Responsive<Style?> get popupMenuSliderThumbHoverStyle;
+
+  Responsive<Style?> get popupMenuSliderThumbPressedStyle;
+
+  Responsive<Style> get popupMenuSliderTrackStyle;
+
+  Responsive<Style?> get popupMenuSliderActiveTrackStyle;
+
+  Responsive<Style?> get popupMenuSliderTooltipStyle;
+
+  bool get isPopupMenuSliderThumbContained;
+
   /// The button style of this theme.
   Responsive<Style> get buttonStyle;
 
@@ -72,9 +101,6 @@ abstract class PuzzleTheme extends Equatable {
   /// Applied to the underline of the currently active
   /// theme in menu, on a small layout.
   Color get menuUnderlineColor;
-
-  /// The background color of popup menus.
-  Color get popupMenuBackgroundColor;
 
   /// The inactive menu style.
   DynamicTextStyle get menuInactiveStyle;
@@ -105,9 +131,22 @@ abstract class PuzzleTheme extends Equatable {
         isLogoColored,
         menuActiveStyle,
         menuUnderlineColor,
-        popupMenuBackgroundColor,
         menuInactiveStyle,
         layoutDelegate,
         tilePressSoundAsset,
+        popupMenuStyle,
+        popupMenuTileStyle,
+        popupMenuButtonStyle,
+        popupMenuHoverStyle,
+        popupMenuPressedStyle,
+        popupMenuTitleStyle,
+        popupMenuSliderThumbStyle,
+        popupMenuSliderThumbHoverStyle,
+        popupMenuSliderThumbPressedStyle,
+        popupMenuSliderTrackStyle,
+        popupMenuSliderActiveTrackStyle,
+        popupMenuSliderTooltipStyle,
+        isPopupMenuSliderThumbContained,
+        useCupertinoIndicator,
       ];
 }

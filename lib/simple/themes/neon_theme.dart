@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
+import 'package:very_good_slide_puzzle/colors/colors.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
@@ -67,6 +68,248 @@ class NeonTheme extends SimpleTheme {
               Color(0xFF711C91),
             ])))
       });
+
+  @override
+  Responsive<Style> get popupMenuStyle => Responsive({
+        allScreen: Style(
+          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          backgroundDecoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                Color(0xFF711C91),
+                Color(0xFF091833),
+              ])),
+          shapeBorder: const RoundedRectangleShapeBorder(
+              borderSides: RectangleBorderSides.only(
+                  top: DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [Color(0xFF711C91), Color(0xFF711C91)]),
+                      width: 3),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(
+                          colors: [Color(0xFF091833), Color(0xFF091833)]),
+                      width: 8),
+                  left: DynamicBorderSide(color: Color(0xFF711C91), width: 3),
+                  right: DynamicBorderSide(
+                      color: Color(0xFF091833), width: 5))),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuButtonStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Colors.transparent,
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              letterSpacing: 1.toPXLength,
+              fontFamily: "Beon",
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              shadows: [
+                const Shadow(
+                    blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+                const Shadow(
+                    blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
+              ],
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuHoverStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Colors.transparent,
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              letterSpacing: 1.toPXLength,
+              fontFamily: "Beon",
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              shadows: [
+                const Shadow(
+                    blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
+                const Shadow(
+                    blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
+              ],
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuPressedStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Colors.yellow,
+                Color(0xFFFCEC0C),
+              ]),
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
+            ),
+            shadows: [
+              const ShapeShadow(
+                  blurRadius: 4,
+                  gradient: LinearGradient(colors: [
+                    Colors.yellow,
+                    Color(0xFFFCEC0C),
+                  ]),
+                  offset: Offset(1, 1)),
+            ],
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              letterSpacing: 1.toPXLength,
+              fontFamily: "Beon",
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+              shadows: [
+                const Shadow(
+                    blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+                const Shadow(
+                    blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
+              ],
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuTitleStyle => Responsive({
+        allScreen: Style(
+            margin: const EdgeInsets.all(2),
+            alignment: Alignment.centerLeft,
+            textStyle: DynamicTextStyle(
+              fontSize: 14.toPXLength,
+              color: const Color(0xFFFCEC0C),
+              fontFamily: "Beon",
+              fontWeight: FontWeight.bold,
+              shadows: [
+                const Shadow(
+                    blurRadius: 1,
+                    color: Color(0xFFFCEC0C),
+                    offset: Offset(0, 0)),
+                const Shadow(
+                    blurRadius: 3,
+                    color: Color(0xFFFCEC0C),
+                    offset: Offset(0, 0)),
+              ],
+            ))
+      });
+
+  @override
+  Responsive<Style> get popupMenuTileStyle => Responsive({
+        allScreen: Style(
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.transparent,
+          ),
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
+        allScreen: Style(
+          shapeBorder: parseMorphableShapeBorder({
+            "type": "Triangle",
+            "border": {
+              "color": "ff000000",
+              "width": 0,
+              "style": "none",
+              "strokeCap": "butt",
+              "strokeJoin": "miter"
+            },
+            "point1": {"dx": "0%", "dy": "0%"},
+            "point2": {"dx": "100%", "dy": "18.800003051757866%"},
+            "point3": {"dx": "43.33333841959636%", "dy": "100%"}
+          }),
+          backgroundDecoration: const BoxDecoration(
+            color: Color(0xFFFCEC0C),
+          ),
+          shadows: [
+            const ShapeShadow(
+                blurRadius: 4,
+                gradient: LinearGradient(colors: [
+                  Colors.yellow,
+                  Color(0xFFFCEC0C),
+                ]),
+                offset: Offset(1, 1)),
+          ],
+          width: 20.toPXLength,
+          height: 20.toPXLength,
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
+        allScreen: Style(
+          width: 88.toPercentLength,
+          height: 1.toPXLength,
+          backgroundDecoration: const BoxDecoration(
+            color: PuzzleColors.black,
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(1.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
+        allScreen: Style(
+          height: 6.toPXLength,
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.yellowAccent,
+          ),
+          shadows: [
+            const ShapeShadow(
+                blurRadius: 4,
+                gradient: LinearGradient(colors: [
+                  Colors.yellow,
+                  Color(0xFFFCEC0C),
+                ]),
+                offset: Offset(1, 1)),
+          ],
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(3.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  bool get isPopupMenuSliderThumbContained => false;
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
@@ -354,9 +597,6 @@ class NeonTheme extends SimpleTheme {
 
   @override
   Color get menuUnderlineColor => const Color(0xFFFCEC0C);
-
-  @override
-  Color get popupMenuBackgroundColor => Colors.purple.shade700;
 
   @override
   DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(

@@ -83,5 +83,22 @@
                 "example": "10"
             }
         }
+    },
+
+    "soundControl": "Sound",
+    "@soundControl": {
+        "description": "Show the controls of the app sound"
+    },
+    "localeControl": "Language",
+    "@localeControl": {
+        "description": "Show the controls of the app language"
+    },
+    "sizeControl": "Size",
+    "@sizeControl": {
+        "description": "Show the controls of the puzzle size"
+    },
+    "difficultyControl": "Difficulty",
+    "@difficultyControl": {
+        "description": "Show the controls of the puzzle difficulty"
     }
 }

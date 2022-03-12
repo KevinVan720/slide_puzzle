@@ -60,6 +60,245 @@ class KeyboardTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> get popupMenuStyle => Responsive({
+        allScreen: Style(
+          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          backgroundDecoration:
+              BoxDecoration(color: Colors.tealAccent.shade100),
+          shapeBorder: RectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(20.toPXLength)),
+              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: 1,
+                color: Colors.grey.shade700,
+                offset: const Offset(0, 10)),
+            const ShapeShadow(
+                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+            ShapeShadow(
+                blurRadius: 0,
+                spreadRadius: -1,
+                gradient: LinearGradient(colors: [
+                  Colors.tealAccent.shade400,
+                  Colors.tealAccent.shade700
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                offset: const Offset(0, 10)),
+          ],
+          transform: SmoothMatrix4()..translate(0.toPXLength, -11.toPXLength),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuButtonStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Colors.transparent,
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              color: Colors.teal.shade100,
+              fontWeight: FontWeight.w800,
+              fontFamily: "GoogleSans",
+              shadows: _engraveShadow,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuHoverStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Colors.transparent,
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+              fontSize: 16.toPXLength,
+              color: Colors.teal.shade400,
+              fontWeight: FontWeight.w800,
+              fontFamily: "GoogleSans",
+              shadows: _engraveShadow,
+            ),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuPressedStyle => Responsive({
+        allScreen: Style(
+            alignment: Alignment.center,
+            childAlignment: Alignment.center,
+            margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
+            backgroundDecoration: const BoxDecoration(
+              color: Colors.transparent,
+            ),
+            shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+            ),
+            textStyle: DynamicTextStyle(
+                fontSize: 16.toPXLength,
+                color: Colors.teal.shade900,
+                fontWeight: FontWeight.bold,
+                fontFamily: "GoogleSans",
+                shadows: const [
+                  Shadow(
+                      blurRadius: 0.5,
+                      color: Color.fromARGB(60, 255, 255, 255),
+                      offset: Offset(-0.2, -1)),
+                  Shadow(
+                      blurRadius: 0.5,
+                      color: Color.fromARGB(60, 255, 255, 255),
+                      offset: Offset(-0.5, -0.5)),
+                  Shadow(
+                      blurRadius: 0.5,
+                      color: Color.fromARGB(60, 255, 255, 255),
+                      offset: Offset(-0.8, -0.2)),
+                  Shadow(
+                      blurRadius: 0.5,
+                      color: Color.fromARGB(200, 0, 0, 0),
+                      offset: Offset(0.2, 1)),
+                  Shadow(
+                      blurRadius: 0.5,
+                      color: Color.fromARGB(200, 0, 0, 0),
+                      offset: Offset(0.5, 0.5)),
+                  Shadow(
+                      blurRadius: 0.5,
+                      color: Color.fromARGB(200, 0, 0, 0),
+                      offset: Offset(0.8, 0.2)),
+                ]),
+            textAlign: TextAlign.center,
+            mouseCursor: SystemMouseCursors.click)
+      });
+
+  @override
+  Responsive<Style> get popupMenuTitleStyle => Responsive({
+        allScreen: Style(
+            margin: const EdgeInsets.all(2),
+            alignment: Alignment.centerLeft,
+            textStyle: DynamicTextStyle(
+                fontSize: 14.toPXLength,
+                color: Colors.teal.shade700,
+                fontStyle: FontStyle.italic,
+                fontFamily: "GoogleSans",
+                shadows: _engraveShadow,
+                fontWeight: FontWeight.bold))
+      });
+
+  @override
+  Responsive<Style> get popupMenuTileStyle => Responsive({
+        allScreen: Style(
+          backgroundDecoration: BoxDecoration(
+            color: Colors.tealAccent.shade100,
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
+          ),
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 3,
+                color: Colors.white.withOpacity(0.7),
+                offset: const Offset(-0.2, -3)),
+            const ShapeShadow(
+                blurRadius: 2,
+                color: Color.fromARGB(200, 10, 10, 10),
+                offset: Offset(0.2, 2)),
+          ],
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.symmetric(vertical: 5),
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
+        allScreen: Style(
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(4.toPXLength)),
+          ),
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.teal,
+          ),
+          shadows: [
+            const ShapeShadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(60, 255, 255, 255),
+                offset: Offset(-0.2, -1)),
+            const ShapeShadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(60, 255, 255, 255),
+                offset: Offset(-0.5, -0.5)),
+            const ShapeShadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(60, 255, 255, 255),
+                offset: Offset(-0.8, -0.2)),
+            const ShapeShadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(200, 0, 0, 0),
+                offset: Offset(0.2, 1)),
+            const ShapeShadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(200, 0, 0, 0),
+                offset: Offset(0.5, 0.5)),
+            const ShapeShadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(200, 0, 0, 0),
+                offset: Offset(0.8, 0.2)),
+          ],
+          width: 20.toPXLength,
+          height: 30.toPXLength,
+        )
+      });
+
+  @override
+  Responsive<Style> get popupMenuSliderTrackStyle => Responsive({
+        allScreen: Style(
+          width: 88.toPercentLength,
+          height: 30.toPXLength,
+          backgroundDecoration: BoxDecoration(
+            color: Colors.teal.shade200,
+          ),
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 2,
+                color: Colors.tealAccent.shade100.withOpacity(0.7),
+                offset: const Offset(-0.2, -2)),
+            const ShapeShadow(
+                blurRadius: 2,
+                color: Color.fromARGB(200, 10, 10, 10),
+                offset: Offset(0.2, 2)),
+          ],
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(4.toPXLength)),
+          ),
+        )
+      });
+
+  @override
+  bool get isPopupMenuSliderThumbContained => true;
+
+  @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
@@ -295,42 +534,38 @@ class KeyboardTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
-        color: Colors.teal.shade900,
-        fontWeight: FontWeight.bold,
-        fontFamily: "GoogleSans",
-    shadows: const [
-      Shadow(
-          blurRadius: 0.5,
-          color: Color.fromARGB(60, 255, 255, 255),
-          offset: Offset(-0.2, -1)),
-      Shadow(
-          blurRadius: 0.5,
-          color: Color.fromARGB(60, 255, 255, 255),
-          offset: Offset(-0.5, -0.5)),
-      Shadow(
-          blurRadius: 0.5,
-          color: Color.fromARGB(60, 255, 255, 255),
-          offset: Offset(-0.8, -0.2)),
-      Shadow(
-          blurRadius: 0.5,
-          color: Color.fromARGB(200, 0, 0, 0),
-          offset: Offset(0.2, 1)),
-      Shadow(
-          blurRadius: 0.5,
-          color: Color.fromARGB(200, 0, 0, 0),
-          offset: Offset(0.5, 0.5)),
-      Shadow(
-          blurRadius: 0.5,
-          color: Color.fromARGB(200, 0, 0, 0),
-          offset: Offset(0.8, 0.2)),
-    ]
-      );
+          color: Colors.teal.shade900,
+          fontWeight: FontWeight.bold,
+          fontFamily: "GoogleSans",
+          shadows: const [
+            Shadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(60, 255, 255, 255),
+                offset: Offset(-0.2, -1)),
+            Shadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(60, 255, 255, 255),
+                offset: Offset(-0.5, -0.5)),
+            Shadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(60, 255, 255, 255),
+                offset: Offset(-0.8, -0.2)),
+            Shadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(200, 0, 0, 0),
+                offset: Offset(0.2, 1)),
+            Shadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(200, 0, 0, 0),
+                offset: Offset(0.5, 0.5)),
+            Shadow(
+                blurRadius: 0.5,
+                color: Color.fromARGB(200, 0, 0, 0),
+                offset: Offset(0.8, 0.2)),
+          ]);
 
   @override
   Color get menuUnderlineColor => Colors.teal;
-
-  @override
-  Color get popupMenuBackgroundColor => Colors.redAccent.shade200;
 
   @override
   DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(

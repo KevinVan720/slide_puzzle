@@ -35,12 +35,14 @@ class PuzzleGamePage extends StatelessWidget {
           create: (context) => ThemeBloc(
             initialThemes: [
               const MaterialTheme(),
+              const CupertinoTheme(),
               const NeumorphicTheme(),
               const GlassmorphismTheme(),
               const ClaymorphismTheme(),
               const NeonTheme(),
               const KeyboardTheme(),
               const WoodTheme(),
+              //const RetroTheme(),
             ],
           ),
         ),
@@ -50,6 +52,7 @@ class PuzzleGamePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          lazy: false,
           create: (_) => AudioControlBloc(),
         ),
         BlocProvider(
@@ -160,14 +163,8 @@ class PuzzleHeader extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 30),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AudioControl(
-                      key: audioControlKey,
-                    ),
-                    const Gap(40),
-                    LocaleControl(
-                      key: localeControlKey,
-                    )
+                  children: const [
+                    SettingsControl(),
                   ],
                 ),
               ),
@@ -176,7 +173,7 @@ class PuzzleHeader extends StatelessWidget {
         ),
         medium: (context, child) => Stack(
           children: [
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: EdgeInsets.only(left: 30.0),
@@ -189,14 +186,8 @@ class PuzzleHeader extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 30),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AudioControl(
-                      key: audioControlKey,
-                    ),
-                    const Gap(40),
-                    LocaleControl(
-                      key: localeControlKey,
-                    )
+                  children: const [
+                    SettingsControl(),
                   ],
                 ),
               ),
@@ -397,13 +388,10 @@ class PuzzleMenu extends StatelessWidget {
                   ),
                 ),
                 const Gap(40),
-                AudioControl(
-                  key: audioControlKey,
-                ),
-                const Gap(40),
-                LocaleControl(
-                  key: localeControlKey,
-                )
+                const SettingsControl(),
+                //LocaleControl(
+                //  key: localeControlKey,
+                //)
               ],
             ));
   }
