@@ -138,7 +138,6 @@ class SimplePuzzleSolveButton extends StatefulWidget {
 
 class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
   AudioPlayer? _audioPlayer;
-  String? _audioAsset;
   late final Timer _timer;
 
   ///The async process of solving and updating the puzzle
@@ -282,16 +281,9 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
           (List<Tile> tiles) =>
               Future.delayed(const Duration(milliseconds: 1000), () async {
                 if (AudioPlayerExtension.isPlatformSupported) {
-                  if (_audioAsset != theme.tilePressSoundAsset) {
-                    setState(() {
-                      _audioAsset = theme.tilePressSoundAsset;
-                    });
-                    await _audioPlayer?.setAsset(
-                      theme.tilePressSoundAsset,
-                    );
-                  }
-                  await _audioPlayer?.setVolume(
-                      context.read<AudioControlBloc>().state.volume);
+                  final duration = await _audioPlayer?.setAsset(
+                    theme.tilePressSoundAsset,
+                  );
                   unawaited(_audioPlayer?.replay());
                 }
 

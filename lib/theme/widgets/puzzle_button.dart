@@ -38,7 +38,6 @@ class PuzzleButton extends StatefulWidget {
 
 class _PuzzleButtonState extends State<PuzzleButton> {
   AudioPlayer? _audioPlayer;
-  String? _audioAsset;
   late final Timer _timer;
 
   @override
@@ -90,19 +89,12 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               onPressed: widget.onPressed == null
                   ? null
                   : () async {
-                      if (AudioPlayerExtension.isPlatformSupported) {
-                        if (_audioAsset != theme.tilePressSoundAsset) {
-                          setState(() {
-                            _audioAsset = theme.tilePressSoundAsset;
-                          });
-                          final duration = await _audioPlayer?.setAsset(
-                            theme.tilePressSoundAsset,
-                          );
-                        }
-                        await _audioPlayer?.setVolume(
-                            context.read<AudioControlBloc>().state.volume);
-                        unawaited(_audioPlayer?.replay());
-                      }
+                if (AudioPlayerExtension.isPlatformSupported) {
+                  final duration = await _audioPlayer?.setAsset(
+                    theme.tilePressSoundAsset,
+                  );
+                  unawaited(_audioPlayer?.replay());
+                }
                       widget.onPressed!();
                     },
               child: Builder(

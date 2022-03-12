@@ -44,8 +44,7 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
   @override
   void initState() {
     super.initState();
-    _audioPlayer = widget._audioPlayerFactory()
-      ..setAsset('assets/audio/tile_move.mp3');
+    _audioPlayer = widget._audioPlayerFactory();
   }
 
   @override
@@ -83,9 +82,14 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
 
       if (tile != null) {
         context.read<PuzzleBloc>().add(TileTapped(tile));
-        await _audioPlayer
-            .setVolume(context.read<AudioControlBloc>().state.volume);
-        unawaited(_audioPlayer.replay());
+
+        if (AudioPlayerExtension.isPlatformSupported) {
+          final duration = await _audioPlayer?.setAsset(
+            theme.tilePressSoundAsset,
+          );
+          unawaited(_audioPlayer?.replay());
+        }
+
       }
     }
   }

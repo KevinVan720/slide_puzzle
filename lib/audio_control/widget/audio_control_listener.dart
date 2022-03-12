@@ -29,25 +29,34 @@ class AudioControlListener extends StatefulWidget {
 class _AudioControlListenerState extends State<AudioControlListener> {
   @override
   void didChangeDependencies() {
-    updateAudioPlayer(muted: context.read<AudioControlBloc>().state.muted);
+    updateAudioPlayer(
+        muted: context.read<AudioControlBloc>().state.muted,
+        volume: context.read<AudioControlBloc>().state.volume);
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant AudioControlListener oldWidget) {
     super.didUpdateWidget(oldWidget);
-    updateAudioPlayer(muted: context.read<AudioControlBloc>().state.muted);
+    updateAudioPlayer(
+        muted: context.read<AudioControlBloc>().state.muted,
+        volume: context.read<AudioControlBloc>().state.volume);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AudioControlBloc, AudioControlState>(
-      listener: (context, state) => updateAudioPlayer(muted: state.muted),
+      listener: (context, state) =>
+          updateAudioPlayer(muted: state.muted, volume: state.volume),
       child: widget.child,
     );
   }
 
-  void updateAudioPlayer({required bool muted}) {
-    widget.audioPlayer?.setVolume(muted ? 0.0 : 1.0);
+  void updateAudioPlayer({required bool muted, required double volume}) {
+    if (muted) {
+      widget.audioPlayer?.setVolume(0.0);
+    } else {
+      widget.audioPlayer?.setVolume(volume);
+    }
   }
 }

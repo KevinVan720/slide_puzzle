@@ -279,7 +279,6 @@ class SimplePuzzleTile extends StatefulWidget {
 
 class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
   AudioPlayer? _audioPlayer;
-  String? _audioAsset;
   late final Timer _timer;
 
   @override
@@ -288,9 +287,6 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
 
     /// Delay the initialization of the audio player for performance reasons,
     /// to avoid dropping frames when the theme is changed.
-    /// linux and windows are not supported right now
-    ///
-
     if (AudioPlayerExtension.isPlatformSupported) {
       _timer = Timer(const Duration(milliseconds: 500), () {
         _audioPlayer = widget._audioPlayerFactory();
@@ -323,19 +319,11 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
         onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
             ? () async {
                 if (AudioPlayerExtension.isPlatformSupported) {
-                  if (_audioAsset != theme.tilePressSoundAsset) {
-                    setState(() {
-                      _audioAsset = theme.tilePressSoundAsset;
-                    });
                     final duration = await _audioPlayer?.setAsset(
                       theme.tilePressSoundAsset,
                     );
+                    unawaited(_audioPlayer?.replay());
                   }
-
-                  await _audioPlayer?.setVolume(
-                      context.read<AudioControlBloc>().state.volume);
-                  unawaited(_audioPlayer?.replay());
-                }
 
                 context.read<PuzzleBloc>().add(TileTapped(widget.tile));
               }
