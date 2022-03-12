@@ -30,7 +30,7 @@ You play the basic version of the slide puzzle game but you can play it in diffe
 
 You can choose between different difficulty levels and puzzle sizes when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
 
-![Auto solve the puzzle](https://i.imgur.com/BLpHeTD.gif)
+![Auto solve the puzzle](https://i.imgur.com/PuYZriI.gif)
 
 ##### Automatically solve the puzzle
 
