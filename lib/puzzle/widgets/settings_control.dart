@@ -116,9 +116,9 @@ class SettingsControl extends StatelessWidget {
                   ));
             },
             followerAnchor: Alignment.topRight,
-            targetAnchor: Alignment.bottomRight,
+            targetAnchor: Alignment.bottomCenter,
             avoidOverflow: true,
-            offset: const Offset(-2, 4),
+            offset: const Offset(0, 4),
             barrierColor: Colors.transparent);
       },
       child: AnimatedSwitcher(

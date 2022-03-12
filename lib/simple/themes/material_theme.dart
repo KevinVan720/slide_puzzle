@@ -172,21 +172,6 @@ class MaterialTheme extends SimpleTheme {
           ),
           padding: const EdgeInsets.all(5),
           margin: const EdgeInsets.symmetric(vertical: 5),
-          shadows: [
-            const ShapeShadow(
-                offset: Offset(0.0, 3.0),
-                blurRadius: 1.0,
-                spreadRadius: -2.0,
-                color: _kKeyUmbraOpacity),
-            const ShapeShadow(
-                offset: Offset(0.0, 2.0),
-                blurRadius: 2.0,
-                color: _kKeyPenumbraOpacity),
-            const ShapeShadow(
-                offset: Offset(0.0, 1.0),
-                blurRadius: 5.0,
-                color: _kAmbientShadowOpacity),
-          ],
         )
       });
 
