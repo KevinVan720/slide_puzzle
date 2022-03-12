@@ -42,7 +42,9 @@ class GlassmorphismTheme extends SimpleTheme {
           fontWeight: FontWeight.w900,
           shadows: [
             const Shadow(
-                blurRadius: 6, color: PuzzleColors.grey2, offset: Offset(5, 5)),
+                blurRadius: 10,
+                color: PuzzleColors.grey5,
+                offset: Offset(5, 5)),
           ]);
 
   @override
@@ -67,8 +69,8 @@ class GlassmorphismTheme extends SimpleTheme {
             ShapeShadow(
                 spreadRadius: 2,
                 blurRadius: 10,
-                color: Colors.black.withOpacity(0.05),
-                offset: const Offset(10, 10)),
+                color: Colors.grey.withOpacity(0.05),
+                offset: const Offset(5, 5)),
           ],
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
@@ -148,9 +150,9 @@ class GlassmorphismTheme extends SimpleTheme {
               color: const Color(0xFFFAFAFA).withOpacity(0.3),
             ),
             shapeBorder: RectangleShapeBorder(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(10.toPXLength)),
-            ),
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(10.toPXLength))),
+            backdropFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
               color: Colors.white,
@@ -179,29 +181,70 @@ class GlassmorphismTheme extends SimpleTheme {
             color: const Color(0xFFFAFAFA).withOpacity(0.2),
           ),
           shapeBorder: RectangleShapeBorder(
-            border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
-            borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
-          ),
+              border: DynamicBorderSide(
+                  width: 1,
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: const [
+                        0,
+                        0.2
+                      ],
+                      colors: [
+                        Colors.white70,
+                        Colors.white.withOpacity(0.05)
+                      ])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength))),
+          backdropFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           padding: const EdgeInsets.all(5),
           margin: const EdgeInsets.symmetric(vertical: 5),
-          shadows: [
-            ShapeShadow(
-                spreadRadius: 1,
-                blurRadius: 4,
-                color: Colors.white.withOpacity(0.1),
-                offset: const Offset(2, 2)),
-          ],
         )
       });
 
   @override
   Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
         allScreen: Style(
-          shapeBorder: const CircleShapeBorder(),
-          backgroundDecoration: const BoxDecoration(
-            color: PuzzleColors.white,
-          ),
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 3,
+                color: Colors.white70.withOpacity(0.8),
+                offset: const Offset((3), (3))),
+            ShapeShadow(
+                blurRadius: 2,
+                spreadRadius: 1,
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [
+                      0,
+                      0.5
+                    ],
+                    colors: [
+                      Colors.grey.shade300.withOpacity(0.8),
+                      Colors.grey.shade700.withOpacity(0.8),
+                    ]),
+                offset: const Offset(-3, -3)),
+          ],
+          shapeBorder: RectangleShapeBorder(
+              border: DynamicBorderSide(
+                  width: 1,
+                  gradient: LinearGradient(
+                      begin: const Alignment(-0.9, -1),
+                      end: Alignment.bottomRight,
+                      stops: const [
+                        0,
+                        0.1
+                      ],
+                      colors: [
+                        Colors.white38,
+                        Colors.white.withOpacity(0.05)
+                      ])),
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(10.toPXLength))),
+          backgroundDecoration:
+              BoxDecoration(color: Colors.white.withOpacity(0.9)),
+          backdropFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
           width: 20.toPXLength,
           height: 20.toPXLength,
         )

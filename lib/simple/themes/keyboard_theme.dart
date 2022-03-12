@@ -216,9 +216,9 @@ class KeyboardTheme extends SimpleTheme {
           ),
           insetShadows: [
             ShapeShadow(
-                blurRadius: 3,
-                color: Colors.white.withOpacity(0.7),
-                offset: const Offset(-0.2, -3)),
+                blurRadius: 1,
+                color: Colors.white.withOpacity(0.6),
+                offset: const Offset(-0.2, -1)),
             const ShapeShadow(
                 blurRadius: 2,
                 color: Color.fromARGB(200, 10, 10, 10),
