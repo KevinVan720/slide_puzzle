@@ -11,7 +11,7 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 /// {@endtemplate}
 class WoodTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const WoodTheme() : super();
+  const WoodTheme({ThemeLuminance? luminance}) : super(luminance: luminance);
 
   @override
   @override
@@ -20,6 +20,12 @@ class WoodTheme extends SimpleTheme {
         const Locale("es"): 'Madera',
         const Locale("zh"): "木质"
       };
+
+  WoodTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return WoodTheme(luminance: luminance ?? this.luminance);
+  }
 
   @override
   bool get hasTimer => false;
@@ -253,21 +259,21 @@ class WoodTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         smallScreen: Style(
-          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          width: Dimension.min(260.toPXLength, 90.toPercentLength),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         ),
         middleScreen: Style(
-          width: Dimension.min(240.toPXLength, 90.toPercentLength),
+          width: Dimension.min(260.toPXLength, 90.toPercentLength),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         ),
         largeScreen: Style(
-            width: Dimension.min(240.toPXLength, 90.toPercentLength),
+            width: Dimension.min(260.toPXLength, 90.toPercentLength),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             backgroundDecoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
-                        const Color(0xFF352525).withOpacity(0.2),
+                        Colors.brown.shade700.withOpacity(0.4),
                         BlendMode.darken),
                     image:
                         const AssetImage('assets/images/wood_background.jpg'))),
@@ -388,8 +394,8 @@ class WoodTheme extends SimpleTheme {
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
             //alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
-              letterSpacing: 1.toPXLength,
-              fontSize: 18.toPXLength,
+              letterSpacing: 2.toPXLength,
+              fontSize: 17.toPXLength,
               fontFamily: "Pacifico-Regular",
               fontWeight: FontWeight.w900,
               color: const Color(0xFFC0A080).withOpacity(0.8),

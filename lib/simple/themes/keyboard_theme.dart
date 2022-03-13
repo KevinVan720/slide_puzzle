@@ -6,12 +6,15 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 class KeyboardTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const KeyboardTheme() : super();
+  const KeyboardTheme({ThemeLuminance? luminance})
+      : super(luminance: luminance);
 
   @override
   Map<Locale, String> get name => {
@@ -19,6 +22,12 @@ class KeyboardTheme extends SimpleTheme {
         const Locale("es"): 'Teclado',
         const Locale("zh"): "键盘"
       };
+
+  KeyboardTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return KeyboardTheme(luminance: luminance ?? this.luminance);
+  }
 
   @override
   bool get hasTimer => false;

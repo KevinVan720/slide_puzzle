@@ -84,12 +84,11 @@ class _PuzzleKeyboardHandlerState extends State<PuzzleKeyboardHandler> {
         context.read<PuzzleBloc>().add(TileTapped(tile));
 
         if (AudioPlayerExtension.isPlatformSupported) {
-          final duration = await _audioPlayer?.setAsset(
+          final duration = await _audioPlayer.setAsset(
             theme.tilePressSoundAsset,
           );
-          unawaited(_audioPlayer?.replay());
+          unawaited(_audioPlayer.replay());
         }
-
       }
     }
   }

@@ -48,7 +48,7 @@ The puzzle solver which is using the iterative deepening A*(IDA*) algorithm also
 
 ## Accomplishments that we're proud of 😎
 
-The themed_puzzle app is an all-around app that is **fully responsive, cross-platform, multi-language, and supports different input devices** (thanks to the development of Flutter). The animations are smooth and very fun to interact with. I recreated most of the design trends that are popular in recent years, which gives us a sense of how complicated and beautiful an interface Flutter can build. The attention to detail on all the different themes is also worth noting. Every aspect of the UI, including popup menus and sound effects, is customized.
+The themed_puzzle app is an all-around app that is **fully responsive, cross-platform, multi-language, and supports different input devices** (thanks to the development of Flutter). The animations are smooth and very fun to interact with. I recreated most of the design trends that are popular in recent years, which gives us a sense of how complicated and beautiful an interface Flutter can build. The attention to detail on all the different themes is also worth noting. Every aspect of the UI, including popup menus and sound effects, is customized. There are also light and dark themes for the Material, Cupertino and Neumorphism design.
 
 ![Multi language support](https://i.imgur.com/fyl3tYz.gif)
 
@@ -93,13 +93,25 @@ The app should also run on **IOS** and **MacOS** since all dependent packages su
 
 ##### Material
 
+![Material Dark](https://i.imgur.com/QO6yhy0.png)
+
+##### Material Dark
+
 ![Cupertino](https://i.imgur.com/fROSntM.png)
 
 ##### Cupertino
 
+![Cupertino Dark](https://i.imgur.com/zC2Vg6D.png)
+
+##### Cupertino Dark
+
 ![Neumorphism](https://i.imgur.com/IWhlx19.png)
 
 ##### Neumorphism
+
+![Neumorphism Dark](https://i.imgur.com/J4MTg9M.png)
+
+##### Neumorphism Dark
 
 ![Glassmorphism](https://i.imgur.com/5AhmXJh.png)
 

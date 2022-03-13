@@ -100,5 +100,13 @@
     "difficultyControl": "Difficulty",
     "@difficultyControl": {
         "description": "Show the controls of the puzzle difficulty"
+    },
+    "dark": "Dark",
+    "@dark": {
+        "description": "The dark mode of a theme"
+    },
+    "light": "Light",
+    "@light": {
+        "description": "The light mode of a theme"
     }
 }

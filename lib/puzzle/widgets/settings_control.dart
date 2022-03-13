@@ -1,25 +1,16 @@
-import 'dart:math';
-
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/puzzle/bloc/puzzle_bloc.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/typography/text_styles.dart';
-import 'package:decorated_icon/decorated_icon.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
-import 'package:very_good_slide_puzzle/game_config/game_config.dart';
-
-import 'package:responsive_property/responsive_property.dart';
-import 'package:very_good_slide_puzzle/simple/simple.dart';
-import 'package:animated_styled_widget/src/styled_components/styled_plain_container.dart';
-
 import 'package:gap/gap.dart';
+import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/puzzle/bloc/puzzle_bloc.dart';
+import 'package:very_good_slide_puzzle/simple/simple.dart';
+import 'package:very_good_slide_puzzle/theme/theme.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -52,66 +43,90 @@ class SettingsControl extends StatelessWidget {
                     ),
                   ],
                   child: ResponsiveLayoutBuilder(
-                    small: (context, _) => Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        StyledContainer(
-                          style: theme.backgroundStyle.resolve(context)!
-                            ..childAlignment = Alignment.center,
-                          child: _buildAllControls(context),
-                        ),
-                        Positioned(
-                          top: 36,
-                          right: 30,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: DecoratedIcon(
-                              Icons.close,
-                              size: 24,
-                              color: theme.menuActiveStyle.color,
-                              shadows: _iconShadow
-                                  ?.map((e) => Shadow(
-                                      color: e.color,
-                                      offset: e.offset,
-                                      blurRadius: e.blurRadius))
-                                  .toList(),
-                            ),
+                    small: (context, _) {
+                      final theme =
+                          context.select((ThemeBloc bloc) => bloc.state.theme);
+
+                      List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AnimatedStyledContainer(
+                            duration: PuzzleThemeAnimationDuration
+                                .backgroundColorChange,
+                            curve: Curves.easeInOut,
+                            style: theme.backgroundStyle.resolve(context)!
+                              ..childAlignment = Alignment.center,
+                            child: _buildAllControls(context),
                           ),
-                        )
-                      ],
-                    ),
-                    medium: (context, _) => Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        StyledContainer(
-                          style: theme.backgroundStyle.resolve(context)!
-                            ..childAlignment = Alignment.center,
-                          child: _buildAllControls(context),
-                        ),
-                        Positioned(
-                          top: 32,
-                          right: 30,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: DecoratedIcon(
-                              Icons.close,
-                              size: 32,
-                              color: theme.menuActiveStyle.color,
-                              shadows: _iconShadow
-                                  ?.map((e) => Shadow(
-                                      color: e.color,
-                                      offset: e.offset,
-                                      blurRadius: e.blurRadius))
-                                  .toList(),
-                            ),
+                          Positioned(
+                            top: 36,
+                            right: 30,
+                            child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: DecoratedIcon(
+                                    Icons.close,
+                                    size: 24,
+                                    color: theme.menuActiveStyle.color,
+                                    shadows: _iconShadow
+                                        ?.map((e) => Shadow(
+                                            color: e.color,
+                                            offset: e.offset,
+                                            blurRadius: e.blurRadius))
+                                        .toList(),
+                                  ),
+                                )),
+                          )
+                        ],
+                      );
+                    },
+                    medium: (context, _) {
+                      final theme =
+                          context.select((ThemeBloc bloc) => bloc.state.theme);
+
+                      List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AnimatedStyledContainer(
+                            duration: PuzzleThemeAnimationDuration
+                                .backgroundColorChange,
+                            curve: Curves.easeInOut,
+                            style: theme.backgroundStyle.resolve(context)!
+                              ..childAlignment = Alignment.center,
+                            child: _buildAllControls(context),
                           ),
-                        )
-                      ],
-                    ),
+                          Positioned(
+                            top: 32,
+                            right: 30,
+                            child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: DecoratedIcon(
+                                    Icons.close,
+                                    size: 32,
+                                    color: theme.menuActiveStyle.color,
+                                    shadows: _iconShadow
+                                        ?.map((e) => Shadow(
+                                            color: e.color,
+                                            offset: e.offset,
+                                            blurRadius: e.blurRadius))
+                                        .toList(),
+                                  ),
+                                )),
+                          )
+                        ],
+                      );
+                    },
                     large: (context, _) => _buildAllControls(context),
                   ));
             },
@@ -121,38 +136,46 @@ class SettingsControl extends StatelessWidget {
             offset: const Offset(0, 4),
             barrierColor: Colors.transparent);
       },
-      child: AnimatedSwitcher(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        child: ResponsiveLayoutBuilder(
-          small: (_, __) => DecoratedIcon(
-            Icons.settings,
-            size: 24,
-            color: theme.menuActiveStyle.color,
-            shadows: _iconShadow
-                ?.map((e) => Shadow(
-                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
-                .toList(),
-          ),
-          medium: (_, __) => DecoratedIcon(
-            Icons.settings,
-            size: 32,
-            color: theme.menuActiveStyle.color,
-            shadows: _iconShadow
-                ?.map((e) => Shadow(
-                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
-                .toList(),
-          ),
-          large: (_, __) => DecoratedIcon(
-            Icons.settings,
-            size: 36,
-            color: theme.menuActiveStyle.color,
-            shadows: _iconShadow
-                ?.map((e) => Shadow(
-                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
-                .toList(),
-          ),
-        ),
-      ),
+      child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: AnimatedSwitcher(
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            child: ResponsiveLayoutBuilder(
+              small: (_, __) => DecoratedIcon(
+                Icons.menu,
+                size: 24,
+                color: theme.menuActiveStyle.color,
+                shadows: _iconShadow
+                    ?.map((e) => Shadow(
+                        color: e.color,
+                        offset: e.offset,
+                        blurRadius: e.blurRadius))
+                    .toList(),
+              ),
+              medium: (_, __) => DecoratedIcon(
+                Icons.menu,
+                size: 32,
+                color: theme.menuActiveStyle.color,
+                shadows: _iconShadow
+                    ?.map((e) => Shadow(
+                        color: e.color,
+                        offset: e.offset,
+                        blurRadius: e.blurRadius))
+                    .toList(),
+              ),
+              large: (_, __) => DecoratedIcon(
+                Icons.menu,
+                size: 36,
+                color: theme.menuActiveStyle.color,
+                shadows: _iconShadow
+                    ?.map((e) => Shadow(
+                        color: e.color,
+                        offset: e.offset,
+                        blurRadius: e.blurRadius))
+                    .toList(),
+              ),
+            ),
+          )),
     );
   }
 
@@ -161,12 +184,16 @@ class SettingsControl extends StatelessWidget {
 
     final double volume = context.read<AudioControlBloc>().state.volume;
 
-    return StyledContainer(
+    return AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        curve: Curves.easeInOut,
         style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            StyledContainer(
+            AnimatedStyledContainer(
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+                curve: Curves.easeInOut,
                 style: theme.popupMenuTitleStyle.resolve(context)!,
                 child: Builder(
                   builder: (context) => Row(
@@ -202,19 +229,25 @@ class SettingsControl extends StatelessWidget {
   Widget _buildLocaleControl(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return StyledContainer(
+    return AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        curve: Curves.easeInOut,
         style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
         child: const LocaleSelectList());
   }
 
   Widget _buildSizeControl(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    return StyledContainer(
+    return AnimatedStyledContainer(
+      duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+      curve: Curves.easeInOut,
       style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          StyledContainer(
+          AnimatedStyledContainer(
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+              curve: Curves.easeInOut,
               style: theme.popupMenuTitleStyle.resolve(context)!,
               child: Text(context.l10n.sizeControl)),
           const Gap(2),
@@ -229,12 +262,16 @@ class SettingsControl extends StatelessWidget {
   Widget _buildDifficultyControl(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return StyledContainer(
+    return AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        curve: Curves.easeInOut,
         style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            StyledContainer(
+            AnimatedStyledContainer(
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+                curve: Curves.easeInOut,
                 style: theme.popupMenuTitleStyle.resolve(context)!,
                 child: Text(context.l10n.difficultyControl)),
             const Gap(2),
@@ -246,10 +283,61 @@ class SettingsControl extends StatelessWidget {
         ));
   }
 
+  Widget _buildBrightnessControl(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
+    List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+
+    bool isDark = (theme as SimpleTheme).luminance == ThemeLuminance.dark;
+
+    return AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        curve: Curves.easeInOut,
+        style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
+        child: Row(
+          children: [
+            AnimatedStyledContainer(
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+                curve: Curves.easeInOut,
+                style: theme.popupMenuTitleStyle.resolve(context)!,
+                child: Text(isDark ? context.l10n.dark : context.l10n.light)),
+            const Gap(2),
+            Expanded(
+              child: Center(
+                  child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    context.read<ThemeBloc>().add(ThemeUpdated(
+                        theme: theme.copyWith(
+                            luminance: isDark
+                                ? ThemeLuminance.light
+                                : ThemeLuminance.dark)));
+                  },
+                  child: DecoratedIcon(
+                    isDark ? Icons.dark_mode : Icons.light_mode,
+                    size: 16,
+                    color: theme.menuActiveStyle.color,
+                    shadows: _iconShadow
+                        ?.map((e) => Shadow(
+                            color: e.color,
+                            offset: e.offset,
+                            blurRadius: e.blurRadius))
+                        .toList(),
+                  ),
+                ),
+              )),
+            ),
+          ],
+        ));
+  }
+
   Widget _buildAllControls(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return StyledContainer(
+    return AnimatedStyledContainer(
+      duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+      curve: Curves.easeInOut,
       style: theme.popupMenuStyle.resolve(context) ?? Style(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -264,7 +352,15 @@ class SettingsControl extends StatelessWidget {
                 child: _buildSizeControl(context),
               ),
               const Gap(10),
-              Expanded(child: _buildDifficultyControl(context)),
+              Expanded(
+                  child: Column(
+                children: [
+                  _buildDifficultyControl(context),
+                  (theme as SimpleTheme).luminance != null
+                      ? _buildBrightnessControl(context)
+                      : Container()
+                ],
+              )),
             ],
           ),
         ],

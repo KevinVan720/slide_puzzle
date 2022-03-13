@@ -6,12 +6,15 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 class NeumorphicTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const NeumorphicTheme() : super();
+  const NeumorphicTheme({ThemeLuminance? luminance = ThemeLuminance.light})
+      : super(luminance: luminance);
 
   @override
   Map<Locale, String> get name => {
@@ -21,27 +24,38 @@ class NeumorphicTheme extends SimpleTheme {
       };
 
   @override
+  NeumorphicTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return NeumorphicTheme(luminance: luminance ?? this.luminance);
+  }
+
+  NeumorphismThemePalette get themePalette => luminance == ThemeLuminance.light
+      ? NeumorphismThemePaletteLight()
+      : NeumorphismThemePaletteDark();
+
+  @override
   bool get hasTimer => false;
 
   @override
   Curve get tileMoveAnimationCurve => Curves.decelerate;
 
   @override
-  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
-        color: PuzzleColors.grey1,
+  DynamicTextStyle get nameTextStyle => DynamicTextStyle(
+        color: themePalette.nameColor,
         fontFamily: "BalooThambi2",
       );
 
   @override
-  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-        color: Color(0xFF535C80),
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+        color: themePalette.titleColor,
         fontFamily: "BalooThambi2",
         fontWeight: FontWeight.bold,
       );
 
   @override
-  DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
-        color: PuzzleColors.grey1,
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+        color: themePalette.defaultColor,
         fontFamily: "BalooThambi2",
       );
 
@@ -66,9 +80,9 @@ class NeumorphicTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: const BoxDecoration(
+            backgroundDecoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [Color(0xFFE0E0E0), Color(0xFFE0E0E0)],
+                    colors: [themePalette.baseColor, themePalette.baseColor],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter)))
       });
@@ -77,8 +91,8 @@ class NeumorphicTheme extends SimpleTheme {
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
-          backgroundDecoration: const BoxDecoration(
-            color: Color(0xFFE0E0E0),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.baseColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -89,12 +103,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorDarker,
                 offset: const Offset(6, 6)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -3,
-                color: Color(0xFFFEFEFE),
+                color: themePalette.baseColorLighter,
                 offset: Offset(-6, -6)),
           ],
         )
@@ -107,8 +121,8 @@ class NeumorphicTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: const BoxDecoration(
-              color: Color(0xFFE0E0E0),
+            backgroundDecoration: BoxDecoration(
+              color: themePalette.baseColor,
             ),
             shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -118,7 +132,7 @@ class NeumorphicTheme extends SimpleTheme {
               fontSize: 16.toPXLength,
               fontWeight: FontWeight.w700,
               fontFamily: "BalooThambi2",
-              color: Colors.grey,
+              color: themePalette.tileTextColor,
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -131,8 +145,8 @@ class NeumorphicTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: const BoxDecoration(
-              color: Color(0xFFE0E0E0),
+            backgroundDecoration: BoxDecoration(
+              color: themePalette.baseColor,
             ),
             shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -142,19 +156,19 @@ class NeumorphicTheme extends SimpleTheme {
               ShapeShadow(
                   blurRadius: 3,
                   spreadRadius: -3,
-                  color: Colors.grey.shade400,
+                  color: themePalette.baseColorDarker,
                   offset: const Offset(3, 3)),
-              const ShapeShadow(
+              ShapeShadow(
                   blurRadius: 3,
                   spreadRadius: -3,
-                  color: Color(0xFFFEFEFE),
+                  color: themePalette.baseColorLighter,
                   offset: Offset(-3, -3)),
             ],
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
               fontWeight: FontWeight.w700,
               fontFamily: "BalooThambi2",
-              color: Colors.grey,
+              color: themePalette.tileTextColor,
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -167,8 +181,8 @@ class NeumorphicTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: const BoxDecoration(
-              color: Color(0xFFE0E0E0),
+            backgroundDecoration: BoxDecoration(
+              color: themePalette.baseColor,
             ),
             shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -178,19 +192,19 @@ class NeumorphicTheme extends SimpleTheme {
               ShapeShadow(
                   blurRadius: 6,
                   spreadRadius: -3,
-                  color: Colors.grey.shade400,
+                  color: themePalette.baseColorDarker,
                   offset: const Offset(6, 6)),
-              const ShapeShadow(
+              ShapeShadow(
                   blurRadius: 6,
                   spreadRadius: -3,
-                  color: Color(0xFFFEFEFE),
+                  color: themePalette.baseColorLighter,
                   offset: Offset(-6, 6)),
             ],
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
               fontWeight: FontWeight.w700,
               fontFamily: "BalooThambi2",
-              color: Colors.grey,
+              color: themePalette.tileTextColor,
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -203,7 +217,7 @@ class NeumorphicTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: const Color(0xFF535C80),
+              color: themePalette.titleColor,
               fontFamily: "BalooThambi2",
               fontWeight: FontWeight.bold,
             ))
@@ -212,8 +226,8 @@ class NeumorphicTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuTileStyle => Responsive({
         allScreen: Style(
-          backgroundDecoration: const BoxDecoration(
-            color: Color(0xFFE0E0E0),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.baseColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -225,12 +239,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorDarker,
                 offset: const Offset(6, 6)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Color(0xFFFDFDFD),
+                color: themePalette.baseColorLighter,
                 offset: Offset(-6, -6)),
           ],
         )
@@ -240,8 +254,8 @@ class NeumorphicTheme extends SimpleTheme {
   Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
         allScreen: Style(
             shapeBorder: const CircleShapeBorder(),
-            backgroundDecoration: const BoxDecoration(
-              color: Color(0xFFC0C0C0),
+            backgroundDecoration: BoxDecoration(
+              color: themePalette.popupMenuSliderThumbColor,
             ),
             width: 20.toPXLength,
             height: 20.toPXLength)
@@ -252,8 +266,8 @@ class NeumorphicTheme extends SimpleTheme {
         allScreen: Style(
           width: 88.toPercentLength,
           height: 20.toPXLength,
-          backgroundDecoration: const BoxDecoration(
-            color: Color(0xFFE0E0E0),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.baseColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -263,12 +277,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorDarker,
                 offset: const Offset(6, 6)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -3,
-                color: Color(0xFFFEFEFE),
+                color: themePalette.baseColorLighter,
                 offset: Offset(-6, -6)),
           ],
         )
@@ -279,8 +293,8 @@ class NeumorphicTheme extends SimpleTheme {
         allScreen: Style(
           width: 90.toPercentLength,
           height: 20.toPXLength,
-          backgroundDecoration: const BoxDecoration(
-            color: Color(0xFFC0C0C0),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderThumbColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -290,12 +304,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorLighter,
                 offset: const Offset(6, 6)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -3,
-                color: Color(0xFFFEFEFE),
+                color: themePalette.baseColorDarker,
                 offset: Offset(-6, -6)),
           ],
         )
@@ -322,7 +336,7 @@ class NeumorphicTheme extends SimpleTheme {
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w700,
             fontFamily: "BalooThambi2",
-            color: Colors.grey,
+            color: themePalette.tileTextColor,
           ),
         ),
         largeScreen: _baseStyle.copyWith(
@@ -333,7 +347,7 @@ class NeumorphicTheme extends SimpleTheme {
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w700,
             fontFamily: "BalooThambi2",
-            color: Colors.grey,
+            color: themePalette.tileTextColor,
           ),
         )
       });
@@ -351,13 +365,13 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
-                color: Colors.grey.shade400,
-                offset: const Offset(4, 4)),
-            const ShapeShadow(
+                color: themePalette.baseColorDarker,
+                offset: const Offset(3, 3)),
+            ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
-                color: Color(0xFFFDFDFD),
-                offset: Offset(-4, -4)),
+                color: themePalette.baseColorLighter,
+                offset: Offset(-3, -3)),
           ],
         ),
         middleScreen: _baseStyle.copyWith(
@@ -367,20 +381,20 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
-                color: Colors.grey.shade400,
-                offset: const Offset(4, 4)),
-            const ShapeShadow(
+                color: themePalette.baseColorDarker,
+                offset: const Offset(3, 3)),
+            ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
-                color: Color(0xFFFDFDFD),
-                offset: Offset(-4, -4)),
+                color: themePalette.baseColorLighter,
+                offset: Offset(-3, -3)),
           ],
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w700,
             fontFamily: "BalooThambi2",
-            color: Colors.grey,
+            color: themePalette.tileTextColor,
           ),
         ),
         largeScreen: _baseStyle.copyWith(
@@ -390,20 +404,20 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
-                color: Colors.grey.shade400,
-                offset: const Offset(4, 4)),
-            const ShapeShadow(
+                color: themePalette.baseColorDarker,
+                offset: const Offset(3, 3)),
+            ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: -1,
-                color: Color(0xFFFDFDFD),
-                offset: Offset(-4, -4)),
+                color: themePalette.baseColorLighter,
+                offset: Offset(-3, -3)),
           ],
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w700,
             fontFamily: "BalooThambi2",
-            color: Colors.grey,
+            color: themePalette.tileTextColor,
           ),
         )
       });
@@ -422,12 +436,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorDarker,
                 offset: const Offset(10, 10)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Color(0xFFFEFEFE),
+                color: themePalette.baseColorLighter,
                 offset: Offset(-10, -10)),
           ],
         ),
@@ -439,12 +453,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorDarker,
                 offset: const Offset(10, 10)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Color(0xFFFEFEFE),
+                color: themePalette.baseColorLighter,
                 offset: Offset(-10, -10)),
           ],
           textStyle: DynamicTextStyle(
@@ -452,7 +466,7 @@ class NeumorphicTheme extends SimpleTheme {
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w700,
             fontFamily: "BalooThambi2",
-            color: Colors.grey,
+            color: themePalette.tileTextColor,
           ),
         ),
         largeScreen: _baseStyle.copyWith(
@@ -463,12 +477,12 @@ class NeumorphicTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Colors.grey.shade400,
+                color: themePalette.baseColorDarker,
                 offset: const Offset(10, 10)),
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: -3,
-                color: Color(0xFFFEFEFE),
+                color: themePalette.baseColorLighter,
                 offset: Offset(-10, -10)),
           ],
           textStyle: DynamicTextStyle(
@@ -476,68 +490,140 @@ class NeumorphicTheme extends SimpleTheme {
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w700,
             fontFamily: "BalooThambi2",
-            color: Colors.grey,
+            color: themePalette.tileTextColor,
           ),
         )
       });
 
   @override
-  bool get isLogoColored => true;
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+      color: themePalette.menuActiveColor, fontWeight: FontWeight.bold);
 
   @override
-  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-      color: Color(0xFF535C80), fontWeight: FontWeight.bold);
-
-  @override
-  Color get menuUnderlineColor => PuzzleColors.grey1;
+  Color get menuUnderlineColor => Colors.transparent;
 
   @override
   DynamicTextStyle get menuInactiveStyle =>
-      const DynamicTextStyle(color: PuzzleColors.grey2);
+      DynamicTextStyle(color: themePalette.menuInactiveColor);
 
   @override
   String get tilePressSoundAsset => "assets/audio/neu_click.mp3";
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-}
 
-final _baseStyle = Style(
-    alignment: Alignment.center,
-    childAlignment: Alignment.center,
-    //margin: EdgeInsets.all(6),
-    //padding: EdgeInsets.all(6),
-    backgroundDecoration: const BoxDecoration(
-      color: Color(0xFFE0E0E0),
-    ),
-    shapeBorder: RectangleShapeBorder(
-      borderRadius:
-          DynamicBorderRadius.all(DynamicRadius.circular(30.toPXLength)),
-    ),
-    shadows: [
-      ShapeShadow(
-          blurRadius: 15,
-          spreadRadius: -3,
-          color: Colors.grey.shade400,
-          offset: const Offset(8, 8)),
-      const ShapeShadow(
-          blurRadius: 15,
-          spreadRadius: -3,
-          color: Color(0xFFFDFDFD),
-          offset: Offset(-8, -8)),
-    ],
-    textStyle: DynamicTextStyle(
-      letterSpacing: 2.toPXLength,
-      fontSize: 20.toPXLength,
-      fontWeight: FontWeight.w700,
-      fontFamily: "BalooThambi2",
-      color: Colors.grey,
-    ),
-    textAlign: TextAlign.center,
-    mouseCursor: SystemMouseCursors.click);
+  Style get _baseStyle => Style(
+      alignment: Alignment.center,
+      childAlignment: Alignment.center,
+      //margin: EdgeInsets.all(6),
+      //padding: EdgeInsets.all(6),
+      backgroundDecoration: BoxDecoration(
+        color: themePalette.baseColor,
+      ),
+      shapeBorder: RectangleShapeBorder(
+        borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(30.toPXLength)),
+      ),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 15,
+            spreadRadius: -3,
+            color: themePalette.baseColorDarker,
+            offset: const Offset(8, 8)),
+        ShapeShadow(
+            blurRadius: 15,
+            spreadRadius: -3,
+            color: themePalette.baseColorLighter,
+            offset: Offset(-8, -8)),
+      ],
+      textStyle: DynamicTextStyle(
+        letterSpacing: 2.toPXLength,
+        fontSize: 20.toPXLength,
+        fontWeight: FontWeight.w700,
+        fontFamily: "BalooThambi2",
+        color: themePalette.tileTextColor,
+      ),
+      textAlign: TextAlign.center,
+      mouseCursor: SystemMouseCursors.click);
+}
 
 abstract class _TileDimension {
   static Dimension small = Dimension.min(54.0.toPXLength, 100.toPercentLength);
   static Dimension medium = Dimension.min(86.0.toPXLength, 100.toPercentLength);
   static Dimension large = Dimension.min(104.0.toPXLength, 100.toPercentLength);
+}
+
+abstract class NeumorphismThemePalette {
+  Color get baseColor; // alpha = 0.2
+  Color get baseColorLighter; // alpha = 0.14
+  Color get baseColorDarker; // alpha = 0.12
+
+  Color get nameColor;
+  Color get titleColor;
+  Color get defaultColor;
+
+  Color get tileTextColor;
+
+  Color get menuUnderlineColor;
+  Color get menuInactiveColor;
+  Color get menuActiveColor;
+
+  Color get popupMenuSliderThumbColor;
+}
+
+class NeumorphismThemePaletteLight extends NeumorphismThemePalette {
+  @override
+  Color get nameColor => PuzzleColors.grey1;
+  @override
+  Color get titleColor => Color(0xFF535C80);
+  @override
+  Color get defaultColor => PuzzleColors.grey1;
+
+  @override
+  Color get baseColor => Color(0xFFE0E0E0); // alpha = 0.2
+  @override
+  Color get baseColorLighter => Color(0xFFFDFDFD); // alpha = 0.14
+  @override
+  Color get baseColorDarker => Colors.grey.shade400; // alpha = 0.12
+
+  @override
+  Color get tileTextColor => Colors.grey;
+
+  @override
+  Color get menuUnderlineColor => Colors.transparent;
+  @override
+  Color get menuInactiveColor => PuzzleColors.grey2;
+  @override
+  Color get menuActiveColor => Color(0xFF535C80);
+
+  @override
+  Color get popupMenuSliderThumbColor => Color(0xFFC0C0C0);
+}
+
+class NeumorphismThemePaletteDark extends NeumorphismThemePalette {
+  @override
+  Color get nameColor => Colors.white70;
+  @override
+  Color get titleColor => PuzzleColors.green90;
+  @override
+  Color get defaultColor => PuzzleColors.primary8;
+
+  @override
+  Color get baseColor => Color(0xFF19293c); // alpha = 0.2
+  @override
+  Color get baseColorLighter => Color(0xFF30404c); // alpha = 0.14
+  @override
+  Color get baseColorDarker => Color(0xFF102033); // a
+  @override
+  Color get tileTextColor => Colors.grey.shade300;
+
+  @override
+  Color get menuUnderlineColor => Colors.transparent;
+  @override
+  Color get menuInactiveColor => Color(0xFFBABABA);
+  @override
+  Color get menuActiveColor => Colors.white;
+
+  @override
+  Color get popupMenuSliderThumbColor => PuzzleColors.grey3;
 }

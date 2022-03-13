@@ -6,12 +6,15 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 class ClaymorphismTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const ClaymorphismTheme() : super();
+  const ClaymorphismTheme({ThemeLuminance? luminance})
+      : super(luminance: luminance);
 
   @override
   Map<Locale, String> get name => {
@@ -19,6 +22,12 @@ class ClaymorphismTheme extends SimpleTheme {
         const Locale("es"): 'Arcillamorfismo',
         const Locale("zh"): "黏土拟物"
       };
+
+  ClaymorphismTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return ClaymorphismTheme(luminance: luminance ?? this.luminance);
+  }
 
   @override
   bool get hasTimer => false;

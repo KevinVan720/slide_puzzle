@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -34,7 +35,7 @@ class PuzzleGamePage extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
-              const MaterialTheme(),
+              const MaterialTheme(luminance: ThemeLuminance.dark),
               const CupertinoTheme(),
               const NeumorphicTheme(),
               const GlassmorphismTheme(),
@@ -225,7 +226,6 @@ class PuzzleLogo extends StatelessWidget {
 
     return AppFlutterLogo(
       key: puzzleLogoKey,
-      isColored: theme.isLogoColored,
     );
   }
 }
@@ -419,7 +419,7 @@ class PuzzleMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentTheme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final locale = context.select((LocaleBloc bloc) => bloc.state.locale);
-    final isCurrentTheme = theme == currentTheme;
+    final isCurrentTheme = mapEquals(theme.name, currentTheme.name);
 
     return ResponsiveLayoutBuilder(
       small: (_, child) => Column(
@@ -452,7 +452,10 @@ class PuzzleMenuItem extends StatelessWidget {
                 ? BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
-                        width: 2,
+                        width: currentTheme.menuUnderlineColor ==
+                                Colors.transparent
+                            ? 0
+                            : 2,
                         color: currentTheme.menuUnderlineColor,
                       ),
                     ),

@@ -3,12 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
-enum TileAnimationType {
-  grid,
-  move,
+enum ThemeLuminance {
+  light,
+  dark,
 }
 
 /// {@template puzzle_theme}
@@ -87,12 +86,6 @@ abstract class PuzzleTheme extends Equatable {
   /// The pressed style of this theme.
   Responsive<Style> get pressedStyle;
 
-  /// Whether Flutter logo is colored or white.
-  ///
-  /// Applied to the color of [AppFlutterLogo] displayed
-  /// in the top left corner of the header.
-  bool get isLogoColored;
-
   /// The active menu style.
   DynamicTextStyle get menuActiveStyle;
 
@@ -128,7 +121,6 @@ abstract class PuzzleTheme extends Equatable {
         buttonStyle,
         hoverStyle,
         pressedStyle,
-        isLogoColored,
         menuActiveStyle,
         menuUnderlineColor,
         menuInactiveStyle,

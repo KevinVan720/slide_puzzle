@@ -7,12 +7,15 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 class CupertinoTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const CupertinoTheme() : super();
+  const CupertinoTheme({ThemeLuminance? luminance = ThemeLuminance.light})
+      : super(luminance: luminance);
 
   @override
   Map<Locale, String> get name => {
@@ -20,6 +23,16 @@ class CupertinoTheme extends SimpleTheme {
         const Locale("es"): 'Cupertino',
         const Locale("zh"): "库比蒂诺"
       };
+
+  CupertinoTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return CupertinoTheme(luminance: luminance ?? this.luminance);
+  }
+
+  CupertinoThemePalette get themePalette => luminance == ThemeLuminance.light
+      ? CupertinoThemePaletteLight()
+      : CupertinoThemePaletteDark();
 
   @override
   bool get hasTimer => false;
@@ -48,10 +61,10 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: const BoxDecoration(
+            backgroundDecoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/images/macos_big_sur.jpg')))),
+                    image: AssetImage(themePalette.backgroundImage)))),
       });
 
   @override
@@ -59,10 +72,10 @@ class CupertinoTheme extends SimpleTheme {
         allScreen: Style(
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.25),
+            color: themePalette.popupMenuColor,
           ),
           shapeBorder: RectangleShapeBorder(
-            border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
+            border: const DynamicBorderSide(color: Colors.grey, width: 0.1),
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
@@ -84,7 +97,7 @@ class CupertinoTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: Colors.grey.shade700,
+              color: themePalette.popupMenuUnselectedColor,
               fontFamily: "SF-Pro-Text",
             ),
             textAlign: TextAlign.center,
@@ -104,7 +117,7 @@ class CupertinoTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
                 fontSize: 16.toPXLength,
-                color: Colors.grey.shade700,
+                color: themePalette.popupMenuUnselectedColor,
                 fontFamily: "SF-Pro-Text"),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -117,8 +130,8 @@ class CupertinoTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.symmetric(horizontal: 10),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: const BoxDecoration(
-              color: PuzzleColors.primary6,
+            backgroundDecoration: BoxDecoration(
+              color: themePalette.tileColor,
             ),
             shapeBorder: RectangleShapeBorder(
               borderRadius:
@@ -139,7 +152,7 @@ class CupertinoTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
                 fontSize: 14.toPXLength,
-                color: Colors.black87,
+                color: themePalette.popupMenuTitleColor,
                 fontWeight: FontWeight.bold,
                 fontFamily: "SF-Pro-Text"))
       });
@@ -148,10 +161,9 @@ class CupertinoTheme extends SimpleTheme {
   Responsive<Style> get popupMenuTileStyle => Responsive({
         allScreen: Style(
           backgroundDecoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.4),
+            color: themePalette.popupMenuTileColor,
           ),
           shapeBorder: RectangleShapeBorder(
-            border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(12.toPXLength)),
           ),
@@ -164,37 +176,37 @@ class CupertinoTheme extends SimpleTheme {
   Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
         allScreen: Style(
             shapeBorder: const CircleShapeBorder(),
-            backgroundDecoration: const BoxDecoration(
-              color: PuzzleColors.grey4,
+            backgroundDecoration: BoxDecoration(
+              color: themePalette.popupMenuSliderThumbColor,
             ),
             width: 25.toPXLength,
             height: 25.toPXLength,
             shadows: [
-              const ShapeShadow(
+              ShapeShadow(
                   offset: Offset(0.0, 3.0),
                   blurRadius: 1.0,
                   spreadRadius: -2.0,
-                  color: _kKeyUmbraOpacity),
-              const ShapeShadow(
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
                   offset: Offset(0.0, 2.0),
                   blurRadius: 2.0,
-                  color: _kKeyPenumbraOpacity),
-              const ShapeShadow(
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
                   offset: Offset(0.0, 1.0),
                   blurRadius: 5.0,
-                  color: _kAmbientShadowOpacity),
-              const ShapeShadow(
+                  color: themePalette.kAmbientShadowOpacity),
+              ShapeShadow(
                   offset: Offset(0.0, -1.0),
                   blurRadius: 5.0,
-                  color: _kAmbientShadowOpacity),
-              const ShapeShadow(
+                  color: themePalette.kAmbientShadowOpacity),
+              ShapeShadow(
                   offset: Offset(1.0, 0.0),
                   blurRadius: 5.0,
-                  color: _kAmbientShadowOpacity),
-              const ShapeShadow(
+                  color: themePalette.kAmbientShadowOpacity),
+              ShapeShadow(
                   offset: Offset(-1.0, 0.0),
                   blurRadius: 5.0,
-                  color: _kAmbientShadowOpacity),
+                  color: themePalette.kAmbientShadowOpacity),
             ])
       });
 
@@ -205,7 +217,7 @@ class CupertinoTheme extends SimpleTheme {
           height: 25.toPXLength,
           margin: const EdgeInsets.symmetric(vertical: 5),
           backgroundDecoration: BoxDecoration(
-            color: Colors.grey.shade500.withOpacity(0.3),
+            color: themePalette.popupMenuSliderTrackColor,
           ),
           shapeBorder: RectangleShapeBorder(
             border: const DynamicBorderSide(color: Colors.black45, width: 0.5),
@@ -219,8 +231,8 @@ class CupertinoTheme extends SimpleTheme {
   Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
         allScreen: Style(
           height: 24.toPXLength,
-          backgroundDecoration: const BoxDecoration(
-            color: PuzzleColors.grey5,
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderActiveTrackColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -293,63 +305,63 @@ class CupertinoTheme extends SimpleTheme {
   bool get isLogoColored => true;
 
   @override
-  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-      color: PuzzleColors.black,
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+      color: themePalette.menuActiveColor,
       fontWeight: FontWeight.w800,
       fontFamily: "SF-Pro-Text");
 
   @override
-  Color get menuUnderlineColor => PuzzleColors.primary6;
+  Color get menuUnderlineColor => themePalette.menuUnderlineColor;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
-      color: PuzzleColors.grey5, fontFamily: "SF-Pro-Text");
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
+      color: themePalette.menuInactiveColor, fontFamily: "SF-Pro-Text");
 
   @override
   String get tilePressSoundAsset => "assets/audio/material_click.mp3";
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
+
+  Style get _baseStyle => Style(
+      alignment: Alignment.center,
+      childAlignment: Alignment.center,
+      shapeBorder: const RoundedRectangleShapeBorder(
+          borderRadius: DynamicBorderRadius.all(
+              DynamicRadius.circular(Length(10, unit: LengthUnit.px)))),
+      mouseCursor: SystemMouseCursors.click);
+
+  Style get _buttonStyle => _baseStyle.copyWith(
+        textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w700,
+            color: themePalette.tileTextColor,
+            fontFamily: "SF-Pro-Text"),
+        backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
+      );
+
+  Style get _hoverStyle => _baseStyle.copyWith(
+        textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w700,
+            color: themePalette.tileTextHoverColor,
+            fontFamily: "SF-Pro-Text"),
+        backgroundDecoration: BoxDecoration(color: themePalette.tileHoverColor),
+      );
+
+  Style get _pressedStyle => _baseStyle.copyWith(
+        textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontWeight: FontWeight.w700,
+            color: themePalette.tileTextPressedColor,
+            fontFamily: "SF-Pro-Text"),
+        backgroundDecoration:
+            BoxDecoration(color: themePalette.tilePressedColor),
+      );
 }
-
-final _baseStyle = Style(
-    alignment: Alignment.center,
-    childAlignment: Alignment.center,
-    backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
-    shapeBorder: const RoundedRectangleShapeBorder(
-        borderRadius: DynamicBorderRadius.all(
-            DynamicRadius.circular(Length(10, unit: LengthUnit.px)))),
-    mouseCursor: SystemMouseCursors.click);
-
-final _buttonStyle = _baseStyle.copyWith(
-  textStyle: DynamicTextStyle(
-      letterSpacing: 1.toPXLength,
-      fontSize: 24.toPXLength,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-      fontFamily: "SF-Pro-Text"),
-  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
-);
-
-final _hoverStyle = _baseStyle.copyWith(
-  textStyle: DynamicTextStyle(
-      letterSpacing: 1.toPXLength,
-      fontSize: 24.toPXLength,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-      fontFamily: "SF-Pro-Text"),
-  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary6),
-);
-
-final _pressedStyle = _baseStyle.copyWith(
-  textStyle: DynamicTextStyle(
-      letterSpacing: 1.toPXLength,
-      fontSize: 24.toPXLength,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
-      fontFamily: "SF-Pro-Text"),
-  backgroundDecoration: const BoxDecoration(color: PuzzleColors.primary8),
-);
 
 abstract class _TileDimension {
   static Dimension small = Dimension.min(50.0.toPXLength, 100.toPercentLength);
@@ -363,6 +375,145 @@ abstract class _TileTextDimension {
   static Dimension large = Dimension.min(28.0.toPXLength, 20.toVWLength);
 }
 
-const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2
-const Color _kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14
-const Color _kAmbientShadowOpacity = Color(0x1F000000); // alpha = 0.12
+abstract class CupertinoThemePalette {
+  String get backgroundImage;
+
+  Color get kKeyUmbraOpacity; // alpha = 0.2
+  Color get kKeyPenumbraOpacity; // alpha = 0.14
+  Color get kAmbientShadowOpacity; // alpha = 0.12
+
+  Color get nameColor;
+  Color get titleColor;
+  Color get defaultColor;
+
+  Color get tileTextColor;
+  Color get tileTextHoverColor;
+  Color get tileTextPressedColor;
+
+  Color get tileColor;
+  Color get tileHoverColor;
+  Color get tilePressedColor;
+
+  Color get menuUnderlineColor;
+  Color get menuInactiveColor;
+  Color get menuActiveColor;
+
+  Color get popupMenuSliderActiveTrackColor;
+  Color get popupMenuSliderTrackColor;
+  Color get popupMenuSliderThumbColor;
+
+  Color get popupMenuTileColor;
+  Color get popupMenuTitleColor;
+
+  Color get popupMenuUnselectedColor;
+
+  Color get popupMenuColor;
+}
+
+class CupertinoThemePaletteLight extends CupertinoThemePalette {
+  String get backgroundImage => "assets/images/macos_big_sur.jpg";
+
+  Color get nameColor => PuzzleColors.grey1;
+  Color get titleColor => PuzzleColors.green50;
+  Color get defaultColor => PuzzleColors.primary6;
+
+  @override
+  Color get kKeyUmbraOpacity => Color(0x33000000); // alpha = 0.2
+  @override
+  Color get kKeyPenumbraOpacity => Color(0x24000000); // alpha = 0.14
+  @override
+  Color get kAmbientShadowOpacity => Color(0x1F000000); // alpha = 0.12
+
+  @override
+  Color get tileTextColor => Colors.white;
+  @override
+  Color get tileTextHoverColor => Colors.white;
+  @override
+  Color get tileTextPressedColor => Colors.white;
+
+  @override
+  Color get tileColor => PuzzleColors.primary6;
+  @override
+  Color get tileHoverColor => PuzzleColors.primary6;
+  @override
+  Color get tilePressedColor => PuzzleColors.primary8;
+
+  @override
+  Color get menuUnderlineColor => Colors.transparent;
+  @override
+  Color get menuInactiveColor => PuzzleColors.grey3;
+  @override
+  Color get menuActiveColor => Colors.black87;
+
+  @override
+  Color get popupMenuSliderActiveTrackColor => PuzzleColors.grey5;
+  @override
+  Color get popupMenuSliderTrackColor => Colors.grey.shade500.withOpacity(0.3);
+  @override
+  Color get popupMenuSliderThumbColor => PuzzleColors.grey4;
+
+  @override
+  Color get popupMenuTileColor => Colors.white.withOpacity(0.4);
+  @override
+  Color get popupMenuTitleColor => Colors.black87;
+
+  @override
+  Color get popupMenuUnselectedColor => Colors.grey.shade700;
+
+  @override
+  Color get popupMenuColor => Colors.white.withOpacity(0.25);
+}
+
+class CupertinoThemePaletteDark extends CupertinoThemePalette {
+  String get backgroundImage => "assets/images/macos_big_sur_dark.jpg";
+
+  Color get nameColor => Colors.white70;
+  Color get titleColor => PuzzleColors.green50;
+  Color get defaultColor => PuzzleColors.primary6;
+
+  @override
+  Color get kKeyUmbraOpacity => Color(0x33000000); // alpha = 0.2
+  @override
+  Color get kKeyPenumbraOpacity => Color(0x24000000); // alpha = 0.14
+  @override
+  Color get kAmbientShadowOpacity => Color(0x1F000000); //alpha = 0.12
+  @override
+  Color get tileTextColor => Colors.grey.shade100;
+  @override
+  Color get tileTextHoverColor => Colors.grey.shade100;
+  @override
+  Color get tileTextPressedColor => Colors.grey.shade100;
+
+  @override
+  Color get tileColor => PuzzleColors.primary3;
+  @override
+  Color get tileHoverColor => PuzzleColors.primary3;
+  @override
+  Color get tilePressedColor => PuzzleColors.primary4;
+
+  @override
+  Color get menuUnderlineColor => Colors.transparent;
+  @override
+  Color get menuInactiveColor => Color(0xFFBABABA);
+  @override
+  Color get menuActiveColor => Colors.white;
+
+  @override
+  Color get popupMenuSliderActiveTrackColor =>
+      PuzzleColors.grey3.withOpacity(0.9);
+  @override
+  Color get popupMenuSliderTrackColor => Color(0xFF3a3a3a);
+  @override
+  Color get popupMenuSliderThumbColor => PuzzleColors.grey3;
+
+  @override
+  Color get popupMenuTileColor => Color(0xFF3e3e3e);
+  @override
+  Color get popupMenuTitleColor => Color(0xFFFAFAFA);
+
+  @override
+  Color get popupMenuUnselectedColor => Colors.white70;
+
+  @override
+  Color get popupMenuColor => Color(0xFF313131);
+}

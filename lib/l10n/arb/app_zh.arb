@@ -18,5 +18,7 @@
     "soundControl": "声音",
     "localeControl": "语言",
     "sizeControl": "大小",
-    "difficultyControl": "难度"
+    "difficultyControl": "难度",
+    "dark": "深色",
+    "light": "浅色"
 }

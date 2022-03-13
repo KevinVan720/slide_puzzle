@@ -1,13 +1,13 @@
 import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
-import 'package:very_good_slide_puzzle/l10n/l10n.dart';
-import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/layout/layout.dart';
-import 'package:very_good_slide_puzzle/typography/text_styles.dart';
-import 'package:decorated_icon/decorated_icon.dart';
 import 'package:gap/gap.dart';
+import 'package:very_good_slide_puzzle/l10n/l10n.dart';
+import 'package:very_good_slide_puzzle/layout/layout.dart';
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/typography/text_styles.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -119,7 +119,9 @@ class LocaleSelectList extends StatelessWidget {
 
     return Column(
       children: [
-        StyledContainer(
+        AnimatedStyledContainer(
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            curve: Curves.easeInOut,
             style: theme.popupMenuTitleStyle.resolve(context)!,
             child: Builder(
               builder: (context) => Row(

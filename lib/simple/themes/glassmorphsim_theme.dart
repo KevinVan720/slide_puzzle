@@ -8,12 +8,15 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 class GlassmorphismTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const GlassmorphismTheme() : super();
+  const GlassmorphismTheme({ThemeLuminance? luminance})
+      : super(luminance: luminance);
 
   @override
   Map<Locale, String> get name => {
@@ -21,6 +24,12 @@ class GlassmorphismTheme extends SimpleTheme {
         const Locale("es"): 'Morfismo de vidrio',
         const Locale("zh"): "毛玻璃"
       };
+
+  GlassmorphismTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return GlassmorphismTheme(luminance: luminance ?? this.luminance);
+  }
 
   @override
   Duration get tileMoveAnimationDuration => const Duration(milliseconds: 333);

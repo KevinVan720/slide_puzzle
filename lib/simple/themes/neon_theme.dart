@@ -5,12 +5,14 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/colors/colors.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 class NeonTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const NeonTheme() : super();
+  const NeonTheme({ThemeLuminance? luminance}) : super(luminance: luminance);
 
   @override
   @override
@@ -19,6 +21,12 @@ class NeonTheme extends SimpleTheme {
         const Locale("es"): 'Neón',
         const Locale("zh"): "霓虹"
       };
+
+  NeonTheme copyWith({
+    ThemeLuminance? luminance,
+  }) {
+    return NeonTheme(luminance: luminance ?? this.luminance);
+  }
 
   @override
   bool get hasTimer => false;
@@ -92,8 +100,8 @@ class NeonTheme extends SimpleTheme {
                           colors: [Color(0xFF091833), Color(0xFF091833)]),
                       width: 8),
                   left: DynamicBorderSide(color: Color(0xFF711C91), width: 3),
-                  right: DynamicBorderSide(
-                      color: Color(0xFF091833), width: 5))),
+                  right:
+                      DynamicBorderSide(color: Color(0xFF091833), width: 5))),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         )
       });

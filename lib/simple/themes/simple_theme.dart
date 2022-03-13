@@ -1,19 +1,25 @@
+import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/themes/themes.dart';
-import 'package:responsive_property/responsive_property.dart';
-import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/material.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
 abstract class SimpleTheme extends PuzzleTheme {
   /// {@macro simple_theme}
-  const SimpleTheme() : super();
+  const SimpleTheme({this.luminance}) : super();
 
   @override
   bool get hasTimer => false;
+
+  final ThemeLuminance? luminance;
+
+  SimpleTheme copyWith({
+    ThemeLuminance? luminance,
+  });
 
   @override
   bool get useCupertinoIndicator => false;

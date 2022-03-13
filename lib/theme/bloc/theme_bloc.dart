@@ -2,6 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
@@ -20,8 +21,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   }
 
   void _onThemeUpdated(ThemeUpdated event, Emitter<ThemeState> emit) {
-    final themeIndex =
-        state.themes.indexWhere((theme) => theme.name == event.theme.name);
+    final themeIndex = state.themes
+        .indexWhere((theme) => mapEquals(theme.name, event.theme.name));
 
     if (themeIndex != -1) {
       final newThemes = [...state.themes];
