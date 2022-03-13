@@ -109,7 +109,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -3,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-6, -6)),
+                offset: const Offset(-6, -6)),
           ],
         )
       });
@@ -162,7 +162,7 @@ class NeumorphicTheme extends SimpleTheme {
                   blurRadius: 3,
                   spreadRadius: -3,
                   color: themePalette.baseColorLighter,
-                  offset: Offset(-3, -3)),
+                  offset: const Offset(-3, -3)),
             ],
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
@@ -198,7 +198,7 @@ class NeumorphicTheme extends SimpleTheme {
                   blurRadius: 6,
                   spreadRadius: -3,
                   color: themePalette.baseColorLighter,
-                  offset: Offset(-6, 6)),
+                  offset: const Offset(-6, 6)),
             ],
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
@@ -245,7 +245,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-6, -6)),
+                offset: const Offset(-6, -6)),
           ],
         )
       });
@@ -283,7 +283,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -3,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-6, -6)),
+                offset: const Offset(-6, -6)),
           ],
         )
       });
@@ -310,7 +310,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -3,
                 color: themePalette.baseColorDarker,
-                offset: Offset(-6, -6)),
+                offset: const Offset(-6, -6)),
           ],
         )
       });
@@ -371,7 +371,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-3, -3)),
+                offset: const Offset(-3, -3)),
           ],
         ),
         middleScreen: _baseStyle.copyWith(
@@ -387,7 +387,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-3, -3)),
+                offset: const Offset(-3, -3)),
           ],
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
@@ -410,7 +410,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 6,
                 spreadRadius: -1,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-3, -3)),
+                offset: const Offset(-3, -3)),
           ],
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
@@ -442,7 +442,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-10, -10)),
+                offset: const Offset(-10, -10)),
           ],
         ),
         middleScreen: _baseStyle.copyWith(
@@ -459,7 +459,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-10, -10)),
+                offset: const Offset(-10, -10)),
           ],
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
@@ -483,7 +483,7 @@ class NeumorphicTheme extends SimpleTheme {
                 blurRadius: 10,
                 spreadRadius: -3,
                 color: themePalette.baseColorLighter,
-                offset: Offset(-10, -10)),
+                offset: const Offset(-10, -10)),
           ],
           textStyle: DynamicTextStyle(
             letterSpacing: 2.toPXLength,
@@ -534,7 +534,7 @@ class NeumorphicTheme extends SimpleTheme {
             blurRadius: 15,
             spreadRadius: -3,
             color: themePalette.baseColorLighter,
-            offset: Offset(-8, -8)),
+            offset: const Offset(-8, -8)),
       ],
       textStyle: DynamicTextStyle(
         letterSpacing: 2.toPXLength,
@@ -575,14 +575,14 @@ class NeumorphismThemePaletteLight extends NeumorphismThemePalette {
   @override
   Color get nameColor => PuzzleColors.grey1;
   @override
-  Color get titleColor => Color(0xFF535C80);
+  Color get titleColor => const Color(0xFF535C80);
   @override
   Color get defaultColor => PuzzleColors.grey1;
 
   @override
-  Color get baseColor => Color(0xFFE0E0E0); // alpha = 0.2
+  Color get baseColor => const Color(0xFFE0E0E0); // alpha = 0.2
   @override
-  Color get baseColorLighter => Color(0xFFFDFDFD); // alpha = 0.14
+  Color get baseColorLighter => const Color(0xFFFDFDFD); // alpha = 0.14
   @override
   Color get baseColorDarker => Colors.grey.shade400; // alpha = 0.12
 
@@ -594,10 +594,10 @@ class NeumorphismThemePaletteLight extends NeumorphismThemePalette {
   @override
   Color get menuInactiveColor => PuzzleColors.grey2;
   @override
-  Color get menuActiveColor => Color(0xFF535C80);
+  Color get menuActiveColor => const Color(0xFF535C80);
 
   @override
-  Color get popupMenuSliderThumbColor => Color(0xFFC0C0C0);
+  Color get popupMenuSliderThumbColor => const Color(0xFFC0C0C0);
 }
 
 class NeumorphismThemePaletteDark extends NeumorphismThemePalette {
@@ -609,18 +609,18 @@ class NeumorphismThemePaletteDark extends NeumorphismThemePalette {
   Color get defaultColor => PuzzleColors.primary8;
 
   @override
-  Color get baseColor => Color(0xFF19293c); // alpha = 0.2
+  Color get baseColor => const Color(0xFF19293c); // alpha = 0.2
   @override
-  Color get baseColorLighter => Color(0xFF30404c); // alpha = 0.14
+  Color get baseColorLighter => const Color(0xFF30404c); // alpha = 0.14
   @override
-  Color get baseColorDarker => Color(0xFF102033); // a
+  Color get baseColorDarker => const Color(0xFF102033); // a
   @override
   Color get tileTextColor => Colors.grey.shade300;
 
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => Color(0xFFBABABA);
+  Color get menuInactiveColor => const Color(0xFFBABABA);
   @override
   Color get menuActiveColor => Colors.white;
 

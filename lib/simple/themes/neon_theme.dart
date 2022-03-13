@@ -23,6 +23,7 @@ class NeonTheme extends SimpleTheme {
         const Locale("zh"): "霓虹"
       };
 
+  @override
   NeonTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -44,15 +45,15 @@ class NeonTheme extends SimpleTheme {
           Shadow(
               blurRadius: 2,
               color: themePalette.nameColor,
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
           Shadow(
               blurRadius: 4,
               color: themePalette.nameColor,
-              offset: Offset(0, 0)),
+              offset: const Offset(0, 0)),
           Shadow(
               blurRadius: 1,
               color: themePalette.nameColor,
-              offset: Offset(0, 0))
+              offset: const Offset(0, 0))
         ],
       );
 
@@ -65,15 +66,15 @@ class NeonTheme extends SimpleTheme {
           Shadow(
               blurRadius: 5,
               color: themePalette.titleColor,
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
           Shadow(
               blurRadius: 20,
               color: themePalette.titleColor,
-              offset: Offset(0, 0)),
+              offset: const Offset(0, 0)),
           Shadow(
               blurRadius: 1,
               color: themePalette.titleColor,
-              offset: Offset(0, 0))
+              offset: const Offset(0, 0))
         ],
       );
 
@@ -85,7 +86,7 @@ class NeonTheme extends SimpleTheme {
           Shadow(
               blurRadius: 5,
               color: themePalette.defaultColor,
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
         ],
       );
 
@@ -200,7 +201,7 @@ class NeonTheme extends SimpleTheme {
                     themePalette.popupMenuTileColor.withOpacity(0.9),
                     themePalette.popupMenuTileColor
                   ]),
-                  offset: Offset(1, 1)),
+                  offset: const Offset(1, 1)),
             ],
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
@@ -231,11 +232,11 @@ class NeonTheme extends SimpleTheme {
                 Shadow(
                     blurRadius: 1,
                     color: themePalette.popupMenuTitleColor,
-                    offset: Offset(0, 0)),
+                    offset: const Offset(0, 0)),
                 Shadow(
                     blurRadius: 3,
                     color: themePalette.popupMenuTitleColor,
-                    offset: Offset(0, 0)),
+                    offset: const Offset(0, 0)),
               ],
             ))
       });
@@ -274,7 +275,7 @@ class NeonTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 4,
                 color: themePalette.popupMenuSliderThumbColor,
-                offset: Offset(2, 2)),
+                offset: const Offset(2, 2)),
           ],
           width: 20.toPXLength,
           height: 20.toPXLength,
@@ -307,7 +308,7 @@ class NeonTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 4,
                 color: themePalette.popupMenuSliderActiveTrackColor,
-                offset: Offset(1, 1)),
+                offset: const Offset(1, 1)),
           ],
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -616,11 +617,11 @@ class NeonTheme extends SimpleTheme {
           Shadow(
               blurRadius: 2,
               color: themePalette.menuActiveColor,
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
           Shadow(
               blurRadius: 3,
               color: themePalette.menuActiveColor,
-              offset: Offset(0, 0)),
+              offset: const Offset(0, 0)),
         ],
       );
 
@@ -635,7 +636,7 @@ class NeonTheme extends SimpleTheme {
           Shadow(
               blurRadius: 3,
               color: themePalette.menuInactiveColor,
-              offset: Offset(0, 0)),
+              offset: const Offset(0, 0)),
         ],
       );
 
@@ -657,7 +658,7 @@ class NeonTheme extends SimpleTheme {
             blurRadius: 24,
             gradient: LinearGradient(
                 colors: [themePalette.baseColor3, themePalette.baseColor7]),
-            offset: Offset(2, 2)),
+            offset: const Offset(2, 2)),
       ],
       textStyle: DynamicTextStyle(
         letterSpacing: 1.toPXLength,
@@ -669,15 +670,15 @@ class NeonTheme extends SimpleTheme {
           Shadow(
               blurRadius: 5,
               color: themePalette.tileTextColor,
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
           Shadow(
               blurRadius: 10,
               color: themePalette.tileTextColor,
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
           Shadow(
               blurRadius: 1,
               color: themePalette.tileTextColor,
-              offset: Offset(-1, -1))
+              offset: const Offset(-1, -1))
         ],
       ),
       textAlign: TextAlign.center,
@@ -737,15 +738,24 @@ class NeonThemePaletteLight extends NeonThemePalette {
   @override
   Color get defaultColor => Colors.cyan;
 
-  Color get baseColor1 => Color(0xFF18FFDF);
-  Color get baseColor2 => Color(0xFF84FFDF);
-  Color get baseColor3 => Color(0xFF18FFDF);
-  Color get baseColor4 => Color(0xFF00BCC4);
+  @override
+  Color get baseColor1 => const Color(0xFF18FFDF);
+  @override
+  Color get baseColor2 => const Color(0xFF84FFDF);
+  @override
+  Color get baseColor3 => const Color(0xFF18FFDF);
+  @override
+  Color get baseColor4 => const Color(0xFF00BCC4);
+  @override
   Color get baseColor5 => Colors.pinkAccent;
+  @override
   Color get baseColor6 => Colors.pinkAccent.shade100;
+  @override
   Color get baseColor7 => Colors.pinkAccent;
+  @override
   Color get baseColor8 => Colors.pink;
 
+  @override
   Color get kAmbientShadowOpacity => Colors.blue.shade400.withOpacity(0.5);
 
   @override
@@ -805,19 +815,28 @@ class NeonThemePaletteDark extends NeonThemePalette {
   @override
   Color get nameColor => Colors.white70;
   @override
-  Color get titleColor => Color(0xFFFCEC0C);
+  Color get titleColor => const Color(0xFFFCEC0C);
   @override
   Color get defaultColor => Colors.white;
 
+  @override
   Color get baseColor1 => Colors.cyanAccent.shade200;
+  @override
   Color get baseColor2 => Colors.cyanAccent.shade100;
+  @override
   Color get baseColor3 => Colors.cyanAccent;
+  @override
   Color get baseColor4 => Colors.cyan;
+  @override
   Color get baseColor5 => Colors.purpleAccent;
+  @override
   Color get baseColor6 => Colors.purpleAccent.shade100;
+  @override
   Color get baseColor7 => Colors.purpleAccent;
+  @override
   Color get baseColor8 => Colors.purple;
 
+  @override
   Color get kAmbientShadowOpacity => Colors.blue.shade900.withOpacity(0.7);
 
   @override
@@ -828,19 +847,19 @@ class NeonThemePaletteDark extends NeonThemePalette {
   @override
   Color get menuInactiveColor => Colors.white;
   @override
-  Color get menuActiveColor => Color(0xFFFCEC0C);
+  Color get menuActiveColor => const Color(0xFFFCEC0C);
 
   @override
   Color get popupMenuSliderActiveTrackColor => Colors.yellowAccent;
   @override
   Color get popupMenuSliderTrackColor => Colors.black87;
   @override
-  Color get popupMenuSliderThumbColor => Color(0xFFFCEC0C);
+  Color get popupMenuSliderThumbColor => const Color(0xFFFCEC0C);
 
   @override
-  Color get popupMenuTileColor => Color(0xFFFCEC0C);
+  Color get popupMenuTileColor => const Color(0xFFFCEC0C);
   @override
-  Color get popupMenuTitleColor => Color(0xFFFCEC0C);
+  Color get popupMenuTitleColor => const Color(0xFFFCEC0C);
 
   @override
   Color get popupMenuSelectedColor => Colors.black87;
@@ -863,7 +882,7 @@ class NeonThemePaletteDark extends NeonThemePalette {
           ]);
 
   @override
-  Gradient get backgroundGradient => LinearGradient(
+  Gradient get backgroundGradient => const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [

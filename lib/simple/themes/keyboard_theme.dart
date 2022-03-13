@@ -23,6 +23,7 @@ class KeyboardTheme extends SimpleTheme {
         const Locale("zh"): "键盘"
       };
 
+  @override
   KeyboardTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -92,7 +93,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 11)),
+                offset: const Offset(0, 11)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -334,7 +335,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 10)),
+                offset: const Offset(0, 10)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -397,7 +398,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 7)),
+                offset: const Offset(0, 7)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -428,7 +429,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 11)),
+                offset: const Offset(0, 11)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -452,7 +453,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 11)),
+                offset: const Offset(0, 11)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -493,7 +494,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 2)),
+                offset: const Offset(0, 2)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -524,7 +525,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 2)),
+                offset: const Offset(0, 2)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -548,7 +549,7 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 0,
                 color: themePalette.borderColor,
-                offset: Offset(0, 2)),
+                offset: const Offset(0, 2)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
@@ -627,7 +628,7 @@ class KeyboardTheme extends SimpleTheme {
         ShapeShadow(
             blurRadius: 0,
             color: themePalette.borderColor,
-            offset: Offset(0, 15)),
+            offset: const Offset(0, 15)),
         ShapeShadow(
             blurRadius: 0,
             spreadRadius: -1,
@@ -706,6 +707,7 @@ abstract class KeyboardThemePalette {
 }
 
 class KeyboardThemePaletteLight extends KeyboardThemePalette {
+  @override
   Color get backgroundColor => Colors.redAccent.shade100;
   @override
   Color get nameColor => PuzzleColors.grey1;
@@ -714,6 +716,7 @@ class KeyboardThemePaletteLight extends KeyboardThemePalette {
   @override
   Color get defaultColor => Colors.teal.shade900;
 
+  @override
   Color get shadowColor => Colors.grey.shade400;
 
   @override
@@ -742,7 +745,8 @@ class KeyboardThemePaletteLight extends KeyboardThemePalette {
 }
 
 class KeyboardThemePaletteDark extends KeyboardThemePalette {
-  Color get backgroundColor => Color(0xFF121212);
+  @override
+  Color get backgroundColor => const Color(0xFF121212);
 
   @override
   Color get nameColor => Colors.white70;
@@ -752,14 +756,15 @@ class KeyboardThemePaletteDark extends KeyboardThemePalette {
   Color get defaultColor => Colors.teal.shade50;
 
   @override
-  Color get baseColor => Color(0xFF181818); // alpha = 0.2
+  Color get baseColor => const Color(0xFF181818); // alpha = 0.2
   @override
-  Color get baseColorLighter => Color(0xFF262626); // alpha = 0.14
+  Color get baseColorLighter => const Color(0xFF262626); // alpha = 0.14
   @override
-  Color get baseColorDarker => Color(0xFF121212); // alpha = 0.12
+  Color get baseColorDarker => const Color(0xFF121212); // alpha = 0.12
   @override
   Color get borderColor => Colors.black87; // alpha = 0.12
 
+  @override
   Color get shadowColor => Colors.grey.shade900;
 
   @override

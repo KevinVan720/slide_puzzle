@@ -20,6 +20,7 @@ class WoodTheme extends SimpleTheme {
         const Locale("zh"): "木质"
       };
 
+  @override
   WoodTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -644,9 +645,6 @@ class WoodTheme extends SimpleTheme {
   Responsive<Style> get pressedStyle => buttonStyle;
 
   @override
-  bool get isLogoColored => false;
-
-  @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
         letterSpacing: 1.toPXLength,
         fontSize: 40.toPXLength,
@@ -654,8 +652,6 @@ class WoodTheme extends SimpleTheme {
         fontWeight: FontWeight.w700,
         color: const Color(0xFFC0A080).withOpacity(0.8),
         shadows: _engraveShadowLarge,
-        //decoration: TextDecoration.underline,
-        //decorationColor: const Color(0xFFC0A080),
       );
 
   @override

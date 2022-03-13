@@ -21,6 +21,7 @@ class MaterialTheme extends SimpleTheme {
         const Locale("zh"): "材质"
       };
 
+  @override
   MaterialTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -77,16 +78,16 @@ class MaterialTheme extends SimpleTheme {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           shadows: [
             ShapeShadow(
-                offset: Offset(0.0, 3.0),
+                offset: const Offset(0.0, 3.0),
                 blurRadius: 1.0,
                 spreadRadius: -2.0,
                 color: themePalette.kKeyUmbraOpacity),
             ShapeShadow(
-                offset: Offset(0.0, 2.0),
+                offset: const Offset(0.0, 2.0),
                 blurRadius: 2.0,
                 color: themePalette.kKeyPenumbraOpacity),
             ShapeShadow(
-                offset: Offset(0.0, 1.0),
+                offset: const Offset(0.0, 1.0),
                 blurRadius: 5.0,
                 color: themePalette.kAmbientShadowOpacity),
           ],
@@ -100,7 +101,7 @@ class MaterialTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: BoxDecoration(
+            backgroundDecoration: const BoxDecoration(
               color: Colors.transparent,
             ),
             shapeBorder: RectangleShapeBorder(
@@ -198,16 +199,16 @@ class MaterialTheme extends SimpleTheme {
             height: 20.toPXLength,
             shadows: [
               ShapeShadow(
-                  offset: Offset(0.0, 3.0),
+                  offset: const Offset(0.0, 3.0),
                   blurRadius: 1.0,
                   spreadRadius: -2.0,
                   color: themePalette.kKeyUmbraOpacity),
               ShapeShadow(
-                  offset: Offset(0.0, 2.0),
+                  offset: const Offset(0.0, 2.0),
                   blurRadius: 2.0,
                   color: themePalette.kKeyPenumbraOpacity),
               ShapeShadow(
-                  offset: Offset(0.0, 1.0),
+                  offset: const Offset(0.0, 1.0),
                   blurRadius: 5.0,
                   color: themePalette.kAmbientShadowOpacity),
             ])
@@ -303,9 +304,6 @@ class MaterialTheme extends SimpleTheme {
       });
 
   @override
-  bool get isLogoColored => true;
-
-  @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor, fontWeight: FontWeight.w800);
 
@@ -339,17 +337,17 @@ class MaterialTheme extends SimpleTheme {
         ),
         shadows: [
           ShapeShadow(
-              offset: Offset(0.0, 7.0),
+              offset: const Offset(0.0, 7.0),
               blurRadius: 8.0,
               spreadRadius: -4.0,
               color: themePalette.kKeyUmbraOpacity),
           ShapeShadow(
-              offset: Offset(0.0, 12.0),
+              offset: const Offset(0.0, 12.0),
               blurRadius: 17.0,
               spreadRadius: 2.0,
               color: themePalette.kKeyPenumbraOpacity),
           ShapeShadow(
-              offset: Offset(0.0, 5.0),
+              offset: const Offset(0.0, 5.0),
               blurRadius: 22.0,
               spreadRadius: 4.0,
               color: themePalette.kAmbientShadowOpacity),
@@ -366,16 +364,16 @@ class MaterialTheme extends SimpleTheme {
         ),
         shadows: [
           ShapeShadow(
-              offset: Offset(0.0, 3.0),
+              offset: const Offset(0.0, 3.0),
               blurRadius: 5.0,
               spreadRadius: -1.0,
               color: themePalette.kKeyUmbraOpacity),
           ShapeShadow(
-              offset: Offset(0.0, 6.0),
+              offset: const Offset(0.0, 6.0),
               blurRadius: 10.0,
               color: themePalette.kKeyPenumbraOpacity),
           ShapeShadow(
-              offset: Offset(0.0, 1.0),
+              offset: const Offset(0.0, 1.0),
               blurRadius: 18.0,
               color: themePalette.kAmbientShadowOpacity),
         ],
@@ -392,16 +390,16 @@ class MaterialTheme extends SimpleTheme {
         ),
         shadows: [
           ShapeShadow(
-              offset: Offset(0.0, 3.0),
+              offset: const Offset(0.0, 3.0),
               blurRadius: 1.0,
               spreadRadius: -2.0,
               color: themePalette.kKeyUmbraOpacity),
           ShapeShadow(
-              offset: Offset(0.0, 2.0),
+              offset: const Offset(0.0, 2.0),
               blurRadius: 2.0,
               color: themePalette.kKeyPenumbraOpacity),
           ShapeShadow(
-              offset: Offset(0.0, 1.0),
+              offset: const Offset(0.0, 1.0),
               blurRadius: 5.0,
               color: themePalette.kAmbientShadowOpacity),
         ],
@@ -458,16 +456,19 @@ abstract class MaterialThemePalette {
 }
 
 class MaterialThemePaletteLight extends MaterialThemePalette {
+  @override
   Color get nameColor => PuzzleColors.grey1;
+  @override
   Color get titleColor => PuzzleColors.green50;
+  @override
   Color get defaultColor => PuzzleColors.primary6;
 
   @override
-  Color get kKeyUmbraOpacity => Color(0x33000000); // alpha = 0.2
+  Color get kKeyUmbraOpacity => const Color(0x33000000); // alpha = 0.2
   @override
-  Color get kKeyPenumbraOpacity => Color(0x24000000); // alpha = 0.14
+  Color get kKeyPenumbraOpacity => const Color(0x24000000); // alpha = 0.14
   @override
-  Color get kAmbientShadowOpacity => Color(0x1F000000); // alpha = 0.12
+  Color get kAmbientShadowOpacity => const Color(0x1F000000); // alpha = 0.12
   @override
   Color get tileTextColor => Colors.white;
   @override
@@ -497,7 +498,7 @@ class MaterialThemePaletteLight extends MaterialThemePalette {
   Color get popupMenuSliderThumbColor => PuzzleColors.primary5;
 
   @override
-  Color get popupMenuTileColor => Color(0xFFFAFAFA);
+  Color get popupMenuTileColor => const Color(0xFFFAFAFA);
   @override
   Color get popupMenuTitleColor => PuzzleColors.primary5;
 
@@ -511,16 +512,19 @@ class MaterialThemePaletteLight extends MaterialThemePalette {
 }
 
 class MaterialThemePaletteDark extends MaterialThemePalette {
+  @override
   Color get nameColor => Colors.white70;
+  @override
   Color get titleColor => PuzzleColors.green50;
+  @override
   Color get defaultColor => PuzzleColors.primary6;
 
   @override
-  Color get kKeyUmbraOpacity => Color(0x33555555); // alpha = 0.2
+  Color get kKeyUmbraOpacity => const Color(0x33555555); // alpha = 0.2
   @override
-  Color get kKeyPenumbraOpacity => Color(0x24555555); // alpha = 0.14
+  Color get kKeyPenumbraOpacity => const Color(0x24555555); // alpha = 0.14
   @override
-  Color get kAmbientShadowOpacity => Color(0x1555555); // alpha = 0.12
+  Color get kAmbientShadowOpacity => const Color(0x01555555); // alpha = 0.12
   @override
   Color get tileTextColor => Colors.grey.shade100;
   @override
@@ -538,7 +542,7 @@ class MaterialThemePaletteDark extends MaterialThemePalette {
   @override
   Color get menuUnderlineColor => PuzzleColors.primary9;
   @override
-  Color get menuInactiveColor => Color(0xFF6A6A6A);
+  Color get menuInactiveColor => const Color(0xFF6A6A6A);
   @override
   Color get menuActiveColor => Colors.white;
 
@@ -550,15 +554,15 @@ class MaterialThemePaletteDark extends MaterialThemePalette {
   Color get popupMenuSliderThumbColor => PuzzleColors.primary3;
 
   @override
-  Color get popupMenuTileColor => Color(0xFF222222);
+  Color get popupMenuTileColor => const Color(0xFF222222);
   @override
-  Color get popupMenuTitleColor => Color(0xFFFAFAFA);
+  Color get popupMenuTitleColor => const Color(0xFFFAFAFA);
 
   @override
   Color get popupMenuUnselectedColor => Colors.white70;
 
   @override
-  Color get popupMenuColor => Color(0xFF1e1e1e);
+  Color get popupMenuColor => const Color(0xFF1e1e1e);
   @override
-  Color get backgroundColor => Color(0xFF121212);
+  Color get backgroundColor => const Color(0xFF121212);
 }

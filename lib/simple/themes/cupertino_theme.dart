@@ -24,6 +24,7 @@ class CupertinoTheme extends SimpleTheme {
         const Locale("zh"): "库比蒂诺"
       };
 
+  @override
   CupertinoTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -183,28 +184,28 @@ class CupertinoTheme extends SimpleTheme {
             height: 25.toPXLength,
             shadows: [
               ShapeShadow(
-                  offset: Offset(0.0, 3.0),
+                  offset: const Offset(0.0, 3.0),
                   blurRadius: 1.0,
                   spreadRadius: -2.0,
                   color: themePalette.kKeyUmbraOpacity),
               ShapeShadow(
-                  offset: Offset(0.0, 2.0),
+                  offset: const Offset(0.0, 2.0),
                   blurRadius: 2.0,
                   color: themePalette.kKeyPenumbraOpacity),
               ShapeShadow(
-                  offset: Offset(0.0, 1.0),
+                  offset: const Offset(0.0, 1.0),
                   blurRadius: 5.0,
                   color: themePalette.kAmbientShadowOpacity),
               ShapeShadow(
-                  offset: Offset(0.0, -1.0),
+                  offset: const Offset(0.0, -1.0),
                   blurRadius: 5.0,
                   color: themePalette.kAmbientShadowOpacity),
               ShapeShadow(
-                  offset: Offset(1.0, 0.0),
+                  offset: const Offset(1.0, 0.0),
                   blurRadius: 5.0,
                   color: themePalette.kAmbientShadowOpacity),
               ShapeShadow(
-                  offset: Offset(-1.0, 0.0),
+                  offset: const Offset(-1.0, 0.0),
                   blurRadius: 5.0,
                   color: themePalette.kAmbientShadowOpacity),
             ])
@@ -300,9 +301,6 @@ class CupertinoTheme extends SimpleTheme {
             textStyle: _pressedStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.large)),
       });
-
-  @override
-  bool get isLogoColored => true;
 
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
@@ -411,18 +409,22 @@ abstract class CupertinoThemePalette {
 }
 
 class CupertinoThemePaletteLight extends CupertinoThemePalette {
+  @override
   String get backgroundImage => "assets/images/macos_big_sur.jpg";
 
+  @override
   Color get nameColor => PuzzleColors.grey1;
+  @override
   Color get titleColor => PuzzleColors.green50;
+  @override
   Color get defaultColor => PuzzleColors.primary6;
 
   @override
-  Color get kKeyUmbraOpacity => Color(0x33000000); // alpha = 0.2
+  Color get kKeyUmbraOpacity => const Color(0x33000000); // alpha = 0.2
   @override
-  Color get kKeyPenumbraOpacity => Color(0x24000000); // alpha = 0.14
+  Color get kKeyPenumbraOpacity => const Color(0x24000000); // alpha = 0.14
   @override
-  Color get kAmbientShadowOpacity => Color(0x1F000000); // alpha = 0.12
+  Color get kAmbientShadowOpacity => const Color(0x1F000000); // alpha = 0.12
 
   @override
   Color get tileTextColor => Colors.white;
@@ -465,18 +467,22 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
 }
 
 class CupertinoThemePaletteDark extends CupertinoThemePalette {
+  @override
   String get backgroundImage => "assets/images/macos_big_sur_dark.jpg";
 
+  @override
   Color get nameColor => Colors.white70;
+  @override
   Color get titleColor => PuzzleColors.green50;
+  @override
   Color get defaultColor => PuzzleColors.primary6;
 
   @override
-  Color get kKeyUmbraOpacity => Color(0x33000000); // alpha = 0.2
+  Color get kKeyUmbraOpacity => const Color(0x33000000); // alpha = 0.2
   @override
-  Color get kKeyPenumbraOpacity => Color(0x24000000); // alpha = 0.14
+  Color get kKeyPenumbraOpacity => const Color(0x24000000); // alpha = 0.14
   @override
-  Color get kAmbientShadowOpacity => Color(0x1F000000); //alpha = 0.12
+  Color get kAmbientShadowOpacity => const Color(0x1F000000); //alpha = 0.12
   @override
   Color get tileTextColor => Colors.grey.shade100;
   @override
@@ -494,7 +500,7 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => Color(0xFFBABABA);
+  Color get menuInactiveColor => const Color(0xFFBABABA);
   @override
   Color get menuActiveColor => Colors.white;
 
@@ -502,18 +508,18 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   Color get popupMenuSliderActiveTrackColor =>
       PuzzleColors.grey3.withOpacity(0.9);
   @override
-  Color get popupMenuSliderTrackColor => Color(0xFF3a3a3a);
+  Color get popupMenuSliderTrackColor => const Color(0xFF3a3a3a);
   @override
   Color get popupMenuSliderThumbColor => PuzzleColors.grey3;
 
   @override
-  Color get popupMenuTileColor => Color(0xFF3e3e3e);
+  Color get popupMenuTileColor => const Color(0xFF3e3e3e);
   @override
-  Color get popupMenuTitleColor => Color(0xFFFAFAFA);
+  Color get popupMenuTitleColor => const Color(0xFFFAFAFA);
 
   @override
   Color get popupMenuUnselectedColor => Colors.white70;
 
   @override
-  Color get popupMenuColor => Color(0xFF313131);
+  Color get popupMenuColor => const Color(0xFF313131);
 }

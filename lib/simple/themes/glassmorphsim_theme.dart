@@ -25,6 +25,7 @@ class GlassmorphismTheme extends SimpleTheme {
         const Locale("zh"): "毛玻璃"
       };
 
+  @override
   GlassmorphismTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -532,14 +533,11 @@ class GlassmorphismTheme extends SimpleTheme {
       });
 
   @override
-  bool get isLogoColored => false;
-
-  @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
           color: themePalette.menuActiveColor,
           fontWeight: FontWeight.bold,
           shadows: [
-            Shadow(
+            const Shadow(
                 blurRadius: 3, color: PuzzleColors.grey1, offset: Offset(3, 3)),
           ]);
 
@@ -627,10 +625,14 @@ abstract class GlassmorphismThemePalette {
 }
 
 class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
+  @override
   String get backgroundImage => "assets/images/glass_background_light.jpg";
 
+  @override
   Color get nameColor => PuzzleColors.black;
+  @override
   Color get titleColor => Colors.black87;
+  @override
   Color get defaultColor => Colors.pinkAccent;
 
   @override
@@ -641,13 +643,13 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
   Color get tileTextColor => Colors.black45;
 
   @override
-  Color get tileColor => Color(0xFFFCFCFC).withOpacity(0.1);
+  Color get tileColor => const Color(0xFFFCFCFC).withOpacity(0.1);
 
   @override
-  Color get tileHoverColor => Color(0xFFFAFAFA).withOpacity(0.1);
+  Color get tileHoverColor => const Color(0xFFFAFAFA).withOpacity(0.1);
 
   @override
-  Color get tilePressedColor => Color(0xFFFAFAFA).withOpacity(0.08);
+  Color get tilePressedColor => const Color(0xFFFAFAFA).withOpacity(0.08);
 
   @override
   Color get menuUnderlineColor => Colors.black54;
@@ -676,10 +678,14 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
 }
 
 class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
+  @override
   String get backgroundImage => "assets/images/glass_background.jpg";
 
+  @override
   Color get nameColor => PuzzleColors.grey5;
+  @override
   Color get titleColor => PuzzleColors.white;
+  @override
   Color get defaultColor => PuzzleColors.primary9;
 
   @override
@@ -715,7 +721,7 @@ class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
   Color get popupMenuSliderThumbColor => Colors.white.withOpacity(0.9);
 
   @override
-  Color get popupMenuTileColor => Color(0xFF3e3e3e);
+  Color get popupMenuTileColor => const Color(0xFF3e3e3e);
   @override
   Color get popupMenuTitleColor => PuzzleColors.grey5;
 

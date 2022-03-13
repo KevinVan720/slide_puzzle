@@ -23,6 +23,7 @@ class ClaymorphismTheme extends SimpleTheme {
         const Locale("zh"): "黏土拟物"
       };
 
+  @override
   ClaymorphismTheme copyWith({
     ThemeLuminance? luminance,
   }) {
@@ -439,9 +440,6 @@ class ClaymorphismTheme extends SimpleTheme {
       });
 
   @override
-  bool get isLogoColored => true;
-
-  @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor,
       fontWeight: FontWeight.w700,
@@ -565,11 +563,16 @@ class ClaymorphismThemePaletteLight extends ClaymorphismThemePalette {
   @override
   Color get defaultColor => PuzzleColors.grey1;
 
+  @override
   Color get baseColor1 => Colors.lightBlue.shade100;
+  @override
   Color get baseColor2 => Colors.lightBlue.shade300;
+  @override
   Color get baseColor3 => Colors.lightBlue.shade700;
+  @override
   Color get baseColor4 => Colors.white70.withOpacity(0.5);
 
+  @override
   Color get kAmbientShadowOpacity => Colors.blue.shade400.withOpacity(0.5);
 
   @override
@@ -590,7 +593,7 @@ class ClaymorphismThemePaletteLight extends ClaymorphismThemePalette {
   Color get popupMenuSliderThumbColor => PuzzleColors.primary5;
 
   @override
-  Color get popupMenuTileColor => Color(0xFFFAFAFA);
+  Color get popupMenuTileColor => const Color(0xFFFAFAFA);
   @override
   Color get popupMenuTitleColor => PuzzleColors.primary5;
 
@@ -638,12 +641,17 @@ class ClaymorphismThemePaletteDark extends ClaymorphismThemePalette {
   @override
   Color get defaultColor => PuzzleColors.primary8;
 
-  Color get baseColor1 => Color(0xFF243450);
-  Color get baseColor2 => Color(0xFF203046);
-  Color get baseColor3 => Color(0xFF142438);
+  @override
+  Color get baseColor1 => const Color(0xFF243450);
+  @override
+  Color get baseColor2 => const Color(0xFF203046);
+  @override
+  Color get baseColor3 => const Color(0xFF142438);
+  @override
   Color get baseColor4 => Colors.lightBlue.shade100.withOpacity(0.4);
 
-  Color get kAmbientShadowOpacity => Color(0xFF142438).withOpacity(0.8);
+  @override
+  Color get kAmbientShadowOpacity => const Color(0xFF142438).withOpacity(0.8);
 
   @override
   Color get tileTextColor => Colors.white;
@@ -651,7 +659,7 @@ class ClaymorphismThemePaletteDark extends ClaymorphismThemePalette {
   @override
   Color get menuUnderlineColor => Colors.white;
   @override
-  Color get menuInactiveColor => Color(0xFF9A9A9A);
+  Color get menuInactiveColor => const Color(0xFF9A9A9A);
   @override
   Color get menuActiveColor => Colors.white;
 
@@ -663,7 +671,7 @@ class ClaymorphismThemePaletteDark extends ClaymorphismThemePalette {
   Color get popupMenuSliderThumbColor => PuzzleColors.primary5;
 
   @override
-  Color get popupMenuTileColor => Color(0xFFFAFAFA);
+  Color get popupMenuTileColor => const Color(0xFFFAFAFA);
   @override
   Color get popupMenuTitleColor => PuzzleColors.primary5;
 
@@ -671,7 +679,7 @@ class ClaymorphismThemePaletteDark extends ClaymorphismThemePalette {
   Color get popupMenuUnselectedColor => Colors.grey.shade700;
 
   @override
-  Gradient get popupMenuGradient => LinearGradient(
+  Gradient get popupMenuGradient => const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
@@ -679,14 +687,14 @@ class ClaymorphismThemePaletteDark extends ClaymorphismThemePalette {
             Color(0xFF182842),
             Color(0xFF203046),
           ],
-          stops: const [
+          stops: [
             0,
             0.3,
             1
           ]);
 
   @override
-  Gradient get backgroundGradient => LinearGradient(
+  Gradient get backgroundGradient => const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
@@ -695,7 +703,7 @@ class ClaymorphismThemePaletteDark extends ClaymorphismThemePalette {
             Color(0xFF203046),
             Color(0xFF0D3481),
           ],
-          stops: const [
+          stops: [
             0,
             0.15,
             0.3,

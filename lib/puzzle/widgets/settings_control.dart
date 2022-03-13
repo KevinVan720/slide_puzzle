@@ -290,46 +290,50 @@ class SettingsControl extends StatelessWidget {
 
     bool isDark = (theme as SimpleTheme).luminance == ThemeLuminance.dark;
 
-    return AnimatedStyledContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-        curve: Curves.easeInOut,
-        style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
-        child: Row(
-          children: [
-            AnimatedStyledContainer(
-                duration: PuzzleThemeAnimationDuration.backgroundColorChange,
-                curve: Curves.easeInOut,
-                style: theme.popupMenuTitleStyle.resolve(context)!,
-                child: Text(isDark ? context.l10n.dark : context.l10n.light)),
-            const Gap(2),
-            Expanded(
-              child: Center(
-                  child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
-                    context.read<ThemeBloc>().add(ThemeUpdated(
-                        theme: theme.copyWith(
-                            luminance: isDark
-                                ? ThemeLuminance.light
-                                : ThemeLuminance.dark)));
-                  },
-                  child: DecoratedIcon(
-                    isDark ? Icons.dark_mode : Icons.light_mode,
-                    size: 16,
-                    color: theme.menuActiveStyle.color,
-                    shadows: _iconShadow
-                        ?.map((e) => Shadow(
-                            color: e.color,
-                            offset: e.offset,
-                            blurRadius: e.blurRadius))
-                        .toList(),
-                  ),
+    return theme.luminance != null
+        ? AnimatedStyledContainer(
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            curve: Curves.easeInOut,
+            style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
+            child: Row(
+              children: [
+                AnimatedStyledContainer(
+                    duration:
+                        PuzzleThemeAnimationDuration.backgroundColorChange,
+                    curve: Curves.easeInOut,
+                    style: theme.popupMenuTitleStyle.resolve(context)!,
+                    child:
+                        Text(isDark ? context.l10n.dark : context.l10n.light)),
+                const Gap(2),
+                Expanded(
+                  child: Center(
+                      child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.read<ThemeBloc>().add(ThemeUpdated(
+                            theme: theme.copyWith(
+                                luminance: isDark
+                                    ? ThemeLuminance.light
+                                    : ThemeLuminance.dark)));
+                      },
+                      child: DecoratedIcon(
+                        isDark ? Icons.dark_mode : Icons.light_mode,
+                        size: 16,
+                        color: theme.menuActiveStyle.color,
+                        shadows: _iconShadow
+                            ?.map((e) => Shadow(
+                                color: e.color,
+                                offset: e.offset,
+                                blurRadius: e.blurRadius))
+                            .toList(),
+                      ),
+                    ),
+                  )),
                 ),
-              )),
-            ),
-          ],
-        ));
+              ],
+            ))
+        : Container();
   }
 
   Widget _buildAllControls(BuildContext context) {
@@ -356,9 +360,7 @@ class SettingsControl extends StatelessWidget {
                   child: Column(
                 children: [
                   _buildDifficultyControl(context),
-                  (theme as SimpleTheme).luminance != null
-                      ? _buildBrightnessControl(context)
-                      : Container()
+                  _buildBrightnessControl(context)
                 ],
               )),
             ],
