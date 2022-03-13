@@ -122,7 +122,7 @@ class NeumorphicTheme extends SimpleTheme {
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
             backgroundDecoration: BoxDecoration(
-              color: themePalette.baseColor,
+              color: themePalette.baseColor.withOpacity(0.01),
             ),
             shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -146,7 +146,7 @@ class NeumorphicTheme extends SimpleTheme {
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
             backgroundDecoration: BoxDecoration(
-              color: themePalette.baseColor,
+              color: themePalette.baseColor.withOpacity(0.01),
             ),
             shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(

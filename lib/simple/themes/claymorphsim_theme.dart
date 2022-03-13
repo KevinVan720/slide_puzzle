@@ -176,9 +176,9 @@ class ClaymorphismTheme extends SimpleTheme {
             ],
             insetShadows: [
               ShapeShadow(
-                  blurRadius: 10,
+                  blurRadius: 3,
                   color: themePalette.baseColor4,
-                  offset: const Offset((-3), (-3))),
+                  offset: const Offset((2), (2))),
               ShapeShadow(
                   blurRadius: 2,
                   spreadRadius: 1,
@@ -327,7 +327,7 @@ class ClaymorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
         allScreen: Style(
-          height: 10.toPXLength,
+          height: 8.toPXLength,
           backgroundDecoration: BoxDecoration(
               gradient: LinearGradient(colors: [
             themePalette.tileTextColor,
@@ -335,7 +335,7 @@ class ClaymorphismTheme extends SimpleTheme {
           ])),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(4.toPXLength)),
           ),
         )
       });

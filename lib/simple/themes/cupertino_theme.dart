@@ -410,7 +410,7 @@ abstract class CupertinoThemePalette {
 
 class CupertinoThemePaletteLight extends CupertinoThemePalette {
   @override
-  String get backgroundImage => "assets/images/macos_big_sur.jpg";
+  String get backgroundImage => "assets/images/Mojave Day.jpg";
 
   @override
   Color get nameColor => PuzzleColors.grey1;
@@ -468,7 +468,7 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
 
 class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
-  String get backgroundImage => "assets/images/macos_big_sur_dark.jpg";
+  String get backgroundImage => "assets/images/Mojave Night.jpg";
 
   @override
   Color get nameColor => Colors.white70;
@@ -521,5 +521,5 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   Color get popupMenuUnselectedColor => Colors.white70;
 
   @override
-  Color get popupMenuColor => const Color(0xFF313131);
+  Color get popupMenuColor => const Color(0xFF252525);
 }

@@ -333,7 +333,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: const Offset(5, 5)),
+                offset: const Offset(3, 3)),
           ],
           backgroundDecoration:
               BoxDecoration(color: themePalette.tileHoverColor),
@@ -372,7 +372,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: const Offset(5, 5)),
+                offset: const Offset(3, 3)),
           ],
           backgroundDecoration:
               BoxDecoration(color: themePalette.tileHoverColor),
@@ -411,7 +411,7 @@ class GlassmorphismTheme extends SimpleTheme {
                 spreadRadius: 2,
                 blurRadius: 5,
                 color: Colors.black.withOpacity(0.02),
-                offset: const Offset(5, 5)),
+                offset: const Offset(3, 3)),
           ],
           backgroundDecoration:
               BoxDecoration(color: themePalette.tileHoverColor),
@@ -538,7 +538,7 @@ class GlassmorphismTheme extends SimpleTheme {
           fontWeight: FontWeight.bold,
           shadows: [
             const Shadow(
-                blurRadius: 3, color: PuzzleColors.grey1, offset: Offset(3, 3)),
+                blurRadius: 5, color: PuzzleColors.grey2, offset: Offset(2, 2)),
           ]);
 
   @override
@@ -559,7 +559,7 @@ class GlassmorphismTheme extends SimpleTheme {
             spreadRadius: 2,
             blurRadius: 10,
             color: themePalette.kAmbientShadowOpacity,
-            offset: const Offset(10, 10)),
+            offset: const Offset(5, 5)),
       ],
       shapeBorder: RectangleShapeBorder(
           border: DynamicBorderSide(
@@ -690,19 +690,19 @@ class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
 
   @override
   Color get kAmbientShadowOpacity =>
-      Colors.black.withOpacity(0.05); // alpha = 0.12
+      Colors.grey.shade200.withOpacity(0.04); // alpha = 0.12
 
   @override
   Color get tileTextColor => Colors.white;
 
   @override
-  Color get tileColor => Colors.grey.shade50.withOpacity(0.1);
+  Color get tileColor => Color(0xFFFCFCFC).withOpacity(0.1);
 
   @override
-  Color get tileHoverColor => Colors.grey.shade50.withOpacity(0.07);
+  Color get tileHoverColor => Colors.grey.shade50.withOpacity(0.08);
 
   @override
-  Color get tilePressedColor => Colors.grey.shade50.withOpacity(0.04);
+  Color get tilePressedColor => Colors.grey.shade50.withOpacity(0.06);
 
   @override
   Color get menuUnderlineColor => Colors.white;

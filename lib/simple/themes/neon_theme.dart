@@ -125,7 +125,7 @@ class NeonTheme extends SimpleTheme {
             alignment: Alignment.center,
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(4),
             backgroundDecoration: const BoxDecoration(
               color: Colors.transparent,
             ),
@@ -154,7 +154,7 @@ class NeonTheme extends SimpleTheme {
             alignment: Alignment.center,
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(4),
             backgroundDecoration: const BoxDecoration(
               color: Colors.transparent,
             ),
@@ -183,7 +183,7 @@ class NeonTheme extends SimpleTheme {
             alignment: Alignment.center,
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(4),
             backgroundDecoration: BoxDecoration(
               gradient: LinearGradient(colors: [
                 themePalette.popupMenuTileColor.withOpacity(0.9),
@@ -222,6 +222,7 @@ class NeonTheme extends SimpleTheme {
   Responsive<Style> get popupMenuTitleStyle => Responsive({
         allScreen: Style(
             margin: const EdgeInsets.all(2),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
               fontSize: 14.toPXLength,
@@ -438,7 +439,7 @@ class NeonTheme extends SimpleTheme {
                       color: themePalette.baseColor5, width: 10))),
           textStyle: DynamicTextStyle(
             letterSpacing: 1.toPXLength,
-            fontSize: 30.toPXLength,
+            fontSize: 24.toPXLength,
             fontFamily: "Beon",
             fontWeight: FontWeight.w900,
             color: Colors.white,
@@ -557,6 +558,21 @@ class NeonTheme extends SimpleTheme {
                       color: themePalette.baseColor1, width: 3),
                   right: DynamicBorderSide(
                       color: themePalette.baseColor5, width: 6))),
+          textStyle: DynamicTextStyle(
+            letterSpacing: 1.toPXLength,
+            fontSize: 24.toPXLength,
+            fontFamily: "Beon",
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                  blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
+              const Shadow(
+                  blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
+              const Shadow(
+                  blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
+            ],
+          ),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
@@ -734,7 +750,7 @@ class NeonThemePaletteLight extends NeonThemePalette {
   @override
   Color get nameColor => Colors.cyan.shade900;
   @override
-  Color get titleColor => Colors.cyan.shade600;
+  Color get titleColor => Colors.cyanAccent.shade700;
   @override
   Color get defaultColor => Colors.cyan;
 

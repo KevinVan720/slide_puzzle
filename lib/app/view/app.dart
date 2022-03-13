@@ -55,6 +55,8 @@ class _AppState extends State<App> {
     'assets/images/wood_background.jpg',
     'assets/images/macos_big_sur.jpg',
     'assets/images/macos_big_sur_dark.jpg',
+    'assets/images/Mojave Day.jpg',
+    'assets/images/Mojave Night.jpg',
   ];
 
   late final PlatformHelper _platformHelper;

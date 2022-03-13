@@ -73,7 +73,7 @@ class MaterialTheme extends SimpleTheme {
           shapeBorder: RectangleShapeBorder(
             border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(5.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(10.toPXLength)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           shadows: [

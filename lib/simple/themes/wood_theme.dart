@@ -273,7 +273,7 @@ class WoodTheme extends SimpleTheme {
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
-                        Colors.brown.shade700.withOpacity(0.4),
+                        const Color(0xFF352525).withOpacity(0.5),
                         BlendMode.darken),
                     image:
                         const AssetImage('assets/images/wood_background.jpg'))),
