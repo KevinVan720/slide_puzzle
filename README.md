@@ -113,23 +113,39 @@ The app should also run on **IOS** and **MacOS** since all dependent packages su
 
 ##### Neumorphism Dark
 
-![Glassmorphism](https://i.imgur.com/5AhmXJh.png)
+![Glassmorphism](https://i.imgur.com/spEmQkn.png)
 
 ##### Glassmorphism
+
+![Claymorphism Dark](https://i.imgur.com/mh4SAbJ.png)
+
+##### Glassmorphism Dark
 
 ![Claymorphism](https://i.imgur.com/mh4SAbJ.png)
 
 ##### Claymorphism
 
-![Neon](https://i.imgur.com/rQNofyo.png)
+![Claymorphism Dark](https://i.imgur.com/lVUUeEr.png)
+
+##### Claymorphism Dark
+
+![Neon](https://i.imgur.com/inEWVEc.png)
 
 ##### Neon
+
+![Neon Dark](https://i.imgur.com/rQNofyo.png)
+
+##### Neon Dark
 
 ![Keyboard](https://i.imgur.com/MoUVBF3.png)
 
 ##### Keyboard
 
-![Wood](https://i.imgur.com/MbTTp8m.png)
+![Keyboard Dark](https://i.imgur.com/7zI1c9y.png)
+
+##### Keyboard Dark
+
+![Wood ](https://i.imgur.com/MbTTp8m.png)
 
 ##### Wood
 

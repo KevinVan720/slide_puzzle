@@ -13,7 +13,7 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 /// {@endtemplate}
 class KeyboardTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const KeyboardTheme({ThemeLuminance? luminance})
+  const KeyboardTheme({ThemeLuminance? luminance = ThemeLuminance.light})
       : super(luminance: luminance);
 
   @override
@@ -29,12 +29,16 @@ class KeyboardTheme extends SimpleTheme {
     return KeyboardTheme(luminance: luminance ?? this.luminance);
   }
 
+  KeyboardThemePalette get themePalette => luminance == ThemeLuminance.light
+      ? KeyboardThemePaletteLight()
+      : KeyboardThemePaletteDark();
+
   @override
   bool get hasTimer => false;
 
   @override
-  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
-        color: PuzzleColors.grey1,
+  DynamicTextStyle get nameTextStyle => DynamicTextStyle(
+        color: themePalette.nameColor,
         fontStyle: FontStyle.italic,
         fontFamily: "GoogleSans",
         shadows: _engraveShadow,
@@ -42,15 +46,15 @@ class KeyboardTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get titleTextStyle => DynamicTextStyle(
-      color: Colors.teal.shade700,
+      color: themePalette.titleColor,
       fontStyle: FontStyle.italic,
       fontFamily: "GoogleSans",
       shadows: _engraveShadow,
       fontWeight: FontWeight.bold);
 
   @override
-  DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
-        color: PuzzleColors.green50,
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+        color: themePalette.defaultColor,
         fontStyle: FontStyle.italic,
         fontWeight: FontWeight.bold,
         fontFamily: "GoogleSans",
@@ -62,8 +66,8 @@ class KeyboardTheme extends SimpleTheme {
         allScreen: Style(
           backgroundDecoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-            Colors.redAccent.shade100,
-            Colors.redAccent.shade100
+            themePalette.backgroundColor,
+            themePalette.backgroundColor,
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         ),
       });
@@ -73,25 +77,28 @@ class KeyboardTheme extends SimpleTheme {
         allScreen: Style(
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration:
-              BoxDecoration(color: Colors.tealAccent.shade100),
+              BoxDecoration(color: themePalette.baseColorLighter),
           shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength)),
-              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
+              border:
+                  DynamicBorderSide(width: 1, color: themePalette.borderColor)),
           shadows: [
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 10)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 11)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 10)),
           ],
@@ -116,7 +123,7 @@ class KeyboardTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: Colors.teal.shade100,
+              color: themePalette.menuInactiveColor,
               fontWeight: FontWeight.w800,
               fontFamily: "GoogleSans",
               shadows: _engraveShadow,
@@ -141,7 +148,7 @@ class KeyboardTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: Colors.teal.shade400,
+              color: themePalette.tileTextColor,
               fontWeight: FontWeight.w800,
               fontFamily: "GoogleSans",
               shadows: _engraveShadow,
@@ -166,7 +173,7 @@ class KeyboardTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
                 fontSize: 16.toPXLength,
-                color: Colors.teal.shade900,
+                color: themePalette.menuActiveColor,
                 fontWeight: FontWeight.bold,
                 fontFamily: "GoogleSans",
                 shadows: const [
@@ -206,7 +213,7 @@ class KeyboardTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
                 fontSize: 14.toPXLength,
-                color: Colors.teal.shade700,
+                color: themePalette.tileTextColor,
                 fontStyle: FontStyle.italic,
                 fontFamily: "GoogleSans",
                 shadows: _engraveShadow,
@@ -217,7 +224,7 @@ class KeyboardTheme extends SimpleTheme {
   Responsive<Style> get popupMenuTileStyle => Responsive({
         allScreen: Style(
           backgroundDecoration: BoxDecoration(
-            color: Colors.tealAccent.shade100,
+            color: themePalette.baseColorLighter,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -245,8 +252,8 @@ class KeyboardTheme extends SimpleTheme {
             borderRadius:
                 DynamicBorderRadius.all(DynamicRadius.circular(4.toPXLength)),
           ),
-          backgroundDecoration: const BoxDecoration(
-            color: Colors.teal,
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderThumbColor,
           ),
           shadows: [
             const ShapeShadow(
@@ -285,12 +292,12 @@ class KeyboardTheme extends SimpleTheme {
           width: 88.toPercentLength,
           height: 30.toPXLength,
           backgroundDecoration: BoxDecoration(
-            color: Colors.teal.shade200,
+            color: themePalette.popupMenuSliderTrackColor,
           ),
           insetShadows: [
             ShapeShadow(
                 blurRadius: 2,
-                color: Colors.tealAccent.shade100.withOpacity(0.7),
+                color: themePalette.baseColorLighter.withOpacity(0.7),
                 offset: const Offset(-0.2, -2)),
             const ShapeShadow(
                 blurRadius: 2,
@@ -316,28 +323,31 @@ class KeyboardTheme extends SimpleTheme {
           shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength)),
-              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
+              border:
+                  DynamicBorderSide(width: 1, color: themePalette.borderColor)),
           shadows: [
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 9)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 10)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 10)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 9)),
           ],
           transform: SmoothMatrix4()..translate(0.toPXLength, -10.toPXLength),
           textStyle: DynamicTextStyle(
             fontSize: 20.toPXLength,
-            color: Colors.teal,
+            color: themePalette.tileTextColor,
             fontWeight: FontWeight.w800,
             fontFamily: "GoogleSans",
             shadows: _engraveShadow,
@@ -348,7 +358,7 @@ class KeyboardTheme extends SimpleTheme {
           height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
             fontSize: 24.toPXLength,
-            color: Colors.teal,
+            color: themePalette.tileTextColor,
             fontWeight: FontWeight.w800,
             fontFamily: "GoogleSans",
             shadows: _engraveShadow,
@@ -368,7 +378,7 @@ class KeyboardTheme extends SimpleTheme {
           padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
             fontSize: 20.toPXLength,
-            color: Colors.teal,
+            color: themePalette.tileTextColor,
             fontWeight: FontWeight.w800,
             fontFamily: "GoogleSans",
             shadows: _engraveShadow,
@@ -376,21 +386,24 @@ class KeyboardTheme extends SimpleTheme {
           shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength)),
-              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
+              border:
+                  DynamicBorderSide(width: 1, color: themePalette.borderColor)),
           shadows: [
             ShapeShadow(
                 blurRadius: 6,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 6)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 7)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 7)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 6)),
           ],
@@ -401,7 +414,7 @@ class KeyboardTheme extends SimpleTheme {
           height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
             fontSize: 24.toPXLength,
-            color: Colors.teal,
+            color: themePalette.tileTextColor,
             fontWeight: FontWeight.w800,
             fontFamily: "GoogleSans",
             shadows: _engraveShadow,
@@ -410,16 +423,18 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 10)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 11)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 10)),
           ],
@@ -432,16 +447,18 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 10,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 10)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 11)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 11)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 10)),
           ],
@@ -457,7 +474,7 @@ class KeyboardTheme extends SimpleTheme {
           padding: const EdgeInsets.symmetric(vertical: 10),
           textStyle: DynamicTextStyle(
             fontSize: 20.toPXLength,
-            color: Colors.teal,
+            color: themePalette.tileTextColor,
             fontWeight: FontWeight.w800,
             fontFamily: "GoogleSans",
             shadows: _engraveShadow,
@@ -465,21 +482,24 @@ class KeyboardTheme extends SimpleTheme {
           shapeBorder: RectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength)),
-              border: const DynamicBorderSide(width: 1, color: Colors.teal)),
+              border:
+                  DynamicBorderSide(width: 1, color: themePalette.borderColor)),
           shadows: [
             ShapeShadow(
                 blurRadius: 3,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 3)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 2)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 1)),
           ],
@@ -490,7 +510,7 @@ class KeyboardTheme extends SimpleTheme {
           height: _TileDimension.medium,
           textStyle: DynamicTextStyle(
             fontSize: 24.toPXLength,
-            color: Colors.teal,
+            color: themePalette.tileTextColor,
             fontWeight: FontWeight.w800,
             fontFamily: "GoogleSans",
             shadows: _engraveShadow,
@@ -499,16 +519,18 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 3,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 3)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 2)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 1)),
           ],
@@ -521,16 +543,18 @@ class KeyboardTheme extends SimpleTheme {
             ShapeShadow(
                 blurRadius: 3,
                 spreadRadius: 1,
-                color: Colors.grey.shade700,
+                color: themePalette.shadowColor,
                 offset: const Offset(0, 3)),
-            const ShapeShadow(
-                blurRadius: 0, color: Colors.teal, offset: Offset(0, 2)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: Offset(0, 2)),
             ShapeShadow(
                 blurRadius: 0,
                 spreadRadius: -1,
                 gradient: LinearGradient(colors: [
-                  Colors.tealAccent.shade400,
-                  Colors.tealAccent.shade700
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 offset: const Offset(0, 1)),
           ],
@@ -539,11 +563,8 @@ class KeyboardTheme extends SimpleTheme {
       });
 
   @override
-  bool get isLogoColored => false;
-
-  @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
-          color: Colors.teal.shade900,
+          color: themePalette.menuActiveColor,
           fontWeight: FontWeight.bold,
           fontFamily: "GoogleSans",
           shadows: const [
@@ -574,11 +595,11 @@ class KeyboardTheme extends SimpleTheme {
           ]);
 
   @override
-  Color get menuUnderlineColor => Colors.teal;
+  Color get menuUnderlineColor => themePalette.menuUnderlineColor;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
-        color: PuzzleColors.grey3,
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
+        color: themePalette.menuInactiveColor,
         fontFamily: "GoogleSans",
         shadows: _engraveShadow,
       );
@@ -588,43 +609,45 @@ class KeyboardTheme extends SimpleTheme {
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-}
 
-final _baseStyle = Style(
-    alignment: Alignment.center,
-    padding: const EdgeInsets.symmetric(vertical: 20),
-    backgroundDecoration: BoxDecoration(color: Colors.tealAccent.shade100),
-    shapeBorder: RectangleShapeBorder(
-        borderRadius:
-            DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
-        border: const DynamicBorderSide(width: 1, color: Colors.teal)),
-    shadows: [
-      ShapeShadow(
-          blurRadius: 10,
-          spreadRadius: 1,
-          color: Colors.grey.shade700,
-          offset: const Offset(0, 14)),
-      const ShapeShadow(
-          blurRadius: 0, color: Colors.teal, offset: Offset(0, 15)),
-      ShapeShadow(
-          blurRadius: 0,
-          spreadRadius: -1,
-          gradient: LinearGradient(
-              colors: [Colors.tealAccent.shade400, Colors.tealAccent.shade700],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight),
-          offset: const Offset(0, 14)),
-    ],
-    transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),
-    textStyle: DynamicTextStyle(
-      fontSize: 28.toPXLength,
-      color: Colors.teal.shade700,
-      fontWeight: FontWeight.w900,
-      fontFamily: "GoogleSans",
-      shadows: _engraveShadow,
-    ),
-    textAlign: TextAlign.center,
-    mouseCursor: SystemMouseCursors.click);
+  Style get _baseStyle => Style(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      backgroundDecoration: BoxDecoration(color: themePalette.baseColorLighter),
+      shapeBorder: RectangleShapeBorder(
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
+          border: DynamicBorderSide(width: 1, color: themePalette.borderColor)),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 1,
+            color: themePalette.shadowColor,
+            offset: const Offset(0, 14)),
+        ShapeShadow(
+            blurRadius: 0,
+            color: themePalette.borderColor,
+            offset: Offset(0, 15)),
+        ShapeShadow(
+            blurRadius: 0,
+            spreadRadius: -1,
+            gradient: LinearGradient(
+                colors: [themePalette.baseColor, themePalette.baseColorDarker],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight),
+            offset: const Offset(0, 14)),
+      ],
+      transform: SmoothMatrix4()..translate(0.toPXLength, -15.toPXLength),
+      textStyle: DynamicTextStyle(
+        fontSize: 28.toPXLength,
+        color: themePalette.tileTextColor,
+        fontWeight: FontWeight.w900,
+        fontFamily: "GoogleSans",
+        shadows: _engraveShadow,
+      ),
+      textAlign: TextAlign.center,
+      mouseCursor: SystemMouseCursors.click);
+}
 
 abstract class _TileDimension {
   static Dimension small = Dimension.min(56.0.toPXLength, 96.toPercentLength);
@@ -658,3 +681,99 @@ const List<Shadow> _engraveShadow = [
       color: Color.fromARGB(200, 0, 0, 0),
       offset: Offset(-0.8, -0.2)),
 ];
+
+abstract class KeyboardThemePalette {
+  Color get backgroundColor;
+
+  Color get baseColor; // alpha = 0.2
+  Color get baseColorLighter; // alpha = 0.14
+  Color get baseColorDarker; // alpha = 0.12
+  Color get borderColor;
+  Color get shadowColor;
+
+  Color get nameColor;
+  Color get titleColor;
+  Color get defaultColor;
+
+  Color get tileTextColor;
+
+  Color get menuUnderlineColor;
+  Color get menuInactiveColor;
+  Color get menuActiveColor;
+
+  Color get popupMenuSliderThumbColor;
+  Color get popupMenuSliderTrackColor;
+}
+
+class KeyboardThemePaletteLight extends KeyboardThemePalette {
+  Color get backgroundColor => Colors.redAccent.shade100;
+  @override
+  Color get nameColor => PuzzleColors.grey1;
+  @override
+  Color get titleColor => Colors.teal.shade700;
+  @override
+  Color get defaultColor => Colors.teal.shade900;
+
+  Color get shadowColor => Colors.grey.shade400;
+
+  @override
+  Color get baseColor => Colors.tealAccent.shade400; // alpha = 0.2
+  @override
+  Color get baseColorLighter => Colors.tealAccent.shade100; // alpha = 0.14
+  @override
+  Color get baseColorDarker => Colors.tealAccent.shade700; // alpha = 0.12
+  @override
+  Color get borderColor => Colors.teal; // alpha = 0.12
+
+  @override
+  Color get tileTextColor => Colors.teal.shade700;
+
+  @override
+  Color get menuUnderlineColor => Colors.teal;
+  @override
+  Color get menuInactiveColor => PuzzleColors.grey4;
+  @override
+  Color get menuActiveColor => Colors.teal.shade800;
+
+  @override
+  Color get popupMenuSliderThumbColor => Colors.teal.shade700;
+  @override
+  Color get popupMenuSliderTrackColor => Colors.teal.shade200;
+}
+
+class KeyboardThemePaletteDark extends KeyboardThemePalette {
+  Color get backgroundColor => Color(0xFF121212);
+
+  @override
+  Color get nameColor => Colors.white70;
+  @override
+  Color get titleColor => Colors.tealAccent.shade700;
+  @override
+  Color get defaultColor => Colors.teal.shade50;
+
+  @override
+  Color get baseColor => Color(0xFF181818); // alpha = 0.2
+  @override
+  Color get baseColorLighter => Color(0xFF262626); // alpha = 0.14
+  @override
+  Color get baseColorDarker => Color(0xFF121212); // alpha = 0.12
+  @override
+  Color get borderColor => Colors.black87; // alpha = 0.12
+
+  Color get shadowColor => Colors.grey.shade900;
+
+  @override
+  Color get tileTextColor => Colors.white;
+
+  @override
+  Color get menuUnderlineColor => Colors.white70;
+  @override
+  Color get menuInactiveColor => PuzzleColors.grey1;
+  @override
+  Color get menuActiveColor => Colors.white;
+
+  @override
+  Color get popupMenuSliderThumbColor => Colors.teal.shade700;
+  @override
+  Color get popupMenuSliderTrackColor => Colors.black38;
+}

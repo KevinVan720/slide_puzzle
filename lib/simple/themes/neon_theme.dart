@@ -12,7 +12,8 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 /// {@endtemplate}
 class NeonTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const NeonTheme({ThemeLuminance? luminance}) : super(luminance: luminance);
+  const NeonTheme({ThemeLuminance? luminance = ThemeLuminance.dark})
+      : super(luminance: luminance);
 
   @override
   @override
@@ -28,80 +29,91 @@ class NeonTheme extends SimpleTheme {
     return NeonTheme(luminance: luminance ?? this.luminance);
   }
 
+  NeonThemePalette get themePalette => luminance == ThemeLuminance.light
+      ? NeonThemePaletteLight()
+      : NeonThemePaletteDark();
+
   @override
   bool get hasTimer => false;
 
   @override
-  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
-        color: Colors.white70,
+  DynamicTextStyle get nameTextStyle => DynamicTextStyle(
+        color: themePalette.nameColor,
         fontFamily: "Night-Club-70s",
         shadows: [
-          Shadow(blurRadius: 2, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
-          Shadow(blurRadius: 4, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
-          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0))
+          Shadow(
+              blurRadius: 2,
+              color: themePalette.nameColor,
+              offset: Offset(1, 1)),
+          Shadow(
+              blurRadius: 4,
+              color: themePalette.nameColor,
+              offset: Offset(0, 0)),
+          Shadow(
+              blurRadius: 1,
+              color: themePalette.nameColor,
+              offset: Offset(0, 0))
         ],
       );
 
   @override
-  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-        color: Color(0xFFFCEC0C),
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+        color: themePalette.titleColor,
         fontFamily: "Night-Club-70s",
         fontWeight: FontWeight.bold,
         shadows: [
-          Shadow(blurRadius: 5, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
           Shadow(
-              blurRadius: 20, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
-          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0))
+              blurRadius: 5,
+              color: themePalette.titleColor,
+              offset: Offset(1, 1)),
+          Shadow(
+              blurRadius: 20,
+              color: themePalette.titleColor,
+              offset: Offset(0, 0)),
+          Shadow(
+              blurRadius: 1,
+              color: themePalette.titleColor,
+              offset: Offset(0, 0))
         ],
       );
 
   @override
-  DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
-        color: Colors.white,
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+        color: themePalette.defaultColor,
         fontFamily: "Beon",
         shadows: [
-          Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(
+              blurRadius: 5,
+              color: themePalette.defaultColor,
+              offset: Offset(1, 1)),
         ],
       );
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-              Color(0xFF091833),
-              Color(0xFF711C91),
-            ])))
+            backgroundDecoration:
+                BoxDecoration(gradient: themePalette.backgroundGradient))
       });
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
-          backgroundDecoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                Color(0xFF711C91),
-                Color(0xFF091833),
-              ])),
-          shapeBorder: const RoundedRectangleShapeBorder(
+          backgroundDecoration:
+              BoxDecoration(gradient: themePalette.backgroundGradient),
+          shapeBorder: RoundedRectangleShapeBorder(
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
-                      gradient: LinearGradient(
-                          colors: [Color(0xFF711C91), Color(0xFF711C91)]),
-                      width: 3),
+                      color: themePalette.menuUnderlineColor.withOpacity(0.6),
+                      width: 2),
                   bottom: DynamicBorderSide(
-                      gradient: LinearGradient(
-                          colors: [Color(0xFF091833), Color(0xFF091833)]),
-                      width: 8),
-                  left: DynamicBorderSide(color: Color(0xFF711C91), width: 3),
-                  right:
-                      DynamicBorderSide(color: Color(0xFF091833), width: 5))),
+                      color: themePalette.menuUnderlineColor, width: 6),
+                  left: DynamicBorderSide(
+                      color: themePalette.menuUnderlineColor.withOpacity(0.6),
+                      width: 2),
+                  right: DynamicBorderSide(
+                      color: themePalette.menuUnderlineColor, width: 4))),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         )
       });
@@ -125,12 +137,10 @@ class NeonTheme extends SimpleTheme {
               letterSpacing: 1.toPXLength,
               fontFamily: "Beon",
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: themePalette.popupMenuUnselectedColor,
               shadows: [
                 const Shadow(
-                    blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
-                const Shadow(
-                    blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
+                    blurRadius: 3, color: Colors.white54, offset: Offset(0, 0))
               ],
             ),
             textAlign: TextAlign.center,
@@ -156,12 +166,10 @@ class NeonTheme extends SimpleTheme {
               letterSpacing: 1.toPXLength,
               fontFamily: "Beon",
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: themePalette.popupMenuUnselectedColor,
               shadows: [
                 const Shadow(
-                    blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
-                const Shadow(
-                    blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
+                    blurRadius: 5, color: Colors.white54, offset: Offset(0, 0))
               ],
             ),
             textAlign: TextAlign.center,
@@ -175,10 +183,10 @@ class NeonTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: const BoxDecoration(
+            backgroundDecoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-                Colors.yellow,
-                Color(0xFFFCEC0C),
+                themePalette.popupMenuTileColor.withOpacity(0.9),
+                themePalette.popupMenuTileColor
               ]),
             ),
             shapeBorder: RectangleShapeBorder(
@@ -186,11 +194,11 @@ class NeonTheme extends SimpleTheme {
                   DynamicBorderRadius.all(DynamicRadius.circular(2.toPXLength)),
             ),
             shadows: [
-              const ShapeShadow(
+              ShapeShadow(
                   blurRadius: 4,
                   gradient: LinearGradient(colors: [
-                    Colors.yellow,
-                    Color(0xFFFCEC0C),
+                    themePalette.popupMenuTileColor.withOpacity(0.9),
+                    themePalette.popupMenuTileColor
                   ]),
                   offset: Offset(1, 1)),
             ],
@@ -199,12 +207,10 @@ class NeonTheme extends SimpleTheme {
               letterSpacing: 1.toPXLength,
               fontFamily: "Beon",
               fontWeight: FontWeight.w700,
-              color: Colors.black,
+              color: themePalette.popupMenuSelectedColor,
               shadows: [
                 const Shadow(
-                    blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
-                const Shadow(
-                    blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
+                    blurRadius: 3, color: Colors.white54, offset: Offset(0, 0))
               ],
             ),
             textAlign: TextAlign.center,
@@ -218,17 +224,17 @@ class NeonTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
               fontSize: 14.toPXLength,
-              color: const Color(0xFFFCEC0C),
+              color: themePalette.popupMenuTitleColor,
               fontFamily: "Beon",
               fontWeight: FontWeight.bold,
               shadows: [
-                const Shadow(
+                Shadow(
                     blurRadius: 1,
-                    color: Color(0xFFFCEC0C),
+                    color: themePalette.popupMenuTitleColor,
                     offset: Offset(0, 0)),
-                const Shadow(
+                Shadow(
                     blurRadius: 3,
-                    color: Color(0xFFFCEC0C),
+                    color: themePalette.popupMenuTitleColor,
                     offset: Offset(0, 0)),
               ],
             ))
@@ -261,17 +267,14 @@ class NeonTheme extends SimpleTheme {
             "point2": {"dx": "100%", "dy": "18.800003051757866%"},
             "point3": {"dx": "43.33333841959636%", "dy": "100%"}
           }),
-          backgroundDecoration: const BoxDecoration(
-            color: Color(0xFFFCEC0C),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderThumbColor,
           ),
           shadows: [
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 4,
-                gradient: LinearGradient(colors: [
-                  Colors.yellow,
-                  Color(0xFFFCEC0C),
-                ]),
-                offset: Offset(1, 1)),
+                color: themePalette.popupMenuSliderThumbColor,
+                offset: Offset(2, 2)),
           ],
           width: 20.toPXLength,
           height: 20.toPXLength,
@@ -283,12 +286,12 @@ class NeonTheme extends SimpleTheme {
         allScreen: Style(
           width: 88.toPercentLength,
           height: 1.toPXLength,
-          backgroundDecoration: const BoxDecoration(
-            color: PuzzleColors.black,
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderTrackColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(1.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
           ),
         )
       });
@@ -297,21 +300,18 @@ class NeonTheme extends SimpleTheme {
   Responsive<Style> get popupMenuSliderActiveTrackStyle => Responsive({
         allScreen: Style(
           height: 6.toPXLength,
-          backgroundDecoration: const BoxDecoration(
-            color: Colors.yellowAccent,
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderActiveTrackColor,
           ),
           shadows: [
-            const ShapeShadow(
+            ShapeShadow(
                 blurRadius: 4,
-                gradient: LinearGradient(colors: [
-                  Colors.yellow,
-                  Color(0xFFFCEC0C),
-                ]),
+                color: themePalette.popupMenuSliderActiveTrackColor,
                 offset: Offset(1, 1)),
           ],
           shapeBorder: RectangleShapeBorder(
             borderRadius:
-                DynamicBorderRadius.all(DynamicRadius.circular(3.toPXLength)),
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
           ),
         )
       });
@@ -330,18 +330,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 6),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 12),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 6),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 12))),
+                      color: themePalette.baseColor1, width: 6),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 12))),
           textStyle: DynamicTextStyle(
             letterSpacing: 1.toPXLength,
             fontSize: 24.toPXLength,
@@ -367,18 +369,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 8),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 16),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 8),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 16))),
+                      color: themePalette.baseColor1, width: 8),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 16))),
         ),
         largeScreen: _baseStyle.copyWith(
           width: _TileDimension.large,
@@ -389,18 +393,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 10),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 20),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 10),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 20))),
+                      color: themePalette.baseColor1, width: 10),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 20))),
         )
       });
 
@@ -415,18 +421,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 5),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 10),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 5),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 10))),
+                      color: themePalette.baseColor1, width: 5),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 10))),
           textStyle: DynamicTextStyle(
             letterSpacing: 1.toPXLength,
             fontSize: 30.toPXLength,
@@ -452,18 +460,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 7),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 14),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 7),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 14))),
+                      color: themePalette.baseColor1, width: 7),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 14))),
           textStyle: DynamicTextStyle(
             letterSpacing: 1.toPXLength,
             fontSize: 30.toPXLength,
@@ -489,18 +499,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 9),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 18),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 9),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 18))),
+                      color: themePalette.baseColor1, width: 9),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 18))),
           textStyle: DynamicTextStyle(
             letterSpacing: 1.toPXLength,
             fontSize: 30.toPXLength,
@@ -530,18 +542,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 3),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 6),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 3),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 6))),
+                      color: themePalette.baseColor1, width: 3),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 6))),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
@@ -552,18 +566,20 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 5),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 10),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 5),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 10))),
+                      color: themePalette.baseColor1, width: 5),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 10))),
         ),
         largeScreen: _baseStyle.copyWith(
           width: _TileDimension.large,
@@ -574,44 +590,52 @@ class NeonTheme extends SimpleTheme {
               borderSides: RectangleBorderSides.only(
                   top: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
-                        Colors.cyanAccent.shade100,
-                        Colors.purpleAccent.shade100
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
                       ]),
                       width: 7),
-                  bottom: const DynamicBorderSide(
-                      gradient:
-                          LinearGradient(colors: [Colors.cyan, Colors.purple]),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
                       width: 14),
                   left: DynamicBorderSide(
-                      color: Colors.cyanAccent.shade200, width: 7),
-                  right: const DynamicBorderSide(
-                      color: Colors.purpleAccent, width: 14))),
+                      color: themePalette.baseColor1, width: 7),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 14))),
         )
       });
 
   @override
-  bool get isLogoColored => false;
-
-  @override
-  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-        color: Color(0xFFFCEC0C),
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+        color: themePalette.menuActiveColor,
         fontFamily: "Beon",
         fontWeight: FontWeight.bold,
         shadows: [
-          Shadow(blurRadius: 1, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
-          Shadow(blurRadius: 3, color: Color(0xFFFCEC0C), offset: Offset(0, 0)),
+          Shadow(
+              blurRadius: 2,
+              color: themePalette.menuActiveColor,
+              offset: Offset(1, 1)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.menuActiveColor,
+              offset: Offset(0, 0)),
         ],
       );
 
   @override
-  Color get menuUnderlineColor => const Color(0xFFFCEC0C);
+  Color get menuUnderlineColor => themePalette.menuUnderlineColor;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
-        color: Colors.white,
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
+        color: themePalette.menuInactiveColor,
         fontFamily: "Beon",
         shadows: [
-          Shadow(blurRadius: 3, color: Colors.white, offset: Offset(0, 0)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.menuInactiveColor,
+              offset: Offset(0, 0)),
         ],
       );
 
@@ -620,42 +644,230 @@ class NeonTheme extends SimpleTheme {
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-}
 
-final _baseStyle = Style(
-    alignment: Alignment.center,
-    childAlignment: Alignment.center,
-    padding: const EdgeInsets.all(3),
-    backgroundDecoration: const BoxDecoration(
-        gradient:
-            LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent])),
-    shadows: [
-      const ShapeShadow(
-          blurRadius: 25,
-          gradient:
-              LinearGradient(colors: [Colors.cyanAccent, Colors.purpleAccent]),
-          offset: Offset(0, 0)),
-    ],
-    textStyle: DynamicTextStyle(
-      letterSpacing: 1.toPXLength,
-      fontSize: 30.toPXLength,
-      fontFamily: "Beon",
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
+  Style get _baseStyle => Style(
+      alignment: Alignment.center,
+      childAlignment: Alignment.center,
+      padding: const EdgeInsets.all(3),
+      backgroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [themePalette.baseColor3, themePalette.baseColor7])),
       shadows: [
-        const Shadow(blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
-        const Shadow(blurRadius: 20, color: Colors.white, offset: Offset(0, 0)),
-        const Shadow(blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
+        ShapeShadow(
+            blurRadius: 24,
+            gradient: LinearGradient(
+                colors: [themePalette.baseColor3, themePalette.baseColor7]),
+            offset: Offset(2, 2)),
       ],
-    ),
-    textAlign: TextAlign.center,
-    //shaderGradient:
-    //    LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
-    mouseCursor: SystemMouseCursors.click);
+      textStyle: DynamicTextStyle(
+        letterSpacing: 1.toPXLength,
+        fontSize: 30.toPXLength,
+        fontFamily: "Beon",
+        fontWeight: FontWeight.w700,
+        color: themePalette.tileTextColor,
+        shadows: [
+          Shadow(
+              blurRadius: 5,
+              color: themePalette.tileTextColor,
+              offset: Offset(1, 1)),
+          Shadow(
+              blurRadius: 10,
+              color: themePalette.tileTextColor,
+              offset: Offset(1, 1)),
+          Shadow(
+              blurRadius: 1,
+              color: themePalette.tileTextColor,
+              offset: Offset(-1, -1))
+        ],
+      ),
+      textAlign: TextAlign.center,
+      //shaderGradient:
+      //    LinearGradient(colors: [Colors.purpleAccent, Colors.cyanAccent]),
+      mouseCursor: SystemMouseCursors.click);
+}
 
 abstract class _TileDimension {
   static Dimension small = Dimension.min(62.0.toPXLength, 100.toPercentLength);
   static Dimension medium =
       Dimension.min(100.0.toPXLength, 100.toPercentLength);
   static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
+}
+
+abstract class NeonThemePalette {
+  Color get baseColor1;
+  Color get baseColor2;
+  Color get baseColor3;
+  Color get baseColor4;
+  Color get baseColor5;
+  Color get baseColor6;
+  Color get baseColor7;
+  Color get baseColor8;
+
+  Color get kAmbientShadowOpacity;
+
+  Color get nameColor;
+  Color get titleColor;
+  Color get defaultColor;
+
+  Color get tileTextColor;
+
+  Color get menuUnderlineColor;
+  Color get menuInactiveColor;
+  Color get menuActiveColor;
+
+  Color get popupMenuSliderActiveTrackColor;
+  Color get popupMenuSliderTrackColor;
+  Color get popupMenuSliderThumbColor;
+
+  Color get popupMenuTileColor;
+  Color get popupMenuTitleColor;
+
+  Color get popupMenuSelectedColor;
+  Color get popupMenuUnselectedColor;
+
+  Gradient get popupMenuGradient;
+  Gradient get backgroundGradient;
+}
+
+class NeonThemePaletteLight extends NeonThemePalette {
+  @override
+  Color get nameColor => Colors.cyan.shade900;
+  @override
+  Color get titleColor => Colors.cyan.shade600;
+  @override
+  Color get defaultColor => Colors.cyan;
+
+  Color get baseColor1 => Color(0xFF18FFDF);
+  Color get baseColor2 => Color(0xFF84FFDF);
+  Color get baseColor3 => Color(0xFF18FFDF);
+  Color get baseColor4 => Color(0xFF00BCC4);
+  Color get baseColor5 => Colors.pinkAccent;
+  Color get baseColor6 => Colors.pinkAccent.shade100;
+  Color get baseColor7 => Colors.pinkAccent;
+  Color get baseColor8 => Colors.pink;
+
+  Color get kAmbientShadowOpacity => Colors.blue.shade400.withOpacity(0.5);
+
+  @override
+  Color get tileTextColor => Colors.white.withOpacity(0.9);
+
+  @override
+  Color get menuUnderlineColor => Colors.cyan.shade700;
+  @override
+  Color get menuInactiveColor => PuzzleColors.grey1;
+  @override
+  Color get menuActiveColor => Colors.cyan.shade600;
+
+  @override
+  Color get popupMenuSliderActiveTrackColor => Colors.cyan;
+  @override
+  Color get popupMenuSliderTrackColor => Colors.black87;
+  @override
+  Color get popupMenuSliderThumbColor => Colors.cyanAccent;
+
+  @override
+  Color get popupMenuTileColor => Colors.cyanAccent.shade700;
+  @override
+  Color get popupMenuTitleColor => Colors.cyan.shade800;
+
+  @override
+  Color get popupMenuSelectedColor => Colors.white70;
+  @override
+  Color get popupMenuUnselectedColor => Colors.grey.shade900;
+
+  @override
+  Gradient get popupMenuGradient => LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.lightBlue.shade100,
+            Colors.lightBlue.shade50,
+            Colors.white,
+          ],
+          stops: const [
+            0,
+            0.3,
+            1
+          ]);
+
+  @override
+  Gradient get backgroundGradient => LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: [
+          Colors.yellow.shade600,
+          Colors.yellowAccent.shade400,
+        ],
+      );
+}
+
+class NeonThemePaletteDark extends NeonThemePalette {
+  @override
+  Color get nameColor => Colors.white70;
+  @override
+  Color get titleColor => Color(0xFFFCEC0C);
+  @override
+  Color get defaultColor => Colors.white;
+
+  Color get baseColor1 => Colors.cyanAccent.shade200;
+  Color get baseColor2 => Colors.cyanAccent.shade100;
+  Color get baseColor3 => Colors.cyanAccent;
+  Color get baseColor4 => Colors.cyan;
+  Color get baseColor5 => Colors.purpleAccent;
+  Color get baseColor6 => Colors.purpleAccent.shade100;
+  Color get baseColor7 => Colors.purpleAccent;
+  Color get baseColor8 => Colors.purple;
+
+  Color get kAmbientShadowOpacity => Colors.blue.shade900.withOpacity(0.7);
+
+  @override
+  Color get tileTextColor => Colors.white;
+
+  @override
+  Color get menuUnderlineColor => const Color(0xFFFCEC0C);
+  @override
+  Color get menuInactiveColor => Colors.white;
+  @override
+  Color get menuActiveColor => Color(0xFFFCEC0C);
+
+  @override
+  Color get popupMenuSliderActiveTrackColor => Colors.yellowAccent;
+  @override
+  Color get popupMenuSliderTrackColor => Colors.black87;
+  @override
+  Color get popupMenuSliderThumbColor => Color(0xFFFCEC0C);
+
+  @override
+  Color get popupMenuTileColor => Color(0xFFFCEC0C);
+  @override
+  Color get popupMenuTitleColor => Color(0xFFFCEC0C);
+
+  @override
+  Color get popupMenuSelectedColor => Colors.black87;
+  @override
+  Color get popupMenuUnselectedColor => Colors.white70;
+
+  @override
+  Gradient get popupMenuGradient => LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.blue.shade900,
+            Colors.blue.shade800,
+            Colors.blue.shade700,
+          ],
+          stops: const [
+            0,
+            0.3,
+            1
+          ]);
+
+  @override
+  Gradient get backgroundGradient => LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color(0xFF711C91),
+            Color(0xFF091833),
+          ]);
 }

@@ -15,7 +15,7 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 /// {@endtemplate}
 class GlassmorphismTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const GlassmorphismTheme({ThemeLuminance? luminance})
+  const GlassmorphismTheme({ThemeLuminance? luminance = ThemeLuminance.dark})
       : super(luminance: luminance);
 
   @override
@@ -31,6 +31,11 @@ class GlassmorphismTheme extends SimpleTheme {
     return GlassmorphismTheme(luminance: luminance ?? this.luminance);
   }
 
+  GlassmorphismThemePalette get themePalette =>
+      luminance == ThemeLuminance.light
+          ? GlassmorphismThemePaletteLight()
+          : GlassmorphismThemePaletteDark();
+
   @override
   Duration get tileMoveAnimationDuration => const Duration(milliseconds: 333);
 
@@ -42,12 +47,12 @@ class GlassmorphismTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get nameTextStyle =>
-      const DynamicTextStyle(color: PuzzleColors.grey5);
+      DynamicTextStyle(color: themePalette.nameColor);
 
   @override
   DynamicTextStyle get titleTextStyle => DynamicTextStyle(
           letterSpacing: 2.toPXLength,
-          color: PuzzleColors.white,
+          color: themePalette.titleColor,
           fontWeight: FontWeight.w900,
           shadows: [
             const Shadow(
@@ -58,15 +63,15 @@ class GlassmorphismTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get defaultTextStyle =>
-      const DynamicTextStyle(color: PuzzleColors.primary9);
+      DynamicTextStyle(color: themePalette.defaultColor);
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: const BoxDecoration(
+            backgroundDecoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('assets/images/glass_background.jpg')),
+              image: AssetImage(themePalette.backgroundImage)),
         ))
       });
 
@@ -98,7 +103,7 @@ class GlassmorphismTheme extends SimpleTheme {
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength))),
           backgroundDecoration:
-              BoxDecoration(color: Colors.white.withOpacity(0.15)),
+              BoxDecoration(color: themePalette.popupMenuColor),
           backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         )
@@ -120,7 +125,7 @@ class GlassmorphismTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: Colors.grey.shade300,
+              color: themePalette.popupMenuUnselectedColor,
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -142,7 +147,7 @@ class GlassmorphismTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: Colors.white,
+              color: themePalette.popupMenuUnselectedColor,
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -164,7 +169,7 @@ class GlassmorphismTheme extends SimpleTheme {
             backdropFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: Colors.white,
+              color: themePalette.tileTextColor,
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -178,7 +183,7 @@ class GlassmorphismTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
               fontSize: 14.toPXLength,
-              color: PuzzleColors.grey5,
+              color: themePalette.popupMenuTitleColor,
               fontWeight: FontWeight.bold,
             ))
       });
@@ -252,7 +257,7 @@ class GlassmorphismTheme extends SimpleTheme {
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(10.toPXLength))),
           backgroundDecoration:
-              BoxDecoration(color: Colors.white.withOpacity(0.9)),
+              BoxDecoration(color: themePalette.popupMenuSliderThumbColor),
           backdropFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
           width: 20.toPXLength,
           height: 20.toPXLength,
@@ -265,7 +270,7 @@ class GlassmorphismTheme extends SimpleTheme {
           width: 88.toPercentLength,
           height: 2.toPXLength,
           backgroundDecoration: BoxDecoration(
-            color: const Color(0xFFFAFAFA).withOpacity(0.25),
+            color: themePalette.popupMenuSliderTrackColor,
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -300,7 +305,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
@@ -329,6 +334,8 @@ class GlassmorphismTheme extends SimpleTheme {
                 color: Colors.black.withOpacity(0.02),
                 offset: const Offset(5, 5)),
           ],
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.tileHoverColor),
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -349,7 +356,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
@@ -366,6 +373,8 @@ class GlassmorphismTheme extends SimpleTheme {
                 color: Colors.black.withOpacity(0.02),
                 offset: const Offset(5, 5)),
           ],
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.tileHoverColor),
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -386,7 +395,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
@@ -403,6 +412,8 @@ class GlassmorphismTheme extends SimpleTheme {
                 color: Colors.black.withOpacity(0.02),
                 offset: const Offset(5, 5)),
           ],
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.tileHoverColor),
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -423,7 +434,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
@@ -438,6 +449,8 @@ class GlassmorphismTheme extends SimpleTheme {
           width: _TileDimension.small,
           height: _TileDimension.small,
           shadows: [],
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.tilePressedColor),
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -453,7 +466,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
@@ -464,6 +477,8 @@ class GlassmorphismTheme extends SimpleTheme {
           width: _TileDimension.medium,
           height: _TileDimension.medium,
           shadows: [],
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.tilePressedColor),
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -479,7 +494,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
@@ -490,6 +505,8 @@ class GlassmorphismTheme extends SimpleTheme {
           width: _TileDimension.large,
           height: _TileDimension.large,
           shadows: [],
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.tilePressedColor),
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
@@ -505,7 +522,7 @@ class GlassmorphismTheme extends SimpleTheme {
             letterSpacing: 0.1.toPXLength,
             fontSize: 28.toPXLength,
             fontWeight: FontWeight.w900,
-            color: Colors.white,
+            color: themePalette.tileTextColor,
             shadows: [
               const Shadow(
                   blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
@@ -518,8 +535,8 @@ class GlassmorphismTheme extends SimpleTheme {
   bool get isLogoColored => false;
 
   @override
-  DynamicTextStyle get menuActiveStyle => const DynamicTextStyle(
-          color: PuzzleColors.white,
+  DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
+          color: themePalette.menuActiveColor,
           fontWeight: FontWeight.bold,
           shadows: [
             Shadow(
@@ -527,52 +544,184 @@ class GlassmorphismTheme extends SimpleTheme {
           ]);
 
   @override
-  Color get menuUnderlineColor => PuzzleColors.white;
+  Color get menuUnderlineColor => themePalette.menuUnderlineColor;
 
   @override
-  DynamicTextStyle get menuInactiveStyle => const DynamicTextStyle(
-      color: PuzzleColors.white2, fontWeight: FontWeight.w200);
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
+      color: themePalette.menuInactiveColor, fontWeight: FontWeight.w200);
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
-}
 
-final _baseStyle = Style(
-    alignment: Alignment.center,
-    childAlignment: Alignment.center,
-    shadows: [
-      ShapeShadow(
-          spreadRadius: 2,
-          blurRadius: 10,
-          color: Colors.black.withOpacity(0.05),
-          offset: const Offset(10, 10)),
-    ],
-    shapeBorder: RectangleShapeBorder(
-        border: DynamicBorderSide(
-            width: 1.8,
-            gradient: LinearGradient(
-                begin: const Alignment(-0.9, -1),
-                end: Alignment.bottomRight,
-                stops: const [0, 0.1],
-                colors: [Colors.white38, Colors.white.withOpacity(0.05)])),
-        borderRadius:
-            DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
-    backgroundDecoration: BoxDecoration(color: Colors.white.withOpacity(0.15)),
-    backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-    textStyle: DynamicTextStyle(
-      letterSpacing: 0.1.toPXLength,
-      fontSize: 28.toPXLength,
-      fontWeight: FontWeight.w900,
-      color: Colors.white,
+  Style get _baseStyle => Style(
+      alignment: Alignment.center,
+      childAlignment: Alignment.center,
       shadows: [
-        const Shadow(blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
+        ShapeShadow(
+            spreadRadius: 2,
+            blurRadius: 10,
+            color: themePalette.kAmbientShadowOpacity,
+            offset: const Offset(10, 10)),
       ],
-    ),
-    mouseCursor: SystemMouseCursors.click);
+      shapeBorder: RectangleShapeBorder(
+          border: DynamicBorderSide(
+              width: 1.8,
+              gradient: LinearGradient(
+                  begin: const Alignment(-0.9, -1),
+                  end: Alignment.bottomRight,
+                  stops: const [0, 0.1],
+                  colors: [Colors.white38, Colors.white.withOpacity(0.05)])),
+          borderRadius:
+              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
+      backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
+      backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      textStyle: DynamicTextStyle(
+        letterSpacing: 0.1.toPXLength,
+        fontSize: 28.toPXLength,
+        fontWeight: FontWeight.w900,
+        color: themePalette.tileTextColor,
+        shadows: [
+          const Shadow(
+              blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
+        ],
+      ),
+      mouseCursor: SystemMouseCursors.click);
+}
 
 abstract class _TileDimension {
   static Dimension small = Dimension.min(60.0.toPXLength, 100.toPercentLength);
   static Dimension medium =
       Dimension.min(100.0.toPXLength, 100.toPercentLength);
   static Dimension large = Dimension.min(112.0.toPXLength, 100.toPercentLength);
+}
+
+abstract class GlassmorphismThemePalette {
+  String get backgroundImage;
+
+  Color get kAmbientShadowOpacity;
+
+  Color get nameColor;
+  Color get titleColor;
+  Color get defaultColor;
+
+  Color get tileTextColor;
+
+  Color get tileColor;
+  Color get tileHoverColor;
+  Color get tilePressedColor;
+
+  Color get menuUnderlineColor;
+  Color get menuInactiveColor;
+  Color get menuActiveColor;
+
+  Color get popupMenuSliderActiveTrackColor;
+  Color get popupMenuSliderTrackColor;
+  Color get popupMenuSliderThumbColor;
+
+  Color get popupMenuTileColor;
+  Color get popupMenuTitleColor;
+
+  Color get popupMenuUnselectedColor;
+
+  Color get popupMenuColor;
+}
+
+class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
+  String get backgroundImage => "assets/images/glass_background_light.jpg";
+
+  Color get nameColor => PuzzleColors.black;
+  Color get titleColor => Colors.black87;
+  Color get defaultColor => Colors.pinkAccent;
+
+  @override
+  Color get kAmbientShadowOpacity =>
+      Colors.black.withOpacity(0.1); // alpha = 0.12
+
+  @override
+  Color get tileTextColor => Colors.black45;
+
+  @override
+  Color get tileColor => Color(0xFFFCFCFC).withOpacity(0.1);
+
+  @override
+  Color get tileHoverColor => Color(0xFFFAFAFA).withOpacity(0.1);
+
+  @override
+  Color get tilePressedColor => Color(0xFFFAFAFA).withOpacity(0.08);
+
+  @override
+  Color get menuUnderlineColor => Colors.black54;
+  @override
+  Color get menuInactiveColor => PuzzleColors.grey1;
+  @override
+  Color get menuActiveColor => Colors.black87;
+
+  @override
+  Color get popupMenuSliderActiveTrackColor => PuzzleColors.grey1;
+  @override
+  Color get popupMenuSliderTrackColor => Colors.grey.shade900.withOpacity(0.5);
+  @override
+  Color get popupMenuSliderThumbColor => PuzzleColors.grey4;
+
+  @override
+  Color get popupMenuTileColor => Colors.white.withOpacity(0.4);
+  @override
+  Color get popupMenuTitleColor => Colors.black87;
+
+  @override
+  Color get popupMenuUnselectedColor => Colors.white;
+
+  @override
+  Color get popupMenuColor => Colors.grey.shade50.withOpacity(0.25);
+}
+
+class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
+  String get backgroundImage => "assets/images/glass_background.jpg";
+
+  Color get nameColor => PuzzleColors.grey5;
+  Color get titleColor => PuzzleColors.white;
+  Color get defaultColor => PuzzleColors.primary9;
+
+  @override
+  Color get kAmbientShadowOpacity =>
+      Colors.black.withOpacity(0.05); // alpha = 0.12
+
+  @override
+  Color get tileTextColor => Colors.white;
+
+  @override
+  Color get tileColor => Colors.grey.shade50.withOpacity(0.1);
+
+  @override
+  Color get tileHoverColor => Colors.grey.shade50.withOpacity(0.07);
+
+  @override
+  Color get tilePressedColor => Colors.grey.shade50.withOpacity(0.04);
+
+  @override
+  Color get menuUnderlineColor => Colors.white;
+  @override
+  Color get menuInactiveColor => PuzzleColors.white2;
+  @override
+  Color get menuActiveColor => Colors.white;
+
+  @override
+  Color get popupMenuSliderActiveTrackColor =>
+      PuzzleColors.grey3.withOpacity(0.9);
+  @override
+  Color get popupMenuSliderTrackColor =>
+      const Color(0xFFFAFAFA).withOpacity(0.25);
+  @override
+  Color get popupMenuSliderThumbColor => Colors.white.withOpacity(0.9);
+
+  @override
+  Color get popupMenuTileColor => Color(0xFF3e3e3e);
+  @override
+  Color get popupMenuTitleColor => PuzzleColors.grey5;
+
+  @override
+  Color get popupMenuUnselectedColor => Colors.white70;
+
+  @override
+  Color get popupMenuColor => Colors.white.withOpacity(0.15);
 }
