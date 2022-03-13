@@ -4,7 +4,6 @@ import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
-import 'package:very_good_slide_puzzle/colors/colors.dart';
 
 /// {@template simple_theme}
 /// The simple puzzle theme.
