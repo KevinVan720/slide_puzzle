@@ -24,14 +24,13 @@ I want to demonstrate the **power** and **expressiveness** of Flutter in this pr
 
 You play the basic version of the slide puzzle game but you can play it in different themes. The puzzle tiles will smoothly animate when you hover or press them. The whole user interface will also animate between different themes.
 
-![Animate between themes](https://i.imgur.com/aZ8UCrG.gif)
 
+![Animate between themes](https://i.imgur.com/aZ8UCrG.gif)
 ##### Animate between themes
 
 You can choose between different difficulty levels and puzzle sizes when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
 
 ![Auto solve the puzzle](https://i.imgur.com/PuYZriI.gif)
-
 ##### Automatically solve the puzzle
 
 ## How we built it ⚒️
@@ -51,7 +50,6 @@ The puzzle solver which is using the iterative deepening A*(IDA*) algorithm also
 The themed_puzzle app is an all-around app that is **fully responsive, cross-platform, multi-language, and supports different input devices** (thanks to the development of Flutter). The animations are smooth and very fun to interact with. I recreated most of the design trends that are popular in recent years, which gives us a sense of how complicated and beautiful an interface Flutter can build. The attention to detail on all the different themes is also worth noting. Every aspect of the UI, including popup menus and sound effects, is customized. There are also light and dark themes for the Material, Cupertino and Neumorphism design.
 
 ![Multi language support](https://i.imgur.com/fyl3tYz.gif)
-
 ##### Multi-language support
 
 ## What we learned 🧠
@@ -82,7 +80,6 @@ The app has been tested on:
 
 
 ![Multiplatform](https://i.imgur.com/MOs7sqo.png)
-
 ##### Running on Android, Windows, and the web
 
 The app should also run on **IOS** and **MacOS** since all dependent packages support those platforms. What I noticed is that the performance on **Safari** and **Firefox** is not very good. 
@@ -90,63 +87,48 @@ The app should also run on **IOS** and **MacOS** since all dependent packages su
 ## Supported Themes 🎨
 
 ![Material](https://i.imgur.com/lpCk6th.png)
-
 ##### Material
 
 ![Material Dark](https://i.imgur.com/QO6yhy0.png)
-
 ##### Material Dark
 
 ![Cupertino](https://i.imgur.com/fROSntM.png)
-
 ##### Cupertino
 
 ![Cupertino Dark](https://i.imgur.com/zC2Vg6D.png)
-
 ##### Cupertino Dark
 
 ![Neumorphism](https://i.imgur.com/IWhlx19.png)
-
 ##### Neumorphism
 
 ![Neumorphism Dark](https://i.imgur.com/J4MTg9M.png)
-
 ##### Neumorphism Dark
 
 ![Glassmorphism](https://i.imgur.com/spEmQkn.png)
-
 ##### Glassmorphism
 
-![Claymorphism Dark](https://i.imgur.com/mh4SAbJ.png)
-
+![Glassmorphism Dark](https://i.imgur.com/5AhmXJh.png)
 ##### Glassmorphism Dark
 
 ![Claymorphism](https://i.imgur.com/mh4SAbJ.png)
-
 ##### Claymorphism
 
 ![Claymorphism Dark](https://i.imgur.com/lVUUeEr.png)
-
 ##### Claymorphism Dark
 
 ![Neon](https://i.imgur.com/inEWVEc.png)
-
 ##### Neon
 
 ![Neon Dark](https://i.imgur.com/rQNofyo.png)
-
 ##### Neon Dark
 
 ![Keyboard](https://i.imgur.com/MoUVBF3.png)
-
 ##### Keyboard
 
 ![Keyboard Dark](https://i.imgur.com/7zI1c9y.png)
-
 ##### Keyboard Dark
 
 ![Wood ](https://i.imgur.com/MbTTp8m.png)
-
 ##### Wood
 
 ## Team members 🧙
