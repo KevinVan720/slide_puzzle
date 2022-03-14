@@ -28,7 +28,7 @@ You play the basic version of the slide puzzle game but you can play it in diffe
 ![Animate between themes](https://i.imgur.com/aZ8UCrG.gif)
 ##### Animate between themes
 
-You can choose between different difficulty levels and puzzle sizes when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
+You can choose between different difficulty levels and puzzle sizes (including non-square sizes) when generating new puzzles. If you got stuck, you can press the solve button and the puzzle will solve for itself.
 
 ![Auto solve the puzzle](https://i.imgur.com/PuYZriI.gif)
 ##### Automatically solve the puzzle
@@ -63,7 +63,7 @@ Since I want this app to support different languages, I learned about how to set
 
 ## What's next for themed_puzzle 🛣️
 
-I want to make the game more enjoyable by adding more features like a timer or introducing different levels. We can also change the size of the puzzle (e.g. 3 by 4) or the size of the tiles (e.g. 2 by 1, 2 by 2 sized tile). We can also create other similar games (like crossword or wordle) while reusing most of the code in this project.
+I want to make the game more enjoyable by adding more features like a timer or introducing different levels. We can also change the size of the tiles (e.g. 2 by 1, 2 by 2 sized tile) or adding obstacles to increase the difficulty. We can also create other similar games (like crossword or wordle) while reusing most of the code in this project.
 
 For the design side of things, I was thinking of adding a theme generator (or configurator) that lets people explore the theme they like the most. I also want to add more animations to make the game more realistic. For example, the tiles can tilt when you hover the mouse around them.
 
@@ -91,6 +91,12 @@ The app should also run on **IOS** and **MacOS** since all dependent packages su
 
 ![Material Dark](https://i.imgur.com/QO6yhy0.png)
 ##### Material Dark
+
+![Fluent](https://i.imgur.com/P6s0YKW.png)
+##### Fluent
+
+![Fluent Dark](https://i.imgur.com/CFUjZT1.png)
+##### Fluent Dark
 
 ![Cupertino](https://i.imgur.com/fROSntM.png)
 ##### Cupertino
