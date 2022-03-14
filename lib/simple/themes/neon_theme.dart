@@ -324,8 +324,32 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-          width: _TileDimension.small,
-          height: _TileDimension.small,
+            height: 80.toPXLength,
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor2,
+                          themePalette.baseColor6
+                        ]),
+                        width: 6),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor4,
+                          themePalette.baseColor8
+                        ]),
+                        width: 12),
+                    left: DynamicBorderSide(
+                        color: themePalette.baseColor1, width: 6),
+                    right:
+                        DynamicBorderSide(color: themePalette.baseColor5, width: 12))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
+        middleScreen: _baseStyle.copyWith(
+          height: 80.toPXLength,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(15.toPXLength)),
@@ -335,33 +359,222 @@ class NeonTheme extends SimpleTheme {
                         themePalette.baseColor2,
                         themePalette.baseColor6
                       ]),
-                      width: 6),
+                      width: 8),
                   bottom: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
                         themePalette.baseColor4,
                         themePalette.baseColor8
                       ]),
-                      width: 12),
+                      width: 16),
                   left: DynamicBorderSide(
-                      color: themePalette.baseColor1, width: 6),
+                      color: themePalette.baseColor1, width: 8),
                   right: DynamicBorderSide(
-                      color: themePalette.baseColor5, width: 12))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 24.toPXLength,
-            fontFamily: "Beon",
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-            shadows: [
-              const Shadow(
-                  blurRadius: 5, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 20, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 1, color: Colors.white70, offset: Offset(0, 0))
-            ],
-          ),
+                      color: themePalette.baseColor5, width: 16))),
         ),
+        largeScreen: _baseStyle.copyWith(
+          height: 80.toPXLength,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(15.toPXLength)),
+              borderSides: RectangleBorderSides.only(
+                  top: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
+                      ]),
+                      width: 10),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
+                      width: 20),
+                  left: DynamicBorderSide(
+                      color: themePalette.baseColor1, width: 10),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 20))),
+        )
+      });
+
+  @override
+  Responsive<Style> get buttonHoverStyle => Responsive({
+        smallScreen: _baseStyle.copyWith(
+            height: 80.toPXLength,
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor2,
+                          themePalette.baseColor6
+                        ]),
+                        width: 5),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor4,
+                          themePalette.baseColor8
+                        ]),
+                        width: 10),
+                    left: DynamicBorderSide(
+                        color: themePalette.baseColor1, width: 5),
+                    right:
+                        DynamicBorderSide(color: themePalette.baseColor5, width: 10))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
+        middleScreen: _baseStyle.copyWith(
+          height: 80.toPXLength,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(15.toPXLength)),
+              borderSides: RectangleBorderSides.only(
+                  top: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
+                      ]),
+                      width: 7),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
+                      width: 14),
+                  left: DynamicBorderSide(
+                      color: themePalette.baseColor1, width: 7),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 14))),
+        ),
+        largeScreen: _baseStyle.copyWith(
+          height: 80.toPXLength,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(15.toPXLength)),
+              borderSides: RectangleBorderSides.only(
+                  top: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
+                      ]),
+                      width: 9),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
+                      width: 18),
+                  left: DynamicBorderSide(
+                      color: themePalette.baseColor1, width: 9),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 18))),
+        )
+      });
+
+  @override
+  Responsive<Style> get buttonPressedStyle => Responsive({
+        smallScreen: _baseStyle.copyWith(
+            height: 80.toPXLength,
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor2,
+                          themePalette.baseColor6
+                        ]),
+                        width: 3),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor4,
+                          themePalette.baseColor8
+                        ]),
+                        width: 6),
+                    left: DynamicBorderSide(
+                        color: themePalette.baseColor1, width: 3),
+                    right:
+                        DynamicBorderSide(color: themePalette.baseColor5, width: 6))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
+        middleScreen: _baseStyle.copyWith(
+          height: 80.toPXLength,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(15.toPXLength)),
+              borderSides: RectangleBorderSides.only(
+                  top: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
+                      ]),
+                      width: 5),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
+                      width: 10),
+                  left: DynamicBorderSide(
+                      color: themePalette.baseColor1, width: 5),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 10))),
+        ),
+        largeScreen: _baseStyle.copyWith(
+          height: 80.toPXLength,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderRadius: DynamicBorderRadius.all(
+                  DynamicRadius.circular(15.toPXLength)),
+              borderSides: RectangleBorderSides.only(
+                  top: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor2,
+                        themePalette.baseColor6
+                      ]),
+                      width: 7),
+                  bottom: DynamicBorderSide(
+                      gradient: LinearGradient(colors: [
+                        themePalette.baseColor4,
+                        themePalette.baseColor8
+                      ]),
+                      width: 14),
+                  left: DynamicBorderSide(
+                      color: themePalette.baseColor1, width: 7),
+                  right: DynamicBorderSide(
+                      color: themePalette.baseColor5, width: 14))),
+        )
+      });
+
+  @override
+  Responsive<Style> get tileStyle => Responsive({
+        smallScreen: _baseStyle.copyWith(
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor2,
+                          themePalette.baseColor6
+                        ]),
+                        width: 6),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor4,
+                          themePalette.baseColor8
+                        ]),
+                        width: 12),
+                    left: DynamicBorderSide(
+                        color: themePalette.baseColor1, width: 6),
+                    right:
+                        DynamicBorderSide(color: themePalette.baseColor5, width: 12))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,
@@ -413,46 +626,31 @@ class NeonTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get hoverStyle => Responsive({
+  Responsive<Style> get tileHoverStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-          width: _TileDimension.small,
-          height: _TileDimension.small,
-          shapeBorder: RoundedRectangleShapeBorder(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(15.toPXLength)),
-              borderSides: RectangleBorderSides.only(
-                  top: DynamicBorderSide(
-                      gradient: LinearGradient(colors: [
-                        themePalette.baseColor2,
-                        themePalette.baseColor6
-                      ]),
-                      width: 5),
-                  bottom: DynamicBorderSide(
-                      gradient: LinearGradient(colors: [
-                        themePalette.baseColor4,
-                        themePalette.baseColor8
-                      ]),
-                      width: 10),
-                  left: DynamicBorderSide(
-                      color: themePalette.baseColor1, width: 5),
-                  right: DynamicBorderSide(
-                      color: themePalette.baseColor5, width: 10))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 24.toPXLength,
-            fontFamily: "Beon",
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
-            ],
-          ),
-        ),
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor2,
+                          themePalette.baseColor6
+                        ]),
+                        width: 5),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor4,
+                          themePalette.baseColor8
+                        ]),
+                        width: 10),
+                    left: DynamicBorderSide(
+                        color: themePalette.baseColor1, width: 5),
+                    right:
+                        DynamicBorderSide(color: themePalette.baseColor5, width: 10))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,
@@ -476,21 +674,6 @@ class NeonTheme extends SimpleTheme {
                       color: themePalette.baseColor1, width: 7),
                   right: DynamicBorderSide(
                       color: themePalette.baseColor5, width: 14))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 30.toPXLength,
-            fontFamily: "Beon",
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
-            ],
-          ),
         ),
         largeScreen: _baseStyle.copyWith(
           width: _TileDimension.large,
@@ -515,65 +698,35 @@ class NeonTheme extends SimpleTheme {
                       color: themePalette.baseColor1, width: 9),
                   right: DynamicBorderSide(
                       color: themePalette.baseColor5, width: 18))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 30.toPXLength,
-            fontFamily: "Beon",
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
-            ],
-          ),
         )
       });
 
   @override
-  Responsive<Style> get pressedStyle => Responsive({
+  Responsive<Style> get tilePressedStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-          width: _TileDimension.small,
-          height: _TileDimension.small,
-          shapeBorder: RoundedRectangleShapeBorder(
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(15.toPXLength)),
-              borderSides: RectangleBorderSides.only(
-                  top: DynamicBorderSide(
-                      gradient: LinearGradient(colors: [
-                        themePalette.baseColor2,
-                        themePalette.baseColor6
-                      ]),
-                      width: 3),
-                  bottom: DynamicBorderSide(
-                      gradient: LinearGradient(colors: [
-                        themePalette.baseColor4,
-                        themePalette.baseColor8
-                      ]),
-                      width: 6),
-                  left: DynamicBorderSide(
-                      color: themePalette.baseColor1, width: 3),
-                  right: DynamicBorderSide(
-                      color: themePalette.baseColor5, width: 6))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 1.toPXLength,
-            fontSize: 24.toPXLength,
-            fontFamily: "Beon",
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-            shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 25, color: Colors.white, offset: Offset(0, 0)),
-              const Shadow(
-                  blurRadius: 5, color: Colors.white70, offset: Offset(0, 0))
-            ],
-          ),
-        ),
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(15.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor2,
+                          themePalette.baseColor6
+                        ]),
+                        width: 3),
+                    bottom: DynamicBorderSide(
+                        gradient: LinearGradient(colors: [
+                          themePalette.baseColor4,
+                          themePalette.baseColor8
+                        ]),
+                        width: 6),
+                    left: DynamicBorderSide(
+                        color: themePalette.baseColor1, width: 3),
+                    right:
+                        DynamicBorderSide(color: themePalette.baseColor5, width: 6))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,

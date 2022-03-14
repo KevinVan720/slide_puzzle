@@ -35,7 +35,8 @@ class PuzzleGamePage extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeBloc(
             initialThemes: [
-              const MaterialTheme(luminance: ThemeLuminance.dark),
+              const MaterialTheme(),
+              const FluentTheme(),
               const CupertinoTheme(),
               const NeumorphicTheme(),
               const GlassmorphismTheme(),
@@ -427,7 +428,7 @@ class PuzzleMenuItem extends StatelessWidget {
           Container(
             //width: 100,
             height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -447,7 +448,7 @@ class PuzzleMenuItem extends StatelessWidget {
           Container(
             //width: 100,
             height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -469,7 +470,7 @@ class PuzzleMenuItem extends StatelessWidget {
       child: (currentSize) {
         final leftPadding =
             themeIndex > 0 && currentSize == ResponsiveLayoutSize.large
-                ? 40.0
+                ? 30.0
                 : 0.0;
 
         return Padding(

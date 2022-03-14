@@ -8,7 +8,8 @@ enum TileMovementStatus { nothingTapped, cannotBeMoved, moved }
 
 class PuzzleState extends Equatable {
   const PuzzleState({
-    this.puzzle = const Puzzle(tiles: [], tilesHistory: []),
+    this.puzzle =
+        const Puzzle(size: PuzzleSize(0, 0), tiles: [], tilesHistory: []),
     this.puzzleStatus = PuzzleStatus.incomplete,
     this.tileMovementStatus = TileMovementStatus.nothingTapped,
     this.numberOfCorrectTiles = 0,

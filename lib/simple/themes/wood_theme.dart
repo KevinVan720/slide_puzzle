@@ -492,7 +492,7 @@ class WoodTheme extends SimpleTheme {
   bool get isPopupMenuSliderThumbContained => false;
 
   @override
-  Responsive<Style> get buttonStyle => Responsive({
+  Responsive<Style> get tileStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,
@@ -639,10 +639,10 @@ class WoodTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get hoverStyle => buttonStyle;
+  Responsive<Style> get tileHoverStyle => tileStyle;
 
   @override
-  Responsive<Style> get pressedStyle => buttonStyle;
+  Responsive<Style> get tilePressedStyle => tileStyle;
 
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(

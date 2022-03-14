@@ -115,7 +115,7 @@ class LocaleSelectList extends StatelessWidget {
 
     ///the puzzle shuffle button gets the same style as the tiles buttons, except for the size and padding.
 
-    List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+    //List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
 
     return Column(
       children: [
@@ -128,7 +128,7 @@ class LocaleSelectList extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(context.l10n.localeControl),
-                  Gap(10),
+                  /*Gap(10),
                   DecoratedIcon(
                     Icons.language,
                     size: 16,
@@ -139,7 +139,7 @@ class LocaleSelectList extends StatelessWidget {
                             offset: e.offset,
                             blurRadius: e.blurRadius))
                         .toList(),
-                  ),
+                  ),*/
                 ],
               ),
             )),

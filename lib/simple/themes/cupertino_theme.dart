@@ -246,7 +246,7 @@ class CupertinoTheme extends SimpleTheme {
   bool get isPopupMenuSliderThumbContained => true;
 
   @override
-  Responsive<Style> get buttonStyle => Responsive({
+  Responsive<Style> get tileStyle => Responsive({
         smallScreen: _buttonStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,
@@ -265,7 +265,7 @@ class CupertinoTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get hoverStyle => Responsive({
+  Responsive<Style> get tileHoverStyle => Responsive({
         smallScreen: _hoverStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,
@@ -284,7 +284,7 @@ class CupertinoTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get pressedStyle => Responsive({
+  Responsive<Style> get tilePressedStyle => Responsive({
         smallScreen: _pressedStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,

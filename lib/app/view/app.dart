@@ -18,6 +18,7 @@ import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
+import 'package:very_good_slide_puzzle/models/models.dart';
 
 class App extends StatefulWidget {
   const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})
@@ -53,8 +54,8 @@ class _AppState extends State<App> {
     'assets/images/glass_background_light.jpg',
     'assets/images/wood_grain.png',
     'assets/images/wood_background.jpg',
-    'assets/images/macos_big_sur.jpg',
-    'assets/images/macos_big_sur_dark.jpg',
+    'assets/images/win11.jpg',
+    'assets/images/win11_dark.jpg',
     'assets/images/Mojave Day.jpg',
     'assets/images/Mojave Night.jpg',
   ];
@@ -109,7 +110,8 @@ class _AppState extends State<App> {
         create: (context) => LocaleBloc(),
       ),
       BlocProvider(
-        create: (_) => GameConfigBloc()..add(const PuzzleSetSize(4)),
+        create: (_) =>
+            GameConfigBloc()..add(const PuzzleSetSize(PuzzleSize(4, 4))),
       )
     ], child: const HomePage());
   }

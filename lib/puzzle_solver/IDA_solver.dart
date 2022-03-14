@@ -14,7 +14,7 @@ class PuzzleSolver {
     ///path records the puzzle and the last tiled tapped
     ///the insertion order is preserved which is important
     Map<Puzzle, Tile> path = {
-      Puzzle(tiles: [...startPuzzle.tiles]): const Tile(
+      Puzzle(size: startPuzzle.size, tiles: [...startPuzzle.tiles]): const Tile(
           value: -1,
           correctPosition: Position(x: -1, y: -1),
           currentPosition: Position(x: -1, y: -1))
@@ -57,7 +57,8 @@ class PuzzleSolver {
     for (int i = 0; i < puzzle.tiles.length; i++) {
       ///Move only the tiles close to the whitespace
       if (puzzle.isTileMovableAndCloseToWhite(puzzle.tiles[i])) {
-        final mutablePuzzle = Puzzle(tiles: List.from(puzzle.tiles));
+        final mutablePuzzle =
+            Puzzle(size: startPuzzle.size, tiles: List.from(puzzle.tiles));
         final p = mutablePuzzle.moveTiles(mutablePuzzle.tiles[i], []);
 
         if (path.containsKey(p) != true) {

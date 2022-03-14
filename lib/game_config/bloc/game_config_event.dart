@@ -13,7 +13,7 @@ abstract class GameConfigEvent extends Equatable {
 class PuzzleSetSize extends GameConfigEvent {
   const PuzzleSetSize(this.puzzleSize);
 
-  final int puzzleSize;
+  final PuzzleSize puzzleSize;
 
   @override
   List<Object> get props => [puzzleSize];

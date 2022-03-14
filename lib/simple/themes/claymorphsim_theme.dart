@@ -345,6 +345,81 @@ class ClaymorphismTheme extends SimpleTheme {
 
   @override
   Responsive<Style> get buttonStyle => Responsive({
+        smallScreen: _buttonStyle,
+        middleScreen: _buttonStyle,
+        largeScreen: _buttonStyle,
+      });
+
+  @override
+  Responsive<Style> get buttonHoverStyle => Responsive({
+        smallScreen: _buttonStyle.copyWith(
+          transform: SmoothMatrix4()..scale(0.97),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: 2,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(2, 2)),
+          ],
+        ),
+        middleScreen: _buttonStyle.copyWith(
+          transform: SmoothMatrix4()..scale(0.97),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: 2,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(2, 2)),
+          ],
+        ),
+        largeScreen: _buttonStyle.copyWith(
+          transform: SmoothMatrix4()..scale(0.97),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 6,
+                spreadRadius: 2,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(2, 2)),
+          ],
+        )
+      });
+
+  @override
+  Responsive<Style> get buttonPressedStyle => Responsive({
+        smallScreen: _buttonStyle.copyWith(
+          transform: SmoothMatrix4()..scale(0.94),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 1,
+                spreadRadius: 0,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(1, 1)),
+          ],
+        ),
+        middleScreen: _buttonStyle.copyWith(
+          transform: SmoothMatrix4()..scale(0.94),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 1,
+                spreadRadius: 0,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(1, 1)),
+          ],
+        ),
+        largeScreen: _buttonStyle.copyWith(
+          transform: SmoothMatrix4()..scale(0.94),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 1,
+                spreadRadius: 0,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(1, 1)),
+          ],
+        )
+      });
+
+  @override
+  Responsive<Style> get tileStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,
@@ -360,7 +435,7 @@ class ClaymorphismTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get hoverStyle => Responsive({
+  Responsive<Style> get tileHoverStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,
@@ -400,7 +475,7 @@ class ClaymorphismTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get pressedStyle => Responsive({
+  Responsive<Style> get tilePressedStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,
@@ -514,6 +589,47 @@ class ClaymorphismTheme extends SimpleTheme {
         }
       }),
       childAlignment: Alignment.center,
+      mouseCursor: SystemMouseCursors.click);
+
+  Style get _buttonStyle => Style(
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+      alignment: Alignment.center,
+      childAlignment: Alignment.center,
+      transformAlignment: Alignment.center,
+      backgroundDecoration: BoxDecoration(color: themePalette.baseColor1),
+      shadows: [
+        ShapeShadow(
+            blurRadius: 10,
+            spreadRadius: 2,
+            color: themePalette.kAmbientShadowOpacity,
+            offset: const Offset(4, 4)),
+      ],
+      insetShadows: [
+        ShapeShadow(
+            blurRadius: 3,
+            color: themePalette.baseColor4,
+            offset: const Offset((3), (3))),
+        ShapeShadow(
+            blurRadius: 2,
+            spreadRadius: 1,
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: const [0, 0.5],
+                colors: [themePalette.baseColor2, themePalette.baseColor3]),
+            offset: const Offset(-3, -3)),
+      ],
+      textStyle: DynamicTextStyle(
+        letterSpacing: 0.1.toPXLength,
+        fontSize: 28.toPXLength,
+        fontFamily: "BalooThambi2",
+        fontWeight: FontWeight.w700,
+        color: themePalette.tileTextColor,
+      ),
+      shapeBorder: RectangleShapeBorder(
+        borderRadius:
+            DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),
+      ),
       mouseCursor: SystemMouseCursors.click);
 }
 

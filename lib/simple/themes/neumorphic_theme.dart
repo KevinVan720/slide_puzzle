@@ -319,7 +319,7 @@ class NeumorphicTheme extends SimpleTheme {
   bool get isPopupMenuSliderThumbContained => true;
 
   @override
-  Responsive<Style> get buttonStyle => Responsive({
+  Responsive<Style> get tileStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,
@@ -353,7 +353,7 @@ class NeumorphicTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get hoverStyle => Responsive({
+  Responsive<Style> get tileHoverStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,
@@ -423,7 +423,7 @@ class NeumorphicTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get pressedStyle => Responsive({
+  Responsive<Style> get tilePressedStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,

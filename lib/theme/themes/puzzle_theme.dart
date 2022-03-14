@@ -78,13 +78,22 @@ abstract class PuzzleTheme extends Equatable {
   bool get isPopupMenuSliderThumbContained;
 
   /// The button style of this theme.
-  Responsive<Style> get buttonStyle;
+  Responsive<Style> get tileStyle;
 
   /// The hover style of this theme.
-  Responsive<Style> get hoverStyle;
+  Responsive<Style> get tileHoverStyle;
 
   /// The pressed style of this theme.
-  Responsive<Style> get pressedStyle;
+  Responsive<Style> get tilePressedStyle;
+
+  /// The button style of this theme.
+  Responsive<Style?> get buttonStyle;
+
+  /// The hover style of this theme.
+  Responsive<Style?> get buttonHoverStyle;
+
+  /// The pressed style of this theme.
+  Responsive<Style?> get buttonPressedStyle;
 
   /// The active menu style.
   DynamicTextStyle get menuActiveStyle;
@@ -118,9 +127,12 @@ abstract class PuzzleTheme extends Equatable {
         boardBackgroundStyle,
         backgroundStyle,
         defaultTextStyle,
+        tileStyle,
+        tileHoverStyle,
+        tilePressedStyle,
         buttonStyle,
-        hoverStyle,
-        pressedStyle,
+        buttonHoverStyle,
+        buttonPressedStyle,
         menuActiveStyle,
         menuUnderlineColor,
         menuInactiveStyle,

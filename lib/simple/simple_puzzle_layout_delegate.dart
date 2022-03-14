@@ -69,7 +69,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   }
 
   @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
+  Widget boardBuilder(PuzzleSize size, List<Widget> tiles) {
     return Column(
       children: [
         const ResponsiveGap(
@@ -219,7 +219,7 @@ class SimplePuzzleBoard extends StatelessWidget {
   }) : super(key: key);
 
   /// The size of the board.
-  final int size;
+  final PuzzleSize size;
 
   /// The tiles to be displayed on the board.
   final List<Widget> tiles;
@@ -231,9 +231,9 @@ class SimplePuzzleBoard extends StatelessWidget {
     double tileGap = theme.tileGapSize.resolve(context) ?? 4;
 
     return SizedBox(
-      width: min(tileSize * size + tileGap * (size + 1),
+      width: min(tileSize * size.width + tileGap * (size.width + 1),
           MediaQuery.of(context).size.width),
-      height: min(tileSize * size + tileGap * (size + 1),
+      height: min(tileSize * size.height + tileGap * (size.height + 1),
           MediaQuery.of(context).size.width),
       child: Stack(
         //clipBehavior: Clip.none,
@@ -313,17 +313,17 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
       child: StyledButton(
         curve: Curves.easeInOut,
         duration: PuzzleThemeAnimationDuration.puzzleTileScale,
-        style: theme.buttonStyle.resolve(context) ?? Style(),
-        hoveredStyle: theme.hoverStyle.resolve(context) ?? Style(),
-        pressedStyle: theme.pressedStyle.resolve(context) ?? Style(),
+        style: theme.tileStyle.resolve(context) ?? Style(),
+        hoveredStyle: theme.tileHoverStyle.resolve(context) ?? Style(),
+        pressedStyle: theme.tilePressedStyle.resolve(context) ?? Style(),
         onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete
             ? () async {
                 if (AudioPlayerExtension.isPlatformSupported) {
-                    final duration = await _audioPlayer?.setAsset(
-                      theme.tilePressSoundAsset,
-                    );
-                    unawaited(_audioPlayer?.replay());
-                  }
+                  final duration = await _audioPlayer?.setAsset(
+                    theme.tilePressSoundAsset,
+                  );
+                  unawaited(_audioPlayer?.replay());
+                }
 
                 context.read<PuzzleBloc>().add(TileTapped(widget.tile));
               }
@@ -341,15 +341,15 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
 
     return AnimatedAlign(
       alignment: FractionalOffset(
-        (widget.tile.currentPosition.x - 1) / (size - 1),
-        (widget.tile.currentPosition.y - 1) / (size - 1),
+        (widget.tile.currentPosition.x - 1) / (size.width - 1),
+        (widget.tile.currentPosition.y - 1) / (size.height - 1),
       ),
       duration: theme.tileMoveAnimationDuration,
       curve: theme.tileMoveAnimationCurve,
       child: ConstrainedBox(
           constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width / size,
-              maxHeight: MediaQuery.of(context).size.width / size),
+              maxWidth: MediaQuery.of(context).size.width / size.width,
+              maxHeight: MediaQuery.of(context).size.width / size.height),
           child: SizedBox.square(
             dimension: tileSize,
             child: _tile,

@@ -11,6 +11,7 @@ import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/puzzle/bloc/puzzle_bloc.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/models/models.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -251,9 +252,15 @@ class SettingsControl extends StatelessWidget {
               style: theme.popupMenuTitleStyle.resolve(context)!,
               child: Text(context.l10n.sizeControl)),
           const Gap(2),
-          const SimplePuzzleSizeSelectButton(size: 3),
-          const SimplePuzzleSizeSelectButton(size: 4),
-          const SimplePuzzleSizeSelectButton(size: 5),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(3, 3)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(4, 4)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(5, 5)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(3, 4)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(3, 5)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(4, 3)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(4, 5)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(5, 3)),
+          const SimplePuzzleSizeSelectButton(size: PuzzleSize(5, 4)),
         ],
       ),
     );
@@ -347,7 +354,6 @@ class SettingsControl extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildAudioControl(context),
-          _buildLocaleControl(context),
           Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,6 +365,7 @@ class SettingsControl extends StatelessWidget {
               Expanded(
                   child: Column(
                 children: [
+                  _buildLocaleControl(context),
                   _buildDifficultyControl(context),
                   _buildBrightnessControl(context)
                 ],

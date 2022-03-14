@@ -35,7 +35,7 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     List<Shadow>? _textShadow =
-        theme.buttonStyle.resolve(context)?.textStyle?.shadows;
+        theme.tileStyle.resolve(context)?.textStyle?.shadows;
 
     return PuzzleButton(onPressed: () {
       context.read<PuzzleBloc>().add(const PuzzleReset(null));
@@ -96,7 +96,7 @@ class SimplePuzzleSizeSelectButton extends StatelessWidget {
   const SimplePuzzleSizeSelectButton({Key? key, required this.size})
       : super(key: key);
 
-  final int size;
+  final PuzzleSize size;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,7 @@ class SimplePuzzleSizeSelectButton extends StatelessWidget {
               context.read<GameConfigBloc>().add(PuzzleSetSize(size));
             },
       child: Text(
-        size.toString() + "×" + size.toString(),
+        size.width.toString() + " × " + size.height.toString(),
       ),
     );
   }
@@ -171,11 +171,16 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     List<Shadow>? _textShadow =
-        theme.buttonStyle.resolve(context)?.textStyle?.shadows;
+        theme.tileStyle.resolve(context)?.textStyle?.shadows;
 
     return state.puzzle.isComplete()
         ? PuzzleAnimatedContainer(
-            style: theme.buttonStyle.resolve(context) ?? Style(),
+            style: theme.buttonStyle.resolve(context) ??
+                (theme.tileStyle.resolve(context) ?? Style()
+                  ..width = null
+                  ..height = null
+                  ..padding =
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 5)),
             child: _solvedRow(_textShadow),
           )
         : FutureBuilder<void>(
@@ -213,18 +218,33 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
               Widget row;
 
               if (snapshot.hasError) {
-                style = theme.buttonStyle.resolve(context);
+                style = theme.buttonStyle.resolve(context) ??
+                    (theme.tileStyle.resolve(context) ?? Style()
+                      ..width = null
+                      ..height = null
+                      ..padding = const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 5));
                 row = _noSolutionRow(_textShadow);
               } else if (snapshot.hasData) {
-                style = theme.buttonStyle.resolve(context);
+                style = theme.buttonStyle.resolve(context) ??
+                    (theme.tileStyle.resolve(context) ?? Style()
+                      ..width = null
+                      ..height = null
+                      ..padding = const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 5));
                 row = _solvedRow(_textShadow);
               } else {
-                style = theme.pressedStyle.resolve(context);
+                style = theme.buttonPressedStyle.resolve(context) ??
+                    (theme.tilePressedStyle.resolve(context) ?? Style()
+                      ..width = null
+                      ..height = null
+                      ..padding = const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 5));
                 row = _solvingRow();
               }
 
               return PuzzleAnimatedContainer(
-                style: style ?? Style(),
+                style: style,
                 child: row,
               );
             });
@@ -257,7 +277,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
 
     if (history.length > relaxMoves) {
       int rewindMoves = history.length - relaxMoves;
-      puzzle = Puzzle(tiles: history[rewindMoves - 1]);
+      puzzle = Puzzle(size: puzzle.size, tiles: history[rewindMoves - 1]);
     }
 
     context.read<PuzzleBloc>().add(const PuzzleAutoSolvingUpdate(true));
@@ -287,7 +307,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
 
                 context
                     .read<PuzzleBloc>()
-                    .add(PuzzleReset(Puzzle(tiles: tiles)));
+                    .add(PuzzleReset(Puzzle(size: puzzle.size, tiles: tiles)));
               }));
     });
 

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:very_good_slide_puzzle/models/models.dart';
 
 part 'game_config_event.dart';
 part 'game_config_state.dart';

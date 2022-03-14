@@ -5,6 +5,17 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 
+class PuzzleSize extends Equatable {
+  const PuzzleSize(this.width, this.height);
+
+  /// List of [Tile]s representing the puzzle's current arrangement.
+  final int width;
+  final int height;
+
+  @override
+  List<Object> get props => [width, height];
+}
+
 // A 3x3 puzzle board visualization:
 //
 //   ┌─────1───────2───────3────► x
@@ -35,7 +46,10 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 /// {@endtemplate}
 class Puzzle extends Equatable {
   /// {@macro puzzle}
-  const Puzzle({required this.tiles, this.tilesHistory = const []});
+  const Puzzle(
+      {required this.size, required this.tiles, this.tilesHistory = const []});
+
+  final PuzzleSize size;
 
   /// List of [Tile]s representing the puzzle's current arrangement.
   final List<Tile> tiles;
@@ -46,8 +60,8 @@ class Puzzle extends Equatable {
   /// Get the dimension of a puzzle given its tile arrangement.
   ///
   /// Ex: A 4x4 puzzle has a dimension of 4.
-  int getDimension() {
-    return sqrt(tiles.length).toInt();
+  PuzzleSize getDimension() {
+    return size;
   }
 
   /// Gets the single whitespace tile object in the puzzle.
@@ -104,7 +118,7 @@ class Puzzle extends Equatable {
   }
 
   /// Determines if the tapped tile can move in the direction of the whitespace
-  /// tile.
+  /// tile and is close to a whitespace tile
   bool isTileMovableAndCloseToWhite(Tile tile) {
     final whitespaceTile = getWhitespaceTile();
     if (tile == whitespaceTile) {
@@ -128,18 +142,19 @@ class Puzzle extends Equatable {
     }
     return false;
   }
-
+  /*
   /// Determines if the puzzle is solvable.
   bool isSolvable() {
     final size = getDimension();
-    final height = tiles.length ~/ size;
+    final width = size.width;
+    final height = size.height;
     assert(
-      size * height == tiles.length,
+      width * height == tiles.length,
       'tiles must be equal to size * height',
     );
     final inversions = countInversions();
 
-    if (size.isOdd) {
+    if (height.isOdd) {
       return inversions.isEven;
     }
 
@@ -186,6 +201,7 @@ class Puzzle extends Equatable {
     }
     return false;
   }
+  */
 
   /// Shifts one or many tiles in a row/column with the whitespace and returns
   /// the modified puzzle.
@@ -233,7 +249,9 @@ class Puzzle extends Equatable {
     }
 
     return Puzzle(
-        tiles: [...tiles], tilesHistory: tilesHistory + [currentTiles]);
+        size: size,
+        tiles: [...tiles],
+        tilesHistory: tilesHistory + [currentTiles]);
   }
 
   /// Sorts puzzle tiles so they are in order of their current position.
@@ -242,7 +260,7 @@ class Puzzle extends Equatable {
       ..sort((tileA, tileB) {
         return tileA.currentPosition.compareTo(tileB.currentPosition);
       });
-    return Puzzle(tiles: sortedTiles, tilesHistory: tilesHistory);
+    return Puzzle(size: size, tiles: sortedTiles, tilesHistory: tilesHistory);
   }
 
   ///Print the puzzle in the console like a matrix
@@ -259,7 +277,7 @@ class Puzzle extends Equatable {
       } else {
         s += "|" + sortedTiles[i].value.toString().padLeft(2);
       }
-      if (i % getDimension() == (getDimension() - 1)) {
+      if (i % getDimension().width == (getDimension().width - 1)) {
         print(s + "|");
         s = "";
       }

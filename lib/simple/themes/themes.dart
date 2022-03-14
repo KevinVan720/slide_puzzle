@@ -7,3 +7,4 @@ export 'glassmorphsim_theme.dart';
 export 'claymorphsim_theme.dart';
 export 'keyboard_theme.dart';
 export 'wood_theme.dart';
+export 'fluent_theme.dart';

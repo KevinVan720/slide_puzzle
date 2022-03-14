@@ -6,18 +6,20 @@ enum PuzzleDifficulty { easy, hard }
 
 class GameConfigState extends Equatable {
   const GameConfigState({
-    this.puzzleSize = 4,
+    this.puzzleSize = const PuzzleSize(4, 4),
     this.puzzleDifficulty = PuzzleDifficulty.hard,
-  }) : assert(puzzleSize <= 5 && puzzleSize >= 2);
+
+    ///TODO: cant make too big or too small puzzles
+  }) : assert(true);
 
   /// The size of the puzzle
-  final int puzzleSize;
+  final PuzzleSize puzzleSize;
 
   /// The difficulty of the puzzle.
   final PuzzleDifficulty puzzleDifficulty;
 
   GameConfigState copyWith({
-    int? puzzleSize,
+    PuzzleSize? puzzleSize,
     PuzzleDifficulty? puzzleDifficulty,
   }) {
     return GameConfigState(

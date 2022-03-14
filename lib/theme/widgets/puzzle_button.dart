@@ -63,18 +63,21 @@ class _PuzzleButtonState extends State<PuzzleButton> {
     var theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     ///the puzzle shuffle button gets the same style as the tiles buttons, except for the size and padding.
-    Style buttonStyle = theme.buttonStyle.resolve(context) ?? Style()
-      ..width = null
-      ..height = null
-      ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5);
-    Style hoverStyle = theme.hoverStyle.resolve(context) ?? Style()
-      ..width = null
-      ..height = null
-      ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5);
-    Style pressedStyle = theme.pressedStyle.resolve(context) ?? Style()
-      ..width = null
-      ..height = null
-      ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5);
+    Style buttonStyle = theme.buttonStyle.resolve(context) ??
+        (theme.tileStyle.resolve(context) ?? Style()
+          ..width = null
+          ..height = null
+          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+    Style hoverStyle = theme.buttonHoverStyle.resolve(context) ??
+        (theme.tileHoverStyle.resolve(context) ?? Style()
+          ..width = null
+          ..height = null
+          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+    Style pressedStyle = theme.buttonPressedStyle.resolve(context) ??
+        (theme.tilePressedStyle.resolve(context) ?? Style()
+          ..width = null
+          ..height = null
+          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 160),
@@ -89,12 +92,12 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               onPressed: widget.onPressed == null
                   ? null
                   : () async {
-                if (AudioPlayerExtension.isPlatformSupported) {
-                  final duration = await _audioPlayer?.setAsset(
-                    theme.tilePressSoundAsset,
-                  );
-                  unawaited(_audioPlayer?.replay());
-                }
+                      if (AudioPlayerExtension.isPlatformSupported) {
+                        final duration = await _audioPlayer?.setAsset(
+                          theme.tilePressSoundAsset,
+                        );
+                        unawaited(_audioPlayer?.replay());
+                      }
                       widget.onPressed!();
                     },
               child: Builder(
@@ -123,15 +126,11 @@ class PuzzleAnimatedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///the puzzle shuffle button gets the same style as the tiles buttons, except for the size and padding.
-    Style _style = style
-      ..width = null
-      ..height = null
-      ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5);
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 160),
       child: AnimatedStyledContainer(
-          style: _style,
+          style: style,
           curve: Curves.easeInOut,
           duration: PuzzleThemeAnimationDuration.puzzleTileScale,
           child: Builder(

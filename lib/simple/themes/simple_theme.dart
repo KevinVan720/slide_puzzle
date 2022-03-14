@@ -53,6 +53,15 @@ abstract class SimpleTheme extends PuzzleTheme {
   Responsive<Style> get popupMenuStyle => Responsive({allScreen: Style()});
 
   @override
+  Responsive<Style?> get buttonStyle => Responsive({allScreen: null});
+
+  @override
+  Responsive<Style?> get buttonHoverStyle => Responsive({allScreen: null});
+
+  @override
+  Responsive<Style?> get buttonPressedStyle => Responsive({allScreen: null});
+
+  @override
   Responsive<Style> get popupMenuTileStyle => Responsive({allScreen: Style()});
 
   @override

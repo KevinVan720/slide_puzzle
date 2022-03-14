@@ -191,27 +191,28 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuSliderThumbStyle => Responsive({
         allScreen: Style(
-            shapeBorder: const CircleShapeBorder(),
-            backgroundDecoration: BoxDecoration(
-              color: themePalette.popupMenuSliderThumbColor,
-            ),
-            width: 20.toPXLength,
-            height: 20.toPXLength,
-            shadows: [
-              ShapeShadow(
-                  offset: const Offset(0.0, 3.0),
-                  blurRadius: 1.0,
-                  spreadRadius: -2.0,
-                  color: themePalette.kKeyUmbraOpacity),
-              ShapeShadow(
-                  offset: const Offset(0.0, 2.0),
-                  blurRadius: 2.0,
-                  color: themePalette.kKeyPenumbraOpacity),
-              ShapeShadow(
-                  offset: const Offset(0.0, 1.0),
-                  blurRadius: 5.0,
-                  color: themePalette.kAmbientShadowOpacity),
-            ])
+          shapeBorder: const CircleShapeBorder(),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuSliderThumbColor,
+          ),
+          width: 20.toPXLength,
+          height: 20.toPXLength,
+          shadows: [
+            ShapeShadow(
+                offset: const Offset(0.0, 3.0),
+                blurRadius: 1.0,
+                spreadRadius: -2.0,
+                color: themePalette.kKeyUmbraOpacity),
+            ShapeShadow(
+                offset: const Offset(0.0, 2.0),
+                blurRadius: 2.0,
+                color: themePalette.kKeyPenumbraOpacity),
+            ShapeShadow(
+                offset: const Offset(0.0, 1.0),
+                blurRadius: 5.0,
+                color: themePalette.kAmbientShadowOpacity),
+          ],
+        )
       });
 
   @override
@@ -247,7 +248,7 @@ class MaterialTheme extends SimpleTheme {
   bool get isPopupMenuSliderThumbContained => false;
 
   @override
-  Responsive<Style> get buttonStyle => Responsive({
+  Responsive<Style> get tileStyle => Responsive({
         smallScreen: _buttonStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,
@@ -266,7 +267,7 @@ class MaterialTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get hoverStyle => Responsive({
+  Responsive<Style> get tileHoverStyle => Responsive({
         smallScreen: _hoverStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,
@@ -285,7 +286,7 @@ class MaterialTheme extends SimpleTheme {
       });
 
   @override
-  Responsive<Style> get pressedStyle => Responsive({
+  Responsive<Style> get tilePressedStyle => Responsive({
         smallScreen: _pressedStyle.copyWith(
             width: _TileDimension.small,
             height: _TileDimension.small,
@@ -299,6 +300,201 @@ class MaterialTheme extends SimpleTheme {
         largeScreen: _pressedStyle.copyWith(
             width: _TileDimension.large,
             height: _TileDimension.large,
+            textStyle: _pressedStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.large)),
+      });
+
+  @override
+  Responsive<Style?> get buttonStyle => Responsive({
+        smallScreen: _buttonStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            textStyle: _buttonStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.small)),
+        middleScreen: _buttonStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            textStyle: _buttonStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.medium)),
+        largeScreen: _buttonStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            textStyle: _buttonStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.large)),
+      });
+
+  @override
+  Responsive<Style?> get buttonHoverStyle => Responsive({
+        smallScreen: _hoverStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            transform: SmoothMatrix4()..scale(1),
+            textStyle: _hoverStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.small)),
+        middleScreen: _hoverStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            transform: SmoothMatrix4()..scale(1),
+            textStyle: _hoverStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.medium)),
+        largeScreen: _hoverStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            transform: SmoothMatrix4()..scale(1),
+            textStyle: _hoverStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.large)),
+      });
+
+  @override
+  Responsive<Style?> get buttonPressedStyle => Responsive({
+        smallScreen: _pressedStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            backgroundDecoration:
+                BoxDecoration(color: themePalette.tilePressedColor),
+            transform: SmoothMatrix4()..scale(1),
+            textStyle: _pressedStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.small)),
+        middleScreen: _pressedStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            backgroundDecoration:
+                BoxDecoration(color: themePalette.tilePressedColor),
+            transform: SmoothMatrix4()..scale(1),
+            textStyle: _pressedStyle.textStyle
+                ?.copyWith(fontSize: _TileTextDimension.medium)),
+        largeScreen: _pressedStyle.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+            shadows: [
+              ShapeShadow(
+                  offset: const Offset(0.0, 3.0),
+                  blurRadius: 1.0,
+                  spreadRadius: -2.0,
+                  color: themePalette.kKeyUmbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 2.0),
+                  blurRadius: 2.0,
+                  color: themePalette.kKeyPenumbraOpacity),
+              ShapeShadow(
+                  offset: const Offset(0.0, 1.0),
+                  blurRadius: 5.0,
+                  color: themePalette.kAmbientShadowOpacity),
+            ],
+            backgroundDecoration:
+                BoxDecoration(color: themePalette.tilePressedColor),
+            transform: SmoothMatrix4()..scale(1),
             textStyle: _pressedStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.large)),
       });

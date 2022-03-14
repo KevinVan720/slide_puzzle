@@ -31,7 +31,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   late final StreamSubscription gameConfigStreamSubscription;
 
-  int _size = 4;
+  PuzzleSize _size = PuzzleSize(4, 4);
 
   PuzzleDifficulty _difficulty = PuzzleDifficulty.hard;
 
@@ -59,6 +59,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
       if (state.puzzle.isTileMovable(tappedTile)) {
         final mutablePuzzle = Puzzle(
+            size: _size,
             tiles: [...state.puzzle.tiles],
             tilesHistory: [...state.puzzle.tilesHistory]);
         final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
@@ -132,15 +133,15 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   /// Build a randomized, solvable puzzle of the given size.
-  Puzzle _generatePuzzle(int size, {bool shuffle = true}) {
+  Puzzle _generatePuzzle(PuzzleSize size, {bool shuffle = true}) {
     final correctPositions = <Position>[];
     final currentPositions = <Position>[];
-    final whitespacePosition = Position(x: size, y: size);
+    final whitespacePosition = Position(x: size.width, y: size.height);
 
     // Create all possible board positions.
-    for (var y = 1; y <= size; y++) {
-      for (var x = 1; x <= size; x++) {
-        if (x == size && y == size) {
+    for (var y = 1; y <= size.height; y++) {
+      for (var x = 1; x <= size.width; x++) {
+        if (x == size.width && y == size.height) {
           correctPositions.add(whitespacePosition);
           currentPositions.add(whitespacePosition);
         } else {
@@ -157,14 +158,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       currentPositions,
     );
 
-    var puzzle = Puzzle(tiles: tiles, tilesHistory: const []);
+    var puzzle = Puzzle(size: size, tiles: tiles, tilesHistory: const []);
 
     int correctTile;
 
     ///hard coded difficulty settings
     switch (_difficulty) {
       case PuzzleDifficulty.easy:
-        correctTile = (size*size/3.0).round();
+        correctTile = (size.width * size.height / 3.0).round();
         break;
       case PuzzleDifficulty.hard:
         correctTile = 0;
@@ -174,13 +175,16 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     }
 
     if (shuffle) {
-      // Assign the tiles new current positions until the puzzle is solvable
-      while (!puzzle.isSolvable() ||
+      /// Assign the tiles new current positions until the puzzle is solvable
+      ///We are just moving tiles, the puzzle will always be solvable
+      while (//!puzzle.isSolvable() ||
           puzzle.getNumberOfCorrectTiles() > correctTile) {
         final mutablePuzzle = Puzzle(
-            tiles: [...puzzle.tiles], tilesHistory: [...puzzle.tilesHistory]);
+            size: size,
+            tiles: [...puzzle.tiles],
+            tilesHistory: [...puzzle.tilesHistory]);
 
-        int id = random.nextInt(_size * _size);
+        int id = random.nextInt(size.width * size.height);
 
         if (puzzle.isTileMovable(puzzle.tiles[id])) {
           puzzle = mutablePuzzle.moveTiles(puzzle.tiles[id], []);
@@ -194,14 +198,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   /// Build a list of tiles - giving each tile their correct position and a
   /// current position.
   List<Tile> _getTileListFromPositions(
-    int size,
+    PuzzleSize size,
     List<Position> correctPositions,
     List<Position> currentPositions,
   ) {
-    final whitespacePosition = Position(x: size, y: size);
+    final whitespacePosition = Position(x: size.width, y: size.height);
     return [
-      for (int i = 1; i <= size * size; i++)
-        if (i == size * size)
+      for (int i = 1; i <= size.width * size.height; i++)
+        if (i == size.width * size.height)
           Tile(
             value: i,
             correctPosition: whitespacePosition,
