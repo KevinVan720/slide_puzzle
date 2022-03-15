@@ -48,12 +48,16 @@ class FluentTheme extends SimpleTheme {
       DynamicTextStyle(color: themePalette.nameColor);
 
   @override
-  DynamicTextStyle get titleTextStyle =>
-      DynamicTextStyle(color: themePalette.titleColor);
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+        color: themePalette.titleColor,
+        fontFamily: "Segoe UI",
+      );
 
   @override
-  DynamicTextStyle get defaultTextStyle =>
-      DynamicTextStyle(color: themePalette.defaultColor);
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+        color: themePalette.defaultColor,
+        fontFamily: "Segoe UI",
+      );
 
   @override
   Responsive<Style> get backgroundStyle => Responsive({
@@ -100,6 +104,7 @@ class FluentTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 15.toPXLength,
+              fontFamily: "Segoe UI",
               color: themePalette.popupMenuUnselectedColor,
             ),
             textAlign: TextAlign.center,
@@ -118,6 +123,7 @@ class FluentTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 15.toPXLength,
+              fontFamily: "Segoe UI",
               color: themePalette.popupMenuUnselectedColor,
             ),
             textAlign: TextAlign.center,
@@ -136,6 +142,7 @@ class FluentTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
                 fontSize: 15.toPXLength,
+                fontFamily: "Segoe UI",
                 color: themePalette.tileTextPressedColor,
                 fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
@@ -149,6 +156,7 @@ class FluentTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
               fontSize: 15.toPXLength,
+              fontFamily: "Segoe UI",
               color: themePalette.popupMenuTitleColor,
             ))
       });
@@ -355,14 +363,19 @@ class FluentTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
-      color: themePalette.menuActiveColor, fontWeight: FontWeight.w800);
+        color: themePalette.menuActiveColor,
+        fontWeight: FontWeight.w700,
+        fontFamily: "Segoe UI",
+      );
 
   @override
   Color get menuUnderlineColor => themePalette.menuUnderlineColor;
 
   @override
-  DynamicTextStyle get menuInactiveStyle =>
-      DynamicTextStyle(color: themePalette.menuInactiveColor);
+  DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
+        color: themePalette.menuInactiveColor,
+        fontFamily: "Segoe UI",
+      );
 
   @override
   String get tilePressSoundAsset => "assets/audio/material_click.mp3";
@@ -379,6 +392,7 @@ class FluentTheme extends SimpleTheme {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
         textStyle: DynamicTextStyle(
+          fontFamily: "Segoe UI",
           fontSize: 24.toPXLength,
           color: themePalette.buttonTextColor,
         ),
@@ -403,6 +417,7 @@ class FluentTheme extends SimpleTheme {
           letterSpacing: 1.toPXLength,
           fontSize: 24.toPXLength,
           fontWeight: FontWeight.w700,
+          fontFamily: "Segoe UI",
           color: themePalette.tileTextColor,
         ),
         shapeBorder: RectangleShapeBorder(
@@ -411,7 +426,7 @@ class FluentTheme extends SimpleTheme {
               width: 0.1,
             ),
             borderRadius: DynamicBorderRadius.all(
-                DynamicRadius.circular(Length(0, unit: LengthUnit.px)))),
+                DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
         backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       );
@@ -421,6 +436,7 @@ class FluentTheme extends SimpleTheme {
           letterSpacing: 1.toPXLength,
           fontSize: 24.toPXLength,
           fontWeight: FontWeight.w700,
+          fontFamily: "Segoe UI",
           color: themePalette.tileTextHoverColor,
         ),
         shapeBorder: RectangleShapeBorder(
@@ -429,7 +445,7 @@ class FluentTheme extends SimpleTheme {
               color: themePalette.kAmbientShadowOpacity,
             ),
             borderRadius: DynamicBorderRadius.all(
-                DynamicRadius.circular(Length(0, unit: LengthUnit.px)))),
+                DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         shadows: [
           ShapeShadow(
               offset: const Offset(4.0, 0.0),
@@ -461,6 +477,7 @@ class FluentTheme extends SimpleTheme {
           letterSpacing: 1.toPXLength,
           fontSize: 24.toPXLength,
           fontWeight: FontWeight.w700,
+          fontFamily: "Segoe UI",
           color: themePalette.tileTextPressedColor,
         ),
         shapeBorder: RectangleShapeBorder(
@@ -469,7 +486,7 @@ class FluentTheme extends SimpleTheme {
               color: themePalette.kAmbientShadowOpacity,
             ),
             borderRadius: DynamicBorderRadius.all(
-                DynamicRadius.circular(Length(0, unit: LengthUnit.px)))),
+                DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         shadows: [
           ShapeShadow(
               offset: const Offset(5.0, 0.0),
@@ -579,11 +596,11 @@ class FluentThemePaletteLight extends FluentThemePalette {
   @override
   Color get buttonTextColor => Colors.black;
   @override
-  Color get buttonColor => Color(0xFF0055AD);
+  Color get buttonColor => Color(0xFF0073CF);
   @override
-  Color get buttonHoverColor => Color(0xFF0073CF);
+  Color get buttonHoverColor => Color(0xFF3B97DF);
   @override
-  Color get buttonPressedColor => Color(0xff00459D);
+  Color get buttonPressedColor => Color(0xFF0055AD);
 
   @override
   Color get menuUnderlineColor => Colors.transparent;
@@ -624,7 +641,7 @@ class FluentThemePaletteDark extends FluentThemePalette {
   Color get defaultColor => Color(0xFFCC4D11);
 
   @override
-  Color get kAmbientShadowOpacity => Colors.black87;
+  Color get kAmbientShadowOpacity => Colors.black54;
   @override
   Color get tileTextColor => Colors.grey.shade200.withOpacity(0.9);
   @override
@@ -633,14 +650,14 @@ class FluentThemePaletteDark extends FluentThemePalette {
   Color get tileTextPressedColor => Colors.grey.shade200.withOpacity(0.9);
 
   @override
-  Color get tileColor => Colors.black.withOpacity(0.5);
+  Color get tileColor => Colors.black.withOpacity(0.4);
   @override
-  Color get tileHoverColor => Colors.black.withOpacity(0.5);
+  Color get tileHoverColor => Colors.black.withOpacity(0.4);
   @override
-  Color get tilePressedColor => Colors.black.withOpacity(0.5);
+  Color get tilePressedColor => Colors.black.withOpacity(0.4);
 
   @override
-  Color get buttonTextColor => Colors.white70;
+  Color get buttonTextColor => Colors.white.withOpacity(0.9);
   @override
   Color get buttonColor => Color(0xFF0055AD);
   @override

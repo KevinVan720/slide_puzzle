@@ -83,7 +83,9 @@ flutter:
     - family: Night-Club-70s
       fonts:
         - asset: assets/fonts/Night-Club-70s/Night-Club-70s-Bold.ttf
+          weight: 400
         - asset: assets/fonts/Night-Club-70s/Night-Club-70s-Regular.ttf
+          weight: 700
 
     - family: Pacifico-Regular
       fonts:
@@ -91,3 +93,9 @@ flutter:
     - family: DSZierschrift
       fonts:
         - asset: assets/fonts/DSZierschrift.ttf
+    - family: Segoe UI
+      fonts:
+        - asset: assets/fonts/Segoe UI.ttf
+          weight: 400
+        - asset: assets/fonts/Segoe UI Bold.ttf
+          weight: 700

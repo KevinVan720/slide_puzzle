@@ -53,7 +53,9 @@ class CupertinoTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-      color: Color(0xFFFFBD44), fontFamily: "SF-Pro-Text");
+      color: Color(0xFFFFBD44),
+      fontFamily: "SF-Pro-Text",
+      fontWeight: FontWeight.bold);
 
   @override
   DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
