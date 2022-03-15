@@ -165,7 +165,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     ///hard coded difficulty settings
     switch (_difficulty) {
       case PuzzleDifficulty.easy:
-        correctTile = (size.width * size.height / 3.0).round();
+        correctTile = (size.width * size.height * 2.0 / 4.0).round();
+        break;
+      case PuzzleDifficulty.medium:
+        correctTile = (size.width * size.height * 1.0 / 4.0).round();
         break;
       case PuzzleDifficulty.hard:
         correctTile = 0;

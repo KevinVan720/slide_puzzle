@@ -285,6 +285,8 @@ class SettingsControl extends StatelessWidget {
             const SimplePuzzleDifficultySelectButton(
                 difficulty: PuzzleDifficulty.easy),
             const SimplePuzzleDifficultySelectButton(
+                difficulty: PuzzleDifficulty.medium),
+            const SimplePuzzleDifficultySelectButton(
                 difficulty: PuzzleDifficulty.hard),
           ],
         ));

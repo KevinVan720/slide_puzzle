@@ -24,6 +24,10 @@
     "@puzzleDifficultyEasy": {
         "description": "Easy difficulty"
     },
+    "puzzleDifficultyMedium": "Medium",
+    "@puzzleDifficultyMedium": {
+        "description": "Medium difficulty"
+    },
     "puzzleDifficultyHard": "Hard",
     "@puzzleDifficultyHard": {
         "description": "Hard difficulty"

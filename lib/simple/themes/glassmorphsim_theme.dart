@@ -69,11 +69,13 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(themePalette.backgroundImage)),
-        ))
+            backdropFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+            backgroundDecoration:
+                BoxDecoration(gradient: themePalette.backgroundGradient
+                    //image: DecorationImage(
+                    //    fit: BoxFit.cover,
+                    //    image: AssetImage(themePalette.backgroundImage)),
+                    ))
       });
 
   @override
@@ -594,7 +596,7 @@ abstract class _TileDimension {
 }
 
 abstract class GlassmorphismThemePalette {
-  String get backgroundImage;
+  Gradient get backgroundGradient;
 
   Color get kAmbientShadowOpacity;
 
@@ -625,8 +627,26 @@ abstract class GlassmorphismThemePalette {
 }
 
 class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
-  @override
-  String get backgroundImage => "assets/images/glass_background_light.jpg";
+  Gradient get backgroundGradient => SweepGradient(
+          center: Alignment(0.13, 0.1),
+          startAngle: 0.5,
+          endAngle: 6.3,
+          colors: [
+            Color(0xFFF6EA41),
+            Color(0xFFEEBD89),
+            Color(0xFFD13ABD),
+            Color(0xFFAEBAF8),
+            Color(0xFFB60F46),
+            Color(0xFFF6EA41),
+          ],
+          stops: [
+            0.01,
+            0.2,
+            0.5,
+            0.7,
+            0.8,
+            0.98
+          ]);
 
   @override
   Color get nameColor => PuzzleColors.black;
@@ -637,19 +657,19 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
 
   @override
   Color get kAmbientShadowOpacity =>
-      Colors.black.withOpacity(0.1); // alpha = 0.12
+      Colors.black.withOpacity(0.15); // alpha = 0.12
 
   @override
   Color get tileTextColor => Colors.black45;
 
   @override
-  Color get tileColor => const Color(0xFFFCFCFC).withOpacity(0.1);
+  Color get tileColor => const Color(0xFFFCFCFC).withOpacity(0.2);
 
   @override
-  Color get tileHoverColor => const Color(0xFFFAFAFA).withOpacity(0.1);
+  Color get tileHoverColor => const Color(0xFFFBFBFB).withOpacity(0.15);
 
   @override
-  Color get tilePressedColor => const Color(0xFFFAFAFA).withOpacity(0.08);
+  Color get tilePressedColor => const Color(0xFFFAFAFA).withOpacity(0.15);
 
   @override
   Color get menuUnderlineColor => Colors.black54;
@@ -678,8 +698,24 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
 }
 
 class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
-  @override
-  String get backgroundImage => "assets/images/glass_background.jpg";
+  Gradient get backgroundGradient => SweepGradient(
+          center: Alignment(0.03, -0.17),
+          startAngle: 0.1,
+          endAngle: 5.3,
+          colors: [
+            Colors.black87,
+            Color(0xFF04619f),
+            Color(0xFF358f74),
+            Color(0xFF923cb5),
+            Colors.black87,
+          ],
+          stops: [
+            0.1,
+            0.3,
+            0.45,
+            0.8,
+            0.98
+          ]);
 
   @override
   Color get nameColor => PuzzleColors.grey5;

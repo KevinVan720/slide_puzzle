@@ -6,6 +6,7 @@
     "puzzleNumberOfMoves": "步骤",
     "puzzleNumberOfTilesLeft": "块",
     "puzzleDifficultyEasy": "简单",
+    "puzzleDifficultyMedium": "中等",
     "puzzleDifficultyHard": "困难",
     "puzzleShuffle": "重置",
     "puzzleSolve": "求解",

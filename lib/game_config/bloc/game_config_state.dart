@@ -2,7 +2,7 @@
 
 part of 'game_config_bloc.dart';
 
-enum PuzzleDifficulty { easy, hard }
+enum PuzzleDifficulty { easy, medium, hard }
 
 class GameConfigState extends Equatable {
   const GameConfigState({

@@ -87,7 +87,9 @@ class SimplePuzzleDifficultySelectButton extends StatelessWidget {
             },
       child: difficulty == PuzzleDifficulty.easy
           ? Text(context.l10n.puzzleDifficultyEasy)
-          : Text(context.l10n.puzzleDifficultyHard),
+          : difficulty == PuzzleDifficulty.medium
+              ? Text(context.l10n.puzzleDifficultyMedium)
+              : Text(context.l10n.puzzleDifficultyHard),
     );
   }
 }
