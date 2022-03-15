@@ -250,18 +250,18 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _buttonStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _buttonStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.small)),
         middleScreen: _buttonStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _buttonStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.medium)),
         largeScreen: _buttonStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _buttonStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.large)),
       });
@@ -269,18 +269,18 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonHoverStyle => Responsive({
         smallScreen: _hoverStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _hoverStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.small)),
         middleScreen: _hoverStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _hoverStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.medium)),
         largeScreen: _hoverStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _hoverStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.large)),
       });
@@ -288,18 +288,18 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonPressedStyle => Responsive({
         smallScreen: _pressedStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _pressedStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.small)),
         middleScreen: _pressedStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _pressedStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.medium)),
         largeScreen: _pressedStyle.copyWith(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(12),
             textStyle: _pressedStyle.textStyle
                 ?.copyWith(fontSize: _TileTextDimension.large)),
       });

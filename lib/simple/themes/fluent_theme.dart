@@ -118,7 +118,7 @@ class FluentTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: BoxDecoration(
+            backgroundDecoration: const BoxDecoration(
               color: Colors.transparent,
             ),
             textStyle: DynamicTextStyle(
@@ -137,7 +137,7 @@ class FluentTheme extends SimpleTheme {
             childAlignment: Alignment.center,
             margin: const EdgeInsets.all(2),
             padding: const EdgeInsets.all(2),
-            backgroundDecoration: BoxDecoration(
+            backgroundDecoration: const BoxDecoration(
               color: Colors.transparent,
             ),
             textStyle: DynamicTextStyle(
@@ -396,7 +396,7 @@ class FluentTheme extends SimpleTheme {
           fontSize: 24.toPXLength,
           color: themePalette.buttonTextColor,
         ),
-        shapeBorder: RectangleShapeBorder(
+        shapeBorder: const RectangleShapeBorder(
             borderRadius: DynamicBorderRadius.all(
                 DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         backgroundDecoration: BoxDecoration(color: themePalette.buttonColor),
@@ -425,7 +425,7 @@ class FluentTheme extends SimpleTheme {
               color: themePalette.kAmbientShadowOpacity.withOpacity(0.01),
               width: 0.1,
             ),
-            borderRadius: DynamicBorderRadius.all(
+            borderRadius: const DynamicBorderRadius.all(
                 DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
         backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
@@ -444,7 +444,7 @@ class FluentTheme extends SimpleTheme {
               width: 2,
               color: themePalette.kAmbientShadowOpacity,
             ),
-            borderRadius: DynamicBorderRadius.all(
+            borderRadius: const DynamicBorderRadius.all(
                 DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         shadows: [
           ShapeShadow(
@@ -485,7 +485,7 @@ class FluentTheme extends SimpleTheme {
               width: 2,
               color: themePalette.kAmbientShadowOpacity,
             ),
-            borderRadius: DynamicBorderRadius.all(
+            borderRadius: const DynamicBorderRadius.all(
                 DynamicRadius.circular(Length(4, unit: LengthUnit.px)))),
         shadows: [
           ShapeShadow(
@@ -568,23 +568,24 @@ abstract class FluentThemePalette {
 }
 
 class FluentThemePaletteLight extends FluentThemePalette {
+  @override
   String get backgroundImage => "assets/images/win11.jpg";
 
   @override
   Color get nameColor => Colors.black87;
   @override
-  Color get titleColor => Color(0xFFCC4D11);
+  Color get titleColor => const Color(0xFFCC4D11);
   @override
-  Color get defaultColor => Color(0xFFCC4D11);
+  Color get defaultColor => const Color(0xFFCC4D11);
 
   @override
   Color get kAmbientShadowOpacity => Colors.white;
   @override
-  Color get tileTextColor => Color(0xff0D2644).withOpacity(0.9);
+  Color get tileTextColor => const Color(0xff0D2644).withOpacity(0.9);
   @override
-  Color get tileTextHoverColor => Color(0xff0D2644).withOpacity(0.9);
+  Color get tileTextHoverColor => const Color(0xff0D2644).withOpacity(0.9);
   @override
-  Color get tileTextPressedColor => Color(0xff0D2644).withOpacity(0.9);
+  Color get tileTextPressedColor => const Color(0xff0D2644).withOpacity(0.9);
 
   @override
   Color get tileColor => Colors.white.withOpacity(0.5);
@@ -596,11 +597,11 @@ class FluentThemePaletteLight extends FluentThemePalette {
   @override
   Color get buttonTextColor => Colors.black;
   @override
-  Color get buttonColor => Color(0xFF0073CF);
+  Color get buttonColor => const Color(0xFF0073CF);
   @override
-  Color get buttonHoverColor => Color(0xFF3B97DF);
+  Color get buttonHoverColor => const Color(0xFF3B97DF);
   @override
-  Color get buttonPressedColor => Color(0xFF0055AD);
+  Color get buttonPressedColor => const Color(0xFF0055AD);
 
   @override
   Color get menuUnderlineColor => Colors.transparent;
@@ -614,7 +615,7 @@ class FluentThemePaletteLight extends FluentThemePalette {
   @override
   Color get popupMenuSliderTrackColor => Colors.grey;
   @override
-  Color get popupMenuSliderThumbColor => Color(0xFF0055AD);
+  Color get popupMenuSliderThumbColor => const Color(0xFF0055AD);
 
   @override
   Color get popupMenuTileColor => Colors.white.withOpacity(0.6);
@@ -627,18 +628,19 @@ class FluentThemePaletteLight extends FluentThemePalette {
   @override
   Color get popupMenuColor => Colors.white.withOpacity(0.6);
   @override
-  Color get backgroundColor => Color(0xFFCFEAFF);
+  Color get backgroundColor => const Color(0xFFCFEAFF);
 }
 
 class FluentThemePaletteDark extends FluentThemePalette {
+  @override
   String get backgroundImage => "assets/images/win11_dark.jpg";
 
   @override
   Color get nameColor => PuzzleColors.grey5;
   @override
-  Color get titleColor => Color(0xFFCC4D11);
+  Color get titleColor => const Color(0xFFCC4D11);
   @override
-  Color get defaultColor => Color(0xFFCC4D11);
+  Color get defaultColor => const Color(0xFFCC4D11);
 
   @override
   Color get kAmbientShadowOpacity => Colors.black54;
@@ -659,11 +661,11 @@ class FluentThemePaletteDark extends FluentThemePalette {
   @override
   Color get buttonTextColor => Colors.white.withOpacity(0.9);
   @override
-  Color get buttonColor => Color(0xFF0055AD);
+  Color get buttonColor => const Color(0xFF0055AD);
   @override
-  Color get buttonHoverColor => Color(0xFF0073CF);
+  Color get buttonHoverColor => const Color(0xFF0073CF);
   @override
-  Color get buttonPressedColor => Color(0xff00459D);
+  Color get buttonPressedColor => const Color(0xff00459D);
 
   @override
   Color get menuUnderlineColor => Colors.transparent;
@@ -677,7 +679,7 @@ class FluentThemePaletteDark extends FluentThemePalette {
   @override
   Color get popupMenuSliderTrackColor => Colors.grey;
   @override
-  Color get popupMenuSliderThumbColor => Color(0xFF0055AD);
+  Color get popupMenuSliderThumbColor => const Color(0xFF0055AD);
 
   @override
   Color get popupMenuTileColor => Colors.grey.shade900.withOpacity(0.6);
@@ -688,7 +690,7 @@ class FluentThemePaletteDark extends FluentThemePalette {
   Color get popupMenuUnselectedColor => Colors.white38;
 
   @override
-  Color get popupMenuColor => Color(0xFF121212).withOpacity(0.6);
+  Color get popupMenuColor => const Color(0xFF121212).withOpacity(0.6);
   @override
-  Color get backgroundColor => Color(0xFFCFEAFF);
+  Color get backgroundColor => const Color(0xFFCFEAFF);
 }

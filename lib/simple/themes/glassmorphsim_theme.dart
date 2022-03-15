@@ -627,7 +627,8 @@ abstract class GlassmorphismThemePalette {
 }
 
 class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
-  Gradient get backgroundGradient => SweepGradient(
+  @override
+  Gradient get backgroundGradient => const SweepGradient(
           center: Alignment(0.13, 0.1),
           startAngle: 0.5,
           endAngle: 6.3,
@@ -698,7 +699,8 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
 }
 
 class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
-  Gradient get backgroundGradient => SweepGradient(
+  @override
+  Gradient get backgroundGradient => const SweepGradient(
           center: Alignment(0.03, -0.17),
           startAngle: 0.1,
           endAngle: 5.3,
@@ -732,7 +734,7 @@ class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
   Color get tileTextColor => Colors.white;
 
   @override
-  Color get tileColor => Color(0xFFFCFCFC).withOpacity(0.1);
+  Color get tileColor => const Color(0xFFFCFCFC).withOpacity(0.1);
 
   @override
   Color get tileHoverColor => Colors.grey.shade50.withOpacity(0.08);

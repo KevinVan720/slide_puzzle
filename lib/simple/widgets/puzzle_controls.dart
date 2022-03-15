@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io' show Platform;
 
 import 'package:just_audio/just_audio.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
@@ -15,7 +14,6 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
-import 'package:very_good_slide_puzzle/puzzle_solver/puzzle_solver.dart';
 
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
@@ -140,9 +138,6 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
   AudioPlayer? _audioPlayer;
   late final Timer _timer;
 
-  ///The async process of solving and updating the puzzle
-  Future<void>? getSolutionAndUpdatePuzzle;
-
   @override
   void initState() {
     super.initState();
@@ -152,8 +147,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     /// linux and windows are not supported right now
     ///
 
-    if (!kIsWeb && (Platform.isLinux || Platform.isWindows)) {
-    } else {
+    if (AudioPlayerExtension.isPlatformSupported) {
       _timer = Timer(const Duration(milliseconds: 500), () {
         _audioPlayer = widget._audioPlayerFactory();
       });
@@ -175,166 +169,61 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     List<Shadow>? _textShadow =
         theme.tileStyle.resolve(context)?.textStyle?.shadows;
 
+    var buttonStyle = theme.buttonStyle.resolve(context) ??
+        (theme.tileStyle.resolve(context) ?? Style()
+          ..width = null
+          ..height = null
+          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+    var pressedStyle = theme.buttonPressedStyle.resolve(context) ??
+        (theme.tilePressedStyle.resolve(context) ?? Style()
+          ..width = null
+          ..height = null
+          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+
     return state.puzzle.isComplete()
         ? PuzzleAnimatedContainer(
-            style: theme.buttonStyle.resolve(context) ??
-                (theme.tileStyle.resolve(context) ?? Style()
-                  ..width = null
-                  ..height = null
-                  ..padding =
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 5)),
+            style: buttonStyle,
             child: _solvedRow(_textShadow),
           )
-        : FutureBuilder<void>(
-            future: getSolutionAndUpdatePuzzle,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.none) {
-                return PuzzleButton(onPressed: () async {
-                  setState(() {
-                    getSolutionAndUpdatePuzzle =
-                        _solvePuzzle(state.puzzle, theme);
-                  });
-                }, child: Builder(builder: (context) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DecoratedIcon(
-                        Icons.question_mark,
-                        size: 17,
-                        color: DefaultTextStyle.of(context).style.color,
-                        shadows: _textShadow
-                            ?.map((e) => Shadow(
-                                color: e.color,
-                                offset: e.offset,
-                                blurRadius: e.blurRadius))
-                            .toList(),
-                      ),
-                      const Gap(10),
-                      Text(context.l10n.puzzleSolve),
-                    ],
-                  );
-                }));
-              }
-
-              Style? style;
-              Widget row;
-
-              if (snapshot.hasError) {
-                style = theme.buttonStyle.resolve(context) ??
-                    (theme.tileStyle.resolve(context) ?? Style()
-                      ..width = null
-                      ..height = null
-                      ..padding = const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 5));
-                row = _noSolutionRow(_textShadow);
-              } else if (snapshot.hasData) {
-                style = theme.buttonStyle.resolve(context) ??
-                    (theme.tileStyle.resolve(context) ?? Style()
-                      ..width = null
-                      ..height = null
-                      ..padding = const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 5));
-                row = _solvedRow(_textShadow);
-              } else {
-                style = theme.buttonPressedStyle.resolve(context) ??
-                    (theme.tilePressedStyle.resolve(context) ?? Style()
-                      ..width = null
-                      ..height = null
-                      ..padding = const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 5));
-                row = _solvingRow();
-              }
-
-              return PuzzleAnimatedContainer(
-                style: style,
-                child: row,
-              );
-            });
+        : state.isAutoSolving
+            ? PuzzleAnimatedContainer(
+                style: pressedStyle,
+                child: _solvingRow(),
+              )
+            : PuzzleButton(
+                onPressed: () async {
+                  if (AudioPlayerExtension.isPlatformSupported) {
+                    final duration = await _audioPlayer?.setAsset(
+                      theme.tilePressSoundAsset,
+                    );
+                    unawaited(_audioPlayer?.replay());
+                  }
+                  context
+                      .read<PuzzleBloc>()
+                      .add(PuzzleAutoSolving(state.puzzle, _audioPlayer));
+                },
+                child: _solveRow(_textShadow));
   }
 
-  ///The actual computation of solving the puzzle
-  ///The compute() method on the web is not working as expected so the UI would block.
-  static List<Puzzle> _solvePuzzleComputation(Puzzle puzzle) {
-    var solver = PuzzleSolver(
-        startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
-    List<Puzzle> rst = solver.IDAstar().keys.toList();
-    rst.removeAt(0);
-    return rst;
-  }
-
-  Future<void> _solvePuzzle(Puzzle puzzle, PuzzleTheme theme) async {
-    List<List<Tile>> history = removeRedundantMoves(puzzle.tilesHistory.reversed
-        .map((e) => e
-          ..toList()
-          ..sort((tileA, tileB) {
-            return tileA.currentPosition.compareTo(tileB.currentPosition);
-          }))
-        .toList());
-
-    ///Only the last 20 steps or so are solved by IDA*, the previous moves just rewind
-    ///I do this because the IDA* method can be really slow on some puzzle config which
-    ///will behave terrible on the web because the compute method is not working on the
-    ///web right now.
-    int relaxMoves = 16;
-
-    if (history.length > relaxMoves) {
-      int rewindMoves = history.length - relaxMoves;
-      puzzle = Puzzle(size: puzzle.size, tiles: history[rewindMoves - 1]);
-    }
-
-    context.read<PuzzleBloc>().add(const PuzzleAutoSolvingUpdate(true));
-
-    await compute(_solvePuzzleComputation, puzzle).then((value) async {
-      ///Rewind the puzzle until the move from the solution is not too far away
-      if (history.length > relaxMoves) {
-        int rewindMoves = history.length - relaxMoves;
-        history = history.sublist(0, rewindMoves) +
-            value.map((e) => e.tiles).toList();
-        history = removeRedundantMoves(history);
-      } else {
-        history = value.map((e) => e.tiles).toList();
-      }
-
-      ///push the puzzle states with 1 sec interval
-      await Future.forEach(
-          history,
-          (List<Tile> tiles) =>
-              Future.delayed(const Duration(milliseconds: 1000), () async {
-                if (AudioPlayerExtension.isPlatformSupported) {
-                  final duration = await _audioPlayer?.setAsset(
-                    theme.tilePressSoundAsset,
-                  );
-                  unawaited(_audioPlayer?.replay());
-                }
-
-                context
-                    .read<PuzzleBloc>()
-                    .add(PuzzleReset(Puzzle(size: puzzle.size, tiles: tiles)));
-              }));
+  Widget _solveRow(List<Shadow>? _textShadow) {
+    return Builder(builder: (context) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DecoratedIcon(
+            Icons.question_mark,
+            size: 17,
+            color: DefaultTextStyle.of(context).style.color,
+            shadows: _textShadow
+                ?.map((e) => Shadow(
+                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
+                .toList(),
+          ),
+          const Gap(10),
+          Text(context.l10n.puzzleSolve),
+        ],
+      );
     });
-
-    context.read<PuzzleBloc>().add(const PuzzleAutoSolvingUpdate(false));
-
-    setState(() {
-      getSolutionAndUpdatePuzzle = null;
-    });
-  }
-
-  ///When generate a puzzle, some config in the history may be the same, we can remove the puzzles between
-  ///two same puzzle config
-  List<List<Tile>> removeRedundantMoves(List<List<Tile>> history) {
-    int i = 0;
-    while (i < history.length) {
-      int lastId = history.lastIndexWhere((e) => listEquals(e, history[i]));
-
-      if (lastId != -1 && lastId != i) {
-        history = history.sublist(0, i) + history.sublist(lastId);
-        i = 0;
-      } else {
-        i += 1;
-      }
-    }
-    return history;
   }
 
   Widget _solvedRow(List<Shadow>? _textShadow) {
