@@ -324,7 +324,7 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-            height: 80.toPXLength,
+            height: 60.toPXLength,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             shapeBorder: RoundedRectangleShapeBorder(
                 borderRadius: DynamicBorderRadius.all(
@@ -348,7 +348,7 @@ class NeonTheme extends SimpleTheme {
                         DynamicBorderSide(color: themePalette.baseColor5, width: 12))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
-          height: 80.toPXLength,
+          height: 70.toPXLength,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -400,7 +400,7 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonHoverStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-            height: 80.toPXLength,
+            height: 60.toPXLength,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             shapeBorder: RoundedRectangleShapeBorder(
                 borderRadius: DynamicBorderRadius.all(
@@ -424,7 +424,7 @@ class NeonTheme extends SimpleTheme {
                         DynamicBorderSide(color: themePalette.baseColor5, width: 10))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
-          height: 80.toPXLength,
+          height: 70.toPXLength,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -476,7 +476,7 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonPressedStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-            height: 80.toPXLength,
+            height: 60.toPXLength,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             shapeBorder: RoundedRectangleShapeBorder(
                 borderRadius: DynamicBorderRadius.all(
@@ -500,7 +500,7 @@ class NeonTheme extends SimpleTheme {
                         DynamicBorderSide(color: themePalette.baseColor5, width: 6))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
-          height: 80.toPXLength,
+          height: 70.toPXLength,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(

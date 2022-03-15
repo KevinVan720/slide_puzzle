@@ -423,6 +423,7 @@ class ClaymorphismTheme extends SimpleTheme {
         smallScreen: _baseStyle.copyWith(
           width: _TileDimension.small,
           height: _TileDimension.small,
+          textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
@@ -447,6 +448,7 @@ class ClaymorphismTheme extends SimpleTheme {
                 color: themePalette.kAmbientShadowOpacity,
                 offset: const Offset(2, 2)),
           ],
+          textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
@@ -487,6 +489,7 @@ class ClaymorphismTheme extends SimpleTheme {
                 color: themePalette.kAmbientShadowOpacity,
                 offset: const Offset(1, 1)),
           ],
+  textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
