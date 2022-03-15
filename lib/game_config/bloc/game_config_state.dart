@@ -7,7 +7,7 @@ enum PuzzleDifficulty { easy, medium, hard }
 class GameConfigState extends Equatable {
   const GameConfigState({
     this.puzzleSize = const PuzzleSize(4, 4),
-    this.puzzleDifficulty = PuzzleDifficulty.hard,
+    this.puzzleDifficulty = PuzzleDifficulty.medium,
 
     ///TODO: cant make too big or too small puzzles
   }) : assert(true);

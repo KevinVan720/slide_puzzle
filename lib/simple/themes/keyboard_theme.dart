@@ -729,7 +729,7 @@ class KeyboardThemePaletteLight extends KeyboardThemePalette {
   Color get borderColor => Colors.teal; // alpha = 0.12
 
   @override
-  Color get tileTextColor => Colors.teal.shade700;
+  Color get tileTextColor => Colors.teal.shade200;
 
   @override
   Color get menuUnderlineColor => Colors.teal;
@@ -768,7 +768,7 @@ class KeyboardThemePaletteDark extends KeyboardThemePalette {
   Color get shadowColor => Colors.grey.shade900;
 
   @override
-  Color get tileTextColor => Colors.white;
+  Color get tileTextColor => Colors.grey.shade500;
 
   @override
   Color get menuUnderlineColor => Colors.white70;

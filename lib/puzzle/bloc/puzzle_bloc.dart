@@ -169,7 +169,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
               Future.delayed(const Duration(milliseconds: 1000), () async {
 
                 if (AudioPlayerExtension.isPlatformSupported) {
-                  unawaited(event.player?.replay());
+                  unawaited((event.player??getAudioPlayer()).replay());
                 }
 
                 emit(
