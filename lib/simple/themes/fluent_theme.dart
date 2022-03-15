@@ -378,7 +378,7 @@ class FluentTheme extends SimpleTheme {
       );
 
   @override
-  String get tilePressSoundAsset => "assets/audio/material_click.mp3";
+  String get tilePressSoundAsset => "assets/audio/tile_move.mp3";
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
