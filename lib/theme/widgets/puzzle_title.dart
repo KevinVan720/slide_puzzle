@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template puzzle_title}
 /// Displays the title of the puzzle in the given color.
@@ -27,6 +28,8 @@ class PuzzleTitle extends StatelessWidget {
     final titleStyle = theme.titleTextStyle.toTextStyle(
         screenSize: MediaQuery.of(context).size,
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
+
+    double dilationFactor = context.getTimeDilation();
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(
@@ -56,7 +59,8 @@ class PuzzleTitle extends StatelessWidget {
 
         return AnimatedDefaultTextStyle(
           style: textStyle,
-          duration: PuzzleThemeAnimationDuration.textStyle,
+          duration:
+              PuzzleThemeAnimationDuration.textStyle.dilate(dilationFactor),
           child: Text(
             title,
             textAlign: textAlign,

@@ -29,8 +29,5 @@ class GameConfigState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        puzzleSize,
-        puzzleDifficulty,
-      ];
+  List<Object?> get props => [puzzleSize, puzzleDifficulty];
 }

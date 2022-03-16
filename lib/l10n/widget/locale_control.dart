@@ -8,6 +8,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/text_styles.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -120,7 +121,8 @@ class LocaleSelectList extends StatelessWidget {
     return Column(
       children: [
         AnimatedStyledContainer(
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                .dilate(context.getTimeDilation()),
             curve: Curves.easeInOut,
             style: theme.popupMenuTitleStyle.resolve(context)!,
             child: Builder(
@@ -128,23 +130,13 @@ class LocaleSelectList extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(context.l10n.localeControl),
-                  /*Gap(10),
-                  DecoratedIcon(
-                    Icons.language,
-                    size: 16,
-                    color: theme.menuActiveStyle.color,
-                    shadows: _iconShadow
-                        ?.map((e) => Shadow(
-                            color: e.color,
-                            offset: e.offset,
-                            blurRadius: e.blurRadius))
-                        .toList(),
-                  ),*/
                 ],
               ),
             )),
         ...AppLocalizations.supportedLocales
             .map((locale) => StyledButton(
+                  duration: PuzzleThemeAnimationDuration.puzzleTileScale
+                      .dilate(context.getTimeDilation()),
                   style: locale == localeState.locale
                       ? theme.popupMenuPressedStyle.resolve(context)!
                       : theme.popupMenuButtonStyle.resolve(context)!,

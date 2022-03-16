@@ -4,6 +4,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template puzzle_name}
 /// Displays the name of the current puzzle theme.
@@ -33,7 +34,8 @@ class PuzzleName extends StatelessWidget {
       medium: (context, child) => const SizedBox(),
       large: (context, child) => AnimatedDefaultTextStyle(
         style: nameStyle.merge(PuzzleTextStyle.headline5),
-        duration: PuzzleThemeAnimationDuration.textStyle,
+        duration: PuzzleThemeAnimationDuration.textStyle
+            .dilate(context.getTimeDilation()),
         child:
             Text(theme.name[locale] ?? "", key: const Key('puzzle_name_theme')),
       ),

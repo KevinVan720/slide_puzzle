@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 import 'dart:async';
 
@@ -88,7 +89,8 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               style: buttonStyle,
               hoveredStyle: hoverStyle,
               pressedStyle: pressedStyle,
-              duration: PuzzleThemeAnimationDuration.puzzleTileScale,
+              duration: PuzzleThemeAnimationDuration.puzzleTileScale
+                  .dilate(context.getTimeDilation()),
               onPressed: widget.onPressed == null
                   ? null
                   : () async {
@@ -103,7 +105,8 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               child: Builder(
                 builder: (context) {
                   return AnimatedDefaultTextStyle(
-                    duration: PuzzleThemeAnimationDuration.textStyle,
+                    duration: PuzzleThemeAnimationDuration.textStyle
+                        .dilate(context.getTimeDilation()),
                     style: DefaultTextStyle.of(context)
                         .style
                         .merge(PuzzleTextStyle.headline5),
@@ -132,10 +135,13 @@ class PuzzleAnimatedContainer extends StatelessWidget {
       child: AnimatedStyledContainer(
           style: style,
           curve: Curves.easeInOut,
-          duration: PuzzleThemeAnimationDuration.puzzleTileScale,
+          duration: PuzzleThemeAnimationDuration.puzzleTileScale
+              .dilate(context.getTimeDilation()),
           child: Builder(
             builder: (context) {
-              return DefaultTextStyle(
+              return AnimatedDefaultTextStyle(
+                duration: PuzzleThemeAnimationDuration.textStyle
+                    .dilate(context.getTimeDilation()),
                 style: DefaultTextStyle.of(context)
                     .style
                     .merge(PuzzleTextStyle.headline5),

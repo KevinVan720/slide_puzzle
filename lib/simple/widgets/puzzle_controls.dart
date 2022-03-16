@@ -73,6 +73,8 @@ class SimplePuzzleDifficultySelectButton extends StatelessWidget {
     final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
 
     return StyledButton(
+      duration: PuzzleThemeAnimationDuration.puzzleTileScale
+          .dilate(context.getTimeDilation()),
       style: gameConfig.puzzleDifficulty == difficulty
           ? theme.popupMenuPressedStyle.resolve(context)!
           : theme.popupMenuButtonStyle.resolve(context)!,
@@ -105,6 +107,8 @@ class SimplePuzzleSizeSelectButton extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final gameConfig = context.select((GameConfigBloc bloc) => bloc.state);
     return StyledButton(
+      duration: PuzzleThemeAnimationDuration.puzzleTileScale
+          .dilate(context.getTimeDilation()),
       style: gameConfig.puzzleSize == size
           ? theme.popupMenuPressedStyle.resolve(context)!
           : theme.popupMenuButtonStyle.resolve(context)!,

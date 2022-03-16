@@ -15,6 +15,7 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -91,7 +92,8 @@ class _PuzzleViewState extends State<PuzzleView> {
 
     return Scaffold(
       body: AnimatedStyledContainer(
-          duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+          duration: PuzzleThemeAnimationDuration.backgroundColorChange
+              .dilate(context.getTimeDilation()),
           style: (theme.backgroundStyle.resolve(context) ?? Style())
             ..textStyle = null,
           child: const _Puzzle(

@@ -6,6 +6,7 @@ class ThemeState extends Equatable {
   const ThemeState({
     required this.themes,
     this.theme = const MaterialTheme(),
+    this.timeDilation = 1.0,
   });
 
   /// The list of all available themes.
@@ -14,16 +15,19 @@ class ThemeState extends Equatable {
   /// Currently selected theme.
   final PuzzleTheme theme;
 
+  final double timeDilation;
+
   @override
-  List<Object> get props => [themes, theme];
+  List<Object> get props => [themes, theme, timeDilation];
 
   ThemeState copyWith({
     List<PuzzleTheme>? themes,
     PuzzleTheme? theme,
+    double? timeDilation,
   }) {
     return ThemeState(
-      themes: themes ?? this.themes,
-      theme: theme ?? this.theme,
-    );
+        themes: themes ?? this.themes,
+        theme: theme ?? this.theme,
+        timeDilation: timeDilation ?? this.timeDilation);
   }
 }

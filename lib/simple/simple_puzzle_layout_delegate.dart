@@ -16,6 +16,7 @@ import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
@@ -312,7 +313,8 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
       audioPlayer: _audioPlayer,
       child: StyledButton(
         curve: Curves.easeInOut,
-        duration: PuzzleThemeAnimationDuration.puzzleTileScale,
+        duration: PuzzleThemeAnimationDuration.puzzleTileScale
+            .dilate(context.getTimeDilation()),
         style: theme.tileStyle.resolve(context) ?? Style(),
         hoveredStyle: theme.tileHoverStyle.resolve(context) ?? Style(),
         pressedStyle: theme.tilePressedStyle.resolve(context) ?? Style(),
@@ -344,7 +346,8 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
         (widget.tile.currentPosition.x - 1) / (size.width - 1),
         (widget.tile.currentPosition.y - 1) / (size.height - 1),
       ),
-      duration: theme.tileMoveAnimationDuration,
+      duration:
+          theme.tileMoveAnimationDuration.dilate(context.getTimeDilation()),
       curve: theme.tileMoveAnimationCurve,
       child: ConstrainedBox(
           constraints: BoxConstraints(

@@ -14,6 +14,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       : super(ThemeState(themes: initialThemes)) {
     on<ThemeChanged>(_onThemeChanged);
     on<ThemeUpdated>(_onThemeUpdated);
+    on<ThemeSetTimeDilation>(_onThemeSetTimeDilation);
   }
 
   void _onThemeChanged(ThemeChanged event, Emitter<ThemeState> emit) {
@@ -34,5 +35,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         ),
       );
     }
+  }
+
+  void _onThemeSetTimeDilation(
+    ThemeSetTimeDilation event,
+    Emitter<ThemeState> emit,
+  ) {
+    emit(
+      state.copyWith(timeDilation: event.timeDilation),
+    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template app_flutter_logo}
 /// Variant of Flutter logo that can be either white or colored.
@@ -37,7 +38,8 @@ class AppFlutterLogo extends StatelessWidget {
           ).createShader(bounds);
         },
         child: AnimatedSwitcher(
-          duration: PuzzleThemeAnimationDuration.logoChange,
+          duration: PuzzleThemeAnimationDuration.logoChange
+              .dilate(context.getTimeDilation()),
           child: height != null
               ? Image.asset(
                   assetName,

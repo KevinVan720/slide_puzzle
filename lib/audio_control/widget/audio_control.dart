@@ -4,6 +4,7 @@ import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:decorated_icon/decorated_icon.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current audio status of the puzzle.
@@ -27,7 +28,8 @@ class AudioControl extends StatelessWidget {
       child: GestureDetector(
         onTap: () => context.read<AudioControlBloc>().add(AudioToggled()),
         child: AnimatedSwitcher(
-          duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+          duration: PuzzleThemeAnimationDuration.backgroundColorChange
+              .dilate(context.getTimeDilation()),
           child: ResponsiveLayoutBuilder(
             small: (_, __) => DecoratedIcon(
               audioMuted ? Icons.volume_off : Icons.volume_up,

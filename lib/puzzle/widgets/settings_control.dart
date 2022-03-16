@@ -12,14 +12,20 @@ import 'package:very_good_slide_puzzle/puzzle/bloc/puzzle_bloc.dart';
 import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
 /// {@endtemplate}
-class SettingsControl extends StatelessWidget {
+class SettingsControl extends StatefulWidget {
   /// {@macro audio_control}
   const SettingsControl({Key? key}) : super(key: key);
 
+  @override
+  State<SettingsControl> createState() => _SettingsControlState();
+}
+
+class _SettingsControlState extends State<SettingsControl> {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
@@ -29,6 +35,28 @@ class SettingsControl extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showAlignedDialog(
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            transitionsBuilder: (BuildContext context,
+                Animation<double> animation,
+                Animation<double> secondaryAnimation,
+                Widget child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0.0, 0.0),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                )),
+                child: FadeTransition(
+                  opacity: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOut,
+                  ),
+                  child: child,
+                ),
+              );
+            },
             context: context,
             builder: (_) {
               return MultiBlocProvider(
@@ -55,7 +83,8 @@ class SettingsControl extends StatelessWidget {
                         children: [
                           AnimatedStyledContainer(
                             duration: PuzzleThemeAnimationDuration
-                                .backgroundColorChange,
+                                .backgroundColorChange
+                                .dilate(context.getTimeDilation()),
                             curve: Curves.easeInOut,
                             style: theme.backgroundStyle.resolve(context)!
                               ..childAlignment = Alignment.center,
@@ -97,7 +126,8 @@ class SettingsControl extends StatelessWidget {
                         children: [
                           AnimatedStyledContainer(
                             duration: PuzzleThemeAnimationDuration
-                                .backgroundColorChange,
+                                .backgroundColorChange
+                                .dilate(context.getTimeDilation()),
                             curve: Curves.easeInOut,
                             style: theme.backgroundStyle.resolve(context)!
                               ..childAlignment = Alignment.center,
@@ -140,7 +170,8 @@ class SettingsControl extends StatelessWidget {
       child: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: AnimatedSwitcher(
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                .dilate(context.getTimeDilation()),
             child: ResponsiveLayoutBuilder(
               small: (_, __) => DecoratedIcon(
                 Icons.menu,
@@ -186,14 +217,16 @@ class SettingsControl extends StatelessWidget {
     final double volume = context.read<AudioControlBloc>().state.volume;
 
     return AnimatedStyledContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
         curve: Curves.easeInOut,
         style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedStyledContainer(
-                duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                    .dilate(context.getTimeDilation()),
                 curve: Curves.easeInOut,
                 style: theme.popupMenuTitleStyle.resolve(context)!,
                 child: Builder(
@@ -227,11 +260,56 @@ class SettingsControl extends StatelessWidget {
         ));
   }
 
+  Widget _buildTimeDilationControl(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
+    final double timeDilation = context.read<ThemeBloc>().state.timeDilation;
+
+    return AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
+        curve: Curves.easeInOut,
+        style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedStyledContainer(
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                    .dilate(context.getTimeDilation()),
+                curve: Curves.easeInOut,
+                style: theme.popupMenuTitleStyle.resolve(context)!,
+                child: Builder(
+                  builder: (context) => Text("Slowmo"),
+                )),
+            StyledSlider(
+                direction: Axis.horizontal,
+                value: timeDilation,
+                max: 5,
+                min: 0.5,
+                divisions: 9,
+                label: timeDilation.toString(),
+                toolTipStyle: Style(),
+                onChanged: (value) =>
+                    context.read<ThemeBloc>().add(ThemeSetTimeDilation(value)),
+                trackStyle: theme.popupMenuSliderTrackStyle.resolve(context)!,
+                activeTrackStyle:
+                    theme.popupMenuSliderActiveTrackStyle.resolve(context),
+                thumbStyle: theme.popupMenuSliderThumbStyle.resolve(context)!,
+                thumbHoveredStyle:
+                    theme.popupMenuSliderThumbHoverStyle.resolve(context),
+                thumbPressedStyle:
+                    theme.popupMenuSliderThumbPressedStyle.resolve(context),
+                isTrackContained: theme.isPopupMenuSliderThumbContained),
+          ],
+        ));
+  }
+
   Widget _buildLocaleControl(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return AnimatedStyledContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
         curve: Curves.easeInOut,
         style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
         child: const LocaleSelectList());
@@ -240,14 +318,16 @@ class SettingsControl extends StatelessWidget {
   Widget _buildSizeControl(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     return AnimatedStyledContainer(
-      duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+      duration: PuzzleThemeAnimationDuration.backgroundColorChange
+          .dilate(context.getTimeDilation()),
       curve: Curves.easeInOut,
       style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           AnimatedStyledContainer(
-              duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(context.getTimeDilation()),
               curve: Curves.easeInOut,
               style: theme.popupMenuTitleStyle.resolve(context)!,
               child: Text(context.l10n.sizeControl)),
@@ -270,14 +350,16 @@ class SettingsControl extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return AnimatedStyledContainer(
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
         curve: Curves.easeInOut,
         style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             AnimatedStyledContainer(
-                duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                    .dilate(context.getTimeDilation()),
                 curve: Curves.easeInOut,
                 style: theme.popupMenuTitleStyle.resolve(context)!,
                 child: Text(context.l10n.difficultyControl)),
@@ -301,14 +383,15 @@ class SettingsControl extends StatelessWidget {
 
     return theme.luminance != null
         ? AnimatedStyledContainer(
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                .dilate(context.getTimeDilation()),
             curve: Curves.easeInOut,
             style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
             child: Row(
               children: [
                 AnimatedStyledContainer(
-                    duration:
-                        PuzzleThemeAnimationDuration.backgroundColorChange,
+                    duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                        .dilate(context.getTimeDilation()),
                     curve: Curves.easeInOut,
                     style: theme.popupMenuTitleStyle.resolve(context)!,
                     child:
@@ -349,13 +432,15 @@ class SettingsControl extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     return AnimatedStyledContainer(
-      duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+      duration: PuzzleThemeAnimationDuration.backgroundColorChange
+          .dilate(context.getTimeDilation()),
       curve: Curves.easeInOut,
       style: theme.popupMenuStyle.resolve(context) ?? Style(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildAudioControl(context),
+          _buildTimeDilationControl(context),
           Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

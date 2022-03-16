@@ -4,6 +4,7 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template number_of_moves_and_tiles_left}
 /// Displays how many moves have been made on the current puzzle
@@ -36,6 +37,8 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
         screenSize: MediaQuery.of(context).size,
         parentFontSize: DefaultTextStyle.of(context).style.fontSize ?? 14.0);
 
+    double dilationFactor = context.getTimeDilation();
+
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(child: child),
       medium: (context, child) =>
@@ -65,23 +68,27 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                 AnimatedDefaultTextStyle(
                   key: const Key('number_of_moves_and_tiles_left_moves'),
                   style: textStyle.merge(PuzzleTextStyle.headline4),
-                  duration: PuzzleThemeAnimationDuration.textStyle,
+                  duration: PuzzleThemeAnimationDuration.textStyle
+                      .dilate(dilationFactor),
                   child: Text(numberOfMoves.toString()),
                 ),
                 AnimatedDefaultTextStyle(
                   style: textStyle.merge(bodyTextStyle),
-                  duration: PuzzleThemeAnimationDuration.textStyle,
+                  duration: PuzzleThemeAnimationDuration.textStyle
+                      .dilate(dilationFactor),
                   child: Text(' ${l10n.puzzleNumberOfMoves} | '),
                 ),
                 AnimatedDefaultTextStyle(
                   key: const Key('number_of_moves_and_tiles_left_tiles_left'),
                   style: textStyle.merge(PuzzleTextStyle.headline4),
-                  duration: PuzzleThemeAnimationDuration.textStyle,
+                  duration: PuzzleThemeAnimationDuration.textStyle
+                      .dilate(dilationFactor),
                   child: Text(numberOfTilesLeft.toString()),
                 ),
                 AnimatedDefaultTextStyle(
                   style: textStyle.merge(bodyTextStyle),
-                  duration: PuzzleThemeAnimationDuration.textStyle,
+                  duration: PuzzleThemeAnimationDuration.textStyle
+                      .dilate(dilationFactor),
                   child: Text(' ${l10n.puzzleNumberOfTilesLeft}'),
                 ),
               ],

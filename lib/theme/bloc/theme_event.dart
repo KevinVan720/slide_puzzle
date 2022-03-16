@@ -32,3 +32,13 @@ class ThemeUpdated extends ThemeEvent {
   @override
   List<Object> get props => [theme];
 }
+
+/// The currently puzzle difficulty has changed.
+class ThemeSetTimeDilation extends ThemeEvent {
+  const ThemeSetTimeDilation(this.timeDilation);
+
+  final double timeDilation;
+
+  @override
+  List<Object> get props => [timeDilation];
+}
