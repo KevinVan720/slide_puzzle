@@ -149,7 +149,7 @@ class KeyboardTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
-              color: themePalette.tileTextColor,
+              color: themePalette.tileUnselectedTextColor,
               fontWeight: FontWeight.w800,
               fontFamily: "GoogleSans",
               shadows: _engraveShadow,
@@ -697,6 +697,7 @@ abstract class KeyboardThemePalette {
   Color get defaultColor;
 
   Color get tileTextColor;
+  Color get tileUnselectedTextColor;
 
   Color get menuUnderlineColor;
   Color get menuInactiveColor;
@@ -730,6 +731,9 @@ class KeyboardThemePaletteLight extends KeyboardThemePalette {
 
   @override
   Color get tileTextColor => Colors.teal.shade700;
+
+  @override
+  Color get tileUnselectedTextColor => Colors.teal.shade200;
 
   @override
   Color get menuUnderlineColor => Colors.teal;
@@ -768,7 +772,7 @@ class KeyboardThemePaletteDark extends KeyboardThemePalette {
   Color get shadowColor => Colors.grey.shade900;
 
   @override
-  Color get tileTextColor => Colors.white;
+  Color get tileTextColor => Colors.grey.shade200;
 
   @override
   Color get menuUnderlineColor => Colors.white70;
@@ -776,6 +780,9 @@ class KeyboardThemePaletteDark extends KeyboardThemePalette {
   Color get menuInactiveColor => PuzzleColors.grey1;
   @override
   Color get menuActiveColor => Colors.white;
+
+  @override
+  Color get tileUnselectedTextColor => Colors.grey.shade500;
 
   @override
   Color get popupMenuSliderThumbColor => Colors.teal.shade700;

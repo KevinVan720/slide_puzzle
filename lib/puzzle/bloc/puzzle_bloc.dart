@@ -2,11 +2,15 @@
 
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
+import 'package:very_good_slide_puzzle/puzzle_solver/puzzle_solver.dart';
+import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
@@ -17,7 +21,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
-    on<PuzzleAutoSolvingUpdate>(_onPuzzleAutoSolvingUpdate);
+    on<PuzzleAutoSolving>(_onPuzzleAutoSolving);
 
     ///when the game config changes, initialize the puzzle again
     gameConfigStreamSubscription = gameConfigBloc.stream.listen((state) {
@@ -31,7 +35,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   late final StreamSubscription gameConfigStreamSubscription;
 
-  PuzzleSize _size = PuzzleSize(4, 4);
+  PuzzleSize _size = const PuzzleSize(4, 4);
 
   PuzzleDifficulty _difficulty = PuzzleDifficulty.hard;
 
@@ -115,15 +119,84 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
-  void _onPuzzleAutoSolvingUpdate(
-    PuzzleAutoSolvingUpdate event,
+  void _onPuzzleAutoSolving (
+    PuzzleAutoSolving event,
     Emitter<PuzzleState> emit,
-  ) {
+  ) async {
+
     emit(
       state.copyWith(
-          numberOfMoves: event.isAutoSolving ? 0 : state.numberOfMoves,
-          isAutoSolving: event.isAutoSolving),
+          numberOfMoves: 0,
+          isAutoSolving: true),
     );
+
+    Puzzle puzzle=event.puzzle;
+
+    List<List<Tile>> history = removeRedundantMoves(puzzle.tilesHistory.reversed
+        .map((e) => e
+      ..toList()
+      ..sort((tileA, tileB) {
+        return tileA.currentPosition.compareTo(tileB.currentPosition);
+      }))
+        .toList());
+
+    ///Only the last 20 steps or so are solved by IDA*, the previous moves just rewind
+    ///I do this because the IDA* method can be really slow on some puzzle config which
+    ///will behave terrible on the web because the compute method is not working on the
+    ///web right now.
+    int relaxMoves = 16;
+
+    if (history.length > relaxMoves) {
+      int rewindMoves = history.length - relaxMoves;
+      puzzle = Puzzle(size: puzzle.size, tiles: history[rewindMoves - 1]);
+    }
+
+    await compute(_solvePuzzleComputation, puzzle).then((value) async {
+      ///Rewind the puzzle until the move from the solution is not too far away
+      if (history.length > relaxMoves) {
+        int rewindMoves = history.length - relaxMoves;
+        history = history.sublist(0, rewindMoves) +
+            value.map((e) => e.tiles).toList();
+        history = removeRedundantMoves(history);
+      } else {
+        history = value.map((e) => e.tiles).toList();
+      }
+
+      ///push the puzzle states with 1 sec interval
+      await Future.forEach(
+          history,
+              (List<Tile> tiles) =>
+              Future.delayed(const Duration(milliseconds: 1000), () async {
+
+                if (AudioPlayerExtension.isPlatformSupported) {
+                  unawaited((event.player??getAudioPlayer()).replay());
+                }
+
+                emit(
+                  PuzzleState(
+                      puzzle: Puzzle(size: puzzle.size, tiles: tiles).sort(),
+                      numberOfMoves: state.numberOfMoves + 1,
+                      numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
+                      puzzleStatus: puzzle.isComplete()
+                          ? PuzzleStatus.complete
+                          : PuzzleStatus.incomplete,
+                      isAutoSolving: state.isAutoSolving,
+                      tileMovementStatus: puzzle.isComplete()
+                          ? TileMovementStatus.cannotBeMoved
+                          : state.tileMovementStatus),
+                );
+              }));
+    });
+
+
+    emit(
+      state.copyWith(
+        puzzleStatus: state.puzzle.isComplete()
+            ? PuzzleStatus.complete
+            : PuzzleStatus.incomplete,
+          isAutoSolving: false),
+    );
+
   }
 
   @override
@@ -222,5 +295,33 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
             currentPosition: currentPositions[i - 1],
           )
     ];
+  }
+
+  ///The actual computation of solving the puzzle
+  ///The compute() method on the web is not working as expected so the UI would block.
+  static List<Puzzle> _solvePuzzleComputation(Puzzle puzzle) {
+    var solver = PuzzleSolver(
+        startPuzzle: puzzle, heuristic: const ManhattanHeuristic());
+    List<Puzzle> rst = solver.IDAstar().keys.toList();
+    rst.removeAt(0);
+    return rst;
+  }
+
+
+  ///When generate a puzzle, some config in the history may be the same, we can remove the puzzles between
+  ///two same puzzle config
+  List<List<Tile>> removeRedundantMoves(List<List<Tile>> history) {
+    int i = 0;
+    while (i < history.length) {
+      int lastId = history.lastIndexWhere((e) => listEquals(e, history[i]));
+
+      if (lastId != -1 && lastId != i) {
+        history = history.sublist(0, i) + history.sublist(lastId);
+        i = 0;
+      } else {
+        i += 1;
+      }
+    }
+    return history;
   }
 }
