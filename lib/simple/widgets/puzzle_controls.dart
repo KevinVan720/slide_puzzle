@@ -19,6 +19,7 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 
 import 'package:decorated_icon/decorated_icon.dart';
+import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
 /// {@template puzzle_shuffle_button}
 /// Displays the button to shuffle the puzzle.

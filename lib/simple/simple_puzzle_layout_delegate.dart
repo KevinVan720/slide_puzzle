@@ -309,6 +309,8 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
 
     final size = widget.state.puzzle.getDimension();
 
+    double timeDilation = context.getTimeDilation();
+
     Widget _tile = AudioControlListener(
       audioPlayer: _audioPlayer,
       child: StyledButton(
@@ -326,6 +328,9 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
                   );
                   unawaited(_audioPlayer?.replay());
                 }
+                await Future.delayed(PuzzleThemeAnimationDuration
+                    .puzzleTileScale
+                    .dilate(timeDilation / 2));
 
                 context.read<PuzzleBloc>().add(TileTapped(widget.tile));
               }

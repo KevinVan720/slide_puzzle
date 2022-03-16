@@ -17,6 +17,7 @@
     "puzzleTileLabelText": "Valor: {value}, posición {x}, {y}",
     "puzzleNumberOfMovesAndTilesLeftLabelText": "Meuve: {numberOfMoves}, Losas: {tilesLeft}",
     "soundControl": "Sonar",
+    "slowmoControl": "La cámara lenta",
     "localeControl": "Idioma",
     "sizeControl": "Talla",
     "difficultyControl": "Dificultad",

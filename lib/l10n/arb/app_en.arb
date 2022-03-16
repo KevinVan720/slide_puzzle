@@ -93,6 +93,10 @@
     "@soundControl": {
         "description": "Show the controls of the app sound"
     },
+    "slowmoControl": "Slowmo",
+    "@slowmoControl": {
+        "description": "Show the controls of the app time dilation"
+    },
     "localeControl": "Language",
     "@localeControl": {
         "description": "Show the controls of the app language"

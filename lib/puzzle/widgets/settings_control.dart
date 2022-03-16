@@ -32,17 +32,21 @@ class _SettingsControlState extends State<SettingsControl> {
 
     List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
 
+    double timeDilation = context.getTimeDilation();
+
     return GestureDetector(
       onTap: () {
         showAlignedDialog(
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange,
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                .dilate(timeDilation),
             transitionsBuilder: (BuildContext context,
                 Animation<double> animation,
                 Animation<double> secondaryAnimation,
                 Widget child) {
               return SlideTransition(
+                ///TODO: add different slide transtion for each theme
                 position: Tween<Offset>(
-                  begin: const Offset(0.0, 0.0),
+                  begin: Offset.zero,
                   end: Offset.zero,
                 ).animate(CurvedAnimation(
                   parent: animation,
@@ -279,7 +283,30 @@ class _SettingsControlState extends State<SettingsControl> {
                 curve: Curves.easeInOut,
                 style: theme.popupMenuTitleStyle.resolve(context)!,
                 child: Builder(
-                  builder: (context) => Text("Slowmo"),
+                  builder: (context) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(context.l10n.slowmoControl),
+                      Gap(2),
+                      AnimatedDefaultTextStyle(
+                          style: theme.popupMenuButtonStyle
+                                  .resolve(context)
+                                  ?.textStyle
+                                  ?.toTextStyle(
+                                      screenSize: MediaQuery.of(context).size,
+                                      parentFontSize:
+                                          DefaultTextStyle.of(context)
+                                                  .style
+                                                  .fontSize ??
+                                              14.0) ??
+                              TextStyle(),
+                          duration: PuzzleThemeAnimationDuration.textStyle
+                              .dilate(context.getTimeDilation()),
+                          child: Text(
+                            " × " + timeDilation.toString(),
+                          ))
+                    ],
+                  ),
                 )),
             StyledSlider(
                 direction: Axis.horizontal,
@@ -431,35 +458,38 @@ class _SettingsControlState extends State<SettingsControl> {
   Widget _buildAllControls(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return AnimatedStyledContainer(
-      duration: PuzzleThemeAnimationDuration.backgroundColorChange
-          .dilate(context.getTimeDilation()),
-      curve: Curves.easeInOut,
-      style: theme.popupMenuStyle.resolve(context) ?? Style(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildAudioControl(context),
-          _buildTimeDilationControl(context),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: _buildSizeControl(context),
-              ),
-              const Gap(10),
-              Expanded(
-                  child: Column(
-                children: [
-                  _buildLocaleControl(context),
-                  _buildDifficultyControl(context),
-                  _buildBrightnessControl(context)
-                ],
-              )),
-            ],
-          ),
-        ],
+    return SingleChildScrollView(
+      clipBehavior: Clip.none,
+      child: AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
+        curve: Curves.easeInOut,
+        style: theme.popupMenuStyle.resolve(context) ?? Style(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildAudioControl(context),
+            _buildTimeDilationControl(context),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: _buildSizeControl(context),
+                ),
+                const Gap(10),
+                Expanded(
+                    child: Column(
+                  children: [
+                    _buildLocaleControl(context),
+                    _buildDifficultyControl(context),
+                    _buildBrightnessControl(context)
+                  ],
+                )),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

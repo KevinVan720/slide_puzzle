@@ -56,10 +56,30 @@ class GlassmorphismTheme extends SimpleTheme {
           color: themePalette.titleColor,
           fontWeight: FontWeight.w900,
           shadows: [
-            const Shadow(
-                blurRadius: 10,
-                color: PuzzleColors.grey5,
-                offset: Offset(5, 5)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(-1, -1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(-1, 0)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(0, -1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(0, 1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(1, 0)),
+            Shadow(
+                blurRadius: 8,
+                color: themePalette.kAmbientShadowOpacity.withOpacity(0.5),
+                offset: Offset(3, 3)),
           ]);
 
   @override
@@ -81,6 +101,7 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
+          margin: EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           shadows: [
             ShapeShadow(
@@ -302,19 +323,9 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get tileStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-          width: _TileDimension.small,
-          height: _TileDimension.small,
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 24.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
-            shadows: [
-              const Shadow(
-                  blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
-            ],
-          ),
-        ),
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 20.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,
@@ -328,44 +339,34 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get tileHoverStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-          width: _TileDimension.small,
-          height: _TileDimension.small,
-          shadows: [
-            ShapeShadow(
-                spreadRadius: 2,
-                blurRadius: 5,
-                color: Colors.black.withOpacity(0.02),
-                offset: const Offset(3, 3)),
-          ],
-          backgroundDecoration:
-              BoxDecoration(color: themePalette.tileHoverColor),
-          shapeBorder: RectangleShapeBorder(
-              border: DynamicBorderSide(
-                  width: 1.8,
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: const [
-                        0,
-                        0.2
-                      ],
-                      colors: [
-                        Colors.white70,
-                        Colors.white.withOpacity(0.05)
-                      ])),
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(20.toPXLength))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 24.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
+            width: _TileDimension.small,
+            height: _TileDimension.small,
             shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
+              ShapeShadow(
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  color: Colors.black.withOpacity(0.02),
+                  offset: const Offset(3, 3)),
             ],
-          ),
-        ),
+            backgroundDecoration:
+                BoxDecoration(color: themePalette.tileHoverColor),
+            shapeBorder: RectangleShapeBorder(
+                border: DynamicBorderSide(
+                    width: 1.8,
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: const [
+                          0,
+                          0.2
+                        ],
+                        colors: [
+                          Colors.white70,
+                          Colors.white.withOpacity(0.05)
+                        ])),
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(20.toPXLength))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 20.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,
@@ -394,16 +395,6 @@ class GlassmorphismTheme extends SimpleTheme {
                       ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
-            shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
-            ],
-          ),
         ),
         largeScreen: _baseStyle.copyWith(
           width: _TileDimension.large,
@@ -433,49 +424,29 @@ class GlassmorphismTheme extends SimpleTheme {
                       ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
-            shadows: [
-              const Shadow(
-                  blurRadius: 10, color: Colors.grey, offset: Offset(0, 0)),
-            ],
-          ),
         )
       });
 
   @override
   Responsive<Style> get tilePressedStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-          width: _TileDimension.small,
-          height: _TileDimension.small,
-          shadows: [],
-          backgroundDecoration:
-              BoxDecoration(color: themePalette.tilePressedColor),
-          shapeBorder: RectangleShapeBorder(
-              border: DynamicBorderSide(
-                  width: 1.8,
-                  begin: 50.toPercentLength,
-                  end: 60.toPercentLength,
-                  gradient: LinearGradient(colors: [
-                    Colors.white.withOpacity(0.01),
-                    Colors.white.withOpacity(0.01)
-                  ])),
-              borderRadius: DynamicBorderRadius.all(
-                  DynamicRadius.circular(20.toPXLength))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 24.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
-            shadows: [
-              const Shadow(
-                  blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
-            ],
-          ),
-        ),
+            width: _TileDimension.small,
+            height: _TileDimension.small,
+            shadows: [],
+            backgroundDecoration:
+                BoxDecoration(color: themePalette.tilePressedColor),
+            shapeBorder: RectangleShapeBorder(
+                border: DynamicBorderSide(
+                    width: 1.8,
+                    begin: 50.toPercentLength,
+                    end: 60.toPercentLength,
+                    gradient: LinearGradient(colors: [
+                      Colors.white.withOpacity(0.01),
+                      Colors.white.withOpacity(0.01)
+                    ])),
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(20.toPXLength))),
+            textStyle: _baseStyle.textStyle?.copyWith(fontSize: 20.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
           height: _TileDimension.medium,
@@ -493,16 +464,6 @@ class GlassmorphismTheme extends SimpleTheme {
                   ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
-            shadows: [
-              const Shadow(
-                  blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
-            ],
-          ),
         ),
         largeScreen: _baseStyle.copyWith(
           width: _TileDimension.large,
@@ -521,16 +482,6 @@ class GlassmorphismTheme extends SimpleTheme {
                   ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
-          textStyle: DynamicTextStyle(
-            letterSpacing: 0.1.toPXLength,
-            fontSize: 28.toPXLength,
-            fontWeight: FontWeight.w900,
-            color: themePalette.tileTextColor,
-            shadows: [
-              const Shadow(
-                  blurRadius: 2, color: Colors.grey, offset: Offset(0, 0)),
-            ],
-          ),
         )
       });
 
@@ -539,8 +490,30 @@ class GlassmorphismTheme extends SimpleTheme {
           color: themePalette.menuActiveColor,
           fontWeight: FontWeight.bold,
           shadows: [
-            const Shadow(
-                blurRadius: 5, color: PuzzleColors.grey2, offset: Offset(2, 2)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(-1, -1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(-1, 0)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(0, -1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(0, 1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: Offset(1, 0)),
+            Shadow(
+                blurRadius: 8,
+                color: themePalette.kAmbientShadowOpacity.withOpacity(0.5),
+                offset: Offset(3, 3)),
           ]);
 
   @override
@@ -581,8 +554,30 @@ class GlassmorphismTheme extends SimpleTheme {
         fontWeight: FontWeight.w900,
         color: themePalette.tileTextColor,
         shadows: [
-          const Shadow(
-              blurRadius: 15, color: Colors.grey, offset: Offset(1, 1)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.kAmbientShadowOpacity,
+              offset: Offset(-1, -1)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.kAmbientShadowOpacity,
+              offset: Offset(-1, 0)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.kAmbientShadowOpacity,
+              offset: Offset(0, -1)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.kAmbientShadowOpacity,
+              offset: Offset(0, 1)),
+          Shadow(
+              blurRadius: 3,
+              color: themePalette.kAmbientShadowOpacity,
+              offset: Offset(1, 0)),
+          Shadow(
+              blurRadius: 6,
+              color: themePalette.kAmbientShadowOpacity.withOpacity(0.3),
+              offset: Offset(1, 1)),
         ],
       ),
       mouseCursor: SystemMouseCursors.click);

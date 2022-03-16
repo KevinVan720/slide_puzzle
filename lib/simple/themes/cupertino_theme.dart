@@ -73,6 +73,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
+          margin: EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration: BoxDecoration(
             color: themePalette.popupMenuColor,
@@ -186,29 +187,20 @@ class CupertinoTheme extends SimpleTheme {
             height: 25.toPXLength,
             shadows: [
               ShapeShadow(
-                  offset: const Offset(0.0, 3.0),
-                  blurRadius: 1.0,
-                  spreadRadius: -2.0,
-                  color: themePalette.kKeyUmbraOpacity),
-              ShapeShadow(
-                  offset: const Offset(0.0, 2.0),
-                  blurRadius: 2.0,
-                  color: themePalette.kKeyPenumbraOpacity),
-              ShapeShadow(
                   offset: const Offset(0.0, 1.0),
-                  blurRadius: 5.0,
+                  blurRadius: 2.0,
                   color: themePalette.kAmbientShadowOpacity),
               ShapeShadow(
                   offset: const Offset(0.0, -1.0),
-                  blurRadius: 5.0,
+                  blurRadius: 2.0,
                   color: themePalette.kAmbientShadowOpacity),
               ShapeShadow(
                   offset: const Offset(1.0, 0.0),
-                  blurRadius: 5.0,
+                  blurRadius: 2.0,
                   color: themePalette.kAmbientShadowOpacity),
               ShapeShadow(
                   offset: const Offset(-1.0, 0.0),
-                  blurRadius: 5.0,
+                  blurRadius: 2.0,
                   color: themePalette.kAmbientShadowOpacity),
             ])
       });

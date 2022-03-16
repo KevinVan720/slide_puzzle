@@ -71,6 +71,7 @@ class ClaymorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
+          margin: EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration:
               BoxDecoration(gradient: themePalette.popupMenuGradient),
@@ -489,7 +490,7 @@ class ClaymorphismTheme extends SimpleTheme {
                 color: themePalette.kAmbientShadowOpacity,
                 offset: const Offset(1, 1)),
           ],
-  textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength),
+          textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength),
         ),
         middleScreen: _baseStyle.copyWith(
           width: _TileDimension.medium,
