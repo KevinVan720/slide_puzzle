@@ -80,11 +80,7 @@ class NeumorphicTheme extends SimpleTheme {
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
-            backgroundDecoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [themePalette.baseColor, themePalette.baseColor],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter)))
+            backgroundDecoration: BoxDecoration(color: themePalette.baseColor))
       });
 
   @override

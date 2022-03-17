@@ -63,14 +63,10 @@ class FluentTheme extends SimpleTheme {
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
             backgroundDecoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(themePalette.backgroundImage)),
-                gradient: LinearGradient(colors: [
-                  themePalette.backgroundColor,
-                  themePalette.backgroundColor,
-                  themePalette.kAmbientShadowOpacity
-                ], begin: Alignment.topCenter, end: Alignment.bottomCenter))),
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(themePalette.backgroundImage)),
+        )),
       });
 
   @override

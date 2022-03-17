@@ -28,7 +28,7 @@ packages:
       name: animated_styled_widget
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.6"
+    version: "0.4.0"
   args:
     dependency: transitive
     description:
@@ -370,7 +370,7 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.5"
+    version: "1.5.9"
   nested:
     dependency: transitive
     description:

@@ -66,10 +66,8 @@ class KeyboardTheme extends SimpleTheme {
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
           backgroundDecoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            themePalette.backgroundColor,
-            themePalette.backgroundColor,
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            color: themePalette.backgroundColor,
+          ),
         ),
       });
 
