@@ -54,12 +54,12 @@ The themed_puzzle app is an all-around app that is **fully responsive, cross-pla
 
 I also want to highlight the extra features that I have implemented in order to achieve the visual effects I want. They include:
 
-1. Crossfade/smooth transition between image, gradient, and colored background. The current implementation in Flutter will have artifacts during a background transition. 
-2. Inset shadows. This is also missing in FLutter for now but is crucial for implementing neumorphic or engraved effects. 
-3. Rounded recntangle border with sides of different width and the ability to smoothly morph it into other shape borders. The implementation details of the morph algorithm can be found at https://medium.com/p/30e0d33c60a7. 
-4. The ability to open a dialog that is positioned relative to another widget (or the whole screen). You can use this to implement drawers that can open in any direction, or dropdown buttons in desktop UI.
+1. Crossfade/smooth transition between image, gradient, and colored background. The current implementation in Flutter will have artifacts during a background transition.
+2. Inset shadows. This is also missing in FLutter for now but is crucial for implementing neumorphic or engraved effects.
+3. Rounded rectangle border with sides of different widths and the ability to smoothly morph it into other shape borders. The implementation details of the morphing algorithm can be found at https://medium.com/p/30e0d33c60a7.
+4. The ability to open a dialog that is positioned relative to another widget (or the whole screen). You can use this to implement drawers that can open in any direction or dropdown buttons in desktop UI.
 
-The packages involved have all been published on [pub.dev](https://pub.dev/publishers/wenkaifan.com/packages) and I really hope I can to contribute these features into Flutter. 
+The packages involved have all been published on [pub.dev](https://pub.dev/publishers/wenkaifan.com/packages) and I really hope I can contribute these features to Flutter. 
 
 ## What we learned 🧠
 
