@@ -93,27 +93,21 @@ class _PuzzleViewState extends State<PuzzleView> {
     Widget background;
 
     ///Now only the glass theme has a dynamic background, use a periodic timer to trigger change
-    if (theme is GlassmorphismTheme) {
-      background=StreamBuilder(
-            stream: Stream.periodic(PuzzleThemeAnimationDuration
-                .backgroundColorChange
-                .dilate(context.getTimeDilation() * 10)),
-            builder: (context, snapshot) => AnimatedStyledContainer(
-              key: Key("background"),
-                curve: Curves.easeInOut,
-                duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                    .dilate(context.getTimeDilation() * 10),
-                style: (theme.backgroundStyle.resolve(context) ?? Style())
-                  ..textStyle = null,child: Container(),));
-    } else {
-      background = AnimatedStyledContainer(
-        key: Key("background"),
-        curve: Curves.easeInOut,
-        duration: PuzzleThemeAnimationDuration.backgroundColorChange
-            .dilate(context.getTimeDilation()),
-        style: (theme.backgroundStyle.resolve(context) ?? Style())
-          ..textStyle = null,child: Container(),);
-    }
+    background = StreamBuilder(
+        stream: Stream.periodic(PuzzleThemeAnimationDuration
+            .backgroundColorChange
+            .dilate(context.getTimeDilation() *
+                (theme is GlassmorphismTheme ? 10 : 10000000))),
+        builder: (context, snapshot) => AnimatedStyledContainer(
+              curve: Curves.easeInOut,
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(context.getTimeDilation() *
+                      (theme is GlassmorphismTheme ? 10 : 1)),
+              style: (theme.backgroundStyle.resolve(context) ?? Style())
+                ..textStyle = null,
+              child: Container(),
+            ));
+
     return Scaffold(
       body: Stack(
         children: [

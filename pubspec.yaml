@@ -27,6 +27,7 @@ dependencies:
   responsive_property: ^0.0.6
   decorated_icon: ^1.2.1
   aligned_dialog: ^0.0.6
+  aurora_decoration: 0.0.1
 
 dev_dependencies:
   bloc_test: ^9.0.1

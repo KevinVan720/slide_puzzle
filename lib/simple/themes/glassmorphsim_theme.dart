@@ -11,7 +11,7 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
-import 'aurora_decoration.dart';
+import 'package:aurora_decoration/aurora_decoration.dart';
 import 'dart:math';
 
 /// {@template simple_theme}
@@ -97,23 +97,23 @@ class GlassmorphismTheme extends SimpleTheme {
     List<Gradient>? gradients = [];
     List<double>? blurs = [];
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 6; i++) {
       Color center = themePalette
           .backgroundColors[rng.nextInt(themePalette.backgroundColors.length)];
       gradients.add(RadialGradient(
-        tileMode: TileMode.decal,
-          radius: rng.nextDouble() * 3 + 2,
+          tileMode: TileMode.decal,
+          radius: rng.nextDouble() * 2 + 2,
           center: Alignment(
               (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
           colors: [
-            center.withOpacity(0.9-i*0.05),
+            center.withOpacity(0.9 - i * 0.1),
             Colors.transparent
           ],
           stops: [
             0,
             rng.nextDouble() * 0.25 + 0.25,
           ]));
-      blurs.add(rng.nextDouble() * 10+30);
+      blurs.add(rng.nextDouble() * 10 + 25);
     }
 
     return Responsive({
@@ -680,8 +680,8 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
         const Color(0xFFF7D8BA),
         Colors.pink.shade100,
         Colors.pinkAccent.shade100,
-    Colors.cyanAccent.shade100,
-    Colors.green.shade200,
+        Colors.cyanAccent.shade100,
+        Colors.green.shade200,
       ];
 
   @override
