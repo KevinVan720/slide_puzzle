@@ -58,6 +58,8 @@ I also want to highlight the extra features that I have implemented in order to 
 2. Inset shadows. This is also missing in FLutter for now but is crucial for implementing neumorphic or engraved effects.
 3. Rounded rectangle border with sides of different widths and the ability to smoothly morph it into other shape borders. The implementation details of the morphing algorithm can be found at https://medium.com/p/30e0d33c60a7.
 4. The ability to open a dialog that is positioned relative to another widget (or the whole screen). You can use this to implement drawers that can open in any direction or dropdown buttons in desktop UI.
+5. Animated aurora gradient for the glassmorphism theme.
+
 
 The packages involved have all been published on [pub.dev](https://pub.dev/publishers/wenkaifan.com/packages) and I really hope I can contribute these features to Flutter. 
 
@@ -95,55 +97,55 @@ The app should also run on **IOS** and **MacOS** since all dependent packages su
 
 ## Supported Themes 🎨
 
-![Material](https://i.imgur.com/lpCk6th.png)
+![Material](https://i.imgur.com/YgvK0PX.png)
 ##### Material
 
-![Material Dark](https://i.imgur.com/QO6yhy0.png)
+![Material Dark](https://i.imgur.com/krPvV2E.png)
 ##### Material Dark
 
-![Fluent](https://i.imgur.com/P6s0YKW.png)
+![Fluent](https://i.imgur.com/ZK7qfxw.png)
 ##### Fluent
 
-![Fluent Dark](https://i.imgur.com/CFUjZT1.png)
+![Fluent Dark](https://i.imgur.com/zmL5VVc.png)
 ##### Fluent Dark
 
-![Cupertino](https://i.imgur.com/fROSntM.png)
+![Cupertino](https://i.imgur.com/I6ij5q5.png)
 ##### Cupertino
 
-![Cupertino Dark](https://i.imgur.com/zC2Vg6D.png)
+![Cupertino Dark](https://i.imgur.com/KxY0Lxn.png)
 ##### Cupertino Dark
 
-![Neumorphism](https://i.imgur.com/IWhlx19.png)
+![Neumorphism](https://i.imgur.com/FjNOoAJ.png)
 ##### Neumorphism
 
-![Neumorphism Dark](https://i.imgur.com/J4MTg9M.png)
+![Neumorphism Dark](https://i.imgur.com/jGGBQQf.png)
 ##### Neumorphism Dark
 
-![Glassmorphism](https://i.imgur.com/spEmQkn.png)
+![Glassmorphism](https://i.imgur.com/kPTi1Lk.png)
 ##### Glassmorphism
 
-![Glassmorphism Dark](https://i.imgur.com/5AhmXJh.png)
+![Glassmorphism Dark](https://i.imgur.com/fMDnJHw.png)
 ##### Glassmorphism Dark
 
-![Claymorphism](https://i.imgur.com/mh4SAbJ.png)
+![Claymorphism](https://i.imgur.com/WB9BO3D.png)
 ##### Claymorphism
 
-![Claymorphism Dark](https://i.imgur.com/lVUUeEr.png)
+![Claymorphism Dark](https://i.imgur.com/P15emU1.png)
 ##### Claymorphism Dark
 
-![Neon](https://i.imgur.com/inEWVEc.png)
+![Neon](https://i.imgur.com/6x1hBBO.png)
 ##### Neon
 
-![Neon Dark](https://i.imgur.com/rQNofyo.png)
+![Neon Dark](https://i.imgur.com/jFfPKbg.png)
 ##### Neon Dark
 
-![Keyboard](https://i.imgur.com/MoUVBF3.png)
+![Keyboard](https://i.imgur.com/QB6l8YT.png)
 ##### Keyboard
 
-![Keyboard Dark](https://i.imgur.com/7zI1c9y.png)
+![Keyboard Dark](https://i.imgur.com/SwshleM.png)
 ##### Keyboard Dark
 
-![Wood ](https://i.imgur.com/MbTTp8m.png)
+![Wood ](https://i.imgur.com/RXmwnnc.png)
 ##### Wood
 
 ## Team members 🧙
