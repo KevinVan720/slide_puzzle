@@ -90,16 +90,36 @@ class _PuzzleViewState extends State<PuzzleView> {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    return Scaffold(
-      body: AnimatedStyledContainer(
-          duration: PuzzleThemeAnimationDuration.backgroundColorChange
-              .dilate(context.getTimeDilation()),
-          style: (theme.backgroundStyle.resolve(context) ?? Style())
-            ..textStyle = null,
-          child: const _Puzzle(
-            key: Key('puzzle_view_puzzle'),
-          )),
-    );
+    ///Now only the glass theme has a dynamic background, use a periodic timer to trigger change
+    if (theme is GlassmorphismTheme) {
+      return Scaffold(
+        body: StreamBuilder(
+            stream: Stream.periodic(PuzzleThemeAnimationDuration
+                .backgroundColorChange
+                .dilate(context.getTimeDilation() * 10)),
+            builder: (context, snapshot) => AnimatedStyledContainer(
+                curve: Curves.easeInOut,
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                    .dilate(context.getTimeDilation() * 10),
+                style: (theme.backgroundStyle.resolve(context) ?? Style())
+                  ..textStyle = null,
+                child: const _Puzzle(
+                  key: Key('puzzle_view_puzzle'),
+                ))),
+      );
+    } else {
+      return Scaffold(
+        body: AnimatedStyledContainer(
+            curve: Curves.easeInOut,
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                .dilate(context.getTimeDilation()),
+            style: (theme.backgroundStyle.resolve(context) ?? Style())
+              ..textStyle = null,
+            child: const _Puzzle(
+              key: Key('puzzle_view_puzzle'),
+            )),
+      );
+    }
   }
 }
 
@@ -294,7 +314,8 @@ class PuzzleBoard extends StatelessWidget {
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
 
     final size = puzzle.getDimension();
-    if (size == 0) return const CircularProgressIndicator();
+    if (size == const PuzzleSize(0, 0))
+      return const CircularProgressIndicator();
 
     var board = BlocListener<PuzzleBloc, PuzzleState>(
       listener: (context, state) {
@@ -349,27 +370,34 @@ class _PuzzleTile extends StatelessWidget {
 /// Displays the menu of the puzzle.
 /// {@endtemplate}
 @visibleForTesting
-class PuzzleMenu extends StatelessWidget {
+class PuzzleMenu extends StatefulWidget {
   /// {@macro puzzle_menu}
   const PuzzleMenu({Key? key}) : super(key: key);
 
+  @override
+  State<PuzzleMenu> createState() => _PuzzleMenuState();
+}
+
+class _PuzzleMenuState extends State<PuzzleMenu> {
   @override
   Widget build(BuildContext context) {
     final themes = context.select((ThemeBloc bloc) => bloc.state.themes);
 
     return ResponsiveLayoutBuilder(
         small: (context, child) => Wrap(
-              children: [
-                ...List.generate(
-                  themes.length,
-                  (index) => PuzzleMenuItem(
-                    theme: themes[index],
-                    themeIndex: index,
-                  ),
+              alignment: WrapAlignment.center,
+              runAlignment: WrapAlignment.center,
+              children: List.generate(
+                themes.length,
+                (index) => PuzzleMenuItem(
+                  theme: themes[index],
+                  themeIndex: index,
                 ),
-              ],
+              ),
             ),
         medium: (context, child) => Wrap(
+              alignment: WrapAlignment.center,
+              runAlignment: WrapAlignment.center,
               children: [
                 ...List.generate(
                   themes.length,
@@ -428,7 +456,6 @@ class PuzzleMenuItem extends StatelessWidget {
       small: (_, child) => Column(
         children: [
           Container(
-            //width: 100,
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: isCurrentTheme

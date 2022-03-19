@@ -10,6 +10,9 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
+import 'aurora_decoration.dart';
+import 'dart:math';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
@@ -59,27 +62,27 @@ class GlassmorphismTheme extends SimpleTheme {
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(-1, -1)),
+                offset: const Offset(-1, -1)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(-1, 0)),
+                offset: const Offset(-1, 0)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(0, -1)),
+                offset: const Offset(0, -1)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(0, 1)),
+                offset: const Offset(0, 1)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(1, 0)),
+                offset: const Offset(1, 0)),
             Shadow(
                 blurRadius: 8,
                 color: themePalette.kAmbientShadowOpacity.withOpacity(0.5),
-                offset: Offset(3, 3)),
+                offset: const Offset(3, 3)),
           ]);
 
   @override
@@ -87,21 +90,62 @@ class GlassmorphismTheme extends SimpleTheme {
       DynamicTextStyle(color: themePalette.defaultColor);
 
   @override
-  Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-            backdropFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-            backgroundDecoration:
-                BoxDecoration(gradient: themePalette.backgroundGradient
-                    //image: DecorationImage(
-                    //    fit: BoxFit.cover,
-                    //    image: AssetImage(themePalette.backgroundImage)),
-                    ))
-      });
+  Responsive<Style> get backgroundStyle {
+    var rng = Random();
+
+    List<Gradient>? gradients = [];
+    List<double>? blurs = [];
+
+    for (int i = 0; i < 6; i++) {
+      Color center = themePalette
+          .backgroundColors[rng.nextInt(themePalette.backgroundColors.length)];
+      gradients.add(RadialGradient(
+          radius: rng.nextDouble() * 3 + 2,
+          center: Alignment(
+              (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
+          colors: [
+            center,
+            Colors.transparent
+          ],
+          stops: [
+            0,
+            rng.nextDouble() * 0.5 + 0.2,
+          ]));
+      blurs.add(rng.nextDouble() * 10 + 5);
+    }
+
+    for (int i = 0; i < 5; i++) {
+      Color center = Color.fromARGB(rng.nextInt(80), rng.nextInt(255),
+          rng.nextInt(255), rng.nextInt(255));
+      gradients.add(RadialGradient(
+          radius: rng.nextDouble() * 4 + 2,
+          center: Alignment(
+              (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
+          colors: [
+            center,
+            Colors.transparent
+          ],
+          stops: [
+            0,
+            rng.nextDouble() * 0.8 + 0.2,
+          ]));
+      blurs.add(rng.nextDouble() * 5 + 5);
+    }
+
+    return Responsive({
+      allScreen: Style(
+          //backdropFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+          backgroundDecoration: AuroraDecoration(
+              color: themePalette.backgroundColor,
+              gradientBlurs: blurs,
+              gradients: gradients))
+    });
+  }
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           shadows: [
             ShapeShadow(
@@ -493,27 +537,27 @@ class GlassmorphismTheme extends SimpleTheme {
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(-1, -1)),
+                offset: const Offset(-1, -1)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(-1, 0)),
+                offset: const Offset(-1, 0)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(0, -1)),
+                offset: const Offset(0, -1)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(0, 1)),
+                offset: const Offset(0, 1)),
             Shadow(
                 blurRadius: 3,
                 color: themePalette.kAmbientShadowOpacity,
-                offset: Offset(1, 0)),
+                offset: const Offset(1, 0)),
             Shadow(
                 blurRadius: 8,
                 color: themePalette.kAmbientShadowOpacity.withOpacity(0.5),
-                offset: Offset(3, 3)),
+                offset: const Offset(3, 3)),
           ]);
 
   @override
@@ -521,7 +565,14 @@ class GlassmorphismTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
-      color: themePalette.menuInactiveColor, fontWeight: FontWeight.w200);
+          color: themePalette.menuInactiveColor,
+          fontWeight: FontWeight.w200,
+          shadows: [
+            Shadow(
+                blurRadius: 5,
+                color: themePalette.tileColor,
+                offset: const Offset(0, 0)),
+          ]);
 
   @override
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
@@ -557,27 +608,27 @@ class GlassmorphismTheme extends SimpleTheme {
           Shadow(
               blurRadius: 3,
               color: themePalette.kAmbientShadowOpacity,
-              offset: Offset(-1, -1)),
+              offset: const Offset(-1, -1)),
           Shadow(
               blurRadius: 3,
               color: themePalette.kAmbientShadowOpacity,
-              offset: Offset(-1, 0)),
+              offset: const Offset(-1, 0)),
           Shadow(
               blurRadius: 3,
               color: themePalette.kAmbientShadowOpacity,
-              offset: Offset(0, -1)),
+              offset: const Offset(0, -1)),
           Shadow(
               blurRadius: 3,
               color: themePalette.kAmbientShadowOpacity,
-              offset: Offset(0, 1)),
+              offset: const Offset(0, 1)),
           Shadow(
               blurRadius: 3,
               color: themePalette.kAmbientShadowOpacity,
-              offset: Offset(1, 0)),
+              offset: const Offset(1, 0)),
           Shadow(
               blurRadius: 6,
               color: themePalette.kAmbientShadowOpacity.withOpacity(0.3),
-              offset: Offset(1, 1)),
+              offset: const Offset(1, 1)),
         ],
       ),
       mouseCursor: SystemMouseCursors.click);
@@ -591,7 +642,8 @@ abstract class _TileDimension {
 }
 
 abstract class GlassmorphismThemePalette {
-  Gradient get backgroundGradient;
+  Color get backgroundColor;
+  List<Color> get backgroundColors;
 
   Color get kAmbientShadowOpacity;
 
@@ -623,26 +675,31 @@ abstract class GlassmorphismThemePalette {
 
 class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
   @override
-  Gradient get backgroundGradient => const SweepGradient(
-          center: Alignment(0.13, 0.1),
-          startAngle: 0.5,
-          endAngle: 6.3,
-          colors: [
-            Color(0xFFF6EA41),
-            Color(0xFFEEBD89),
-            Color(0xFFD13ABD),
-            Color(0xFFAEBAF8),
-            Color(0xFFB60F46),
-            Color(0xFFF6EA41),
-          ],
-          stops: [
-            0.01,
-            0.2,
-            0.5,
-            0.7,
-            0.8,
-            0.98
-          ]);
+  Color get backgroundColor => Colors.pinkAccent.shade100;
+
+  @override
+  List<Color> get backgroundColors => [
+        const Color(0xFFF6EA61),
+        const Color(0xFFEECD89),
+        const Color(0xFFD19ABD),
+        const Color(0xFFAEBAF8),
+        const Color(0xFFF088C6),
+        const Color(0xFFFF8DDB),
+        const Color(0xFFC1FCD3),
+        const Color(0xFFF9957F),
+        const Color(0xFFA7BFE8),
+        Colors.lightBlue.shade50,
+        Colors.lightGreen.shade100,
+        Colors.lime.shade50,
+        const Color(0xFFACDDDE),
+        const Color(0xFFCAF1DE),
+        const Color(0xFFE1F8DC),
+        const Color(0xFFFFE7C7),
+        const Color(0xFFF7D8BA),
+        Colors.pink.shade100,
+        Colors.pinkAccent.shade100,
+        Colors.pink.shade50,
+      ];
 
   @override
   Color get nameColor => PuzzleColors.black;
@@ -653,7 +710,7 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
 
   @override
   Color get kAmbientShadowOpacity =>
-      Colors.black.withOpacity(0.15); // alpha = 0.12
+      Colors.grey.shade600.withOpacity(0.15); // alpha = 0.12
 
   @override
   Color get tileTextColor => Colors.black45;
@@ -695,24 +752,26 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
 
 class GlassmorphismThemePaletteDark extends GlassmorphismThemePalette {
   @override
-  Gradient get backgroundGradient => const SweepGradient(
-          center: Alignment(0.03, -0.17),
-          startAngle: 0.1,
-          endAngle: 5.3,
-          colors: [
-            Colors.black87,
-            Color(0xFF04619f),
-            Color(0xFF358f74),
-            Color(0xFF923cb5),
-            Colors.black87,
-          ],
-          stops: [
-            0.1,
-            0.3,
-            0.45,
-            0.8,
-            0.98
-          ]);
+  Color get backgroundColor => Colors.blueAccent.shade700;
+
+  @override
+  List<Color> get backgroundColors => [
+        const Color(0xFF04619f),
+        const Color(0xFF358f74),
+        const Color(0xFF923cb5),
+        const Color(0xFFB60F46),
+        Colors.blue.shade900,
+        Colors.green.shade900,
+        Colors.cyan.shade700,
+        Colors.amber.shade900,
+        Colors.grey.shade900,
+        const Color(0xFF000C40),
+        const Color(0xFF41295A),
+        const Color(0xFF2F0743),
+        const Color(0xFFBB00AA),
+        Colors.brown.shade700,
+        Colors.indigo.shade700
+      ];
 
   @override
   Color get nameColor => PuzzleColors.grey5;
