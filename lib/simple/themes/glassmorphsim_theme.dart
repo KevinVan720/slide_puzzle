@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:responsive_property/responsive_property.dart';
@@ -96,45 +97,27 @@ class GlassmorphismTheme extends SimpleTheme {
     List<Gradient>? gradients = [];
     List<double>? blurs = [];
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
       Color center = themePalette
           .backgroundColors[rng.nextInt(themePalette.backgroundColors.length)];
       gradients.add(RadialGradient(
+        tileMode: TileMode.decal,
           radius: rng.nextDouble() * 3 + 2,
           center: Alignment(
               (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
           colors: [
-            center,
+            center.withOpacity(0.9-i*0.05),
             Colors.transparent
           ],
           stops: [
             0,
-            rng.nextDouble() * 0.5 + 0.2,
+            rng.nextDouble() * 0.25 + 0.25,
           ]));
-      blurs.add(rng.nextDouble() * 10 + 5);
-    }
-
-    for (int i = 0; i < 5; i++) {
-      Color center = Color.fromARGB(rng.nextInt(80), rng.nextInt(255),
-          rng.nextInt(255), rng.nextInt(255));
-      gradients.add(RadialGradient(
-          radius: rng.nextDouble() * 4 + 2,
-          center: Alignment(
-              (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
-          colors: [
-            center,
-            Colors.transparent
-          ],
-          stops: [
-            0,
-            rng.nextDouble() * 0.8 + 0.2,
-          ]));
-      blurs.add(rng.nextDouble() * 5 + 5);
+      blurs.add(rng.nextDouble() * 10+30);
     }
 
     return Responsive({
       allScreen: Style(
-          //backdropFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
           backgroundDecoration: AuroraDecoration(
               color: themePalette.backgroundColor,
               gradientBlurs: blurs,
@@ -684,7 +667,6 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
         const Color(0xFFD19ABD),
         const Color(0xFFAEBAF8),
         const Color(0xFFF088C6),
-        const Color(0xFFFF8DDB),
         const Color(0xFFC1FCD3),
         const Color(0xFFF9957F),
         const Color(0xFFA7BFE8),
@@ -698,7 +680,8 @@ class GlassmorphismThemePaletteLight extends GlassmorphismThemePalette {
         const Color(0xFFF7D8BA),
         Colors.pink.shade100,
         Colors.pinkAccent.shade100,
-        Colors.pink.shade50,
+    Colors.cyanAccent.shade100,
+    Colors.green.shade200,
       ];
 
   @override

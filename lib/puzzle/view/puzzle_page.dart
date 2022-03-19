@@ -90,36 +90,40 @@ class _PuzzleViewState extends State<PuzzleView> {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
+    Widget background;
+
     ///Now only the glass theme has a dynamic background, use a periodic timer to trigger change
     if (theme is GlassmorphismTheme) {
-      return Scaffold(
-        body: StreamBuilder(
+      background=StreamBuilder(
             stream: Stream.periodic(PuzzleThemeAnimationDuration
                 .backgroundColorChange
                 .dilate(context.getTimeDilation() * 10)),
             builder: (context, snapshot) => AnimatedStyledContainer(
+              key: Key("background"),
                 curve: Curves.easeInOut,
                 duration: PuzzleThemeAnimationDuration.backgroundColorChange
                     .dilate(context.getTimeDilation() * 10),
                 style: (theme.backgroundStyle.resolve(context) ?? Style())
-                  ..textStyle = null,
-                child: const _Puzzle(
-                  key: Key('puzzle_view_puzzle'),
-                ))),
-      );
+                  ..textStyle = null,child: Container(),));
     } else {
-      return Scaffold(
-        body: AnimatedStyledContainer(
-            curve: Curves.easeInOut,
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                .dilate(context.getTimeDilation()),
-            style: (theme.backgroundStyle.resolve(context) ?? Style())
-              ..textStyle = null,
-            child: const _Puzzle(
-              key: Key('puzzle_view_puzzle'),
-            )),
-      );
+      background = AnimatedStyledContainer(
+        key: Key("background"),
+        curve: Curves.easeInOut,
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
+        style: (theme.backgroundStyle.resolve(context) ?? Style())
+          ..textStyle = null,child: Container(),);
     }
+    return Scaffold(
+      body: Stack(
+        children: [
+          background,
+          const _Puzzle(
+            key: Key('puzzle_view_puzzle'),
+          )
+        ],
+      ),
+    );
   }
 }
 
