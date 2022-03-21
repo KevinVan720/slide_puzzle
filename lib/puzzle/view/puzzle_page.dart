@@ -99,7 +99,7 @@ class _PuzzleViewState extends State<PuzzleView> {
     ///When the same theme animate periodically, the scale is multiplied additionally.
     background = BlocListener<ThemeBloc, ThemeState>(
       listenWhen: (previousState, state) {
-        isSameTheme = mapEquals(state.theme.name, previousState.theme.name);
+        isSameTheme = state.theme==previousState.theme;
         return !mapEquals(state.theme.name, previousState.theme.name);
       },
       listener: (context, state) {},
