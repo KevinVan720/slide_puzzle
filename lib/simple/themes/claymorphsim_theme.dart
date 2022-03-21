@@ -38,9 +38,9 @@ class ClaymorphismTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
-  double get backgroundAnimationScale => 5;
+  double get backgroundAnimationScale => 4;
   @override
-  double get backgroundAnimationPeriodScale => 5;
+  double get backgroundAnimationPeriodScale => 4;
 
   @override
   Curve get tileMoveAnimationCurve => Curves.easeInOutBack;
@@ -74,7 +74,7 @@ class ClaymorphismTheme extends SimpleTheme {
         end: Alignment.bottomCenter,
         stops: phase % 2 == 0
             ? themePalette.backgroundGradient.stops
-            : [0, 0.3, 0.6, 1],
+            : [0, 0.4, 0.8, 1],
         colors: themePalette.backgroundGradient.colors);
 
     return Responsive({

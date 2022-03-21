@@ -116,13 +116,14 @@ class GlassmorphismTheme extends SimpleTheme {
           ],
           stops: [
             0,
-            rng.nextDouble() * 0.25 + 0.25,
+            rng.nextDouble() * 0.3 + 0.3,
           ]));
-      blurs.add(rng.nextDouble() * 10 + 25);
+      blurs.add(rng.nextDouble() * 10 + 20);
     }
 
     return Responsive({
       allScreen: Style(
+        backdropFilter: ImageFilter.blur(sigmaX: 20,sigmaY: 20),
           backgroundDecoration: AuroraDecoration(
               color: themePalette.backgroundColor,
               gradientBlurs: blurs,
