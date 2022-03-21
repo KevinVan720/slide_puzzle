@@ -7,6 +7,8 @@ import 'package:very_good_slide_puzzle/colors/colors.dart';
 
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 
+import 'dart:math';
+
 /// {@template simple_theme}
 /// The simple puzzle theme.
 /// {@endtemplate}
@@ -91,11 +93,25 @@ class NeonTheme extends SimpleTheme {
       );
 
   @override
-  Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-            backgroundDecoration:
-                BoxDecoration(gradient: themePalette.backgroundGradient))
-      });
+  double get backgroundAnimationScale => 5;
+  @override
+  double get backgroundAnimationPeriodScale => 5;
+
+  @override
+  Responsive<Style> get backgroundStyle {
+    int phase = (DateTime.now().millisecondsSinceEpoch) % 2;
+
+    Gradient gradient = LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: phase % 2 == 0
+            ? themePalette.backgroundGradient.colors
+            : themePalette.backgroundGradient.colors.reversed.toList());
+
+    return Responsive({
+      allScreen: Style(backgroundDecoration: BoxDecoration(gradient: gradient))
+    });
+  }
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
@@ -896,7 +912,6 @@ abstract class NeonThemePalette {
   Color get popupMenuSelectedColor;
   Color get popupMenuUnselectedColor;
 
-  Gradient get popupMenuGradient;
   Gradient get backgroundGradient;
 }
 
@@ -956,27 +971,12 @@ class NeonThemePaletteLight extends NeonThemePalette {
   Color get popupMenuUnselectedColor => Colors.grey.shade900;
 
   @override
-  Gradient get popupMenuGradient => LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.lightBlue.shade100,
-            Colors.lightBlue.shade50,
-            Colors.white,
-          ],
-          stops: const [
-            0,
-            0.3,
-            1
-          ]);
-
-  @override
   Gradient get backgroundGradient => LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
         colors: [
-          Colors.yellow.shade600,
-          Colors.yellowAccent.shade400,
+          Colors.yellow.shade800,
+          Colors.yellowAccent.shade200,
         ],
       );
 }
@@ -1035,21 +1035,6 @@ class NeonThemePaletteDark extends NeonThemePalette {
   Color get popupMenuSelectedColor => Colors.black87;
   @override
   Color get popupMenuUnselectedColor => Colors.white70;
-
-  @override
-  Gradient get popupMenuGradient => LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.blue.shade900,
-            Colors.blue.shade800,
-            Colors.blue.shade700,
-          ],
-          stops: const [
-            0,
-            0.3,
-            1
-          ]);
 
   @override
   Gradient get backgroundGradient => const LinearGradient(

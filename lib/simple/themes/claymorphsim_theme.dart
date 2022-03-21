@@ -38,6 +38,11 @@ class ClaymorphismTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
+  double get backgroundAnimationScale => 5;
+  @override
+  double get backgroundAnimationPeriodScale => 5;
+
+  @override
   Curve get tileMoveAnimationCurve => Curves.easeInOutBack;
 
   @override
@@ -61,12 +66,21 @@ class ClaymorphismTheme extends SimpleTheme {
       );
 
   @override
-  Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-          backgroundDecoration:
-              BoxDecoration(gradient: themePalette.backgroundGradient),
-        )
-      });
+  Responsive<Style> get backgroundStyle {
+    int phase = (DateTime.now().millisecondsSinceEpoch) % 2;
+
+    Gradient gradient = LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: phase % 2 == 0
+            ? themePalette.backgroundGradient.stops
+            : [0, 0.3, 0.6, 1],
+        colors: themePalette.backgroundGradient.colors);
+
+    return Responsive({
+      allScreen: Style(backgroundDecoration: BoxDecoration(gradient: gradient))
+    });
+  }
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({

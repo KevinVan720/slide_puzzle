@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
@@ -86,27 +87,39 @@ class PuzzleView extends StatefulWidget {
 }
 
 class _PuzzleViewState extends State<PuzzleView> {
+  bool isSameTheme = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
     Widget background;
 
-    ///Now only the glass theme has a dynamic background, use a periodic timer to trigger change
-    background = StreamBuilder(
-        stream: Stream.periodic(PuzzleThemeAnimationDuration
-            .backgroundColorChange
-            .dilate(context.getTimeDilation() *
-                (theme is GlassmorphismTheme ? 10 : 10000000))),
-        builder: (context, snapshot) => AnimatedStyledContainer(
-              curve: Curves.easeInOut,
-              duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                  .dilate(context.getTimeDilation() *
-                      (theme is GlassmorphismTheme ? 10 : 1)),
-              style: (theme.backgroundStyle.resolve(context) ?? Style())
-                ..textStyle = null,
-              child: Container(),
-            ));
+    ///When switching themes, the duration is kept the same
+    ///When the same theme animate periodically, the scale is multiplied additionally.
+    background = BlocListener<ThemeBloc, ThemeState>(
+      listenWhen: (previousState, state) {
+        isSameTheme = mapEquals(state.theme.name, previousState.theme.name);
+        return !mapEquals(state.theme.name, previousState.theme.name);
+      },
+      listener: (context, state) {},
+      child: StreamBuilder(
+          stream: Stream.periodic(
+              PuzzleThemeAnimationDuration.backgroundColorChange.dilate(
+                  context.getTimeDilation() *
+                      theme.backgroundAnimationPeriodScale), (count) {
+            isSameTheme = true;
+          }),
+          builder: (context, snapshot) => AnimatedStyledContainer(
+                curve: Curves.easeInOut,
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                    .dilate(context.getTimeDilation() *
+                        (isSameTheme ? theme.backgroundAnimationScale : 1)),
+                style: (theme.backgroundStyle.resolve(context) ?? Style())
+                  ..textStyle = null,
+                child: Container(),
+              )),
+    );
 
     return Scaffold(
       body: Stack(
@@ -312,8 +325,9 @@ class PuzzleBoard extends StatelessWidget {
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
 
     final size = puzzle.getDimension();
-    if (size == const PuzzleSize(0, 0))
+    if (size == const PuzzleSize(0, 0)) {
       return const CircularProgressIndicator();
+    }
 
     var board = BlocListener<PuzzleBloc, PuzzleState>(
       listener: (context, state) {

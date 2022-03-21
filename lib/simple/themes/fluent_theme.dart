@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
@@ -38,6 +39,11 @@ class FluentTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
+  double get backgroundAnimationScale => 0.01;
+  @override
+  double get backgroundAnimationPeriodScale => 0.01;
+
+  @override
   Curve get tileMoveAnimationCurve => Curves.easeOutExpo;
 
   @override
@@ -60,14 +66,26 @@ class FluentTheme extends SimpleTheme {
       );
 
   @override
-  Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-            backgroundDecoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(themePalette.backgroundImage)),
-        )),
-      });
+  Responsive<Style> get backgroundStyle {
+    double blur = 6 *
+            (sin((DateTime.now().millisecondsSinceEpoch) %
+                    10000 *
+                    2 *
+                    pi /
+                    10000.0) +
+                1) +
+        0.001;
+
+    return Responsive({
+      allScreen: Style(
+          backdropFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+          backgroundDecoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(themePalette.backgroundImage)),
+          )),
+    });
+  }
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({

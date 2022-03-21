@@ -36,6 +36,11 @@ class CupertinoTheme extends SimpleTheme {
       : CupertinoThemePaletteDark();
 
   @override
+  double get backgroundAnimationScale => 2;
+  @override
+  double get backgroundAnimationPeriodScale => 15;
+
+  @override
   bool get hasTimer => false;
 
   @override
@@ -61,6 +66,20 @@ class CupertinoTheme extends SimpleTheme {
   DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
       color: Color(0xFFF5F5F5), fontFamily: "SF-Pro-Text");
 
+  /*@override
+  Responsive<Style> get backgroundStyle {
+    int index = DateTime.now().millisecondsSinceEpoch % 16 + 1;
+
+    return Responsive({
+      allScreen: Style(
+          backgroundDecoration: BoxDecoration(
+        image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+                "assets/images/mojave_dynamic_" + index.toString() + ".jpeg")),
+      )),
+    });
+  }*/
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
@@ -73,7 +92,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration: BoxDecoration(
             color: themePalette.popupMenuColor,

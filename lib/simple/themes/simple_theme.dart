@@ -22,6 +22,11 @@ abstract class SimpleTheme extends PuzzleTheme {
   });
 
   @override
+  double get backgroundAnimationScale => 1;
+  @override
+  double get backgroundAnimationPeriodScale => 10000000000;
+
+  @override
   bool get useCupertinoIndicator => false;
 
   @override

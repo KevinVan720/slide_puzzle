@@ -23,6 +23,9 @@ abstract class PuzzleTheme extends Equatable {
   /// Whether this theme displays the puzzle timer.
   bool get hasTimer;
 
+  double get backgroundAnimationScale;
+  double get backgroundAnimationPeriodScale;
+
   bool get useCupertinoIndicator;
 
   Curve get tileMoveAnimationCurve;
@@ -125,6 +128,8 @@ abstract class PuzzleTheme extends Equatable {
         tileSize,
         tileGapSize,
         boardBackgroundStyle,
+        backgroundAnimationScale,
+        backgroundAnimationPeriodScale,
         backgroundStyle,
         defaultTextStyle,
         tileStyle,

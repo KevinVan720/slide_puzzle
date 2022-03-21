@@ -45,6 +45,11 @@ class GlassmorphismTheme extends SimpleTheme {
   Duration get tileMoveAnimationDuration => const Duration(milliseconds: 333);
 
   @override
+  double get backgroundAnimationScale => 10;
+  @override
+  double get backgroundAnimationPeriodScale => 10;
+
+  @override
   bool get hasTimer => false;
 
   @override

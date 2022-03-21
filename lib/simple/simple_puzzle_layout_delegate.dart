@@ -231,7 +231,7 @@ class SimplePuzzleBoard extends StatelessWidget {
     double tileSize = theme.tileSize.resolve(context) ?? 72;
     double tileGap = theme.tileGapSize.resolve(context) ?? 4;
 
-    return SizedBox(
+    return Container(
       width: min(tileSize * size.width + tileGap * (size.width + 1),
           MediaQuery.of(context).size.width),
       height: min(tileSize * size.height + tileGap * (size.height + 1),
@@ -289,7 +289,7 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
     /// Delay the initialization of the audio player for performance reasons,
     /// to avoid dropping frames when the theme is changed.
     if (AudioPlayerExtension.isPlatformSupported) {
-      _timer = Timer(const Duration(milliseconds: 500), () {
+      _timer = Timer(const Duration(milliseconds: 100), () {
         _audioPlayer = widget._audioPlayerFactory();
       });
     }

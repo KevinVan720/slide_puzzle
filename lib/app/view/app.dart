@@ -50,14 +50,14 @@ class _AppState extends State<App> {
     'assets/images/logo_flutter_color.png',
     'assets/images/logo_flutter_white.png',
     'assets/images/simple_dash_small.png',
-    //'assets/images/glass_background.jpg',
-    //'assets/images/glass_background_light.jpg',
     'assets/images/wood_grain.png',
     'assets/images/wood_background.jpg',
     'assets/images/win11.jpg',
     'assets/images/win11_dark.jpg',
     'assets/images/Mojave Day.jpg',
     'assets/images/Mojave Night.jpg',
+    //...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    //    .map((e) => "assets/images/mojave_dynamic_" + e.toString() + ".jpeg")
   ];
 
   late final PlatformHelper _platformHelper;
