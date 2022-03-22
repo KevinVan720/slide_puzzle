@@ -39,7 +39,7 @@ class PuzzleGamePage extends StatelessWidget {
             initialThemes: [
               const MaterialTheme(),
               const FluentTheme(),
-              const CupertinoTheme(),
+              CupertinoTheme(timeStamp: DateTime.now()),
               const NeumorphicTheme(),
               const GlassmorphismTheme(),
               const ClaymorphismTheme(),
@@ -99,22 +99,22 @@ class _PuzzleViewState extends State<PuzzleView> {
     ///When the same theme animate periodically, the scale is multiplied additionally.
     background = BlocListener<ThemeBloc, ThemeState>(
       listenWhen: (previousState, state) {
-        isSameTheme = state.theme==previousState.theme;
+        isSameTheme = state.theme == previousState.theme;
         return !mapEquals(state.theme.name, previousState.theme.name);
       },
       listener: (context, state) {},
       child: StreamBuilder(
           stream: Stream.periodic(
-              PuzzleThemeAnimationDuration.backgroundColorChange.dilate(
-                  context.getTimeDilation() *
-                      theme.backgroundAnimationPeriodScale), (count) {
+              PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(theme.backgroundAnimationPeriodScale), (count) {
             isSameTheme = true;
           }),
           builder: (context, snapshot) => AnimatedStyledContainer(
                 curve: Curves.easeInOut,
                 duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                    .dilate(context.getTimeDilation() *
-                        (isSameTheme ? theme.backgroundAnimationScale : 1)),
+                    .dilate((isSameTheme
+                        ? theme.backgroundAnimationScale
+                        : context.getTimeDilation() * 1)),
                 style: (theme.backgroundStyle.resolve(context) ?? Style())
                   ..textStyle = null,
                 child: Container(),

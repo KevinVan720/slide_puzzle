@@ -54,10 +54,10 @@ class _AppState extends State<App> {
     'assets/images/wood_background.jpg',
     'assets/images/win11.jpg',
     'assets/images/win11_dark.jpg',
-    'assets/images/Mojave Day.jpg',
-    'assets/images/Mojave Night.jpg',
-    //...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    //    .map((e) => "assets/images/mojave_dynamic_" + e.toString() + ".jpeg")
+    ...[1, 2, 3, 4, 5, 6, 7, 8]
+        .map((e) => "assets/images/mojave_day_" + e.toString() + ".jpg"),
+    ...[1, 2, 3, 4, 5, 6, 7, 8]
+        .map((e) => "assets/images/mojave_night_" + e.toString() + ".jpg")
   ];
 
   late final PlatformHelper _platformHelper;

@@ -28,14 +28,14 @@ packages:
       name: animated_box_decoration
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.4"
   animated_styled_widget:
     dependency: "direct main"
     description:
       name: animated_styled_widget
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.4"
   archive:
     dependency: transitive
     description:
@@ -405,7 +405,7 @@ packages:
       name: morphable_shape
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.2"
   nested:
     dependency: transitive
     description:

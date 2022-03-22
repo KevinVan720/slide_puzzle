@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,12 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 /// {@endtemplate}
 class CupertinoTheme extends SimpleTheme {
   /// {@macro simple_theme}
-  const CupertinoTheme({ThemeLuminance? luminance = ThemeLuminance.light})
+  const CupertinoTheme(
+      {ThemeLuminance? luminance = ThemeLuminance.light,
+      required this.timeStamp})
       : super(luminance: luminance);
+
+  final DateTime timeStamp;
 
   @override
   Map<Locale, String> get name => {
@@ -28,7 +33,8 @@ class CupertinoTheme extends SimpleTheme {
   CupertinoTheme copyWith({
     ThemeLuminance? luminance,
   }) {
-    return CupertinoTheme(luminance: luminance ?? this.luminance);
+    return CupertinoTheme(
+        luminance: luminance ?? this.luminance, timeStamp: DateTime.now());
   }
 
   CupertinoThemePalette get themePalette => luminance == ThemeLuminance.light
@@ -36,9 +42,9 @@ class CupertinoTheme extends SimpleTheme {
       : CupertinoThemePaletteDark();
 
   @override
-  double get backgroundAnimationScale => 2;
+  double get backgroundAnimationScale => 5;
   @override
-  double get backgroundAnimationPeriodScale => 15;
+  double get backgroundAnimationPeriodScale => 10;
 
   @override
   bool get hasTimer => false;
@@ -66,9 +72,18 @@ class CupertinoTheme extends SimpleTheme {
   DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
       color: Color(0xFFF5F5F5), fontFamily: "SF-Pro-Text");
 
-  /*@override
+  @override
   Responsive<Style> get backgroundStyle {
-    int index = DateTime.now().millisecondsSinceEpoch % 16 + 1;
+    int x = ((DateTime.now().millisecondsSinceEpoch -
+                timeStamp.millisecondsSinceEpoch) /
+            (PuzzleThemeAnimationDuration.backgroundColorChange.inMilliseconds *
+                backgroundAnimationPeriodScale) %
+            15)
+        .round();
+    if (x > 7) {
+      x = 14 - x;
+    }
+    int index = x + 1;
 
     return Responsive({
       allScreen: Style(
@@ -76,10 +91,11 @@ class CupertinoTheme extends SimpleTheme {
         image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-                "assets/images/mojave_dynamic_" + index.toString() + ".jpeg")),
+                themePalette.backgroundImage + index.toString() + ".jpg")),
       )),
     });
-  }*/
+  }
+  /*
   @override
   Responsive<Style> get backgroundStyle => Responsive({
         allScreen: Style(
@@ -88,6 +104,8 @@ class CupertinoTheme extends SimpleTheme {
                     fit: BoxFit.cover,
                     image: AssetImage(themePalette.backgroundImage)))),
       });
+
+   */
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
@@ -375,7 +393,41 @@ class CupertinoTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor,
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.bold,
+      shadows: [
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(0.25, 0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(0.25, -0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(-0.25, 0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(-0.25, -0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(0.353, 0)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(0, -0.353)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(-0.353, 0)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.4),
+            offset: const Offset(0, 0.353))
+      ],
       fontFamily: "SF-Pro-Text");
 
   @override
@@ -383,7 +435,43 @@ class CupertinoTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
-      color: themePalette.menuInactiveColor, fontFamily: "SF-Pro-Text");
+          shadows: [
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(0.25, 0.25)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(0.25, -0.25)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(-0.25, 0.25)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(-0.25, -0.25)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(0.353, 0)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(0, -0.353)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(-0.353, 0)),
+            Shadow(
+                blurRadius: 0.1,
+                color: themePalette.menuActiveColor.withOpacity(0.4),
+                offset: const Offset(0, 0.353))
+          ],
+          fontWeight: FontWeight.bold,
+          color: themePalette.menuInactiveColor,
+          fontFamily: "SF-Pro-Text");
 
   @override
   String get tilePressSoundAsset => "assets/audio/material_click.mp3";
@@ -480,7 +568,7 @@ abstract class CupertinoThemePalette {
 
 class CupertinoThemePaletteLight extends CupertinoThemePalette {
   @override
-  String get backgroundImage => "assets/images/Mojave Day.jpg";
+  String get backgroundImage => "assets/images/mojave_day_";
 
   @override
   Color get nameColor => PuzzleColors.grey1;
@@ -513,9 +601,9 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => PuzzleColors.grey3;
+  Color get menuInactiveColor => Color(0xFFC4C4C4);
   @override
-  Color get menuActiveColor => Colors.black87;
+  Color get menuActiveColor => Colors.black;
 
   @override
   Color get popupMenuSliderActiveTrackColor => PuzzleColors.grey5;
@@ -538,7 +626,7 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
 
 class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
-  String get backgroundImage => "assets/images/Mojave Night.jpg";
+  String get backgroundImage => "assets/images/mojave_night_";
 
   @override
   Color get nameColor => Colors.white70;
@@ -570,7 +658,7 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => const Color(0xFFBABABA);
+  Color get menuInactiveColor => Colors.grey.shade700;
   @override
   Color get menuActiveColor => Colors.white;
 

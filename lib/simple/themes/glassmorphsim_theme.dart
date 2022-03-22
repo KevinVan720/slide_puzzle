@@ -107,7 +107,7 @@ class GlassmorphismTheme extends SimpleTheme {
           .backgroundColors[rng.nextInt(themePalette.backgroundColors.length)];
       gradients.add(RadialGradient(
           tileMode: TileMode.decal,
-          radius: rng.nextDouble() * 2 + 2,
+          radius: rng.nextDouble() * 2 + 2.5,
           center: Alignment(
               (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
           colors: [
@@ -123,7 +123,7 @@ class GlassmorphismTheme extends SimpleTheme {
 
     return Responsive({
       allScreen: Style(
-        backdropFilter: ImageFilter.blur(sigmaX: 20,sigmaY: 20),
+          backdropFilter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
           backgroundDecoration: AuroraDecoration(
               color: themePalette.backgroundColor,
               gradientBlurs: blurs,

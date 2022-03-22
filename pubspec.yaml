@@ -23,7 +23,7 @@ dependencies:
   just_audio: ^0.9.20
   universal_platform: ^1.0.0+1
   url_launcher: ^6.0.17
-  animated_styled_widget: 0.4.2
+  animated_styled_widget: 0.4.4
   responsive_property: ^0.0.6
   decorated_icon: ^1.2.1
   aligned_dialog: ^0.0.6
