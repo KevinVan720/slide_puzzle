@@ -59,6 +59,7 @@ I also want to highlight the extra features that I have implemented in order to 
 3. Rounded rectangle border with sides of different widths and the ability to smoothly morph it into other shape borders. The implementation details of the morphing algorithm can be found at https://medium.com/p/30e0d33c60a7.
 4. The ability to open a dialog that is positioned relative to another widget (or the whole screen). You can use this to implement drawers that can open in any direction or dropdown buttons in desktop UI.
 5. Animated aurora gradient for the glassmorphism theme.
+6. Smoothly animate any color, gradient, and image background.
 
 
 The packages involved have all been published on [pub.dev](https://pub.dev/publishers/wenkaifan.com/packages) and I really hope I can contribute these features to Flutter. 

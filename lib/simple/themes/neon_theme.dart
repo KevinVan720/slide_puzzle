@@ -341,7 +341,6 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-            height: 60.toPXLength,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             shapeBorder: RoundedRectangleShapeBorder(
                 borderRadius: DynamicBorderRadius.all(
@@ -365,7 +364,6 @@ class NeonTheme extends SimpleTheme {
                         DynamicBorderSide(color: themePalette.baseColor5, width: 12))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
-          height: 70.toPXLength,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -389,7 +387,6 @@ class NeonTheme extends SimpleTheme {
                       color: themePalette.baseColor5, width: 16))),
         ),
         largeScreen: _baseStyle.copyWith(
-          height: 80.toPXLength,
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
@@ -417,8 +414,7 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonHoverStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-            height: 60.toPXLength,
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
             shapeBorder: RoundedRectangleShapeBorder(
                 borderRadius: DynamicBorderRadius.all(
                     DynamicRadius.circular(15.toPXLength)),
@@ -428,7 +424,7 @@ class NeonTheme extends SimpleTheme {
                           themePalette.baseColor2,
                           themePalette.baseColor6
                         ]),
-                        width: 5),
+                        width: 4),
                     bottom: DynamicBorderSide(
                         gradient: LinearGradient(colors: [
                           themePalette.baseColor4,
@@ -441,8 +437,7 @@ class NeonTheme extends SimpleTheme {
                         DynamicBorderSide(color: themePalette.baseColor5, width: 10))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
-          height: 70.toPXLength,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(15.toPXLength)),
@@ -452,7 +447,7 @@ class NeonTheme extends SimpleTheme {
                         themePalette.baseColor2,
                         themePalette.baseColor6
                       ]),
-                      width: 7),
+                      width: 6),
                   bottom: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
                         themePalette.baseColor4,
@@ -465,8 +460,7 @@ class NeonTheme extends SimpleTheme {
                       color: themePalette.baseColor5, width: 14))),
         ),
         largeScreen: _baseStyle.copyWith(
-          height: 80.toPXLength,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(15.toPXLength)),
@@ -476,13 +470,13 @@ class NeonTheme extends SimpleTheme {
                         themePalette.baseColor2,
                         themePalette.baseColor6
                       ]),
-                      width: 9),
+                      width: 8),
                   bottom: DynamicBorderSide(
                       gradient: LinearGradient(colors: [
                         themePalette.baseColor4,
                         themePalette.baseColor8
                       ]),
-                      width: 18),
+                      width: 16),
                   left: DynamicBorderSide(
                       color: themePalette.baseColor1, width: 9),
                   right: DynamicBorderSide(
@@ -493,8 +487,7 @@ class NeonTheme extends SimpleTheme {
   @override
   Responsive<Style> get buttonPressedStyle => Responsive({
         smallScreen: _baseStyle.copyWith(
-            height: 60.toPXLength,
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 4),
             shapeBorder: RoundedRectangleShapeBorder(
                 borderRadius: DynamicBorderRadius.all(
                     DynamicRadius.circular(15.toPXLength)),
@@ -510,15 +503,14 @@ class NeonTheme extends SimpleTheme {
                           themePalette.baseColor4,
                           themePalette.baseColor8
                         ]),
-                        width: 6),
+                        width: 5),
                     left: DynamicBorderSide(
                         color: themePalette.baseColor1, width: 3),
                     right:
                         DynamicBorderSide(color: themePalette.baseColor5, width: 6))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
-          height: 70.toPXLength,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(15.toPXLength)),
@@ -534,15 +526,14 @@ class NeonTheme extends SimpleTheme {
                         themePalette.baseColor4,
                         themePalette.baseColor8
                       ]),
-                      width: 10),
+                      width: 9),
                   left: DynamicBorderSide(
                       color: themePalette.baseColor1, width: 5),
                   right: DynamicBorderSide(
                       color: themePalette.baseColor5, width: 10))),
         ),
         largeScreen: _baseStyle.copyWith(
-          height: 80.toPXLength,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 4),
           shapeBorder: RoundedRectangleShapeBorder(
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(15.toPXLength)),
@@ -558,7 +549,7 @@ class NeonTheme extends SimpleTheme {
                         themePalette.baseColor4,
                         themePalette.baseColor8
                       ]),
-                      width: 14),
+                      width: 13),
                   left: DynamicBorderSide(
                       color: themePalette.baseColor1, width: 7),
                   right: DynamicBorderSide(
