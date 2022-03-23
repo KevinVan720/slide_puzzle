@@ -102,16 +102,16 @@ class GlassmorphismTheme extends SimpleTheme {
     List<Gradient>? gradients = [];
     List<double>? blurs = [];
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
       Color center = themePalette
           .backgroundColors[rng.nextInt(themePalette.backgroundColors.length)];
       gradients.add(RadialGradient(
           tileMode: TileMode.decal,
-          radius: rng.nextDouble() * 2 + 2.5,
+          radius: rng.nextDouble() * 3 + 2,
           center: Alignment(
               (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
           colors: [
-            center.withOpacity(0.9 - i * 0.1),
+            center.withOpacity(1 - i * 0.1),
             Colors.transparent
           ],
           stops: [

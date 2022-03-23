@@ -55,9 +55,9 @@ class _AppState extends State<App> {
     'assets/images/win11.jpg',
     'assets/images/win11_dark.jpg',
     ...[1, 2, 3, 4, 5, 6, 7, 8]
-        .map((e) => "assets/images/mojave_day_" + e.toString() + ".jpg"),
+        .map((e) => "assets/images/mojave_day_" + e.toString() + "-min.jpg"),
     ...[1, 2, 3, 4, 5, 6, 7, 8]
-        .map((e) => "assets/images/mojave_night_" + e.toString() + ".jpg")
+        .map((e) => "assets/images/mojave_night_" + e.toString() + "-min.jpg")
   ];
 
   late final PlatformHelper _platformHelper;
@@ -69,7 +69,7 @@ class _AppState extends State<App> {
 
     _platformHelper = widget._platformHelperFactory();
 
-    _timer = Timer(const Duration(milliseconds: 100), () {
+    _timer = Timer(const Duration(milliseconds: 200), () {
       for (final imageAsset in imageAssets) {
         precacheImage(
           Image.asset(imageAsset).image,
