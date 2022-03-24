@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:math';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
@@ -45,8 +44,7 @@ class PuzzleGamePage extends StatelessWidget {
               const ClaymorphismTheme(),
               const NeonTheme(),
               const KeyboardTheme(),
-              const WoodTheme(),
-              //const RetroTheme(),
+              const WoodTheme()
             ],
           ),
         ),

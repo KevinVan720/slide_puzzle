@@ -22,5 +22,11 @@
     "sizeControl": "大小",
     "difficultyControl": "难度",
     "dark": "深色",
-    "light": "浅色"
+    "light": "浅色",
+    "help": "帮助",
+    "howToPlayTitle": "操作说明",
+    "howToPlay": "游戏的目标是把数字按顺序排列。\n你可以点击或者使用方向键来移动这些数字。\n点击重置按钮来生成新的游戏。\n点击求解按钮来自动求解。",
+    "licenseTitle": "许可",
+    "license": "本项目基于 https://github.com/VGVentures/slide_puzzle。\n音效许可 Mixkit Sound Effects Free License。\n字体许可 Open Font License (OFL)。\n如发现侵犯您的许可的使用，请联系 kevin950720@gmail.com。"
+
 }

@@ -59,18 +59,23 @@ class CupertinoTheme extends SimpleTheme {
   Duration get tileMoveAnimationDuration => const Duration(milliseconds: 333);
 
   @override
-  DynamicTextStyle get nameTextStyle => const DynamicTextStyle(
-      color: Color(0xFFE1DFE1), fontFamily: "SF-Pro-Text");
+  DynamicTextStyle get nameTextStyle => DynamicTextStyle(
+      color: Color(0xFFE1DFE1),
+      fontFamily: "Inter",
+      shadows: _darkTextBorderShadow);
 
   @override
-  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
-      color: Color(0xFFFFBD44),
-      fontFamily: "SF-Pro-Text",
-      fontWeight: FontWeight.bold);
+  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+        color: Color(0xFFFFBD44),
+        fontFamily: "Inter",
+        fontWeight: FontWeight.bold,
+      );
 
   @override
-  DynamicTextStyle get defaultTextStyle => const DynamicTextStyle(
-      color: Color(0xFFF5F5F5), fontFamily: "SF-Pro-Text");
+  DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
+      color: Color(0xFFF5F5F5),
+      fontFamily: "Inter",
+      shadows: _darkTextBorderShadow);
 
   @override
   Responsive<Style> get backgroundStyle {
@@ -139,7 +144,7 @@ class CupertinoTheme extends SimpleTheme {
             textStyle: DynamicTextStyle(
               fontSize: 16.toPXLength,
               color: themePalette.popupMenuUnselectedColor,
-              fontFamily: "SF-Pro-Text",
+              fontFamily: "Inter",
             ),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
@@ -159,7 +164,7 @@ class CupertinoTheme extends SimpleTheme {
             textStyle: DynamicTextStyle(
                 fontSize: 16.toPXLength,
                 color: themePalette.popupMenuUnselectedColor,
-                fontFamily: "SF-Pro-Text"),
+                fontFamily: "Inter"),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
       });
@@ -181,7 +186,7 @@ class CupertinoTheme extends SimpleTheme {
             textStyle: DynamicTextStyle(
                 fontSize: 16.toPXLength,
                 color: Colors.white,
-                fontFamily: "SF-Pro-Text"),
+                fontFamily: "Inter"),
             textAlign: TextAlign.center,
             mouseCursor: SystemMouseCursors.click)
       });
@@ -195,7 +200,7 @@ class CupertinoTheme extends SimpleTheme {
                 fontSize: 14.toPXLength,
                 color: themePalette.popupMenuTitleColor,
                 fontWeight: FontWeight.bold,
-                fontFamily: "SF-Pro-Text"))
+                fontFamily: "Inter"))
       });
 
   @override
@@ -394,84 +399,18 @@ class CupertinoTheme extends SimpleTheme {
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor,
       fontWeight: FontWeight.bold,
-      shadows: [
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(0.25, 0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(0.25, -0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(-0.25, 0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(-0.25, -0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(0.353, 0)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(0, -0.353)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(-0.353, 0)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.4),
-            offset: const Offset(0, 0.353))
-      ],
-      fontFamily: "SF-Pro-Text");
+      shadows: _lightTextBorderShadow,
+      fontFamily: "Inter");
 
   @override
   Color get menuUnderlineColor => themePalette.menuUnderlineColor;
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
-          shadows: [
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(0.25, 0.25)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(0.25, -0.25)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(-0.25, 0.25)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(-0.25, -0.25)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(0.353, 0)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(0, -0.353)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(-0.353, 0)),
-            Shadow(
-                blurRadius: 0.1,
-                color: themePalette.menuActiveColor.withOpacity(0.4),
-                offset: const Offset(0, 0.353))
-          ],
-          fontWeight: FontWeight.bold,
-          color: themePalette.menuInactiveColor,
-          fontFamily: "SF-Pro-Text");
+      shadows: _darkTextBorderShadow,
+      fontWeight: FontWeight.bold,
+      color: themePalette.menuInactiveColor,
+      fontFamily: "Inter");
 
   @override
   String get tilePressSoundAsset => "assets/audio/material_click.mp3";
@@ -493,7 +432,7 @@ class CupertinoTheme extends SimpleTheme {
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w700,
             color: themePalette.tileTextColor,
-            fontFamily: "SF-Pro-Text"),
+            fontFamily: "Inter"),
         backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
       );
 
@@ -503,7 +442,7 @@ class CupertinoTheme extends SimpleTheme {
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w700,
             color: themePalette.tileTextHoverColor,
-            fontFamily: "SF-Pro-Text"),
+            fontFamily: "Inter"),
         backgroundDecoration: BoxDecoration(color: themePalette.tileHoverColor),
       );
 
@@ -513,10 +452,80 @@ class CupertinoTheme extends SimpleTheme {
             fontSize: 24.toPXLength,
             fontWeight: FontWeight.w700,
             color: themePalette.tileTextPressedColor,
-            fontFamily: "SF-Pro-Text"),
+            fontFamily: "Inter"),
         backgroundDecoration:
             BoxDecoration(color: themePalette.tilePressedColor),
       );
+
+  List<Shadow> get _darkTextBorderShadow => [
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(0.25, 0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(0.25, -0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(-0.25, 0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(-0.25, -0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(0.353, 0)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(0, -0.353)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(-0.353, 0)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuActiveColor.withOpacity(0.3),
+            offset: const Offset(0, 0.353))
+      ];
+
+  List<Shadow> get _lightTextBorderShadow => [
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(0.25, 0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(0.25, -0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(-0.25, 0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(-0.25, -0.25)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(0.353, 0)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(0, -0.353)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(-0.353, 0)),
+        Shadow(
+            blurRadius: 0.1,
+            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            offset: const Offset(0, 0.353))
+      ];
 }
 
 abstract class _TileDimension {

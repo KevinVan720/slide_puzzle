@@ -56,13 +56,13 @@ class FluentTheme extends SimpleTheme {
   @override
   DynamicTextStyle get titleTextStyle => DynamicTextStyle(
         color: themePalette.titleColor,
-        fontFamily: "Segoe UI",
+        fontFamily: "NotoSans",
       );
 
   @override
   DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
         color: themePalette.defaultColor,
-        fontFamily: "Segoe UI",
+        fontFamily: "NotoSans",
       );
 
   @override
@@ -119,7 +119,7 @@ class FluentTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 15.toPXLength,
-              fontFamily: "Segoe UI",
+              fontFamily: "NotoSans",
               color: themePalette.popupMenuUnselectedColor,
             ),
             textAlign: TextAlign.center,
@@ -138,7 +138,7 @@ class FluentTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
               fontSize: 15.toPXLength,
-              fontFamily: "Segoe UI",
+              fontFamily: "NotoSans",
               color: themePalette.popupMenuUnselectedColor,
             ),
             textAlign: TextAlign.center,
@@ -157,7 +157,7 @@ class FluentTheme extends SimpleTheme {
             ),
             textStyle: DynamicTextStyle(
                 fontSize: 15.toPXLength,
-                fontFamily: "Segoe UI",
+                fontFamily: "NotoSans",
                 color: themePalette.tileTextPressedColor,
                 fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
@@ -171,7 +171,7 @@ class FluentTheme extends SimpleTheme {
             alignment: Alignment.centerLeft,
             textStyle: DynamicTextStyle(
               fontSize: 15.toPXLength,
-              fontFamily: "Segoe UI",
+              fontFamily: "NotoSans",
               color: themePalette.popupMenuTitleColor,
             ))
       });
@@ -380,7 +380,7 @@ class FluentTheme extends SimpleTheme {
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
         color: themePalette.menuActiveColor,
         fontWeight: FontWeight.w700,
-        fontFamily: "Segoe UI",
+        fontFamily: "NotoSans",
       );
 
   @override
@@ -389,7 +389,7 @@ class FluentTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
         color: themePalette.menuInactiveColor,
-        fontFamily: "Segoe UI",
+        fontFamily: "NotoSans",
       );
 
   @override
@@ -407,7 +407,7 @@ class FluentTheme extends SimpleTheme {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
         textStyle: DynamicTextStyle(
-          fontFamily: "Segoe UI",
+          fontFamily: "NotoSans",
           fontSize: 24.toPXLength,
           color: themePalette.buttonTextColor,
         ),
@@ -432,7 +432,7 @@ class FluentTheme extends SimpleTheme {
           letterSpacing: 1.toPXLength,
           fontSize: 24.toPXLength,
           fontWeight: FontWeight.w700,
-          fontFamily: "Segoe UI",
+          fontFamily: "NotoSans",
           color: themePalette.tileTextColor,
         ),
         shapeBorder: RectangleShapeBorder(
@@ -451,7 +451,7 @@ class FluentTheme extends SimpleTheme {
           letterSpacing: 1.toPXLength,
           fontSize: 24.toPXLength,
           fontWeight: FontWeight.w700,
-          fontFamily: "Segoe UI",
+          fontFamily: "NotoSans",
           color: themePalette.tileTextHoverColor,
         ),
         shapeBorder: RectangleShapeBorder(
@@ -492,7 +492,7 @@ class FluentTheme extends SimpleTheme {
           letterSpacing: 1.toPXLength,
           fontSize: 24.toPXLength,
           fontWeight: FontWeight.w700,
-          fontFamily: "Segoe UI",
+          fontFamily: "NotoSans",
           color: themePalette.tileTextPressedColor,
         ),
         shapeBorder: RectangleShapeBorder(

@@ -27,7 +27,8 @@ dependencies:
   responsive_property: ^0.0.6
   decorated_icon: ^1.2.1
   aligned_dialog: ^0.0.6
-  aurora_decoration: 0.0.1
+  aurora_decoration: 0.0.2
+  flutter_linkify: ^5.0.2
 
 dev_dependencies:
   bloc_test: ^9.0.1
@@ -70,13 +71,11 @@ flutter:
         - asset: assets/fonts/BalooThambi2-SemiBold.ttf
           weight: 600
 
-    - family: SF-Pro-Text
+    - family: Inter
       fonts:
-        - asset: assets/fonts/SF-Pro-Text-Regular.otf
+        - asset: assets/fonts/Inter-Regular.ttf
           weight: 400
-        - asset: assets/fonts/SF-Pro-Text-Semibold.otf
-          weight: 600
-        - asset: assets/fonts/SF-Pro-Text-Bold.otf
+        - asset: assets/fonts/Inter-Bold.ttf
           weight: 700
 
     - family: Beon
@@ -95,11 +94,11 @@ flutter:
     - family: DSZierschrift
       fonts:
         - asset: assets/fonts/DSZierschrift.ttf
-    - family: Segoe UI
+    - family: NotoSans
       fonts:
-        - asset: assets/fonts/Segoe UI.ttf
+        - asset: assets/fonts/NotoSans-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Segoe UI Bold.ttf
+        - asset: assets/fonts/NotoSans-Bold.ttf
           weight: 700
 
 flutter_icons:

@@ -1,6 +1,7 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:decorated_icon/decorated_icon.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -13,6 +14,7 @@ import 'package:very_good_slide_puzzle/simple/simple.dart';
 import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
+import "package:flutter_linkify/flutter_linkify.dart";
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -475,7 +477,12 @@ class _SettingsControlState extends State<SettingsControl> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: _buildSizeControl(context),
+                  child: Column(
+                    children: [
+                      _buildSizeControl(context),
+                      _buildInfoButton(context),
+                    ],
+                  ),
                 ),
                 const Gap(10),
                 Expanded(
@@ -483,7 +490,7 @@ class _SettingsControlState extends State<SettingsControl> {
                   children: [
                     _buildLocaleControl(context),
                     _buildDifficultyControl(context),
-                    _buildBrightnessControl(context)
+                    _buildBrightnessControl(context),
                   ],
                 )),
               ],
@@ -492,5 +499,273 @@ class _SettingsControlState extends State<SettingsControl> {
         ),
       ),
     );
+  }
+
+  Widget _buildHowToPlay(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    return AnimatedStyledContainer(
+      duration: PuzzleThemeAnimationDuration.backgroundColorChange
+          .dilate(context.getTimeDilation()),
+      curve: Curves.easeInOut,
+      style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedStyledContainer(
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(context.getTimeDilation()),
+              curve: Curves.easeInOut,
+              style: theme.popupMenuTitleStyle.resolve(context)!,
+              child: Text(context.l10n.howToPlayTitle)),
+          const Gap(4),
+          SelectableText(
+            context.l10n.howToPlay,
+            style: theme.popupMenuButtonStyle
+                .resolve(context)
+                ?.textStyle
+                ?.toTextStyle(
+                    screenSize: MediaQuery.of(context).size, parentFontSize: 14)
+                .copyWith(fontSize: 12),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLicense(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    return AnimatedStyledContainer(
+      duration: PuzzleThemeAnimationDuration.backgroundColorChange
+          .dilate(context.getTimeDilation()),
+      curve: Curves.easeInOut,
+      style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedStyledContainer(
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(context.getTimeDilation()),
+              curve: Curves.easeInOut,
+              style: theme.popupMenuTitleStyle.resolve(context)!,
+              child: Text(context.l10n.licenseTitle)),
+          const Gap(4),
+          SelectableLinkify(
+            text: context.l10n.license,
+            style: theme.popupMenuButtonStyle
+                .resolve(context)
+                ?.textStyle
+                ?.toTextStyle(
+                    screenSize: MediaQuery.of(context).size, parentFontSize: 14)
+                .copyWith(fontSize: 12),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfo(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+
+    return SingleChildScrollView(
+      clipBehavior: Clip.none,
+      child: AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
+        curve: Curves.easeInOut,
+        style: theme.popupMenuStyle.resolve(context) ?? Style(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildHowToPlay(context),
+            _buildLicense(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoButton(BuildContext context) {
+    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+
+    return AnimatedStyledContainer(
+        duration: PuzzleThemeAnimationDuration.backgroundColorChange
+            .dilate(context.getTimeDilation()),
+        curve: Curves.easeInOut,
+        style: theme.popupMenuTileStyle.resolve(context) ?? Style(),
+        child: Row(
+          children: [
+            AnimatedStyledContainer(
+                duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                    .dilate(context.getTimeDilation()),
+                curve: Curves.easeInOut,
+                style: theme.popupMenuTitleStyle.resolve(context)!,
+                child: Text(context.l10n.help)),
+            const Gap(2),
+            Expanded(
+              child: Center(
+                  child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    showAlignedDialog(
+                        duration:
+                            PuzzleThemeAnimationDuration.backgroundColorChange,
+                        transitionsBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                            Widget child) {
+                          return SlideTransition(
+                            ///TODO: add different slide transtion for each theme
+                            position: Tween<Offset>(
+                              begin: Offset.zero,
+                              end: Offset.zero,
+                            ).animate(CurvedAnimation(
+                              parent: animation,
+                              curve: Curves.easeInOut,
+                            )),
+                            child: FadeTransition(
+                              opacity: CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeInOut,
+                              ),
+                              child: child,
+                            ),
+                          );
+                        },
+                        context: context,
+                        builder: (_) {
+                          return MultiBlocProvider(
+                              providers: [
+                                BlocProvider.value(
+                                  value: context.read<ThemeBloc>(),
+                                ),
+                                BlocProvider.value(
+                                  value: context.read<AudioControlBloc>(),
+                                ),
+                                BlocProvider.value(
+                                  value: context.read<PuzzleBloc>(),
+                                ),
+                              ],
+                              child: ResponsiveLayoutBuilder(
+                                small: (context, _) {
+                                  final theme = context.select(
+                                      (ThemeBloc bloc) => bloc.state.theme);
+
+                                  List<Shadow>? _iconShadow =
+                                      theme.menuActiveStyle.shadows;
+
+                                  return Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      AnimatedStyledContainer(
+                                        duration: PuzzleThemeAnimationDuration
+                                            .backgroundColorChange
+                                            .dilate(context.getTimeDilation()),
+                                        curve: Curves.easeInOut,
+                                        style: theme.backgroundStyle
+                                            .resolve(context)!
+                                          ..childAlignment = Alignment.center,
+                                        child: _buildInfo(context),
+                                      ),
+                                      Positioned(
+                                        top: 36,
+                                        right: 30,
+                                        child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: DecoratedIcon(
+                                                Icons.close,
+                                                size: 24,
+                                                color:
+                                                    theme.menuActiveStyle.color,
+                                                shadows: _iconShadow
+                                                    ?.map((e) => Shadow(
+                                                        color: e.color,
+                                                        offset: e.offset,
+                                                        blurRadius:
+                                                            e.blurRadius))
+                                                    .toList(),
+                                              ),
+                                            )),
+                                      )
+                                    ],
+                                  );
+                                },
+                                medium: (context, _) {
+                                  final theme = context.select(
+                                      (ThemeBloc bloc) => bloc.state.theme);
+
+                                  List<Shadow>? _iconShadow =
+                                      theme.menuActiveStyle.shadows;
+
+                                  return Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      AnimatedStyledContainer(
+                                        duration: PuzzleThemeAnimationDuration
+                                            .backgroundColorChange
+                                            .dilate(context.getTimeDilation()),
+                                        curve: Curves.easeInOut,
+                                        style: theme.backgroundStyle
+                                            .resolve(context)!
+                                          ..childAlignment = Alignment.center,
+                                        child: _buildInfo(context),
+                                      ),
+                                      Positioned(
+                                        top: 32,
+                                        right: 30,
+                                        child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: DecoratedIcon(
+                                                Icons.close,
+                                                size: 32,
+                                                color:
+                                                    theme.menuActiveStyle.color,
+                                                shadows: _iconShadow
+                                                    ?.map((e) => Shadow(
+                                                        color: e.color,
+                                                        offset: e.offset,
+                                                        blurRadius:
+                                                            e.blurRadius))
+                                                    .toList(),
+                                              ),
+                                            )),
+                                      )
+                                    ],
+                                  );
+                                },
+                                large: (context, _) {
+                                  return _buildInfo(context);
+                                },
+                              ));
+                        },
+                        isGlobal: true,
+                        avoidOverflow: true,
+                        barrierColor: Colors.transparent);
+                  },
+                  child: DecoratedIcon(
+                    Icons.help_outline,
+                    size: 16,
+                    color: theme.menuActiveStyle.color,
+                    shadows: _iconShadow
+                        ?.map((e) => Shadow(
+                            color: e.color,
+                            offset: e.offset,
+                            blurRadius: e.blurRadius))
+                        .toList(),
+                  ),
+                ),
+              )),
+            ),
+          ],
+        ));
   }
 }

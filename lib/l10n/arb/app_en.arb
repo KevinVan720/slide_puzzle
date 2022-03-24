@@ -116,5 +116,12 @@
     "light": "Light",
     "@light": {
         "description": "The light mode of a theme"
-    }
+    },
+    "help": "Help",
+    "howToPlayTitle": "How To Play",
+    "howToPlay": "The goal is to arrange the numbers in sorted order.\nYou can either tap or use arrow keys to move the puzzle tiles.\nClick the shuffle button to generate a new puzzle.\nClick the solve button to automatically solve the puzzle. ",
+    "licenseTitle": "License",
+    "license": "This game is based on https://github.com/VGVentures/slide_puzzle.\nSound effects are licensed under Mixkit Sound Effects Free License.\nFonts are licensed under Open Font License (OFL).\nFor the images used, I couldn't find the relative license or the author.\nPlease contact me at kevin950720@gmail.com if you find anything violating your copyright."
+
+
 }

@@ -22,5 +22,11 @@
     "sizeControl": "Talla",
     "difficultyControl": "Dificultad",
     "dark": "Oscura",
-    "light": "Ligera"
+    "light": "Ligera",
+    "help": "Ayuda",
+    "howToPlayTitle": "Cómo jugar",
+    "howToPlay": "El objetivo es organizar los números en orden ordenado.\nPuede tocar o usar las teclas de flecha para mover las fichas del rompecabezas.\nHaga clic en el botón aleatorio para generar un nuevo rompecabezas.\nHaga clic en el botón de resolver para resolver automáticamente el rompecabezas.",
+    "licenseTitle": "Licencia",
+    "license": "Este juego está basado en https://github.com/VGVentures/slide_puzzle.\nLos efectos de sonido tienen licencia de Mixkit Sound Effects Free License.\nLas fuentes tienen licencia de Open Font License (OFL).\nPóngase en contacto conmigo en kevin950720@gmail.com si encuentra algo que viole sus derechos de autor."
+
 }

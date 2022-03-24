@@ -47,9 +47,7 @@ class _AppState extends State<App> {
   ];
 
   static final imageAssets = [
-    'assets/images/logo_flutter_color.png',
     'assets/images/logo_flutter_white.png',
-    'assets/images/simple_dash_small.png',
     'assets/images/wood_grain.png',
     'assets/images/wood_background.jpg',
     'assets/images/win11.jpg',
