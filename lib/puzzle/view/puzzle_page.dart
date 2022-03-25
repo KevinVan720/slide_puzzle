@@ -494,7 +494,8 @@ class PuzzleMenuItem extends StatelessWidget {
       small: (_, child) => Column(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width / 3,
+            //width: MediaQuery.of(context).size.width / 3,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             height: 36,
             decoration: isCurrentTheme
                 ? BoxDecoration(
@@ -568,7 +569,11 @@ class PuzzleMenuItem extends StatelessWidget {
                       screenSize: MediaQuery.of(context).size,
                       parentFontSize:
                           DefaultTextStyle.of(context).style.fontSize ?? 14.0)
-                  .merge(PuzzleTextStyle.headline5),
+                  .merge(Responsive({
+                    smallScreen: PuzzleTextStyle.bodyXSmall,
+                    middleScreen: PuzzleTextStyle.headline5,
+                    largeScreen: PuzzleTextStyle.headline5
+                  }).resolve(context)),
               child: Text(
                 theme.name[locale] ?? "",
                 maxLines: 1,

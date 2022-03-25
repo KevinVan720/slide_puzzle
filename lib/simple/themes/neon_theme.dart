@@ -802,7 +802,6 @@ class NeonTheme extends SimpleTheme {
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
         color: themePalette.menuActiveColor,
         fontFamily: "Beon",
-        fontWeight: FontWeight.bold,
         shadows: [
           Shadow(
               blurRadius: 2,

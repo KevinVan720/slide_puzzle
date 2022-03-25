@@ -694,8 +694,6 @@ class WoodTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
-        letterSpacing: 1.toPXLength,
-        fontSize: 40.toPXLength,
         fontFamily: "Pacifico-Regular",
         fontWeight: FontWeight.w700,
         color: const Color(0xFFC0A080).withOpacity(0.8),
@@ -707,8 +705,7 @@ class WoodTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
-        letterSpacing: 1.toPXLength,
-        fontSize: 40.toPXLength,
+
         fontFamily: "Pacifico-Regular",
         fontWeight: FontWeight.w700,
         color: Colors.black,
