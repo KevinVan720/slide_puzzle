@@ -419,7 +419,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
       shadows: _darkTextBorderShadow,
-      //fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.bold,
       color: themePalette.menuInactiveColor,
       fontFamily: "Inter");
 
@@ -471,35 +471,35 @@ class CupertinoTheme extends SimpleTheme {
   List<Shadow> get _darkTextBorderShadow => [
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0.25, 0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0.25, -0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(-0.25, 0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(-0.25, -0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0.353, 0)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0, -0.353)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(-0.353, 0)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0, 0.353))
       ];
 
@@ -621,9 +621,9 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => Colors.black;
+  Color get menuInactiveColor => Colors.grey.shade600;
   @override
-  Color get menuActiveColor => Color(0xFFE4E4E4);
+  Color get menuActiveColor => Color(0xFFF4F4F4);
 
   @override
   Color get popupMenuSliderActiveTrackColor => PuzzleColors.grey5;
@@ -678,9 +678,10 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => Colors.black;
+  Color get menuInactiveColor => Colors.grey.shade600;
   @override
-  Color get menuActiveColor => Color(0xFFE4E4E4);
+  Color get menuActiveColor => Color(0xFFF4F4F4);
+
 
   @override
   Color get popupMenuSliderActiveTrackColor =>
