@@ -64,6 +64,7 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
         allScreen: Style(
+          opacity: 1.0,
           backgroundDecoration: BoxDecoration(
             color: themePalette.appBarColor,
           ),

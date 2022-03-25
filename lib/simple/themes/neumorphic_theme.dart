@@ -88,7 +88,8 @@ class NeumorphicTheme extends SimpleTheme {
         allScreen: Style(
           opacity: stuckAmount.abs().clamp(0, 1),
           backgroundDecoration: BoxDecoration(
-            color: themePalette.baseColor,
+            color: themePalette.baseColor
+                .withOpacity(stuckAmount.abs().clamp(0, 1)),
           ),
           shapeBorder: RectangleShapeBorder(
             borderRadius:
@@ -96,15 +97,11 @@ class NeumorphicTheme extends SimpleTheme {
           ),
           shadows: [
             ShapeShadow(
-                blurRadius: 10,
+                blurRadius: 6,
                 spreadRadius: -3,
-                color: themePalette.baseColorDarker,
-                offset: const Offset(6, 6)),
-            ShapeShadow(
-                blurRadius: 10,
-                spreadRadius: -3,
-                color: themePalette.baseColorLighter,
-                offset: const Offset(-6, -6)),
+                color: themePalette.baseColorDarker
+                    .withOpacity(stuckAmount.abs().clamp(0, 1)),
+                offset: const Offset(0, 6)),
           ],
         )
       });

@@ -115,6 +115,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
         allScreen: Style(
+          opacity: 1.0,
           backgroundDecoration: BoxDecoration(
             color: Color(0xFF121212).withOpacity(0.9),
           ),

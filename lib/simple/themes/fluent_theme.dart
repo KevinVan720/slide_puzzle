@@ -91,7 +91,7 @@ class FluentTheme extends SimpleTheme {
   @override
   Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
         allScreen: Style(
-          //opacity: stuckAmount.abs().clamp(0, 1),
+          opacity: 1.0,
           backgroundDecoration: BoxDecoration(
             color: themePalette.popupMenuColor
                 .withOpacity((stuckAmount.abs() * 0.25).clamp(0, 0.25)),
