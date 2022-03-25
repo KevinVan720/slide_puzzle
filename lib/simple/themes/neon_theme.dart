@@ -102,16 +102,31 @@ class NeonTheme extends SimpleTheme {
     int phase = (DateTime.now().millisecondsSinceEpoch) % 2;
 
     Gradient gradient = LinearGradient(
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-        colors: phase % 2 == 0
-            ? themePalette.backgroundGradient.colors
-            : themePalette.backgroundGradient.colors.reversed.toList());
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: phase % 2 == 0
+          ? themePalette.backgroundGradient.colors
+          : themePalette.backgroundGradient.colors.reversed.toList(),
+    );
 
     return Responsive({
       allScreen: Style(backgroundDecoration: BoxDecoration(gradient: gradient))
     });
   }
+
+  @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          opacity: stuckAmount.abs().clamp(0, 1),
+          backgroundDecoration:
+              BoxDecoration(gradient: themePalette.backgroundGradient),
+          shapeBorder: RoundedRectangleShapeBorder(
+              borderSides: RectangleBorderSides.only(
+            bottom: DynamicBorderSide(
+                color: themePalette.menuUnderlineColor, width: 3),
+          )),
+        )
+      });
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
@@ -433,8 +448,7 @@ class NeonTheme extends SimpleTheme {
                         width: 10),
                     left: DynamicBorderSide(
                         color: themePalette.baseColor1, width: 5),
-                    right:
-                        DynamicBorderSide(color: themePalette.baseColor5, width: 10))),
+                    right: DynamicBorderSide(color: themePalette.baseColor5, width: 10))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
@@ -506,8 +520,7 @@ class NeonTheme extends SimpleTheme {
                         width: 5),
                     left: DynamicBorderSide(
                         color: themePalette.baseColor1, width: 3),
-                    right:
-                        DynamicBorderSide(color: themePalette.baseColor5, width: 6))),
+                    right: DynamicBorderSide(color: themePalette.baseColor5, width: 6))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 24.toPXLength)),
         middleScreen: _baseStyle.copyWith(
           padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 4),

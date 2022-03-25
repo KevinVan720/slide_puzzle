@@ -84,6 +84,32 @@ class NeumorphicTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          opacity: stuckAmount.abs().clamp(0, 1),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.baseColor,
+          ),
+          shapeBorder: RectangleShapeBorder(
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
+          ),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: themePalette.baseColorDarker,
+                offset: const Offset(6, 6)),
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: -3,
+                color: themePalette.baseColorLighter,
+                offset: const Offset(-6, -6)),
+          ],
+        )
+      });
+
+  @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           margin: EdgeInsets.all(10),

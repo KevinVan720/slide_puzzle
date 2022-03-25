@@ -16,6 +16,9 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/timer/timer.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
+import 'package:sticky_headers/sticky_headers.dart';
+
+import 'package:responsive_property/responsive_property.dart';
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -153,9 +156,33 @@ class _Puzzle extends StatelessWidget {
                     minHeight: constraints.maxHeight,
                   ),
                   child: Column(
-                    children: const [
-                      PuzzleHeader(),
-                      PuzzleSections(),
+                    children: [
+                      StickyHeaderBuilder(
+                        builder: (context, stuckAmount) {
+                          return Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              AnimatedStyledContainer(
+                                duration: Duration(milliseconds: 400),
+                                style: (theme
+                                        .appBarStyle(stuckAmount)
+                                        .resolve(context) ??
+                                    Style()),
+                                child: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: Responsive({
+                                          smallScreen: 44.0,
+                                          middleScreen: 44.0,
+                                          largeScreen: 50.0
+                                        }).resolve(context) ??
+                                        50.0),
+                              ),
+                              const PuzzleHeader()
+                            ],
+                          );
+                        },
+                        content: PuzzleSections(),
+                      )
                     ],
                   ),
                 ),
@@ -178,66 +205,59 @@ class PuzzleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 96,
-      child: ResponsiveLayoutBuilder(
-        small: (context, child) => Stack(
-          children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 30.0),
-                child: PuzzleLogo(),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    SettingsControl(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        medium: (context, child) => Stack(
-          children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 30.0),
-                child: PuzzleLogo(),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    SettingsControl(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        large: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
+    return ResponsiveLayoutBuilder(
+      small: (context, child) => Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Container(child: PuzzleLogo()),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              PuzzleLogo(),
-              PuzzleMenu(),
-            ],
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  SettingsControl(),
+                ],
+              ),
+            ),
           ),
+        ],
+      ),
+      medium: (context, child) => Stack(
+        alignment: Alignment.center,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Container(child: PuzzleLogo()),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  SettingsControl(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      large: (context, child) => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            PuzzleLogo(),
+            PuzzleMenu(),
+          ],
         ),
       ),
     );
@@ -277,16 +297,16 @@ class PuzzleSections extends StatelessWidget {
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state),
           const PuzzleMenu(),
+          theme.layoutDelegate.startSectionBuilder(state),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
       medium: (context, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state),
           const PuzzleMenu(),
+          theme.layoutDelegate.startSectionBuilder(state),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
@@ -394,29 +414,35 @@ class _PuzzleMenuState extends State<PuzzleMenu> {
     final themes = context.select((ThemeBloc bloc) => bloc.state.themes);
 
     return ResponsiveLayoutBuilder(
-        small: (context, child) => Wrap(
-              alignment: WrapAlignment.center,
-              runAlignment: WrapAlignment.center,
-              children: List.generate(
-                themes.length,
-                (index) => PuzzleMenuItem(
-                  theme: themes[index],
-                  themeIndex: index,
-                ),
-              ),
-            ),
-        medium: (context, child) => Wrap(
-              alignment: WrapAlignment.center,
-              runAlignment: WrapAlignment.center,
-              children: [
-                ...List.generate(
+        small: (context, child) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
+                children: List.generate(
                   themes.length,
                   (index) => PuzzleMenuItem(
                     theme: themes[index],
                     themeIndex: index,
                   ),
                 ),
-              ],
+              ),
+            ),
+        medium: (context, child) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
+                children: [
+                  ...List.generate(
+                    themes.length,
+                    (index) => PuzzleMenuItem(
+                      theme: themes[index],
+                      themeIndex: index,
+                    ),
+                  ),
+                ],
+              ),
             ),
         large: (context, child) => Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -466,8 +492,8 @@ class PuzzleMenuItem extends StatelessWidget {
       small: (_, child) => Column(
         children: [
           Container(
-            height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            width: MediaQuery.of(context).size.width / 3,
+            height: 36,
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -486,8 +512,8 @@ class PuzzleMenuItem extends StatelessWidget {
         children: [
           Container(
             //width: 100,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             height: 40,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: isCurrentTheme
                 ? BoxDecoration(
                     border: Border(
@@ -505,49 +531,46 @@ class PuzzleMenuItem extends StatelessWidget {
           ),
         ],
       ),
-      large: (_, child) => child!,
+      large: (_, child) =>
+          Padding(padding: const EdgeInsets.only(left: 24), child: child!),
       child: (currentSize) {
-        final leftPadding =
-            themeIndex > 0 && currentSize == ResponsiveLayoutSize.large
-                ? 30.0
-                : 0.0;
+        return Tooltip(
+          message:
+              theme != currentTheme ? context.l10n.puzzleChangeTooltip : '',
+          child: TextButton(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+            ).copyWith(
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+            ),
+            onPressed: () {
+              // Ignore if this theme is already selected.
+              if (theme == currentTheme) {
+                return;
+              }
 
-        return Padding(
-          padding: EdgeInsets.only(left: leftPadding),
-          child: Tooltip(
-            message:
-                theme != currentTheme ? context.l10n.puzzleChangeTooltip : '',
-            child: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-              ).copyWith(
-                overlayColor: MaterialStateProperty.all(Colors.transparent),
-              ),
-              onPressed: () {
-                // Ignore if this theme is already selected.
-                if (theme == currentTheme) {
-                  return;
-                }
+              // Update the currently selected theme.
+              context
+                  .read<ThemeBloc>()
+                  .add(ThemeChanged(themeIndex: themeIndex));
 
-                // Update the currently selected theme.
-                context
-                    .read<ThemeBloc>()
-                    .add(ThemeChanged(themeIndex: themeIndex));
-
-                // Reset the timer of the currently running puzzle.
-                context.read<TimerBloc>().add(const TimerReset());
-              },
-              child: AnimatedDefaultTextStyle(
-                duration: PuzzleThemeAnimationDuration.textStyle,
-                style: (isCurrentTheme
-                        ? currentTheme.menuActiveStyle
-                        : currentTheme.menuInactiveStyle)
-                    .toTextStyle(
-                        screenSize: MediaQuery.of(context).size,
-                        parentFontSize:
-                            DefaultTextStyle.of(context).style.fontSize ?? 14.0)
-                    .merge(PuzzleTextStyle.headline5),
-                child: Text(theme.name[locale] ?? ""),
+              // Reset the timer of the currently running puzzle.
+              context.read<TimerBloc>().add(const TimerReset());
+            },
+            child: AnimatedDefaultTextStyle(
+              duration: PuzzleThemeAnimationDuration.textStyle,
+              style: (isCurrentTheme
+                      ? currentTheme.menuActiveStyle
+                      : currentTheme.menuInactiveStyle)
+                  .toTextStyle(
+                      screenSize: MediaQuery.of(context).size,
+                      parentFontSize:
+                          DefaultTextStyle.of(context).style.fontSize ?? 14.0)
+                  .merge(PuzzleTextStyle.headline5),
+              child: Text(
+                theme.name[locale] ?? "",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),

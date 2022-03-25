@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:animated_styled_widget/animated_styled_widget.dart';
@@ -86,6 +87,29 @@ class FluentTheme extends SimpleTheme {
           )),
     });
   }
+
+  @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          //opacity: stuckAmount.abs().clamp(0, 1),
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.popupMenuColor
+                .withOpacity((stuckAmount.abs() * 0.25).clamp(0, 0.25)),
+          ),
+          shapeBorder: RectangleShapeBorder(
+            border: DynamicBorderSide(
+                color: themePalette.popupMenuColor
+                    .withOpacity(stuckAmount.abs().clamp(0, 0.9)),
+                width: 0.8),
+            borderRadius: DynamicBorderRadius.only(
+                bottomLeft: DynamicRadius.circular(5.toPXLength),
+                bottomRight: DynamicRadius.circular(5.toPXLength)),
+          ),
+          backdropFilter: ImageFilter.blur(
+              sigmaX: stuckAmount.abs().clamp(0, 1) * 10 + 0.01,
+              sigmaY: stuckAmount.abs().clamp(0, 1) * 10 + 0.01),
+        )
+      });
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({

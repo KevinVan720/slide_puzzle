@@ -40,9 +40,8 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
     double dilationFactor = context.getTimeDilation();
 
     return ResponsiveLayoutBuilder(
-      small: (context, child) => Center(child: child),
-      medium: (context, child) =>
-          Container(padding: const EdgeInsets.only(bottom: 13), child: child),
+      small: (context, child) => child!,
+      medium: (context, child) => child!,
       large: (context, child) => child!,
       child: (currentSize) {
         final mainAxisAlignment = currentSize == ResponsiveLayoutSize.large

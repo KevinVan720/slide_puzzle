@@ -74,8 +74,8 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
     return Column(
       children: [
         const ResponsiveGap(
-          small: 32,
-          medium: 48,
+          small: 14,
+          medium: 20,
           large: 96,
         ),
         SimplePuzzleBoard(
@@ -140,8 +140,8 @@ class SimpleStartSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ResponsiveGap(
-          small: 20,
-          medium: 43,
+          small: 14,
+          medium: 20,
           large: 101,
         ),
         PuzzleName(
@@ -153,7 +153,7 @@ class SimpleStartSection extends StatelessWidget {
         ),
         const ResponsiveGap(
           small: 12,
-          medium: 16,
+          medium: 14,
           large: 32,
         ),
         NumberOfMovesAndTilesLeft(
@@ -163,7 +163,7 @@ class SimpleStartSection extends StatelessWidget {
         ),
         const ResponsiveGap(
           small: 12,
-          medium: 16,
+          medium: 14,
           large: 32,
         ),
         ResponsiveLayoutBuilder(

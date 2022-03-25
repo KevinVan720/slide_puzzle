@@ -72,6 +72,39 @@ class KeyboardTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          opacity: stuckAmount.abs().clamp(0, 1),
+          backgroundDecoration:
+              BoxDecoration(color: themePalette.baseColorLighter),
+          shapeBorder: RectangleShapeBorder(
+              borderRadius:
+                  DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
+              border:
+                  DynamicBorderSide(width: 1, color: themePalette.borderColor)),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: 1,
+                color: themePalette.shadowColor,
+                offset: const Offset(0, 5)),
+            ShapeShadow(
+                blurRadius: 0,
+                color: themePalette.borderColor,
+                offset: const Offset(0, 6)),
+            ShapeShadow(
+                blurRadius: 0,
+                spreadRadius: -1,
+                gradient: LinearGradient(colors: [
+                  themePalette.baseColor,
+                  themePalette.baseColorDarker
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                offset: const Offset(0, 5)),
+          ],
+        )
+      });
+
+  @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           margin: EdgeInsets.all(10),

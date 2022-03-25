@@ -53,6 +53,8 @@ abstract class PuzzleTheme extends Equatable {
   /// The board background style of this theme.
   Responsive<Style> get boardBackgroundStyle;
 
+  Responsive<Style> appBarStyle(double extent);
+
   /// Styles related to the popup menu of this theme.
   Responsive<Style> get popupMenuStyle;
 
@@ -131,6 +133,7 @@ abstract class PuzzleTheme extends Equatable {
         backgroundAnimationScale,
         backgroundAnimationPeriodScale,
         backgroundStyle,
+        appBarStyle,
         defaultTextStyle,
         tileStyle,
         tileHoverStyle,

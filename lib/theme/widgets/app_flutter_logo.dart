@@ -53,11 +53,11 @@ class AppFlutterLogo extends StatelessWidget {
                       ),
                   medium: (_, __) => Image.asset(
                         assetName,
-                        height: 29,
+                        height: 24,
                       ),
                   large: (_, __) => Image.asset(
                         assetName,
-                        height: 32,
+                        height: 30,
                       )),
         ));
   }

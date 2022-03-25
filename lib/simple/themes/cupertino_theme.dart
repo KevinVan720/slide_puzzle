@@ -113,6 +113,16 @@ class CupertinoTheme extends SimpleTheme {
    */
 
   @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          backgroundDecoration: BoxDecoration(
+            color: Color(0xFF121212).withOpacity(0.9),
+          ),
+          backdropFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+        )
+      });
+
+  @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           margin: const EdgeInsets.all(10),
@@ -126,7 +136,7 @@ class CupertinoTheme extends SimpleTheme {
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          backdropFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 18),
+          backdropFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
         )
       });
 
@@ -399,7 +409,7 @@ class CupertinoTheme extends SimpleTheme {
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor,
       fontWeight: FontWeight.bold,
-      shadows: _lightTextBorderShadow,
+      shadows: _darkTextBorderShadow,
       fontFamily: "Inter");
 
   @override
@@ -408,7 +418,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
       shadows: _darkTextBorderShadow,
-      fontWeight: FontWeight.bold,
+      //fontWeight: FontWeight.bold,
       color: themePalette.menuInactiveColor,
       fontFamily: "Inter");
 
@@ -460,35 +470,35 @@ class CupertinoTheme extends SimpleTheme {
   List<Shadow> get _darkTextBorderShadow => [
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(0.25, 0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(0.25, -0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(-0.25, 0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(-0.25, -0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(0.353, 0)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(0, -0.353)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(-0.353, 0)),
         Shadow(
             blurRadius: 0.1,
-            color: themePalette.menuActiveColor.withOpacity(0.3),
+            color: Color(0xFF202020).withOpacity(0.3),
             offset: const Offset(0, 0.353))
       ];
 
@@ -610,9 +620,9 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => Color(0xFFC4C4C4);
+  Color get menuInactiveColor => Colors.black;
   @override
-  Color get menuActiveColor => Colors.black;
+  Color get menuActiveColor => Color(0xFFE4E4E4);
 
   @override
   Color get popupMenuSliderActiveTrackColor => PuzzleColors.grey5;
@@ -667,9 +677,9 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
   Color get menuUnderlineColor => Colors.transparent;
   @override
-  Color get menuInactiveColor => Colors.grey.shade700;
+  Color get menuInactiveColor => Colors.black;
   @override
-  Color get menuActiveColor => Colors.white;
+  Color get menuActiveColor => Color(0xFFE4E4E4);
 
   @override
   Color get popupMenuSliderActiveTrackColor =>

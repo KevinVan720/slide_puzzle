@@ -62,6 +62,35 @@ class MaterialTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          backgroundDecoration: BoxDecoration(
+            color: themePalette.appBarColor,
+          ),
+          shapeBorder: RectangleShapeBorder(
+            border: const DynamicBorderSide(color: Colors.grey, width: 0.2),
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(0.toPXLength)),
+          ),
+          shadows: [
+            ShapeShadow(
+                offset: const Offset(0.0, 3.0),
+                blurRadius: 1.0,
+                spreadRadius: -2.0,
+                color: themePalette.kKeyUmbraOpacity),
+            ShapeShadow(
+                offset: const Offset(0.0, 2.0),
+                blurRadius: 2.0,
+                color: themePalette.kKeyPenumbraOpacity),
+            ShapeShadow(
+                offset: const Offset(0.0, 1.0),
+                blurRadius: 5.0,
+                color: themePalette.kAmbientShadowOpacity),
+          ],
+        )
+      });
+
+  @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           margin: EdgeInsets.all(10),
@@ -622,6 +651,8 @@ abstract class MaterialThemePalette {
   Color get titleColor;
   Color get defaultColor;
 
+  Color get appBarColor;
+
   Color get kKeyUmbraOpacity; // alpha = 0.2
   Color get kKeyPenumbraOpacity; // alpha = 0.14
   Color get kAmbientShadowOpacity; // alpha = 0.12
@@ -657,6 +688,8 @@ class MaterialThemePaletteLight extends MaterialThemePalette {
   Color get titleColor => PuzzleColors.green50;
   @override
   Color get defaultColor => PuzzleColors.primary6;
+
+  Color get appBarColor => Colors.grey.shade100;
 
   @override
   Color get kKeyUmbraOpacity => const Color(0x33000000); // alpha = 0.2
@@ -713,6 +746,8 @@ class MaterialThemePaletteDark extends MaterialThemePalette {
   Color get titleColor => PuzzleColors.green50;
   @override
   Color get defaultColor => PuzzleColors.primary6;
+
+  Color get appBarColor => Colors.grey.shade900;
 
   @override
   Color get kKeyUmbraOpacity => const Color(0x33555555); // alpha = 0.2

@@ -83,6 +83,45 @@ class ClaymorphismTheme extends SimpleTheme {
   }
 
   @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          opacity: stuckAmount.abs().clamp(0, 1),
+          backgroundDecoration:
+              BoxDecoration(gradient: themePalette.popupMenuGradient),
+          shapeBorder: RectangleShapeBorder(
+            border: DynamicBorderSide(
+                color: themePalette.baseColor3.withOpacity(0.6), width: 0.2),
+            borderRadius: DynamicBorderRadius.only(
+                bottomLeft: DynamicRadius.circular(10.toPXLength),
+                bottomRight: DynamicRadius.circular(10.toPXLength)),
+          ),
+          shadows: [
+            ShapeShadow(
+                blurRadius: 10,
+                spreadRadius: 2,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(4, 4)),
+          ],
+          insetShadows: [
+            ShapeShadow(
+                blurRadius: 3,
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [
+                      0,
+                      0.5
+                    ],
+                    colors: [
+                      themePalette.baseColor2.withOpacity(0.5),
+                      themePalette.baseColor3.withOpacity(0.5),
+                    ]),
+                offset: const Offset(-3, -3)),
+          ],
+        ),
+      });
+
+  @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
           margin: EdgeInsets.all(10),
@@ -552,6 +591,17 @@ class ClaymorphismTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
   Style get _baseStyle => Style(
+      shaderGradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            themePalette.baseColor3,
+            themePalette.tileTextColor,
+          ],
+          stops: [
+            0,
+            0.5
+          ]),
       alignment: Alignment.center,
       transformAlignment: Alignment.center,
       backgroundDecoration: BoxDecoration(color: themePalette.baseColor1),
@@ -578,12 +628,12 @@ class ClaymorphismTheme extends SimpleTheme {
             offset: const Offset(-3, -3)),
       ],
       textStyle: DynamicTextStyle(
-        letterSpacing: 0.1.toPXLength,
-        fontSize: 28.toPXLength,
-        fontFamily: "BalooThambi2",
-        fontWeight: FontWeight.w700,
-        color: themePalette.tileTextColor,
-      ),
+          letterSpacing: 0.1.toPXLength,
+          fontSize: 28.toPXLength,
+          fontFamily: "BalooThambi2",
+          fontWeight: FontWeight.w700,
+          //color: themePalette.tileTextColor,
+          color: Colors.white),
       shapeBorder: parseMorphableShapeBorder({
         "type": "Rectangle",
         "border": {
@@ -610,7 +660,18 @@ class ClaymorphismTheme extends SimpleTheme {
       mouseCursor: SystemMouseCursors.click);
 
   Style get _buttonStyle => Style(
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 4),
+      shaderGradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            themePalette.baseColor3,
+            themePalette.tileTextColor,
+          ],
+          stops: [
+            0,
+            0.5
+          ]),
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 4),
       alignment: Alignment.center,
       childAlignment: Alignment.center,
       transformAlignment: Alignment.center,
@@ -638,12 +699,12 @@ class ClaymorphismTheme extends SimpleTheme {
             offset: const Offset(-3, -3)),
       ],
       textStyle: DynamicTextStyle(
-        letterSpacing: 0.1.toPXLength,
-        fontSize: 28.toPXLength,
-        fontFamily: "BalooThambi2",
-        fontWeight: FontWeight.w700,
-        color: themePalette.tileTextColor,
-      ),
+          letterSpacing: 0.1.toPXLength,
+          fontSize: 28.toPXLength,
+          fontFamily: "BalooThambi2",
+          fontWeight: FontWeight.w700,
+          //color: themePalette.tileTextColor,
+          color: Colors.white),
       shapeBorder: RectangleShapeBorder(
         borderRadius:
             DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength)),

@@ -107,7 +107,7 @@ class GlassmorphismTheme extends SimpleTheme {
           .backgroundColors[rng.nextInt(themePalette.backgroundColors.length)];
       gradients.add(RadialGradient(
           tileMode: TileMode.decal,
-          radius: rng.nextDouble() * 3 + 2,
+          radius: rng.nextDouble() * 2 + 2,
           center: Alignment(
               (rng.nextDouble() - 0.5) * 2, (rng.nextDouble() - 0.5) * 2),
           colors: [
@@ -118,18 +118,38 @@ class GlassmorphismTheme extends SimpleTheme {
             0,
             rng.nextDouble() * 0.3 + 0.3,
           ]));
-      blurs.add(rng.nextDouble() * 10 + 20);
+      blurs.add(rng.nextDouble() * 10 + 10);
     }
 
     return Responsive({
       allScreen: Style(
-          backdropFilter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           backgroundDecoration: AuroraDecoration(
               color: themePalette.backgroundColor,
               gradientBlurs: blurs,
               gradients: gradients))
     });
   }
+
+  @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+          //opacity: stuckAmount.abs().clamp(0, 1),
+          shadows: [
+            ShapeShadow(
+                spreadRadius: 2,
+                blurRadius: 10,
+                color: Colors.grey.withOpacity(0.05),
+                offset: const Offset(5, 5)),
+          ],
+          backgroundDecoration: BoxDecoration(
+              color: themePalette.popupMenuColor
+                  .withOpacity(stuckAmount.abs().clamp(0, 0.25))),
+          backdropFilter: ImageFilter.blur(
+              sigmaX: stuckAmount.abs().clamp(0, 1) * 10 + 0.1,
+              sigmaY: stuckAmount.abs().clamp(0, 1) * 10 + 0.1),
+        )
+      });
 
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
@@ -567,60 +587,61 @@ class GlassmorphismTheme extends SimpleTheme {
   PuzzleLayoutDelegate get layoutDelegate => const SimplePuzzleLayoutDelegate();
 
   Style get _baseStyle => Style(
-      alignment: Alignment.center,
-      childAlignment: Alignment.center,
-      shadows: [
-        ShapeShadow(
-            spreadRadius: 2,
-            blurRadius: 10,
-            color: themePalette.kAmbientShadowOpacity,
-            offset: const Offset(5, 5)),
-      ],
-      shapeBorder: RectangleShapeBorder(
-          border: DynamicBorderSide(
-              width: 1.8,
-              gradient: LinearGradient(
-                  begin: const Alignment(-0.9, -1),
-                  end: Alignment.bottomRight,
-                  stops: const [0, 0.1],
-                  colors: [Colors.white38, Colors.white.withOpacity(0.05)])),
-          borderRadius:
-              DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
-      backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
-      backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-      textStyle: DynamicTextStyle(
-        letterSpacing: 0.1.toPXLength,
-        fontSize: 28.toPXLength,
-        fontWeight: FontWeight.w900,
-        color: themePalette.tileTextColor,
+        alignment: Alignment.center,
+        childAlignment: Alignment.center,
         shadows: [
-          Shadow(
-              blurRadius: 3,
+          ShapeShadow(
+              spreadRadius: 2,
+              blurRadius: 10,
               color: themePalette.kAmbientShadowOpacity,
-              offset: const Offset(-1, -1)),
-          Shadow(
-              blurRadius: 3,
-              color: themePalette.kAmbientShadowOpacity,
-              offset: const Offset(-1, 0)),
-          Shadow(
-              blurRadius: 3,
-              color: themePalette.kAmbientShadowOpacity,
-              offset: const Offset(0, -1)),
-          Shadow(
-              blurRadius: 3,
-              color: themePalette.kAmbientShadowOpacity,
-              offset: const Offset(0, 1)),
-          Shadow(
-              blurRadius: 3,
-              color: themePalette.kAmbientShadowOpacity,
-              offset: const Offset(1, 0)),
-          Shadow(
-              blurRadius: 6,
-              color: themePalette.kAmbientShadowOpacity.withOpacity(0.3),
-              offset: const Offset(1, 1)),
+              offset: const Offset(5, 5)),
         ],
-      ),
-      mouseCursor: SystemMouseCursors.click);
+        shapeBorder: RectangleShapeBorder(
+            border: DynamicBorderSide(
+                width: 1.8,
+                gradient: LinearGradient(
+                    begin: const Alignment(-0.9, -1),
+                    end: Alignment.bottomRight,
+                    stops: const [0, 0.1],
+                    colors: [Colors.white38, Colors.white.withOpacity(0.05)])),
+            borderRadius:
+                DynamicBorderRadius.all(DynamicRadius.circular(20.toPXLength))),
+        backgroundDecoration: BoxDecoration(color: themePalette.tileColor),
+        backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        textStyle: DynamicTextStyle(
+          letterSpacing: 0.1.toPXLength,
+          fontSize: 28.toPXLength,
+          fontWeight: FontWeight.w900,
+          color: themePalette.tileTextColor,
+          shadows: [
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(-1, -1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(-1, 0)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(0, -1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(0, 1)),
+            Shadow(
+                blurRadius: 3,
+                color: themePalette.kAmbientShadowOpacity,
+                offset: const Offset(1, 0)),
+            Shadow(
+                blurRadius: 6,
+                color: themePalette.kAmbientShadowOpacity.withOpacity(0.3),
+                offset: const Offset(1, 1)),
+          ],
+        ),
+        mouseCursor: SystemMouseCursors.click,
+      );
 }
 
 abstract class _TileDimension {

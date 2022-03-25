@@ -257,6 +257,51 @@ class WoodTheme extends SimpleTheme {
       });
 
   @override
+  Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
+        allScreen: Style(
+            opacity: stuckAmount.abs().clamp(0, 1),
+            backgroundDecoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        const Color(0xFF352525).withOpacity(0.5),
+                        BlendMode.darken),
+                    image:
+                        const AssetImage('assets/images/wood_background.jpg'))),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(1.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    bottom: const DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF311919),
+                              Color(0xFF301818),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
+                        width: 5),
+                    left: DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.brown.shade500,
+                              const Color(0xFF755144),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        width: 3.5),
+                    right: const DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF322222),
+                              Color(0xFF302020),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        width: 3.5))))
+      });
+
+  @override
   Responsive<Style> get popupMenuStyle => Responsive({
         smallScreen: Style(
           margin: EdgeInsets.all(10),
