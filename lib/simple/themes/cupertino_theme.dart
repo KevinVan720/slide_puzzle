@@ -62,6 +62,7 @@ class CupertinoTheme extends SimpleTheme {
   DynamicTextStyle get nameTextStyle => DynamicTextStyle(
       color: Color(0xFFE1DFE1),
       fontFamily: "Inter",
+      fontWeight: FontWeight.bold,
       shadows: _darkTextBorderShadow);
 
   @override
@@ -409,7 +410,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor,
-      fontWeight: FontWeight.bold,
+      //fontWeight: FontWeight.bold,
       shadows: _darkTextBorderShadow,
       fontFamily: "Inter");
 
@@ -419,7 +420,7 @@ class CupertinoTheme extends SimpleTheme {
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
       shadows: _darkTextBorderShadow,
-      fontWeight: FontWeight.bold,
+      //fontWeight: FontWeight.bold,
       color: themePalette.menuInactiveColor,
       fontFamily: "Inter");
 
