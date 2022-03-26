@@ -119,7 +119,7 @@ class NeonTheme extends SimpleTheme {
         allScreen: Style(
           opacity: stuckAmount.abs().clamp(0, 1),
           backgroundDecoration:
-              BoxDecoration(gradient: themePalette.backgroundGradient),
+              BoxDecoration(color: Color.lerp(themePalette.backgroundGradient.colors[1], themePalette.backgroundGradient.colors[0], 0.5)),
           shapeBorder: RoundedRectangleShapeBorder(
               borderSides: RectangleBorderSides.only(
             bottom: DynamicBorderSide(

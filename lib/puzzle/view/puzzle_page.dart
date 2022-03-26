@@ -165,7 +165,7 @@ class _Puzzle extends StatelessWidget {
                               AnimatedStyledContainer(
                                 duration: PuzzleThemeAnimationDuration
                                     .backgroundColorChange
-                                    .dilate(context.getTimeDilation()),
+                                    .dilate(context.getTimeDilation()/2),
                                 style: (theme
                                         .appBarStyle(stuckAmount)
                                         .resolve(context) ??

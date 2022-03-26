@@ -309,10 +309,61 @@ class WoodTheme extends SimpleTheme {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         ),
         middleScreen: Style(
-          margin: EdgeInsets.all(10),
-          width: Dimension.min(260.toPXLength, 90.toPercentLength),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        ),
+            margin: EdgeInsets.all(10),
+            width: Dimension.min(260.toPXLength, 90.toPercentLength),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            backgroundDecoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        const Color(0xFF352525).withOpacity(0.5),
+                        BlendMode.darken),
+                    image:
+                    const AssetImage('assets/images/wood_background.jpg'))),
+            shapeBorder: RoundedRectangleShapeBorder(
+                borderRadius: DynamicBorderRadius.all(
+                    DynamicRadius.circular(1.toPXLength)),
+                borderSides: RectangleBorderSides.only(
+                    top: DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.brown.shade200,
+                              Colors.brown.shade300
+                            ],
+                            stops: const [
+                              0,
+                              0.5
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
+                        width: 4),
+                    bottom: const DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF311919),
+                              Color(0xFF301818),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
+                        width: 8),
+                    left: DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.brown.shade500,
+                              const Color(0xFF755144),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        width: 4.5),
+                    right: const DynamicBorderSide(
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF322222),
+                              Color(0xFF302020),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        width: 5)))),
         largeScreen: Style(
             margin: EdgeInsets.all(10),
             width: Dimension.min(260.toPXLength, 90.toPercentLength),

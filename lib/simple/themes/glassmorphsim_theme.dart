@@ -134,20 +134,21 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
         allScreen: Style(
-          opacity: 1.0,
+          opacity: 1,
           shadows: [
             ShapeShadow(
-                spreadRadius: 2,
-                blurRadius: 10,
-                color: Colors.grey.withOpacity(0.05),
-                offset: const Offset(5, 5)),
+                    spreadRadius: 2,
+                    blurRadius: 8,
+                    color: Colors.grey.withOpacity(stuckAmount.abs().clamp(0, 1)*0.15),
+                    offset: const Offset(0, 2))
+                .scale(stuckAmount.abs().clamp(0, 1)),
           ],
           backgroundDecoration: BoxDecoration(
               color: themePalette.popupMenuColor
-                  .withOpacity(stuckAmount.abs().clamp(0, 0.25))),
+                  .withOpacity(stuckAmount.abs().clamp(0, 0.15))),
           backdropFilter: ImageFilter.blur(
-              sigmaX: stuckAmount.abs().clamp(0, 1) * 10 + 0.01,
-              sigmaY: stuckAmount.abs().clamp(0, 1) * 10 + 0.01),
+              sigmaX: stuckAmount.abs().clamp(0, 1) * 10 + 0.001,
+              sigmaY: stuckAmount.abs().clamp(0, 1) * 10 + 0.001),
         )
       });
 

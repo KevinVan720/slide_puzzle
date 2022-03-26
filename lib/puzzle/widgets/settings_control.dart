@@ -121,49 +121,7 @@ class _SettingsControlState extends State<SettingsControl> {
                         ],
                       );
                     },
-                    medium: (context, _) {
-                      final theme =
-                          context.select((ThemeBloc bloc) => bloc.state.theme);
-
-                      List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
-
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          AnimatedStyledContainer(
-                            duration: PuzzleThemeAnimationDuration
-                                .backgroundColorChange
-                                .dilate(context.getTimeDilation()),
-                            curve: Curves.easeInOut,
-                            style: theme.backgroundStyle.resolve(context)!
-                              ..childAlignment = Alignment.center,
-                            child: _buildAllControls(context),
-                          ),
-                          Positioned(
-                            top: 32,
-                            right: 30,
-                            child: MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: DecoratedIcon(
-                                    Icons.close,
-                                    size: 32,
-                                    color: theme.menuActiveStyle.color,
-                                    shadows: _iconShadow
-                                        ?.map((e) => Shadow(
-                                            color: e.color,
-                                            offset: e.offset,
-                                            blurRadius: e.blurRadius))
-                                        .toList(),
-                                  ),
-                                )),
-                          )
-                        ],
-                      );
-                    },
+                    medium: (context, _) => _buildAllControls(context),
                     large: (context, _) => _buildAllControls(context),
                   ));
             },
@@ -203,7 +161,7 @@ class _SettingsControlState extends State<SettingsControl> {
               ),
               large: (_, __) => DecoratedIcon(
                 Icons.menu,
-                size: 36,
+                size: 34,
                 color: theme.menuActiveStyle.color,
                 shadows: _iconShadow
                     ?.map((e) => Shadow(
@@ -696,51 +654,7 @@ class _SettingsControlState extends State<SettingsControl> {
                                   );
                                 },
                                 medium: (context, _) {
-                                  final theme = context.select(
-                                      (ThemeBloc bloc) => bloc.state.theme);
-
-                                  List<Shadow>? _iconShadow =
-                                      theme.menuActiveStyle.shadows;
-
-                                  return Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      AnimatedStyledContainer(
-                                        duration: PuzzleThemeAnimationDuration
-                                            .backgroundColorChange
-                                            .dilate(context.getTimeDilation()),
-                                        curve: Curves.easeInOut,
-                                        style: theme.backgroundStyle
-                                            .resolve(context)!
-                                          ..childAlignment = Alignment.center,
-                                        child: _buildInfo(context),
-                                      ),
-                                      Positioned(
-                                        top: 32,
-                                        right: 30,
-                                        child: MouseRegion(
-                                            cursor: SystemMouseCursors.click,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: DecoratedIcon(
-                                                Icons.close,
-                                                size: 32,
-                                                color:
-                                                    theme.menuActiveStyle.color,
-                                                shadows: _iconShadow
-                                                    ?.map((e) => Shadow(
-                                                        color: e.color,
-                                                        offset: e.offset,
-                                                        blurRadius:
-                                                            e.blurRadius))
-                                                    .toList(),
-                                              ),
-                                            )),
-                                      )
-                                    ],
-                                  );
+                                  return _buildInfo(context);
                                 },
                                 large: (context, _) {
                                   return _buildInfo(context);
