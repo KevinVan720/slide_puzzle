@@ -52,10 +52,10 @@ class _AppState extends State<App> {
     'assets/images/wood_background.jpg',
     'assets/images/win11.jpg',
     'assets/images/win11_dark.jpg',
-    ...[1, 2, 3, 4, 5, 6, 7, 8]
-        .map((e) => "assets/images/mojave_day_" + e.toString() + "-min.jpg"),
-    ...[1, 2, 3, 4, 5, 6, 7, 8]
-        .map((e) => "assets/images/mojave_night_" + e.toString() + "-min.jpg")
+    ...[1, 2, 3, 4]
+        .map((e) => "assets/images/mojave_day_" + e.toString() + ".jpg"),
+    ...[1, 2, 3, 4]
+        .map((e) => "assets/images/mojave_night_" + e.toString() + ".jpg")
   ];
 
   late final PlatformHelper _platformHelper;

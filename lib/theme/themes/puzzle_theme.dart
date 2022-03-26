@@ -133,7 +133,6 @@ abstract class PuzzleTheme extends Equatable {
         backgroundAnimationScale,
         backgroundAnimationPeriodScale,
         backgroundStyle,
-        appBarStyle,
         defaultTextStyle,
         tileStyle,
         tileHoverStyle,

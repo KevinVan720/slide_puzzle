@@ -84,10 +84,10 @@ class CupertinoTheme extends SimpleTheme {
                 timeStamp.millisecondsSinceEpoch) /
             (PuzzleThemeAnimationDuration.backgroundColorChange.inMilliseconds *
                 backgroundAnimationPeriodScale) %
-            14)
+            6)
         .round();
-    if (x > 7) {
-      x = 14 - x;
+    if (x > 3) {
+      x = 6 - x;
     }
     int index = x.abs() + 1;
 
@@ -97,7 +97,7 @@ class CupertinoTheme extends SimpleTheme {
         image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-                themePalette.backgroundImage + index.toString() + "-min.jpg")),
+                themePalette.backgroundImage + index.toString() + ".jpg")),
       )),
     });
   }

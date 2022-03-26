@@ -40,9 +40,9 @@ class FluentTheme extends SimpleTheme {
   bool get hasTimer => false;
 
   @override
-  double get backgroundAnimationScale => 0.01;
+  double get backgroundAnimationScale => 0.05;
   @override
-  double get backgroundAnimationPeriodScale => 0.01;
+  double get backgroundAnimationPeriodScale => 0.05;
 
   @override
   Curve get tileMoveAnimationCurve => Curves.easeOutExpo;
