@@ -60,13 +60,13 @@ class CupertinoTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get nameTextStyle => DynamicTextStyle(
-      color: Color(0xFFE1DFE1),
+      color: const Color(0xFFE1DFE1),
       fontFamily: "Inter",
       fontWeight: FontWeight.bold,
-      shadows: _darkTextBorderShadow);
+      shadows: _textBorderShadow);
 
   @override
-  DynamicTextStyle get titleTextStyle => DynamicTextStyle(
+  DynamicTextStyle get titleTextStyle => const DynamicTextStyle(
         color: Color(0xFFFFBD44),
         fontFamily: "Inter",
         fontWeight: FontWeight.bold,
@@ -74,9 +74,9 @@ class CupertinoTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get defaultTextStyle => DynamicTextStyle(
-      color: Color(0xFFF5F5F5),
+      color: const Color(0xFFF5F5F5),
       fontFamily: "Inter",
-      shadows: _darkTextBorderShadow);
+      shadows: _textBorderShadow);
 
   @override
   Responsive<Style> get backgroundStyle {
@@ -118,7 +118,7 @@ class CupertinoTheme extends SimpleTheme {
         allScreen: Style(
           opacity: 1.0,
           backgroundDecoration: BoxDecoration(
-            color: Color(0xFF121212).withOpacity(0.9),
+            color: const Color(0xFF121212).withOpacity(0.9),
           ),
           backdropFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
         )
@@ -411,7 +411,7 @@ class CupertinoTheme extends SimpleTheme {
   DynamicTextStyle get menuActiveStyle => DynamicTextStyle(
       color: themePalette.menuActiveColor,
       //fontWeight: FontWeight.bold,
-      shadows: _darkTextBorderShadow,
+      shadows: _textBorderShadow,
       fontFamily: "Inter");
 
   @override
@@ -419,7 +419,7 @@ class CupertinoTheme extends SimpleTheme {
 
   @override
   DynamicTextStyle get menuInactiveStyle => DynamicTextStyle(
-      shadows: _darkTextBorderShadow,
+      shadows: _textBorderShadow,
       //fontWeight: FontWeight.bold,
       color: themePalette.menuInactiveColor,
       fontFamily: "Inter");
@@ -469,73 +469,38 @@ class CupertinoTheme extends SimpleTheme {
             BoxDecoration(color: themePalette.tilePressedColor),
       );
 
-  List<Shadow> get _darkTextBorderShadow => [
+  List<Shadow> get _textBorderShadow => [
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0.25, 0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0.25, -0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(-0.25, 0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(-0.25, -0.25)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0.353, 0)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0, -0.353)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(-0.353, 0)),
         Shadow(
             blurRadius: 0.1,
-            color: Color(0xFF202020).withOpacity(0.25),
-            offset: const Offset(0, 0.353))
-      ];
-
-  List<Shadow> get _lightTextBorderShadow => [
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(0.25, 0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(0.25, -0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(-0.25, 0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(-0.25, -0.25)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(0.353, 0)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(0, -0.353)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
-            offset: const Offset(-0.353, 0)),
-        Shadow(
-            blurRadius: 0.1,
-            color: themePalette.menuInactiveColor.withOpacity(0.3),
+            color: const Color(0xFF202020).withOpacity(0.25),
             offset: const Offset(0, 0.353))
       ];
 }
@@ -624,7 +589,7 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
   @override
   Color get menuInactiveColor => Colors.grey.shade600;
   @override
-  Color get menuActiveColor => Color(0xFFF4F4F4);
+  Color get menuActiveColor => const Color(0xFFF4F4F4);
 
   @override
   Color get popupMenuSliderActiveTrackColor => PuzzleColors.grey5;
@@ -681,7 +646,7 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   @override
   Color get menuInactiveColor => Colors.grey.shade600;
   @override
-  Color get menuActiveColor => Color(0xFFF4F4F4);
+  Color get menuActiveColor => const Color(0xFFF4F4F4);
 
 
   @override

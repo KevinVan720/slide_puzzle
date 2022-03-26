@@ -1,7 +1,6 @@
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
 import 'package:decorated_icon/decorated_icon.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -247,7 +246,7 @@ class _SettingsControlState extends State<SettingsControl> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(context.l10n.slowmoControl),
-                      Gap(2),
+                      const Gap(2),
                       AnimatedDefaultTextStyle(
                           style: theme.popupMenuButtonStyle
                                   .resolve(context)
@@ -259,7 +258,7 @@ class _SettingsControlState extends State<SettingsControl> {
                                                   .style
                                                   .fontSize ??
                                               14.0) ??
-                              TextStyle(),
+                              const TextStyle(),
                           duration: PuzzleThemeAnimationDuration.textStyle
                               .dilate(context.getTimeDilation()),
                           child: Text(

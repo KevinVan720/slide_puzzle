@@ -304,12 +304,12 @@ class WoodTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         smallScreen: Style(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: Dimension.min(260.toPXLength, 90.toPercentLength),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         ),
         middleScreen: Style(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             width: Dimension.min(260.toPXLength, 90.toPercentLength),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             backgroundDecoration: BoxDecoration(
@@ -365,7 +365,7 @@ class WoodTheme extends SimpleTheme {
                             end: Alignment.bottomCenter),
                         width: 5)))),
         largeScreen: Style(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             width: Dimension.min(260.toPXLength, 90.toPercentLength),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             backgroundDecoration: BoxDecoration(

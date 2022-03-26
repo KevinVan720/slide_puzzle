@@ -87,8 +87,6 @@ class LocalePopup extends StatelessWidget {
     final localeCode = locale.toString();
     final localeName = LocaleNames.of(context)?.nameOf(localeCode);
     if (localeName != null) {
-      final localeNativeName =
-          LocaleNamesLocalizationsDelegate.nativeLocaleNames[localeCode];
       return localeName;
     } else {
       // gsw, fil, and es_419 aren't in flutter_localized_countries' dataset
@@ -113,10 +111,6 @@ class LocaleSelectList extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeState = context.select((LocaleBloc bloc) => bloc.state);
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-
-    ///the puzzle shuffle button gets the same style as the tiles buttons, except for the size and padding.
-
-    //List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
 
     return Column(
       children: [
@@ -162,8 +156,6 @@ class LocaleSelectList extends StatelessWidget {
     final localeCode = locale.toString();
     final localeName = LocaleNames.of(context)?.nameOf(localeCode);
     if (localeName != null) {
-      final localeNativeName =
-          LocaleNamesLocalizationsDelegate.nativeLocaleNames[localeCode];
       return localeName;
     } else {
       // gsw, fil, and es_419 aren't in flutter_localized_countries' dataset

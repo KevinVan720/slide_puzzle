@@ -2,14 +2,12 @@ import 'dart:async';
 
 import 'package:just_audio/just_audio.dart';
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import 'package:responsive_property/responsive_property.dart';
-import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';

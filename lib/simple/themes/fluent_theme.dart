@@ -114,7 +114,7 @@ class FluentTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration: BoxDecoration(
             color: themePalette.popupMenuColor,

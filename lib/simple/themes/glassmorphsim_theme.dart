@@ -118,7 +118,7 @@ class GlassmorphismTheme extends SimpleTheme {
             0,
             rng.nextDouble() * 0.3 + 0.3,
           ]));
-      blurs.add(rng.nextDouble() * 10 + 10);
+      blurs.add(0);
     }
 
     return Responsive({

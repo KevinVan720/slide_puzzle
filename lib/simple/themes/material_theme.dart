@@ -94,7 +94,7 @@ class MaterialTheme extends SimpleTheme {
   @override
   Responsive<Style> get popupMenuStyle => Responsive({
         allScreen: Style(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           width: Dimension.min(240.toPXLength, 90.toPercentLength),
           backgroundDecoration: BoxDecoration(
             color: themePalette.popupMenuColor,
@@ -690,6 +690,7 @@ class MaterialThemePaletteLight extends MaterialThemePalette {
   @override
   Color get defaultColor => PuzzleColors.primary6;
 
+  @override
   Color get appBarColor => Colors.grey.shade100;
 
   @override
@@ -748,6 +749,7 @@ class MaterialThemePaletteDark extends MaterialThemePalette {
   @override
   Color get defaultColor => PuzzleColors.primary6;
 
+  @override
   Color get appBarColor => Colors.grey.shade900;
 
   @override

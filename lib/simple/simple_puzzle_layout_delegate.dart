@@ -1,15 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'dart:io' show Platform;
-
 import 'package:animated_styled_widget/animated_styled_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
-import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/layout/layout.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
@@ -231,7 +227,7 @@ class SimplePuzzleBoard extends StatelessWidget {
     double tileSize = theme.tileSize.resolve(context) ?? 72;
     double tileGap = theme.tileGapSize.resolve(context) ?? 4;
 
-    return Container(
+    return SizedBox(
       width: min(tileSize * size.width + tileGap * (size.width + 1),
           MediaQuery.of(context).size.width),
       height: min(tileSize * size.height + tileGap * (size.height + 1),
@@ -289,7 +285,7 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
     /// Delay the initialization of the audio player for performance reasons,
     /// to avoid dropping frames when the theme is changed.
     if (AudioPlayerExtension.isPlatformSupported) {
-      _timer = Timer(const Duration(milliseconds: 100), () {
+      _timer = Timer(const Duration(milliseconds: 50), () {
         _audioPlayer = widget._audioPlayerFactory();
       });
     }

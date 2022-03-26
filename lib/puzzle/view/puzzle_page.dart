@@ -174,7 +174,7 @@ class _Puzzle extends StatelessWidget {
                                     width: MediaQuery.of(context).size.width,
                                     height: Responsive({
                                           smallScreen: 44.0,
-                                          middleScreen: 44.0,
+                                          middleScreen: 46.0,
                                           largeScreen: 50.0
                                         }).resolve(context) ??
                                         50.0),
@@ -183,7 +183,7 @@ class _Puzzle extends StatelessWidget {
                             ],
                           );
                         },
-                        content: PuzzleSections(),
+                        content: const PuzzleSections(),
                       )
                     ],
                   ),
@@ -211,9 +211,9 @@ class PuzzleHeader extends StatelessWidget {
       small: (context, child) => Stack(
         alignment: Alignment.center,
         children: [
-          Align(
+          const Align(
             alignment: Alignment.center,
-            child: Container(child: PuzzleLogo()),
+            child: PuzzleLogo(),
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -232,9 +232,9 @@ class PuzzleHeader extends StatelessWidget {
       medium: (context, child) => Stack(
         alignment: Alignment.center,
         children: [
-          Align(
+          const Align(
             alignment: Alignment.center,
-            child: Container(child: PuzzleLogo()),
+            child: PuzzleLogo(),
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -276,8 +276,6 @@ class PuzzleLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-
     return AppFlutterLogo(
       key: puzzleLogoKey,
     );
@@ -537,10 +535,7 @@ class PuzzleMenuItem extends StatelessWidget {
       large: (_, child) =>
           Padding(padding: const EdgeInsets.only(left: 24), child: child!),
       child: (currentSize) {
-        return Tooltip(
-          message:
-              theme != currentTheme ? context.l10n.puzzleChangeTooltip : '',
-          child: TextButton(
+        return TextButton(
             style: TextButton.styleFrom(
               padding: EdgeInsets.zero,
             ).copyWith(
@@ -580,8 +575,7 @@ class PuzzleMenuItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-          ),
-        );
+          );
       },
     );
   }
