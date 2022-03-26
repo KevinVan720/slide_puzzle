@@ -4,6 +4,7 @@ import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:responsive_property/responsive_property.dart';
 import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 import 'package:very_good_slide_puzzle/l10n/l10n.dart';
@@ -31,146 +32,140 @@ class _SettingsControlState extends State<SettingsControl> {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     double timeDilation = context.getTimeDilation();
 
-    return GestureDetector(
-      onTap: () {
-        showAlignedDialog(
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                .dilate(timeDilation),
-            transitionsBuilder: (BuildContext context,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-                Widget child) {
-              return SlideTransition(
-                ///TODO: add different slide transtion for each theme
-                position: Tween<Offset>(
-                  begin: Offset.zero,
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeInOut,
-                )),
-                child: FadeTransition(
-                  opacity: CurvedAnimation(
+    return AbsorbPointer(
+      absorbing: state.isAutoSolving,
+      child: GestureDetector(
+        onTap: () {
+          showAlignedDialog(
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(timeDilation),
+              transitionsBuilder: (BuildContext context,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                  Widget child) {
+                return SlideTransition(
+                  ///TODO: add different slide transtion for each theme
+                  position: Tween<Offset>(
+                    begin: Offset.zero,
+                    end: Offset.zero,
+                  ).animate(CurvedAnimation(
                     parent: animation,
                     curve: Curves.easeInOut,
+                  )),
+                  child: FadeTransition(
+                    opacity: CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeInOut,
+                    ),
+                    child: child,
                   ),
-                  child: child,
-                ),
-              );
-            },
-            context: context,
-            builder: (_) {
-              return MultiBlocProvider(
-                  providers: [
-                    BlocProvider.value(
-                      value: context.read<ThemeBloc>(),
-                    ),
-                    BlocProvider.value(
-                      value: context.read<AudioControlBloc>(),
-                    ),
-                    BlocProvider.value(
-                      value: context.read<PuzzleBloc>(),
-                    ),
-                  ],
-                  child: ResponsiveLayoutBuilder(
-                    small: (context, _) {
-                      final theme =
-                          context.select((ThemeBloc bloc) => bloc.state.theme);
+                );
+              },
+              context: context,
+              builder: (_) {
+                return MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(
+                        value: context.read<ThemeBloc>(),
+                      ),
+                      BlocProvider.value(
+                        value: context.read<AudioControlBloc>(),
+                      ),
+                      BlocProvider.value(
+                        value: context.read<PuzzleBloc>(),
+                      ),
+                    ],
+                    child: ResponsiveLayoutBuilder(
+                      small: (context, _) {
+                        final theme = context
+                            .select((ThemeBloc bloc) => bloc.state.theme);
 
-                      List<Shadow>? _iconShadow = theme.menuActiveStyle.shadows;
+                        List<Shadow>? _iconShadow =
+                            theme.menuActiveStyle.shadows;
 
-                      return Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          AnimatedStyledContainer(
-                            duration: PuzzleThemeAnimationDuration
-                                .backgroundColorChange
-                                .dilate(context.getTimeDilation()),
-                            curve: Curves.easeInOut,
-                            style: theme.backgroundStyle.resolve(context)!
-                              ..childAlignment = Alignment.center,
-                            child: _buildAllControls(context),
-                          ),
-                          Positioned(
-                            top: 36,
-                            right: 30,
-                            child: MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: DecoratedIcon(
-                                    Icons.close,
-                                    size: 24,
-                                    color: theme.menuActiveStyle.color,
-                                    shadows: _iconShadow
-                                        ?.map((e) => Shadow(
-                                            color: e.color,
-                                            offset: e.offset,
-                                            blurRadius: e.blurRadius))
-                                        .toList(),
-                                  ),
-                                )),
-                          )
-                        ],
-                      );
-                    },
-                    medium: (context, _) => _buildAllControls(context),
-                    large: (context, _) => _buildAllControls(context),
-                  ));
-            },
-            followerAnchor: Alignment.topRight,
-            targetAnchor: Alignment.bottomCenter,
-            avoidOverflow: true,
-            offset: const Offset(0, 4),
-            barrierColor: Colors.transparent);
-      },
-      child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: AnimatedSwitcher(
-            duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                .dilate(context.getTimeDilation()),
-            child: ResponsiveLayoutBuilder(
-              small: (_, __) => DecoratedIcon(
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            AnimatedStyledContainer(
+                              duration: PuzzleThemeAnimationDuration
+                                  .backgroundColorChange
+                                  .dilate(context.getTimeDilation()),
+                              curve: Curves.easeInOut,
+                              style: theme.backgroundStyle.resolve(context)!
+                                ..childAlignment = Alignment.center,
+                              child: _buildAllControls(context),
+                            ),
+                            Positioned(
+                              top: 36,
+                              right: 30,
+                              child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: DecoratedIcon(
+                                      Icons.close,
+                                      size: 24,
+                                      color: theme.menuActiveStyle.color,
+                                      shadows: _iconShadow
+                                          ?.map((e) => Shadow(
+                                              color: e.color,
+                                              offset: e.offset,
+                                              blurRadius: e.blurRadius))
+                                          .toList(),
+                                    ),
+                                  )),
+                            )
+                          ],
+                        );
+                      },
+                      medium: (context, _) => _buildAllControls(context),
+                      large: (context, _) => _buildAllControls(context),
+                    ));
+              },
+              followerAnchor: Alignment.topRight,
+              targetAnchor: Alignment.bottomCenter,
+              avoidOverflow: true,
+              offset: const Offset(0, 4),
+              barrierColor: Colors.transparent);
+        },
+        child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: AnimatedSwitcher(
+              duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                  .dilate(context.getTimeDilation()),
+              child: DecoratedIcon(
                 Icons.menu,
-                size: 24,
-                color: theme.menuActiveStyle.color,
-                shadows: _iconShadow
-                    ?.map((e) => Shadow(
-                        color: e.color,
-                        offset: e.offset,
-                        blurRadius: e.blurRadius))
-                    .toList(),
+                size: Responsive({
+                      smallScreen: 24.0,
+                      middleScreen: 30.0,
+                      largeScreen: 32.0,
+                    }).resolve(context) ??
+                    32.0,
+                color: !state.isAutoSolving
+                    ? theme.menuActiveStyle.color
+                    : theme.menuInactiveStyle.color,
+                shadows: !state.isAutoSolving
+                    ? theme.menuActiveStyle.shadows
+                        ?.map((e) => Shadow(
+                            color: e.color,
+                            offset: e.offset,
+                            blurRadius: e.blurRadius))
+                        .toList()
+                    : theme.menuInactiveStyle.shadows
+                        ?.map((e) => Shadow(
+                            color: e.color,
+                            offset: e.offset,
+                            blurRadius: e.blurRadius))
+                        .toList(),
               ),
-              medium: (_, __) => DecoratedIcon(
-                Icons.menu,
-                size: 32,
-                color: theme.menuActiveStyle.color,
-                shadows: _iconShadow
-                    ?.map((e) => Shadow(
-                        color: e.color,
-                        offset: e.offset,
-                        blurRadius: e.blurRadius))
-                    .toList(),
-              ),
-              large: (_, __) => DecoratedIcon(
-                Icons.menu,
-                size: 34,
-                color: theme.menuActiveStyle.color,
-                shadows: _iconShadow
-                    ?.map((e) => Shadow(
-                        color: e.color,
-                        offset: e.offset,
-                        blurRadius: e.blurRadius))
-                    .toList(),
-              ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 

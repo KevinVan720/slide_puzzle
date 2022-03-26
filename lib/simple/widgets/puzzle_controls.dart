@@ -30,11 +30,12 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
+    final state=context.select((PuzzleBloc bloc) => bloc.state);
 
     List<Shadow>? _textShadow =
         theme.tileStyle.resolve(context)?.textStyle?.shadows;
 
-    return PuzzleButton(onPressed: () {
+    return PuzzleButton(onPressed: state.isAutoSolving ? null : () {
       context.read<PuzzleBloc>().add(const PuzzleReset(null));
     }, child: Builder(builder: (context) {
       return Row(

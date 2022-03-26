@@ -143,9 +143,7 @@ class _Puzzle extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
-    return AbsorbPointer(
-      absorbing: state.isAutoSolving,
-      child: LayoutBuilder(
+    return LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
             children: [
@@ -192,8 +190,7 @@ class _Puzzle extends StatelessWidget {
             ],
           );
         },
-      ),
-    );
+      );
   }
 }
 
