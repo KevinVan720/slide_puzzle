@@ -57,7 +57,6 @@ class PuzzleGamePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          lazy: false,
           create: (_) => AudioControlBloc(),
         ),
         BlocProvider(
@@ -66,7 +65,6 @@ class PuzzleGamePage extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          lazy: false,
           create: (context) => PuzzleBloc(gameConfigBloc, random: Random())
             ..add(
               const PuzzleInitialized(
@@ -123,13 +121,15 @@ class _PuzzleViewState extends State<PuzzleView> {
     );
 
     return Scaffold(
-      body: Stack(
-        children: [
-          background,
-          const _Puzzle(
-            key: Key('puzzle_view_puzzle'),
-          )
-        ],
+      body: SafeArea(
+        child: Stack(
+          children: [
+            background,
+            const _Puzzle(
+              key: Key('puzzle_view_puzzle'),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -144,53 +144,53 @@ class _Puzzle extends StatelessWidget {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     return LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
-            children: [
-              theme.layoutDelegate.backgroundBuilder(state),
-              SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                  ),
-                  child: Column(
-                    children: [
-                      StickyHeaderBuilder(
-                        builder: (context, stuckAmount) {
-                          return Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              AnimatedStyledContainer(
-                                duration: PuzzleThemeAnimationDuration
-                                    .backgroundColorChange
-                                    .dilate(context.getTimeDilation()/2),
-                                style: (theme
-                                        .appBarStyle(stuckAmount)
-                                        .resolve(context) ??
-                                    Style()),
-                                child: SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: Responsive({
-                                          smallScreen: 44.0,
-                                          middleScreen: 46.0,
-                                          largeScreen: 50.0
-                                        }).resolve(context) ??
-                                        50.0),
-                              ),
-                              const PuzzleHeader()
-                            ],
-                          );
-                        },
-                        content: const PuzzleSections(),
-                      )
-                    ],
-                  ),
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            theme.layoutDelegate.backgroundBuilder(state),
+            SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: Column(
+                  children: [
+                    StickyHeaderBuilder(
+                      builder: (context, stuckAmount) {
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            AnimatedStyledContainer(
+                              duration: PuzzleThemeAnimationDuration
+                                  .backgroundColorChange
+                                  .dilate(context.getTimeDilation() / 2),
+                              style: (theme
+                                      .appBarStyle(stuckAmount)
+                                      .resolve(context) ??
+                                  Style()),
+                              child: SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: Responsive({
+                                        smallScreen: 44.0,
+                                        middleScreen: 46.0,
+                                        largeScreen: 50.0
+                                      }).resolve(context) ??
+                                      50.0),
+                            ),
+                            const PuzzleHeader()
+                          ],
+                        );
+                      },
+                      content: const PuzzleSections(),
+                    )
+                  ],
                 ),
               ),
-            ],
-          );
-        },
-      );
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -340,7 +340,7 @@ class PuzzleBoard extends StatelessWidget {
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
 
     final size = puzzle.getDimension();
-    if (size == const PuzzleSize(0, 0)) {
+    if (size == const PuzzleSize(0, 0) || puzzle.tiles.isEmpty) {
       return const CircularProgressIndicator();
     }
 
@@ -533,46 +533,44 @@ class PuzzleMenuItem extends StatelessWidget {
           Padding(padding: const EdgeInsets.only(left: 24), child: child!),
       child: (currentSize) {
         return TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ).copyWith(
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-            ),
-            onPressed: () {
-              // Ignore if this theme is already selected.
-              if (theme == currentTheme) {
-                return;
-              }
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+          ).copyWith(
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+          ),
+          onPressed: () {
+            // Ignore if this theme is already selected.
+            if (theme == currentTheme) {
+              return;
+            }
 
-              // Update the currently selected theme.
-              context
-                  .read<ThemeBloc>()
-                  .add(ThemeChanged(themeIndex: themeIndex));
+            // Update the currently selected theme.
+            context.read<ThemeBloc>().add(ThemeChanged(themeIndex: themeIndex));
 
-              // Reset the timer of the currently running puzzle.
-              context.read<TimerBloc>().add(const TimerReset());
-            },
-            child: AnimatedDefaultTextStyle(
-              duration: PuzzleThemeAnimationDuration.textStyle,
-              style: (isCurrentTheme
-                      ? currentTheme.menuActiveStyle
-                      : currentTheme.menuInactiveStyle)
-                  .toTextStyle(
-                      screenSize: MediaQuery.of(context).size,
-                      parentFontSize:
-                          DefaultTextStyle.of(context).style.fontSize ?? 14.0)
-                  .merge(Responsive({
-                    smallScreen: PuzzleTextStyle.bodyXSmall,
-                    middleScreen: PuzzleTextStyle.headline5,
-                    largeScreen: PuzzleTextStyle.headline5
-                  }).resolve(context)),
-              child: Text(
-                theme.name[locale] ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+            // Reset the timer of the currently running puzzle.
+            context.read<TimerBloc>().add(const TimerReset());
+          },
+          child: AnimatedDefaultTextStyle(
+            duration: PuzzleThemeAnimationDuration.textStyle,
+            style: (isCurrentTheme
+                    ? currentTheme.menuActiveStyle
+                    : currentTheme.menuInactiveStyle)
+                .toTextStyle(
+                    screenSize: MediaQuery.of(context).size,
+                    parentFontSize:
+                        DefaultTextStyle.of(context).style.fontSize ?? 14.0)
+                .merge(Responsive({
+                  smallScreen: PuzzleTextStyle.bodyXSmall,
+                  middleScreen: PuzzleTextStyle.headline5,
+                  largeScreen: PuzzleTextStyle.headline5
+                }).resolve(context)),
+            child: Text(
+              theme.name[locale] ?? "",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-          );
+          ),
+        );
       },
     );
   }

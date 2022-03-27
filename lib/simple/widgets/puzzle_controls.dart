@@ -30,31 +30,37 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state=context.select((PuzzleBloc bloc) => bloc.state);
+    final state = context.select((PuzzleBloc bloc) => bloc.state);
 
     List<Shadow>? _textShadow =
         theme.tileStyle.resolve(context)?.textStyle?.shadows;
 
-    return PuzzleButton(onPressed: state.isAutoSolving ? null : () {
-      context.read<PuzzleBloc>().add(const PuzzleReset(null));
-    }, child: Builder(builder: (context) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DecoratedIcon(
-            Icons.refresh_sharp,
-            size: 17,
-            color: DefaultTextStyle.of(context).style.color,
-            shadows: _textShadow
-                ?.map((e) => Shadow(
-                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
-                .toList(),
-          ),
-          const Gap(10),
-          Text(context.l10n.puzzleShuffle),
-        ],
-      );
-    }));
+    return PuzzleButton(
+        onPressed: state.isAutoSolving
+            ? null
+            : () {
+                context.read<PuzzleBloc>().add(const PuzzleReset(null));
+              },
+        child: Builder(builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DecoratedIcon(
+                Icons.refresh_sharp,
+                size: 17,
+                color: DefaultTextStyle.of(context).style.color,
+                shadows: _textShadow
+                    ?.map((e) => Shadow(
+                        color: e.color,
+                        offset: e.offset,
+                        blurRadius: e.blurRadius))
+                    .toList(),
+              ),
+              const Gap(10),
+              Text(context.l10n.puzzleShuffle),
+            ],
+          );
+        }));
   }
 }
 
@@ -184,7 +190,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
           ..height = null
           ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
 
-    return state.puzzle.isComplete()
+    return (state.puzzle.tiles.isNotEmpty && state.puzzle.isComplete())
         ? PuzzleAnimatedContainer(
             style: buttonStyle,
             child: _solvedRow(_textShadow),
@@ -275,27 +281,6 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
       );
     });
   }
-
-  Widget _noSolutionRow(List<Shadow>? _textShadow) {
-    return Builder(builder: (context) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DecoratedIcon(
-            Icons.error,
-            size: 17,
-            color: DefaultTextStyle.of(context).style.color,
-            shadows: _textShadow
-                ?.map((e) => Shadow(
-                    color: e.color, offset: e.offset, blurRadius: e.blurRadius))
-                .toList(),
-          ),
-          const Gap(10),
-          Text(context.l10n.puzzleSolveError),
-        ],
-      );
-    });
-  }
 }
 
 class SimplePuzzleControls extends StatelessWidget {
@@ -303,48 +288,40 @@ class SimplePuzzleControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: Responsive({
-            smallScreen: CrossAxisAlignment.center,
-            middleScreen: CrossAxisAlignment.center,
-            largeScreen: CrossAxisAlignment.start
-          }).resolve(context) ??
-          CrossAxisAlignment.start,
-      children: [
-        ResponsiveLayoutBuilder(
-          small: (_, child) => Column(
-            children: const [
-              SimplePuzzleShuffleButton(),
-              ResponsiveGap(
-                small: 20,
-                medium: 20,
-                large: 32,
-              ),
-              SimplePuzzleSolveButton(),
-            ],
+    return ResponsiveLayoutBuilder(
+      small: (_, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          SimplePuzzleShuffleButton(),
+          ResponsiveGap(
+            small: 20,
+            medium: 20,
+            large: 32,
           ),
-          medium: (_, child) => Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              SimplePuzzleShuffleButton(),
-              Gap(32),
-              SimplePuzzleSolveButton(),
-            ],
+          SimplePuzzleSolveButton(),
+        ],
+      ),
+      medium: (_, child) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          SimplePuzzleShuffleButton(),
+          Gap(32),
+          SimplePuzzleSolveButton(),
+        ],
+      ),
+      large: (_, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          SimplePuzzleShuffleButton(),
+          ResponsiveGap(
+            small: 20,
+            medium: 20,
+            large: 32,
           ),
-          large: (_, child) => Column(
-            children: const [
-              SimplePuzzleShuffleButton(),
-              ResponsiveGap(
-                small: 20,
-                medium: 20,
-                large: 32,
-              ),
-              SimplePuzzleSolveButton(),
-            ],
-          ),
-        )
-      ],
+          SimplePuzzleSolveButton(),
+        ],
+      ),
     );
   }
 }

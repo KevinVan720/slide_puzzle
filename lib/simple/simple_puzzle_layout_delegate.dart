@@ -316,7 +316,8 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
         style: theme.tileStyle.resolve(context) ?? Style(),
         hoveredStyle: theme.tileHoverStyle.resolve(context) ?? Style(),
         pressedStyle: theme.tilePressedStyle.resolve(context) ?? Style(),
-        onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete && widget.state.isAutoSolving==false
+        onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete &&
+                widget.state.isAutoSolving == false
             ? () async {
                 if (AudioPlayerExtension.isPlatformSupported) {
                   final duration = await _audioPlayer?.setAsset(

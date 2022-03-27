@@ -47,7 +47,7 @@ class _AppState extends State<App> {
   ];
 
   static final imageAssets = [
-    'assets/images/logo_flutter_white.png',
+    //'assets/images/logo_flutter_white.png',
     'assets/images/wood_grain.png',
     'assets/images/wood_background.jpg',
     'assets/images/win11.jpg',
@@ -67,7 +67,12 @@ class _AppState extends State<App> {
 
     _platformHelper = widget._platformHelperFactory();
 
-    _timer = Timer(const Duration(milliseconds: 50), () {
+    precacheImage(
+      Image.asset('assets/images/logo_flutter_white.png').image,
+      context,
+    );
+
+    _timer = Timer(const Duration(milliseconds: 1000), () {
       for (final imageAsset in imageAssets) {
         precacheImage(
           Image.asset(imageAsset).image,
@@ -132,7 +137,7 @@ class HomePage extends StatelessWidget {
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: NoGlowBehavior(),
-          child: child??Container(),
+          child: child ?? Container(),
         );
       },
       localizationsDelegates: const [
