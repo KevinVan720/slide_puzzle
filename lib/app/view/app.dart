@@ -8,6 +8,7 @@
 // ignore_for_file: public_member_api_docs, avoid_print
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,10 @@ import 'package:very_good_slide_puzzle/l10n/l10n.dart';
 import 'package:very_good_slide_puzzle/puzzle/puzzle.dart';
 import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
+
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/simple/simple.dart';
+import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
 
 class App extends StatefulWidget {
   const App({Key? key, ValueGetter<PlatformHelper>? platformHelperFactory})
@@ -118,18 +123,18 @@ class _AppState extends State<App> {
           print(snapshot.connectionState);
           if (snapshot.connectionState != ConnectionState.done) {
             return Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.grey.shade300, Colors.grey.shade50])),
-              child: Image.asset(
-                "assets/images/icon.png",
-                width: 120,
-                height: 120,
-              ),
-            );
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                        center: Alignment.center,
+                        radius: 1.5,
+                        colors: [ Colors.white,Colors.grey.shade300])),
+                child: Image.asset(
+                  "assets/images/icon.png",
+                  width: 140,
+                  height: 140,
+                ),
+              );
           }
           return MultiBlocProvider(providers: [
             BlocProvider(
@@ -138,7 +143,25 @@ class _AppState extends State<App> {
             BlocProvider(
               create: (_) =>
                   GameConfigBloc()..add(const PuzzleSetSize(PuzzleSize(4, 4))),
-            )
+            ),
+            BlocProvider(
+              create: (_) => ThemeBloc(
+                initialThemes: [
+                  const MaterialTheme(),
+                  const FluentTheme(),
+                  CupertinoTheme(timeStamp: DateTime.now()),
+                  const NeumorphicTheme(),
+                  const GlassmorphismTheme(),
+                  const ClaymorphismTheme(),
+                  const NeonTheme(),
+                  const KeyboardTheme(),
+                  const WoodTheme()
+                ],
+              ),
+            ),
+            BlocProvider(
+              create: (_) => AudioControlBloc(),
+            ),
           ], child: const HomePage());
         });
   }

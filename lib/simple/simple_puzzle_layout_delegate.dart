@@ -246,9 +246,7 @@ class SimplePuzzleTile extends StatefulWidget {
     Key? key,
     required this.tile,
     required this.state,
-    AudioPlayerFactory? audioPlayer,
-  })  : _audioPlayerFactory = audioPlayer ?? getAudioPlayer,
-        super(key: key);
+  }) : super(key: key);
 
   /// The tile to be displayed.
   final Tile tile;
@@ -256,33 +254,18 @@ class SimplePuzzleTile extends StatefulWidget {
   /// The state of the puzzle.
   final PuzzleState state;
 
-  final AudioPlayerFactory _audioPlayerFactory;
-
   @override
   _SimplePuzzleTileState createState() => _SimplePuzzleTileState();
 }
 
 class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
-  AudioPlayer? _audioPlayer;
-  late final Timer _timer;
-
   @override
   void initState() {
     super.initState();
-
-    /// Delay the initialization of the audio player for performance reasons,
-    /// to avoid dropping frames when the theme is changed.
-    if (AudioPlayerExtension.isPlatformSupported) {
-      _timer = Timer(const Duration(milliseconds: 500), () {
-        _audioPlayer = widget._audioPlayerFactory();
-      });
-    }
   }
 
   @override
   void dispose() {
-    _timer.cancel();
-    _audioPlayer?.dispose();
     super.dispose();
   }
 
@@ -295,42 +278,32 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
 
     double timeDilation = context.getTimeDilation();
 
-    Widget _tile = AudioControlListener(
-      audioPlayer: _audioPlayer,
-      child: StyledButton(
-        curve: Curves.easeInOut,
-        duration: PuzzleThemeAnimationDuration.puzzleTileScale
-            .dilate(context.getTimeDilation()),
-        style: theme.tileStyle.resolve(context) ?? Style(),
-        hoveredStyle: theme.tileHoverStyle.resolve(context) ?? Style(),
-        pressedStyle: theme.tilePressedStyle.resolve(context) ?? Style(),
-        disabledStyle: theme.tileStyle
-                .resolve(context)
-                ?.copyWith(mouseCursor: SystemMouseCursors.forbidden) ??
-            Style(),
-        onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete &&
-                widget.state.isAutoSolving == false
-            ? () async {
-                if (AudioPlayerExtension.isPlatformSupported) {
-                  final duration = await _audioPlayer?.setAsset(
-                    theme.tilePressSoundAsset,
-                  );
-                  unawaited(_audioPlayer?.replay());
-                }
-                await Future.delayed(PuzzleThemeAnimationDuration
-                    .puzzleTileScale
-                    .dilate(timeDilation / 2));
+    Widget _tile = StyledButton(
+      curve: Curves.easeInOut,
+      duration: PuzzleThemeAnimationDuration.puzzleTileScale
+          .dilate(context.getTimeDilation()),
+      style: theme.tileStyle.resolve(context) ?? Style(),
+      hoveredStyle: theme.tileHoverStyle.resolve(context) ?? Style(),
+      pressedStyle: theme.tilePressedStyle.resolve(context) ?? Style(),
+      disabledStyle: theme.tileStyle
+              .resolve(context)
+              ?.copyWith(mouseCursor: SystemMouseCursors.forbidden) ??
+          Style(),
+      onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete &&
+              widget.state.isAutoSolving == false
+          ? () async {
+              await Future.delayed(PuzzleThemeAnimationDuration.puzzleTileScale
+                  .dilate(timeDilation / 2));
 
-                context.read<PuzzleBloc>().add(TileTapped(widget.tile));
-              }
-            : null,
-        child: Text(
+              context.read<PuzzleBloc>().add(TileTapped(widget.tile));
+            }
+          : null,
+      child: Text(
+        widget.tile.value.toString(),
+        semanticsLabel: context.l10n.puzzleTileLabelText(
           widget.tile.value.toString(),
-          semanticsLabel: context.l10n.puzzleTileLabelText(
-            widget.tile.value.toString(),
-            widget.tile.currentPosition.x.toString(),
-            widget.tile.currentPosition.y.toString(),
-          ),
+          widget.tile.currentPosition.x.toString(),
+          widget.tile.currentPosition.y.toString(),
         ),
       ),
     );

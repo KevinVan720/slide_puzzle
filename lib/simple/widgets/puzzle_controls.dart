@@ -212,7 +212,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
                   }
                   context
                       .read<PuzzleBloc>()
-                      .add(PuzzleAutoSolving(state.puzzle, _audioPlayer));
+                      .add(PuzzleAutoSolving(state.puzzle));
                 },
                 child: _solveRow(_textShadow));
   }

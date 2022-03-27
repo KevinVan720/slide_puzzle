@@ -12,16 +12,23 @@ import 'package:very_good_slide_puzzle/game_config/game_config.dart';
 import 'package:very_good_slide_puzzle/puzzle_solver/puzzle_solver.dart';
 import 'package:very_good_slide_puzzle/helpers/audio_player.dart';
 
+import 'package:very_good_slide_puzzle/theme/theme.dart';
+import 'package:very_good_slide_puzzle/audio_control/audio_control.dart';
+
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this.gameConfigBloc, {required this.random})
+  PuzzleBloc(this.gameConfigBloc, this.themeBloc, this.audioControlBloc,
+      {required this.random})
       : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileTapped>(_onTileTapped);
     on<PuzzleReset>(_onPuzzleReset);
     on<PuzzleAutoSolving>(_onPuzzleAutoSolving);
+
+    ///set the audioAsset for the first time.
+    audioAsset=themeBloc.state.theme.tilePressSoundAsset;
 
     ///when the game config changes, initialize the puzzle again
     gameConfigStreamSubscription = gameConfigBloc.stream.listen((state) {
@@ -29,15 +36,41 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       _difficulty = state.puzzleDifficulty;
       _initializePuzzle(true);
     });
+
+    themeStreamSubscription = themeBloc.stream.map((state) => state.theme.tilePressSoundAsset).listen((asset) {
+      ///listen to the audio asset change
+      audioAsset=asset;
+    });
+
+    audioControlStreamSubscription = audioControlBloc.stream.listen((state) {
+      ///listen to the volume change
+      if (state.muted) {
+        _player.setVolume(0);
+      } else {
+        _player.setVolume(state.volume);
+      }
+    });
   }
 
   final GameConfigBloc gameConfigBloc;
 
+  final ThemeBloc themeBloc;
+
+  final AudioControlBloc audioControlBloc;
+
   late final StreamSubscription gameConfigStreamSubscription;
+
+  late final StreamSubscription themeStreamSubscription;
+
+  late final StreamSubscription audioControlStreamSubscription;
 
   PuzzleSize _size = const PuzzleSize(4, 4);
 
   PuzzleDifficulty _difficulty = PuzzleDifficulty.hard;
+
+  final AudioPlayer _player = AudioPlayer();
+
+  String audioAsset="";
 
   final Random random;
 
@@ -61,6 +94,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   void _onTileTapped(TileTapped event, Emitter<PuzzleState> emit) {
     final tappedTile = event.tile;
     if (state.puzzleStatus == PuzzleStatus.incomplete) {
+      playTileTappedSound();
       if (state.puzzle.isTileMovable(tappedTile)) {
         final mutablePuzzle = Puzzle(
             size: _size,
@@ -164,25 +198,19 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
           history,
           (List<Tile> tiles) =>
               Future.delayed(const Duration(milliseconds: 1000), () async {
-                if (AudioPlayerExtension.isPlatformSupported) {
-                  unawaited((event.player ?? getAudioPlayer()).replay());
-                }
+                playTileTappedSound();
 
                 Puzzle _puzzle = Puzzle(size: puzzle.size, tiles: tiles).sort();
 
                 emit(
                   PuzzleState(
-                      puzzle: _puzzle,
-                      numberOfMoves: state.numberOfMoves + 1,
-                      numberOfCorrectTiles: _puzzle.getNumberOfCorrectTiles(),
-                      //puzzleStatus: _puzzle.isComplete()
-                      //    ? PuzzleStatus.complete
-                      //    : PuzzleStatus.incomplete,
-                      isAutoSolving: state.isAutoSolving,
-                      //tileMovementStatus: _puzzle.isComplete()
-                      //    ? TileMovementStatus.cannotBeMoved
-                      //    : state.tileMovementStatus
-                      ),
+                    puzzle: _puzzle,
+                    numberOfMoves: state.numberOfMoves + 1,
+                    numberOfCorrectTiles: _puzzle.getNumberOfCorrectTiles(),
+
+                    isAutoSolving: state.isAutoSolving,
+
+                  ),
                 );
               }));
     });
@@ -194,15 +222,25 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
                   puzzleStatus: state.puzzle.isComplete()
                       ? PuzzleStatus.complete
                       : PuzzleStatus.incomplete,
-                  tileMovementStatus: state.puzzle.isComplete() ? TileMovementStatus.cannotBeMoved
+                  tileMovementStatus: state.puzzle.isComplete()
+                      ? TileMovementStatus.cannotBeMoved
                       : state.tileMovementStatus,
                   isAutoSolving: false),
             ));
   }
 
+  void playTileTappedSound() async {
+    if (AudioPlayerExtension.isPlatformSupported) {
+      await _player.setAsset(audioAsset);
+      unawaited(_player.replay());
+    }
+  }
+
   @override
   Future<void> close() {
     gameConfigStreamSubscription.cancel();
+    themeStreamSubscription.cancel();
+    audioControlStreamSubscription.cancel();
     return super.close();
   }
 

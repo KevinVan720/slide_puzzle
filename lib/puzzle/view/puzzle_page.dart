@@ -33,39 +33,18 @@ class PuzzleGamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameConfigBloc = context.select((GameConfigBloc bloc) => bloc);
+    final themeBloc=context.select((ThemeBloc bloc) => bloc);
+    final audioControlBloc=context.select((AudioControlBloc bloc) => bloc);
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => ThemeBloc(
-            initialThemes: [
-              const MaterialTheme(),
-              const FluentTheme(),
-              CupertinoTheme(timeStamp: DateTime.now()),
-              const NeumorphicTheme(),
-              const GlassmorphismTheme(),
-              const ClaymorphismTheme(),
-              const NeonTheme(),
-              const KeyboardTheme(),
-              const WoodTheme()
-            ],
-          ),
-        ),
         BlocProvider(
           create: (_) => TimerBloc(
             ticker: const Ticker(),
           ),
         ),
         BlocProvider(
-          create: (_) => AudioControlBloc(),
-        ),
-        BlocProvider(
-          create: (context) => TimerBloc(
-            ticker: const Ticker(),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => PuzzleBloc(gameConfigBloc, random: Random())
+          create: (context) => PuzzleBloc(gameConfigBloc, themeBloc, audioControlBloc, random: Random())
             ..add(
               const PuzzleInitialized(
                 shufflePuzzle: true,

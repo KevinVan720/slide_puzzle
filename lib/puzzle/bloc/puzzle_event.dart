@@ -34,10 +34,9 @@ class PuzzleReset extends PuzzleEvent {
 }
 
 class PuzzleAutoSolving extends PuzzleEvent {
-  const PuzzleAutoSolving(this.puzzle, this.player);
+  const PuzzleAutoSolving(this.puzzle);
 
   final Puzzle puzzle;
-  final AudioPlayer? player;
 
   @override
   List<Object> get props => [puzzle];
