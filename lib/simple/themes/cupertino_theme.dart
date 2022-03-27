@@ -101,17 +101,6 @@ class CupertinoTheme extends SimpleTheme {
       )),
     });
   }
-  /*
-  @override
-  Responsive<Style> get backgroundStyle => Responsive({
-        allScreen: Style(
-            backgroundDecoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(themePalette.backgroundImage)))),
-      });
-
-   */
 
   @override
   Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
@@ -138,7 +127,7 @@ class CupertinoTheme extends SimpleTheme {
                 DynamicBorderRadius.all(DynamicRadius.circular(15.toPXLength)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          backdropFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+          backdropFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         )
       });
 
@@ -599,7 +588,7 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
   Color get popupMenuSliderThumbColor => PuzzleColors.grey4;
 
   @override
-  Color get popupMenuTileColor => Colors.white.withOpacity(0.4);
+  Color get popupMenuTileColor => Colors.white.withOpacity(0.7);
   @override
   Color get popupMenuTitleColor => Colors.black87;
 
@@ -607,7 +596,7 @@ class CupertinoThemePaletteLight extends CupertinoThemePalette {
   Color get popupMenuUnselectedColor => Colors.grey.shade700;
 
   @override
-  Color get popupMenuColor => Colors.white.withOpacity(0.25);
+  Color get popupMenuColor => Colors.white.withOpacity(0.5);
 }
 
 class CupertinoThemePaletteDark extends CupertinoThemePalette {
@@ -647,7 +636,6 @@ class CupertinoThemePaletteDark extends CupertinoThemePalette {
   Color get menuInactiveColor => Colors.grey.shade600;
   @override
   Color get menuActiveColor => const Color(0xFFF4F4F4);
-
 
   @override
   Color get popupMenuSliderActiveTrackColor =>

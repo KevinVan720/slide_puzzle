@@ -183,21 +183,23 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
         (theme.tileStyle.resolve(context) ?? Style()
           ..width = null
           ..height = null
-          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+          ..padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 5));
     var pressedStyle = theme.buttonPressedStyle.resolve(context) ??
         (theme.tilePressedStyle.resolve(context) ?? Style()
           ..width = null
           ..height = null
-          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+          ..padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 5));
 
     return (state.puzzle.tiles.isNotEmpty && state.puzzle.isComplete())
         ? PuzzleAnimatedContainer(
-            style: buttonStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
+            style:
+                buttonStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
             child: _solvedRow(_textShadow),
           )
         : state.isAutoSolving
             ? PuzzleAnimatedContainer(
-                style: pressedStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
+                style: pressedStyle.copyWith(
+                    mouseCursor: SystemMouseCursors.forbidden),
                 child: _solvingRow(),
               )
             : PuzzleButton(

@@ -171,11 +171,11 @@ class _Puzzle extends StatelessWidget {
                               child: SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   height: Responsive({
-                                        smallScreen: 44.0,
-                                        middleScreen: 46.0,
-                                        largeScreen: 50.0
+                                        smallScreen: 48.0,
+                                        middleScreen: 50.0,
+                                        largeScreen: 52.0
                                       }).resolve(context) ??
-                                      50.0),
+                                      52.0),
                             ),
                             const PuzzleHeader()
                           ],

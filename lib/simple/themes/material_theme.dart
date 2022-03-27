@@ -555,11 +555,11 @@ class MaterialTheme extends SimpleTheme {
 
   Style get _buttonStyle => _baseStyle.copyWith(
         textStyle: DynamicTextStyle(
-          letterSpacing: 1.toPXLength,
-          fontSize: 28.toPXLength,
-          fontWeight: FontWeight.w700,
-          color: themePalette.tileTextColor,
-        ),
+            letterSpacing: 1.toPXLength,
+            fontSize: 28.toPXLength,
+            fontWeight: FontWeight.w700,
+            color: themePalette.tileTextColor,
+            fontFamily: "GoogleSans"),
         shadows: [
           ShapeShadow(
               offset: const Offset(0.0, 7.0),
@@ -582,11 +582,11 @@ class MaterialTheme extends SimpleTheme {
 
   Style get _hoverStyle => _baseStyle.copyWith(
         textStyle: DynamicTextStyle(
-          letterSpacing: 1.toPXLength,
-          fontSize: 36.toPXLength,
-          fontWeight: FontWeight.w700,
-          color: themePalette.tileTextHoverColor,
-        ),
+            letterSpacing: 1.toPXLength,
+            fontSize: 36.toPXLength,
+            fontWeight: FontWeight.w700,
+            color: themePalette.tileTextHoverColor,
+            fontFamily: "GoogleSans"),
         shadows: [
           ShapeShadow(
               offset: const Offset(0.0, 3.0),
@@ -608,11 +608,11 @@ class MaterialTheme extends SimpleTheme {
 
   Style get _pressedStyle => _baseStyle.copyWith(
         textStyle: DynamicTextStyle(
-          letterSpacing: 1.toPXLength,
-          fontSize: 36.toPXLength,
-          fontWeight: FontWeight.w700,
-          color: themePalette.tileTextPressedColor,
-        ),
+            letterSpacing: 1.toPXLength,
+            fontSize: 36.toPXLength,
+            fontWeight: FontWeight.w700,
+            color: themePalette.tileTextPressedColor,
+            fontFamily: "GoogleSans"),
         shadows: [
           ShapeShadow(
               offset: const Offset(0.0, 3.0),

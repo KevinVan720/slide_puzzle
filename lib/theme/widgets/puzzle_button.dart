@@ -68,17 +68,23 @@ class _PuzzleButtonState extends State<PuzzleButton> {
         (theme.tileStyle.resolve(context) ?? Style()
           ..width = null
           ..height = null
-          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+          ..padding = const EdgeInsets.symmetric(
+            vertical: 12,
+          ));
     Style hoverStyle = theme.buttonHoverStyle.resolve(context) ??
         (theme.tileHoverStyle.resolve(context) ?? Style()
           ..width = null
           ..height = null
-          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+          ..padding = const EdgeInsets.symmetric(
+            vertical: 12,
+          ));
     Style pressedStyle = theme.buttonPressedStyle.resolve(context) ??
         (theme.tilePressedStyle.resolve(context) ?? Style()
           ..width = null
           ..height = null
-          ..padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 5));
+          ..padding = const EdgeInsets.symmetric(
+            vertical: 12,
+          ));
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 160),
@@ -89,7 +95,8 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               style: buttonStyle,
               hoveredStyle: hoverStyle,
               pressedStyle: pressedStyle,
-              disabledStyle: buttonStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
+              disabledStyle: buttonStyle.copyWith(
+                  mouseCursor: SystemMouseCursors.forbidden),
               duration: PuzzleThemeAnimationDuration.puzzleTileScale
                   .dilate(context.getTimeDilation()),
               onPressed: widget.onPressed == null

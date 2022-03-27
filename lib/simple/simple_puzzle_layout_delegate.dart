@@ -75,7 +75,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           large: 96,
         ),
         SimplePuzzleBoard(
-          //key: const Key('simple_puzzle_board_large'),
+          key: const Key('simple_puzzle_board'),
           size: size,
           tiles: tiles,
         ),
@@ -88,22 +88,10 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget tileBuilder(Tile tile, PuzzleState state) {
-    return ResponsiveLayoutBuilder(
-      small: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.value}_small'),
-        tile: tile,
-        state: state,
-      ),
-      medium: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.value}_medium'),
-        tile: tile,
-        state: state,
-      ),
-      large: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.value}_large'),
-        tile: tile,
-        state: state,
-      ),
+    return SimplePuzzleTile(
+      key: Key('simple_puzzle_tile_${tile.value}'),
+      tile: tile,
+      state: state,
     );
   }
 
@@ -285,7 +273,7 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
     /// Delay the initialization of the audio player for performance reasons,
     /// to avoid dropping frames when the theme is changed.
     if (AudioPlayerExtension.isPlatformSupported) {
-      _timer = Timer(const Duration(milliseconds: 50), () {
+      _timer = Timer(const Duration(milliseconds: 500), () {
         _audioPlayer = widget._audioPlayerFactory();
       });
     }
@@ -316,7 +304,10 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
         style: theme.tileStyle.resolve(context) ?? Style(),
         hoveredStyle: theme.tileHoverStyle.resolve(context) ?? Style(),
         pressedStyle: theme.tilePressedStyle.resolve(context) ?? Style(),
-        disabledStyle: theme.tileStyle.resolve(context)?.copyWith(mouseCursor: SystemMouseCursors.forbidden) ?? Style(),
+        disabledStyle: theme.tileStyle
+                .resolve(context)
+                ?.copyWith(mouseCursor: SystemMouseCursors.forbidden) ??
+            Style(),
         onPressed: widget.state.puzzleStatus == PuzzleStatus.incomplete &&
                 widget.state.isAutoSolving == false
             ? () async {

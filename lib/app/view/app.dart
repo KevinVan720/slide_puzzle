@@ -47,7 +47,6 @@ class _AppState extends State<App> {
   ];
 
   static final imageAssets = [
-    //'assets/images/logo_flutter_white.png',
     'assets/images/wood_grain.png',
     'assets/images/wood_background.jpg',
     'assets/images/win11.jpg',
@@ -59,31 +58,23 @@ class _AppState extends State<App> {
   ];
 
   late final PlatformHelper _platformHelper;
-  late final Timer _timer;
+
+  late Future<void> _assetsFuture;
 
   @override
   void initState() {
     super.initState();
 
     _platformHelper = widget._platformHelperFactory();
-
+    precacheImage(
+      Image.asset('assets/images/icon.png').image,
+      context,
+    );
     precacheImage(
       Image.asset('assets/images/logo_flutter_white.png').image,
       context,
     );
-
-    _timer = Timer(const Duration(milliseconds: 1000), () {
-      for (final imageAsset in imageAssets) {
-        precacheImage(
-          Image.asset(imageAsset).image,
-          context,
-        );
-      }
-
-      for (final audioAsset in audioAssets) {
-        prefetchToMemory(audioAsset);
-      }
-    });
+    _assetsFuture = prefetchAssets();
   }
 
   /// Prefetches the given [filePath] to memory.
@@ -100,23 +91,56 @@ class _AppState extends State<App> {
     );
   }
 
+  ///Prefetch all the assets before entering the app
+  Future<void> prefetchAssets() async {
+    for (final imageAsset in imageAssets) {
+      await precacheImage(
+        Image.asset(imageAsset).image,
+        context,
+      );
+    }
+
+    for (final audioAsset in audioAssets) {
+      await prefetchToMemory(audioAsset);
+    }
+  }
+
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
-        create: (context) => LocaleBloc(),
-      ),
-      BlocProvider(
-        create: (_) =>
-            GameConfigBloc()..add(const PuzzleSetSize(PuzzleSize(4, 4))),
-      )
-    ], child: const HomePage());
+    return FutureBuilder(
+        future: _assetsFuture,
+        builder: (context, snapshot) {
+          print(snapshot.connectionState);
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.grey.shade300, Colors.grey.shade50])),
+              child: Image.asset(
+                "assets/images/icon.png",
+                width: 120,
+                height: 120,
+              ),
+            );
+          }
+          return MultiBlocProvider(providers: [
+            BlocProvider(
+              create: (context) => LocaleBloc(),
+            ),
+            BlocProvider(
+              create: (_) =>
+                  GameConfigBloc()..add(const PuzzleSetSize(PuzzleSize(4, 4))),
+            )
+          ], child: const HomePage());
+        });
   }
 }
 
