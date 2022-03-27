@@ -89,6 +89,7 @@ class _PuzzleButtonState extends State<PuzzleButton> {
               style: buttonStyle,
               hoveredStyle: hoverStyle,
               pressedStyle: pressedStyle,
+              disabledStyle: buttonStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
               duration: PuzzleThemeAnimationDuration.puzzleTileScale
                   .dilate(context.getTimeDilation()),
               onPressed: widget.onPressed == null

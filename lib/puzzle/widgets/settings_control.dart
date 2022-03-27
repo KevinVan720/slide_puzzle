@@ -36,10 +36,8 @@ class _SettingsControlState extends State<SettingsControl> {
 
     double timeDilation = context.getTimeDilation();
 
-    return AbsorbPointer(
-      absorbing: state.isAutoSolving,
-      child: GestureDetector(
-        onTap: () {
+    return GestureDetector(
+        onTap: state.isAutoSolving ? null : () {
           showAlignedDialog(
               duration: PuzzleThemeAnimationDuration.backgroundColorChange
                   .dilate(timeDilation),
@@ -135,7 +133,7 @@ class _SettingsControlState extends State<SettingsControl> {
               barrierColor: Colors.transparent);
         },
         child: MouseRegion(
-            cursor: SystemMouseCursors.click,
+            cursor: state.isAutoSolving ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
             child: AnimatedSwitcher(
               duration: PuzzleThemeAnimationDuration.backgroundColorChange
                   .dilate(context.getTimeDilation()),
@@ -165,8 +163,7 @@ class _SettingsControlState extends State<SettingsControl> {
                         .toList(),
               ),
             )),
-      ),
-    );
+      );
   }
 
   Widget _buildAudioControl(BuildContext context) {

@@ -192,12 +192,12 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
 
     return (state.puzzle.tiles.isNotEmpty && state.puzzle.isComplete())
         ? PuzzleAnimatedContainer(
-            style: buttonStyle,
+            style: buttonStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
             child: _solvedRow(_textShadow),
           )
         : state.isAutoSolving
             ? PuzzleAnimatedContainer(
-                style: pressedStyle,
+                style: pressedStyle.copyWith(mouseCursor: SystemMouseCursors.forbidden),
                 child: _solvingRow(),
               )
             : PuzzleButton(
