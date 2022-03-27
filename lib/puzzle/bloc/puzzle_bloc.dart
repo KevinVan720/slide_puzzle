@@ -119,25 +119,22 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     );
   }
 
-  void _onPuzzleAutoSolving (
+  void _onPuzzleAutoSolving(
     PuzzleAutoSolving event,
     Emitter<PuzzleState> emit,
   ) async {
-
     emit(
-      state.copyWith(
-          numberOfMoves: 0,
-          isAutoSolving: true),
+      state.copyWith(numberOfMoves: 0, isAutoSolving: true),
     );
 
-    Puzzle puzzle=event.puzzle;
+    Puzzle puzzle = event.puzzle;
 
     List<List<Tile>> history = removeRedundantMoves(puzzle.tilesHistory.reversed
         .map((e) => e
-      ..toList()
-      ..sort((tileA, tileB) {
-        return tileA.currentPosition.compareTo(tileB.currentPosition);
-      }))
+          ..toList()
+          ..sort((tileA, tileB) {
+            return tileA.currentPosition.compareTo(tileB.currentPosition);
+          }))
         .toList());
 
     ///Only the last 20 steps or so are solved by IDA*, the previous moves just rewind
@@ -165,38 +162,42 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       ///push the puzzle states with 1 sec interval
       await Future.forEach(
           history,
-              (List<Tile> tiles) =>
+          (List<Tile> tiles) =>
               Future.delayed(const Duration(milliseconds: 1000), () async {
-
                 if (AudioPlayerExtension.isPlatformSupported) {
-                  unawaited((event.player??getAudioPlayer()).replay());
+                  unawaited((event.player ?? getAudioPlayer()).replay());
                 }
+
+                Puzzle _puzzle = Puzzle(size: puzzle.size, tiles: tiles).sort();
 
                 emit(
                   PuzzleState(
-                      puzzle: Puzzle(size: puzzle.size, tiles: tiles).sort(),
+                      puzzle: _puzzle,
                       numberOfMoves: state.numberOfMoves + 1,
-                      numberOfCorrectTiles: puzzle.getNumberOfCorrectTiles(),
-                      puzzleStatus: puzzle.isComplete()
-                          ? PuzzleStatus.complete
-                          : PuzzleStatus.incomplete,
+                      numberOfCorrectTiles: _puzzle.getNumberOfCorrectTiles(),
+                      //puzzleStatus: _puzzle.isComplete()
+                      //    ? PuzzleStatus.complete
+                      //    : PuzzleStatus.incomplete,
                       isAutoSolving: state.isAutoSolving,
-                      tileMovementStatus: puzzle.isComplete()
-                          ? TileMovementStatus.cannotBeMoved
-                          : state.tileMovementStatus),
+                      //tileMovementStatus: _puzzle.isComplete()
+                      //    ? TileMovementStatus.cannotBeMoved
+                      //    : state.tileMovementStatus
+                      ),
                 );
               }));
     });
 
-
-    emit(
-      state.copyWith(
-        puzzleStatus: state.puzzle.isComplete()
-            ? PuzzleStatus.complete
-            : PuzzleStatus.incomplete,
-          isAutoSolving: false),
-    );
-
+    await Future.delayed(
+        const Duration(milliseconds: 50),
+        () => emit(
+              state.copyWith(
+                  puzzleStatus: state.puzzle.isComplete()
+                      ? PuzzleStatus.complete
+                      : PuzzleStatus.incomplete,
+                  tileMovementStatus: state.puzzle.isComplete() ? TileMovementStatus.cannotBeMoved
+                      : state.tileMovementStatus,
+                  isAutoSolving: false),
+            ));
   }
 
   @override
@@ -306,7 +307,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     rst.removeAt(0);
     return rst;
   }
-
 
   ///When generate a puzzle, some config in the history may be the same, we can remove the puzzles between
   ///two same puzzle config

@@ -134,7 +134,7 @@ class GlassmorphismTheme extends SimpleTheme {
   @override
   Responsive<Style> appBarStyle(double stuckAmount) => Responsive({
         allScreen: Style(
-          opacity: 1,
+          opacity: stuckAmount==0 ? 0 : 1,
           shadows: [
             ShapeShadow(
                     spreadRadius: 2,
@@ -147,8 +147,8 @@ class GlassmorphismTheme extends SimpleTheme {
               color: themePalette.popupMenuColor
                   .withOpacity(stuckAmount.abs().clamp(0, 0.15))),
           backdropFilter: ImageFilter.blur(
-              sigmaX: stuckAmount.abs().clamp(0, 1) * 10 + 0.001,
-              sigmaY: stuckAmount.abs().clamp(0, 1) * 10 + 0.001),
+              sigmaX: 10 + 0.001,
+              sigmaY: 10 + 0.001),
         )
       });
 

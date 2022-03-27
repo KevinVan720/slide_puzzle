@@ -62,9 +62,10 @@ class PuzzleTitle extends StatelessWidget {
           duration:
               PuzzleThemeAnimationDuration.textStyle.dilate(dilationFactor),
           child: Text(
-            title,
-            textAlign: textAlign,
-          ),
+              title,
+              key: ValueKey(titleStyle),
+              textAlign: textAlign,
+            ),
         );
       },
     );

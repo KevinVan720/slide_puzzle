@@ -69,7 +69,13 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                   style: textStyle.merge(PuzzleTextStyle.headline4),
                   duration: PuzzleThemeAnimationDuration.textStyle
                       .dilate(dilationFactor),
-                  child: Text(numberOfMoves.toString()),
+                  child: AnimatedSwitcher(
+                      duration: PuzzleThemeAnimationDuration.textStyle
+                          .dilate(dilationFactor),
+                      transitionBuilder: (Widget child, Animation<double> animation) {
+                        return ScaleTransition(child: child, scale: animation);
+                      },
+                      child: Text(numberOfMoves.toString(),key: ValueKey(numberOfMoves),)),
                 ),
                 AnimatedDefaultTextStyle(
                   style: textStyle.merge(bodyTextStyle),
@@ -82,7 +88,13 @@ class NumberOfMovesAndTilesLeft extends StatelessWidget {
                   style: textStyle.merge(PuzzleTextStyle.headline4),
                   duration: PuzzleThemeAnimationDuration.textStyle
                       .dilate(dilationFactor),
-                  child: Text(numberOfTilesLeft.toString()),
+                  child: AnimatedSwitcher(
+                    duration: PuzzleThemeAnimationDuration.textStyle
+                        .dilate(dilationFactor),
+                    transitionBuilder: (Widget child, Animation<double> animation) {
+                      return ScaleTransition(child: child, scale: animation);
+                    },
+                    child: Text(numberOfTilesLeft.toString(), key: ValueKey(numberOfTilesLeft),)),
                 ),
                 AnimatedDefaultTextStyle(
                   style: textStyle.merge(bodyTextStyle),
