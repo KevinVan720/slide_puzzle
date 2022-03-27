@@ -129,6 +129,12 @@ class HomePage extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: NoGlowBehavior(),
+          child: child??Container(),
+        );
+      },
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -140,5 +146,13 @@ class HomePage extends StatelessWidget {
       locale: localeState.locale,
       home: const PuzzleGamePage(),
     );
+  }
+}
+
+class NoGlowBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }
