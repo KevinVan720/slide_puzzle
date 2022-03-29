@@ -37,133 +37,137 @@ class _SettingsControlState extends State<SettingsControl> {
     double timeDilation = context.getTimeDilation();
 
     return GestureDetector(
-        onTap: state.isAutoSolving ? null : () {
-          showAlignedDialog(
-              duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                  .dilate(timeDilation),
-              transitionsBuilder: (BuildContext context,
-                  Animation<double> animation,
-                  Animation<double> secondaryAnimation,
-                  Widget child) {
-                return SlideTransition(
-                  ///TODO: add different slide transtion for each theme
-                  position: Tween<Offset>(
-                    begin: Offset.zero,
-                    end: Offset.zero,
-                  ).animate(CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.easeInOut,
-                  )),
-                  child: FadeTransition(
-                    opacity: CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeInOut,
-                    ),
-                    child: child,
-                  ),
-                );
-              },
-              context: context,
-              builder: (_) {
-                return MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(
-                        value: context.read<ThemeBloc>(),
+      onTap: state.isAutoSolving
+          ? null
+          : () {
+              showAlignedDialog(
+                  duration: PuzzleThemeAnimationDuration.textStyle
+                      .dilate(timeDilation),
+                  transitionsBuilder: (BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                      Widget child) {
+                    return SlideTransition(
+                      ///TODO: add different slide transtion for each theme
+                      position: Tween<Offset>(
+                        begin: Offset.zero,
+                        end: Offset.zero,
+                      ).animate(CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOut,
+                      )),
+                      child: FadeTransition(
+                        opacity: CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeInOut,
+                        ),
+                        child: child,
                       ),
-                      BlocProvider.value(
-                        value: context.read<AudioControlBloc>(),
-                      ),
-                      BlocProvider.value(
-                        value: context.read<PuzzleBloc>(),
-                      ),
-                    ],
-                    child: ResponsiveLayoutBuilder(
-                      small: (context, _) {
-                        final theme = context
-                            .select((ThemeBloc bloc) => bloc.state.theme);
+                    );
+                  },
+                  context: context,
+                  builder: (_) {
+                    return MultiBlocProvider(
+                        providers: [
+                          BlocProvider.value(
+                            value: context.read<ThemeBloc>(),
+                          ),
+                          BlocProvider.value(
+                            value: context.read<AudioControlBloc>(),
+                          ),
+                          BlocProvider.value(
+                            value: context.read<PuzzleBloc>(),
+                          ),
+                        ],
+                        child: ResponsiveLayoutBuilder(
+                          small: (context, _) {
+                            final theme = context
+                                .select((ThemeBloc bloc) => bloc.state.theme);
 
-                        List<Shadow>? _iconShadow =
-                            theme.menuActiveStyle.shadows;
+                            List<Shadow>? _iconShadow =
+                                theme.menuActiveStyle.shadows;
 
-                        return Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            AnimatedStyledContainer(
-                              duration: PuzzleThemeAnimationDuration
-                                  .backgroundColorChange
-                                  .dilate(context.getTimeDilation()),
-                              curve: Curves.easeInOut,
-                              style: theme.backgroundStyle.resolve(context)!
-                                ..childAlignment = Alignment.center,
-                              child: _buildAllControls(context),
-                            ),
-                            Positioned(
-                              top: 36,
-                              right: 30,
-                              child: MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: DecoratedIcon(
-                                      Icons.close,
-                                      size: 24,
-                                      color: theme.menuActiveStyle.color,
-                                      shadows: _iconShadow
-                                          ?.map((e) => Shadow(
-                                              color: e.color,
-                                              offset: e.offset,
-                                              blurRadius: e.blurRadius))
-                                          .toList(),
-                                    ),
-                                  )),
-                            )
-                          ],
-                        );
-                      },
-                      medium: (context, _) => _buildAllControls(context),
-                      large: (context, _) => _buildAllControls(context),
-                    ));
-              },
-              followerAnchor: Alignment.topRight,
-              targetAnchor: Alignment.bottomCenter,
-              avoidOverflow: true,
-              offset: const Offset(0, 4),
-              barrierColor: Colors.transparent);
-        },
-        child: MouseRegion(
-            cursor: state.isAutoSolving ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
-            child: AnimatedSwitcher(
-              duration: PuzzleThemeAnimationDuration.backgroundColorChange
-                  .dilate(context.getTimeDilation()),
-              child: DecoratedIcon(
-                Icons.menu,
-                size: Responsive({
-                      smallScreen: 24.0,
-                      middleScreen: 30.0,
-                      largeScreen: 32.0,
-                    }).resolve(context) ??
-                    32.0,
-                color: !state.isAutoSolving
-                    ? theme.menuActiveStyle.color
-                    : theme.menuInactiveStyle.color,
-                shadows: !state.isAutoSolving
-                    ? theme.menuActiveStyle.shadows
-                        ?.map((e) => Shadow(
-                            color: e.color,
-                            offset: e.offset,
-                            blurRadius: e.blurRadius))
-                        .toList()
-                    : theme.menuInactiveStyle.shadows
-                        ?.map((e) => Shadow(
-                            color: e.color,
-                            offset: e.offset,
-                            blurRadius: e.blurRadius))
-                        .toList(),
-              ),
-            )),
-      );
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                AnimatedStyledContainer(
+                                  duration: PuzzleThemeAnimationDuration
+                                      .backgroundColorChange
+                                      .dilate(context.getTimeDilation()),
+                                  curve: Curves.easeInOut,
+                                  style: theme.backgroundStyle.resolve(context)!
+                                    ..childAlignment = Alignment.center,
+                                  child: _buildAllControls(context),
+                                ),
+                                Positioned(
+                                  top: 36,
+                                  right: 30,
+                                  child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: DecoratedIcon(
+                                          Icons.close,
+                                          size: 24,
+                                          color: theme.menuActiveStyle.color,
+                                          shadows: _iconShadow
+                                              ?.map((e) => Shadow(
+                                                  color: e.color,
+                                                  offset: e.offset,
+                                                  blurRadius: e.blurRadius))
+                                              .toList(),
+                                        ),
+                                      )),
+                                )
+                              ],
+                            );
+                          },
+                          medium: (context, _) => _buildAllControls(context),
+                          large: (context, _) => _buildAllControls(context),
+                        ));
+                  },
+                  followerAnchor: Alignment.topRight,
+                  targetAnchor: Alignment.bottomCenter,
+                  avoidOverflow: true,
+                  offset: const Offset(0, 4),
+                  barrierColor: Colors.transparent);
+            },
+      child: MouseRegion(
+          cursor: state.isAutoSolving
+              ? SystemMouseCursors.forbidden
+              : SystemMouseCursors.click,
+          child: AnimatedSwitcher(
+            duration: PuzzleThemeAnimationDuration.backgroundColorChange
+                .dilate(context.getTimeDilation()),
+            child: DecoratedIcon(
+              Icons.menu,
+              size: Responsive({
+                    smallScreen: 24.0,
+                    middleScreen: 30.0,
+                    largeScreen: 32.0,
+                  }).resolve(context) ??
+                  32.0,
+              color: !state.isAutoSolving
+                  ? theme.menuActiveStyle.color
+                  : theme.menuInactiveStyle.color,
+              shadows: !state.isAutoSolving
+                  ? theme.menuActiveStyle.shadows
+                      ?.map((e) => Shadow(
+                          color: e.color,
+                          offset: e.offset,
+                          blurRadius: e.blurRadius))
+                      .toList()
+                  : theme.menuInactiveStyle.shadows
+                      ?.map((e) => Shadow(
+                          color: e.color,
+                          offset: e.offset,
+                          blurRadius: e.blurRadius))
+                      .toList(),
+            ),
+          )),
+    );
   }
 
   Widget _buildAudioControl(BuildContext context) {
