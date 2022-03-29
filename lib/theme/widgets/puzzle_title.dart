@@ -5,6 +5,8 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/typography/typography.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 
+import 'package:responsive_property/responsive_property.dart';
+
 /// {@template puzzle_title}
 /// Displays the title of the puzzle in the given color.
 /// {@endtemplate}
@@ -13,14 +15,10 @@ class PuzzleTitle extends StatelessWidget {
   const PuzzleTitle({
     Key? key,
     required this.title,
-    this.color,
   }) : super(key: key);
 
   /// The title to be displayed.
   final String title;
-
-  /// The color of [title], defaults to [PuzzleTheme.titleColor].
-  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +31,7 @@ class PuzzleTitle extends StatelessWidget {
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(
-        child: SizedBox(
-          width: 300,
-          child: Center(
-            child: child,
-          ),
-        ),
+        child: child,
       ),
       medium: (context, child) => Center(
         child: child,
@@ -48,10 +41,12 @@ class PuzzleTitle extends StatelessWidget {
         child: child,
       ),
       child: (currentSize) {
-        final textStyle = titleStyle.merge(
-            currentSize == ResponsiveLayoutSize.large
-                ? PuzzleTextStyle.headline2
-                : PuzzleTextStyle.headline3);
+        final textStyle = titleStyle.merge(Responsive({
+              smallScreen: PuzzleTextStyle.headline4,
+              middleScreen: PuzzleTextStyle.headline3,
+              largeScreen: PuzzleTextStyle.headline2,
+            }).resolve(context) ??
+            PuzzleTextStyle.headline2);
 
         final textAlign = currentSize != ResponsiveLayoutSize.large
             ? TextAlign.center
@@ -62,10 +57,10 @@ class PuzzleTitle extends StatelessWidget {
           duration:
               PuzzleThemeAnimationDuration.textStyle.dilate(dilationFactor),
           child: Text(
-              title,
-              key: ValueKey(titleStyle),
-              textAlign: textAlign,
-            ),
+            title,
+            key: ValueKey(titleStyle),
+            textAlign: textAlign,
+          ),
         );
       },
     );

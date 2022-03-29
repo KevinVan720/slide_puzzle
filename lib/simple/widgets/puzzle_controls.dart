@@ -44,10 +44,11 @@ class SimplePuzzleShuffleButton extends StatelessWidget {
         child: Builder(builder: (context) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               DecoratedIcon(
                 Icons.refresh_sharp,
-                size: 17,
+                size: 16,
                 color: DefaultTextStyle.of(context).style.color,
                 shadows: _textShadow
                     ?.map((e) => Shadow(
@@ -221,10 +222,11 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     return Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           DecoratedIcon(
             Icons.question_mark,
-            size: 17,
+            size: 16,
             color: DefaultTextStyle.of(context).style.color,
             shadows: _textShadow
                 ?.map((e) => Shadow(
@@ -242,10 +244,11 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     return Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           DecoratedIcon(
             Icons.check,
-            size: 17,
+            size: 16,
             color: DefaultTextStyle.of(context).style.color,
             shadows: _textShadow
                 ?.map((e) => Shadow(
@@ -263,6 +266,7 @@ class _SimplePuzzleSolveButtonState extends State<SimplePuzzleSolveButton> {
     return Builder(builder: (context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
               width: 12,
