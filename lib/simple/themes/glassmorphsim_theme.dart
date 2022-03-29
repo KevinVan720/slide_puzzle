@@ -491,12 +491,17 @@ class GlassmorphismTheme extends SimpleTheme {
             shapeBorder: RectangleShapeBorder(
                 border: DynamicBorderSide(
                     width: 1.8,
-                    begin: 50.toPercentLength,
-                    end: 60.toPercentLength,
-                    gradient: LinearGradient(colors: [
-                      Colors.white.withOpacity(0.01),
-                      Colors.white.withOpacity(0.01)
-                    ])),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: const [
+                          0,
+                          0.2
+                        ],
+                        colors: [
+                          Colors.white70,
+                          Colors.white.withOpacity(0.05)
+                        ])),
                 borderRadius: DynamicBorderRadius.all(
                     DynamicRadius.circular(20.toPXLength))),
             textStyle: _baseStyle.textStyle?.copyWith(fontSize: 20.toPXLength)),
@@ -509,12 +514,17 @@ class GlassmorphismTheme extends SimpleTheme {
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
-                  begin: 50.toPercentLength,
-                  end: 60.toPercentLength,
-                  gradient: LinearGradient(colors: [
-                    Colors.white.withOpacity(0.01),
-                    Colors.white.withOpacity(0.01)
-                  ])),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: const [
+                        0,
+                        0.2
+                      ],
+                      colors: [
+                        Colors.white70,
+                        Colors.white.withOpacity(0.05)
+                      ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
         ),
@@ -527,12 +537,17 @@ class GlassmorphismTheme extends SimpleTheme {
           shapeBorder: RectangleShapeBorder(
               border: DynamicBorderSide(
                   width: 1.8,
-                  begin: 50.toPercentLength,
-                  end: 60.toPercentLength,
-                  gradient: LinearGradient(colors: [
-                    Colors.white.withOpacity(0.01),
-                    Colors.white.withOpacity(0.01)
-                  ])),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: const [
+                        0,
+                        0.2
+                      ],
+                      colors: [
+                        Colors.white70,
+                        Colors.white.withOpacity(0.05)
+                      ])),
               borderRadius: DynamicBorderRadius.all(
                   DynamicRadius.circular(20.toPXLength))),
         )

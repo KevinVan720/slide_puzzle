@@ -89,7 +89,7 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
   @override
   Widget tileBuilder(Tile tile, PuzzleState state) {
     return SimplePuzzleTile(
-      key: Key('simple_puzzle_tile_${tile.value}'),
+      key: ValueKey('simple_puzzle_tile_${tile.value}'),
       tile: tile,
       state: state,
     );
@@ -279,6 +279,7 @@ class _SimplePuzzleTileState extends State<SimplePuzzleTile> {
     double timeDilation = context.getTimeDilation();
 
     Widget _tile = StyledButton(
+      key: UniqueKey(),
       curve: Curves.easeInOut,
       duration: PuzzleThemeAnimationDuration.puzzleTileScale
           .dilate(context.getTimeDilation()),

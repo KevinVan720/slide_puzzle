@@ -15,6 +15,7 @@ import 'package:very_good_slide_puzzle/theme/theme.dart';
 import 'package:very_good_slide_puzzle/models/models.dart';
 import 'package:very_good_slide_puzzle/helpers/helpers.dart';
 import "package:flutter_linkify/flutter_linkify.dart";
+import 'package:url_launcher/url_launcher.dart';
 
 /// {@template audio_control}
 /// Displays and allows to update the current locale of the puzzle.
@@ -474,7 +475,7 @@ class _SettingsControlState extends State<SettingsControl> {
                 ?.textStyle
                 ?.toTextStyle(
                     screenSize: MediaQuery.of(context).size, parentFontSize: 14)
-                .copyWith(fontSize: 12),
+                .copyWith(fontSize: 14),
           )
         ],
       ),
@@ -505,7 +506,14 @@ class _SettingsControlState extends State<SettingsControl> {
                 ?.textStyle
                 ?.toTextStyle(
                     screenSize: MediaQuery.of(context).size, parentFontSize: 14)
-                .copyWith(fontSize: 12),
+                .copyWith(fontSize: 14),
+            onOpen: (link) async {
+              if (await canLaunch(link.url)) {
+                await launch(link.url);
+              } else {
+                throw 'Could not launch $link';
+              }
+            },
           )
         ],
       ),

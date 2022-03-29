@@ -22,7 +22,7 @@ dependencies:
   intl: ^0.17.0
   just_audio: ^0.9.20
   universal_platform: ^1.0.0+1
-  url_launcher: ^6.0.17
+  url_launcher: ^6.0.20
   animated_styled_widget: 0.4.6
   responsive_property: ^0.0.6
   decorated_icon: ^1.2.1
